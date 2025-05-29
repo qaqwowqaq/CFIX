@@ -1,0 +1,4 @@
+temp_work_dir/*
+# Ignore the temporary working directory
+_pycache_/*
+.env
