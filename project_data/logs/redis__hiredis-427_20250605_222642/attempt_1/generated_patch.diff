@@ -1,0 +1,13 @@
+diff --git a/hiredis.c b/hiredis.c
+index abc1234..def5678 100644
+--- a/hiredis.c
++++ b/hiredis.c
+@@ -1013,7 +1013,7 @@ int redisFormatSdsCommandArgv(sds *target, int argc, const char **argv,
+     /* Construct command */
+     cmd = sdscatfmt(cmd, "*%i\r\n", argc);
+     for (j=0; j < argc; j++) {
+-        len = argvlen ? argvlen[j] : strlen(argv[j]);
++        len = argvlen ? argvlen[j] : (argv[j] ? strlen(argv[j]) : 0);
+         cmd = sdscatfmt(cmd, "$%T\r\n", len);
+         cmd = sdscatlen(cmd, argv[j], len);
+         cmd = sdscatlen(cmd, "\r\n", sizeof("\r\n")-1);

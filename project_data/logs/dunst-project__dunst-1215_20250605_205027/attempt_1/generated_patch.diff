@@ -1,0 +1,22 @@
+diff --git a/src/settings_data.h b/src/settings_data.h
+index abc1234..def5678 100644
+--- a/src/settings_data.h
++++ b/src/settings_data.h
+@@ -1081,7 +1081,7 @@ static const struct setting allowed_settings[] = {
+                 .name = "default_icon",
+                 .section = "*",
+                 .description = "The default icon that is used when no icon is passed",
+-                .type = TYPE_STRING,
++                .type = TYPE_PATH,
+                 .default_value = "*",
+                 .value = NULL,
+                 .parser = NULL,
+@@ -1105,7 +1105,7 @@ static const struct setting allowed_settings[] = {
+                 .name = "new_icon",
+                 .section = "*",
+                 .description = "Updates the icon of the notification, it should be a path to a valid image.",
+-                .type = TYPE_STRING,
++                .type = TYPE_PATH,
+                 .default_value = "*",
+                 .value = NULL,
+                 .parser = NULL,

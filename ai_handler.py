@@ -3,7 +3,8 @@ import requests
 import re
 import json
 import time
-from typing import Optional, Union, Generator, Callable, Dict
+from typing import List
+from typing import Optional, Union, Generator, Callable, Dict, Tuple
 
 logger = logging.getLogger(__name__)
 
@@ -52,278 +53,109 @@ def extract_diff_from_response(response_text: str) -> Optional[str]:
     logger.warning("无法从响应中提取 diff 格式内容")
     return None
 
-def _process_deepseek_response(data) -> str:
-    """从 DeepSeek API 响应中提取内容"""
+def _process_deepseek_response_content(data) -> str:
+    """从 DeepSeek API 响应数据中提取 message content"""
     if data.get("choices") and len(data["choices"]) > 0 and data["choices"][0].get("message"):
-        patch_content = data["choices"][0]["message"].get("content", "").strip()
-        return patch_content
+        return data["choices"][0]["message"].get("content", "").strip()
     return ""
 
-def _process_deepseek_stream_chunk(chunk) -> str:
-    """从 DeepSeek API 流式响应块中提取内容"""
-    if "choices" in chunk and len(chunk["choices"]) > 0:
-        delta = chunk["choices"][0].get("delta", {})
-        if "content" in delta:
-            return delta["content"]
-    return ""
-
-def generate_patch_with_deepseek(
-    api_key: str, 
-    file_content: str, 
-    issue_description: str, 
-    file_path: str, 
-    previous_error_log: str | None = None,
-    stream: bool = False,
-    stream_callback: Callable[[str], None] = None
-) -> Union[str, Generator[str, None, str], None]:
-    """
-    使用 DeepSeek API 生成代码补丁。
-    返回 unified diff 格式的补丁字符串，或在流式模式下返回生成器。
-    
-    :param api_key: DeepSeek API 密钥
-    :param file_content: 需要修复的文件内容
-    :param issue_description: GitHub Issue 描述
-    :param file_path: 文件路径
-    :param previous_error_log: 之前修复尝试的错误日志（可选）
-    :param stream: 是否使用流式响应
-    :param stream_callback: 流式响应回调函数，接收每个块的内容
-    :return: unified diff 格式的补丁、生成器或 None（如果生成失败）
-    """
-    logger.info(f"开始为文件 {file_path} 调用 DeepSeek API 生成补丁...")
-    logger.debug(f"使用 {'流式' if stream else '非流式'} API 调用模式")
-
-    # 构建提示词
-    prompt = f"""你是一个专业的C/C++代码修复助手。
-请分析以下C/C++代码文件 '{file_path}' 的内容以及相关的GitHub Issue描述，并生成一个修复该问题的补丁。
-
-GitHub Issue 描述:
----
-{issue_description}
----
-
-文件 '{file_path}' 的原始内容:
----
-{file_content}
----
-"""
-
-    if previous_error_log:
-        prompt += f"""
-上一次尝试生成的补丁在测试时产生了以下错误，请根据此错误信息改进你的补丁:
----
-{previous_error_log}
----
-"""
-    prompt += "\n请输出 unified diff 格式的修复补丁。确保补丁格式正确，可以直接应用到原始文件。\n"
-
-    logger.debug(f"生成的提示词长度: {len(prompt)} 字符")
-
-    headers = {
-        "Authorization": f"Bearer {api_key}",
-        "Content-Type": "application/json"
-    }
-    
-    # 根据 DeepSeek API 文档调整 payload
-    payload = {
-        "model": "deepseek-chat",  # 使用最新的 DeepSeek-V3 模型
-        "messages": [
-            {"role": "system", "content": "You are a C/C++ code repair assistant specialized in creating patches in unified diff format."},
-            {"role": "user", "content": prompt}
-        ],
-        "max_tokens": 2000,  # 适当增加 token 数量以确保完整的补丁
-        "temperature": 0.1,  # 使用较低的温度以获得更确定的输出
-        "stream": stream     # 根据参数决定是否使用流式输出
-    }
-
-    logger.debug(f"API 请求头: {headers}")
-    logger.debug(f"API 请求负载: {json.dumps(payload)}")
-
-    max_retries = 3
-    retry_delay = 2  # 秒
-    
-    for attempt in range(max_retries):
-        try:
-            logger.info(f"发送 API 请求 (尝试 {attempt+1}/{max_retries})...")
-            
-            if stream:
-                return _handle_stream_response(DEEPSEEK_API_URL, headers, payload, stream_callback)
-            else:
-                response = requests.post(
-                    DEEPSEEK_API_URL, 
-                    headers=headers, 
-                    json=payload, 
-                    timeout=120  # 设置较长的超时时间
-                )
-                
-                # 记录完整的 API 响应
-                logger.debug(f"API 响应状态码: {response.status_code}")
-                logger.debug(f"API 响应头: {response.headers}")
-                
-                # 检查 HTTP 状态码
-                if response.status_code == 429:  # 速率限制
-                    retry_after = int(response.headers.get('Retry-After', retry_delay))
-                    logger.warning(f"API 速率限制，等待 {retry_after} 秒后重试...")
-                    time.sleep(retry_after)
-                    continue
-                    
-                response.raise_for_status()  # 处理其他 HTTP 错误
-                
-                data = response.json()
-                logger.debug(f"API 响应正文: {json.dumps(data, indent=2)}")
-                
-                # 解析 DeepSeek 的响应以获取补丁
-                patch_content = _process_deepseek_response(data)
-                
-                if not patch_content:
-                    logger.error("API 返回了空的补丁内容")
-                    return None
-                
-                logger.debug(f"从API获取的原始内容 ({len(patch_content)} 字符): {patch_content[:200]}...")
-                
-                # 尝试提取 diff 格式的内容
-                diff_content = extract_diff_from_response(patch_content)
-                
-                if diff_content:
-                    logger.info(f"成功从 DeepSeek API 获取到补丁 ({len(diff_content)} 字符)")
-                    return diff_content
-                else:
-                    logger.warning(f"API 返回的内容似乎不是有效的 diff 格式，将尝试直接使用返回内容。")
-                    return patch_content
-
-        except requests.exceptions.RequestException as e:
-            logger.error(f"调用 DeepSeek API 失败 (尝试 {attempt+1}/{max_retries}): {e}")
-            if attempt < max_retries - 1:
-                sleep_time = retry_delay * (attempt + 1)  # 指数退避
-                logger.info(f"将在 {sleep_time} 秒后重试")
-                time.sleep(sleep_time)
-            else:
-                logger.error("所有重试失败")
-                return None
-        except Exception as e:
-            logger.exception(f"处理 DeepSeek API 响应时发生未知错误: {e}")
-            return None
-    
-    logger.error("所有 API 调用尝试均失败")
-    return None  # 所有尝试都失败
-
-def _handle_stream_response(url, headers, payload, callback=None) -> Generator[str, None, str]:
-    """
-    处理流式 API 响应
-    
-    :param url: API 端点
-    :param headers: 请求头
-    :param payload: 请求负载
-    :param callback: 可选的回调函数，接收每个块的文本
-    :return: 生成器，产出每个响应块的内容
-    """
-    logger.info("开始流式 API 调用")
-    
-    # 确保是流式调用
-    payload["stream"] = True
-    
-    try:
-        with requests.post(url, headers=headers, json=payload, stream=True, timeout=300) as response:
-            response.raise_for_status()
-            
-            logger.debug(f"流式响应开始，状态码: {response.status_code}")
-            
-            accumulated_content = ""
-            
-            for line in response.iter_lines():
-                if line:
-                    # 跳过空行和 'data: [DONE]'
-                    if line == b'data: [DONE]':
-                        logger.debug("收到流式响应结束标记")
-                        continue
-                        
-                    # 移除 'data: ' 前缀并解析 JSON
-                    if line.startswith(b'data: '):
-                        json_str = line[6:].decode('utf-8')
-                        try:
-                            chunk = json.loads(json_str)
-                            logger.debug(f"收到流式响应块: {json_str[:100]}...")
-                            
-                            content = _process_deepseek_stream_chunk(chunk)
-                            if content:
-                                logger.debug(f"提取的内容块: {content}")
-                                accumulated_content += content
-                                
-                                if callback:
-                                    callback(content)
-                                    
-                                # 同时产出给调用者
-                                yield content
-                        except json.JSONDecodeError:
-                            logger.warning(f"无法解析响应块 JSON: {line}")
-            
-            logger.info(f"流式响应完成，累积内容长度: {len(accumulated_content)}")
-            
-            # 尝试从累积的内容中提取 diff
-            diff_content = extract_diff_from_response(accumulated_content)
-            if diff_content:
-                logger.info("成功从流式响应中提取 diff")
-                return diff_content
-            else:
-                logger.warning("无法从流式响应中提取有效的 diff，返回原始内容")
-                return accumulated_content
-                
-    except Exception as e:
-        logger.exception(f"流式响应处理失败: {e}")
-        return None
-
-# 在 ai_handler.py 中添加对应的函数：
+# ... ( _process_deepseek_stream_chunk and _handle_stream_response can remain similar, 
+# but _handle_stream_response should also return the full accumulated_content and prompt)
+# For simplicity in this step, we'll focus on the non-streaming part first.
+# The streaming part would need a more significant refactor to return all necessary info.
 
 def generate_patch_with_context(
-    api_key: str, 
-    file_content: str, 
-    issue_description: str, 
-    file_path: str, 
+    api_key: str,
+    file_content: str,
+    issue_description: str,
+    file_path: str,
     context_files: dict = None,
     previous_error_log: str = None,
-    stream: bool = False,
-    stream_callback = None
-) -> str | None:
+    test_cases: Optional[List[Dict[str, str]]] = None, # 新增: test_cases = [{"name": "test1.cpp", "content": "...", "description": "..."}, ...]
+    test_patch_diff_content: Optional[str] = None,
+    stream: bool = False, # Streaming not fully adapted for detailed return yet
+    stream_callback=None
+) -> Dict[str, any]:
     """
     使用 DeepSeek API 生成代码补丁，支持多文件上下文。
     
-    :param api_key: DeepSeek API 密钥
-    :param file_content: 需要修复的主文件内容
-    :param issue_description: GitHub Issue 描述
-    :param file_path: 主文件路径
-    :param context_files: 相关联的上下文文件 {文件路径: 文件内容}
-    :param previous_error_log: 之前修复尝试的错误日志（可选）
-    :param stream: 是否使用流式响应
-    :param stream_callback: 流式响应回调函数
-    :return: unified diff 格式的补丁或 None（如果生成失败）
+    :return: 字典，包含 "prompt_sent", "raw_response", "extracted_patch", "error_message", "status_code"
     """
     logger.info(f"开始为文件 {file_path} 调用 DeepSeek API 生成补丁...")
     
-    # 处理上下文文件
-    context_str = ""
-    if context_files and len(context_files) > 1:  # 有除了主文件外的上下文
+    # 初始化返回结果字典
+    result = {
+        "prompt_sent": None,
+        "raw_response": None,
+        "extracted_patch": None,
+        "error_message": None,
+        "status_code": None,
+        "api_call_successful": False
+    }
+
+        # 构建提示词
+    prompt_parts = [
+        "你是一个专业的C/C++代码修复助手。",
+        f"请分析以下C/C++代码文件 '{file_path}' 的内容以及相关的GitHub Issue描述、测试用例，并生成一个修复该问题的补丁。\n"
+    ]
+
+    prompt_parts.append("GitHub Issue 描述:\n---")
+    prompt_parts.append(issue_description)
+    prompt_parts.append("---\n")
+
+    if test_cases: # 新增测试用例部分
+        prompt_parts.append("相关的测试用例:\n---")
+        for i, tc in enumerate(test_cases):
+            tc_name = tc.get("name", f"Test Case {i+1}")
+            tc_desc = tc.get("description", "")
+            tc_content = tc.get("content", "")
+            if tc_content:
+                prompt_parts.append(f"// {tc_name} ({tc_desc if tc_desc else 'N/A'})")
+                prompt_parts.append(f"---BEGIN_TEST_CASE_{i+1}---")
+                prompt_parts.append(tc_content)
+                prompt_parts.append(f"---END_TEST_CASE_{i+1}---\n")
+        prompt_parts.append("---\n")
+
+
+    prompt_parts.append(f"以下是需要修复的原始文件 '{file_path}' 的完整内容：")
+    prompt_parts.append("---BEGIN_ORIGINAL_FILE_CONTENT---")
+    prompt_parts.append(file_content) # 原始文件内容
+    prompt_parts.append("---END_ORIGINAL_FILE_CONTENT---\n")
+
+    if context_files and len(context_files) > 1:
         context_str = "相关的上下文文件:\n"
         for rel_path, content in context_files.items():
-            if rel_path != file_path:  # 跳过主文件
-                # 只包含文件的前 1000 个字符作为上下文
+            if rel_path != file_path: # 避免重复包含主文件
+                preview = content[:1000] + ("..." if len(content) > 1000 else "")
+                context_str += f"\n文件 '{rel_path}':\n```cpp\n{preview}\n```\n" # 使用cpp标记上下文代码块
+        prompt_parts.append(context_str)
+
+    if previous_error_log:
+        prompt_parts.append(
+            "上一次尝试生成的补丁在测试时产生了以下错误，请根据此错误信息改进你的补丁:\n---"
+        )
+        prompt_parts.append(previous_error_log)
+        prompt_parts.append("---\n")
+
+    prompt_parts.append(
+        "请输出 unified diff 格式的修复补丁。\n"
+        "重要提示：补丁中的所有行号（例如 `@@ -L1,C1 +L2,C2 @@` 中的 `L1` 和 `L2`）"
+        "必须严格基于 `---BEGIN_ORIGINAL_FILE_CONTENT---` 和 `---END_ORIGINAL_FILE_CONTENT---` "
+        "标记之间的原始文件内容进行计算。不要使用相对于整个输入文本的行号。\n"
+        "确保补丁格式正确，可以直接应用到原始文件。"
+    )
+    if test_cases:
+        prompt_parts.append("你的修复应该使提供的所有测试用例能够通过。")
+    
+    prompt = "\n".join(prompt_parts)
+    result["prompt_sent"] = prompt
+
+    if context_files and len(context_files) > 1:
+        context_str = "相关的上下文文件:\n"
+        for rel_path, content in context_files.items():
+            if rel_path != file_path:
                 preview = content[:1000] + ("..." if len(content) > 1000 else "")
                 context_str += f"\n文件 '{rel_path}':\n```\n{preview}\n```\n"
-
-    # 构建提示词
-    prompt = f"""你是一个专业的C/C++代码修复助手。
-请分析以下C/C++代码文件 '{file_path}' 的内容以及相关的GitHub Issue描述，并生成一个修复该问题的补丁。
-
-GitHub Issue 描述:
----
-{issue_description}
----
-
-文件 '{file_path}' 的原始内容:
----
-{file_content}
----
-"""
-
-    if context_str:
         prompt += f"\n{context_str}\n"
 
     if previous_error_log:
@@ -334,69 +166,354 @@ GitHub Issue 描述:
 ---
 """
     prompt += "\n请输出 unified diff 格式的修复补丁。确保补丁格式正确，可以直接应用到原始文件。\n"
+    
+    result["prompt_sent"] = prompt # Store the full prompt
 
-    # 使用现有的生成逻辑，但传递修改后的提示词
     if stream:
-        return _handle_stream_response(DEEPSEEK_API_URL, 
-                                      {"Authorization": f"Bearer {api_key}", "Content-Type": "application/json"},
-                                      {
-                                          "model": "deepseek-chat",
-                                          "messages": [
-                                              {"role": "system", "content": "You are a C/C++ code repair assistant specialized in creating patches in unified diff format."},
-                                              {"role": "user", "content": prompt}
-                                          ],
-                                          "max_tokens": 2000,
-                                          "temperature": 0.1,
-                                          "stream": True
-                                      },
-                                      stream_callback)
-    else:
-        headers = {
-            "Authorization": f"Bearer {api_key}",
-            "Content-Type": "application/json"
-        }
-        
-        payload = {
-            "model": "deepseek-chat",
-            "messages": [
-                {"role": "system", "content": "You are a C/C++ code repair assistant specialized in creating patches in unified diff format."},
-                {"role": "user", "content": prompt}
-            ],
-            "max_tokens": 2000,
-            "temperature": 0.1,
-            "stream": False
-        }
-        
-        # 调用现有的非流式API
+        # Streaming part needs more work to return detailed info like non-streaming
+        logger.warning("流式传输模式下，详细的 prompt/response 记录尚未完全实现。")
+        # Simplified call for now, or adapt _handle_stream_response
+        # For now, let's make it behave like non-streaming for return structure
+        # extracted_content_stream = _handle_stream_response(...) 
+        # result["raw_response"] = "Streamed response - full content needs aggregation"
+        # result["extracted_patch"] = extract_diff_from_response(result["raw_response"]) if result["raw_response"] else None
+        # result["api_call_successful"] = bool(result["extracted_patch"])
+        # return result 
+        # Temporarily disable stream for full logging or implement full return for stream
+        logger.error("Stream mode is not fully supported with detailed trajectory logging yet. Please use non-stream mode.")
+        result["error_message"] = "Stream mode not fully supported for detailed logging in this version."
+        return result
+
+
+    headers = {
+        "Authorization": f"Bearer {api_key}",
+        "Content-Type": "application/json"
+    }
+    
+    payload = {
+        "model": "deepseek-chat",
+        "messages": [
+            {"role": "system", "content": "You are a C/C++ code repair assistant specialized in creating patches in unified diff format."},
+            {"role": "user", "content": prompt}
+        ],
+        "max_tokens": 3000, # Increased max_tokens
+        "temperature": 0.7,
+        "stream": False # Forcing non-stream for now for detailed logging
+    }
+    
+    logger.debug(f"API 请求负载: {json.dumps(payload, ensure_ascii=False)}")
+
+    max_retries = 3 # As defined in previous version, can be from config
+    retry_delay = 5 # Increased retry delay
+
+    for attempt in range(max_retries):
         try:
+            logger.info(f"发送 API 请求 (尝试 {attempt+1}/{max_retries})...")
             response = requests.post(
-                DEEPSEEK_API_URL, 
-                headers=headers, 
-                json=payload, 
-                timeout=120
+                DEEPSEEK_API_URL,
+                headers=headers,
+                json=payload,
+                timeout=180  # Increased timeout
             )
+            result["status_code"] = response.status_code
             
-            response.raise_for_status()
-            data = response.json()
+            logger.debug(f"API 响应状态码: {response.status_code}")
+            # Try to get raw text first, then json, to handle non-JSON error responses better
+            try:
+                result["raw_response"] = response.text
+                logger.debug(f"API 原始响应 (前500字符): {response.text[:500]}")
+            except Exception as raw_e:
+                logger.warning(f"无法获取原始文本响应: {raw_e}")
+                result["raw_response"] = f"Error getting raw response: {raw_e}"
+
+
+            if response.status_code == 429:
+                retry_after = int(response.headers.get('Retry-After', retry_delay))
+                logger.warning(f"API 速率限制，等待 {retry_after} 秒后重试...")
+                result["error_message"] = f"Rate limited. Retry after {retry_after}s. Attempt {attempt+1}."
+                time.sleep(retry_after)
+                if attempt < max_retries -1 : continue
+                else: break # Break if last attempt
+
+            response.raise_for_status() # Raise HTTPError for bad responses (4xx or 5xx)
             
-            if data.get("choices") and len(data["choices"]) > 0 and data["choices"][0].get("message"):
-                patch_content = data["choices"][0]["message"].get("content", "").strip()
-                
-                if not patch_content:
-                    logger.error("API 返回了空的补丁内容")
-                    return None
-                
-                diff_content = extract_diff_from_response(patch_content)
-                
-                if diff_content:
-                    logger.info("成功从 DeepSeek API 获取到补丁。")
-                    return diff_content
-                else:
-                    logger.warning(f"API 返回的内容似乎不是有效的 diff 格式，将尝试直接使用返回内容。")
-                    return patch_content
+            data = response.json() # If raise_for_status didn't raise, we should have JSON
+            # Log the JSON data as well if needed, but raw_response already has it
+            # logger.debug(f"API 响应 JSON: {json.dumps(data, indent=2, ensure_ascii=False)}")
+
+            raw_patch_content = _process_deepseek_response_content(data)
+            
+            if not raw_patch_content:
+                logger.error("API 返回了空的补丁内容 (choices[0].message.content is empty)")
+                result["error_message"] = "API returned empty patch content."
+                # No need to retry if API call was successful but content is empty, unless it's a transient issue
+                # For now, we break and return this result.
+                break 
+            
+            result["api_call_successful"] = True # Mark as successful API call with content
+            # The raw_patch_content is part of result["raw_response"] if it was JSON.
+            # If we want to store just the 'message.content' separately:
+            # result["ai_message_content"] = raw_patch_content 
+            
+            extracted_diff = extract_diff_from_response(raw_patch_content)
+            
+            if extracted_diff:
+                logger.info(f"成功从 DeepSeek API 获取并提取补丁 ({len(extracted_diff)} 字符)")
+                result["extracted_patch"] = extracted_diff
             else:
-                logger.error(f"DeepSeek API 响应格式不符合预期: {data}")
-                return None
+                logger.warning(f"API 返回的内容似乎不是有效的 diff 格式。将使用原始返回内容作为补丁。")
+                result["extracted_patch"] = raw_patch_content # Fallback to raw content
+            
+            return result # Success, return
+
+        except requests.exceptions.HTTPError as http_err:
+            logger.error(f"HTTP 错误 (尝试 {attempt+1}/{max_retries}): {http_err}")
+            result["error_message"] = f"HTTPError: {str(http_err)}. Response: {result['raw_response'][:500]}"
+            if response.status_code == 500 or response.status_code == 503: # Server errors, retry
+                 if attempt < max_retries - 1:
+                    sleep_time = retry_delay * (2 ** attempt) # Exponential backoff
+                    logger.info(f"将在 {sleep_time} 秒后重试")
+                    time.sleep(sleep_time)
+                    continue
+            break # For other HTTP errors (like 400, 401, 403), don't retry unless specific
+        except requests.exceptions.RequestException as req_err:
+            logger.error(f"请求错误 (尝试 {attempt+1}/{max_retries}): {req_err}")
+            result["error_message"] = f"RequestException: {str(req_err)}"
+            if attempt < max_retries - 1:
+                sleep_time = retry_delay * (2 ** attempt) # Exponential backoff
+                logger.info(f"将在 {sleep_time} 秒后重试")
+                time.sleep(sleep_time)
+            else:
+                logger.error("所有重试失败")
+                break 
+        except json.JSONDecodeError as json_err:
+            logger.error(f"无法解析 API 响应 JSON (尝试 {attempt+1}/{max_retries}): {json_err}. 响应内容: {result['raw_response'][:500]}")
+            result["error_message"] = f"JSONDecodeError: {str(json_err)}. Response: {result['raw_response'][:500]}"
+            # If server returns non-JSON for an error, it might not be worth retrying without change
+            break
         except Exception as e:
-            logger.exception(f"调用 DeepSeek API 失败: {e}")
-            return None
+            logger.exception(f"处理 DeepSeek API 响应时发生未知错误 (尝试 {attempt+1}/{max_retries}): {e}")
+            result["error_message"] = f"Unknown error: {str(e)}"
+            break # Unknown error, break retry loop
+
+    if not result["api_call_successful"] and not result["error_message"]:
+        result["error_message"] = "All API call attempts failed or no patch content."
+        
+    return result
+
+def generate_patch_with_enhanced_prompt(
+    api_key: str,
+    enhanced_prompt: str,
+    stream: bool = False
+) -> Dict[str, any]:
+    """
+    使用增强prompt生成补丁，基于现有的generate_patch_with_context实现
+    
+    :param api_key: DeepSeek API密钥
+    :param enhanced_prompt: 完整的增强prompt
+    :param stream: 是否使用流式传输
+    :return: 字典，包含 "prompt_sent", "raw_response", "extracted_patch", "error_message", "status_code", "api_call_successful"
+    """
+    logger.info("使用增强prompt调用AI生成补丁...")
+    
+    # 初始化返回结果字典，保持与现有函数一致的结构
+    result = {
+        "prompt_sent": enhanced_prompt,
+        "raw_response": None,
+        "extracted_patch": None,
+        "error_message": None,
+        "status_code": None,
+        "api_call_successful": False
+    }
+
+    if stream:
+        logger.warning("流式传输模式下，详细的 prompt/response 记录尚未完全实现。")
+        result["error_message"] = "Stream mode not fully supported for detailed logging in this version."
+        return result
+
+    headers = {
+        "Authorization": f"Bearer {api_key}",
+        "Content-Type": "application/json"
+    }
+    
+    payload = {
+        "model": "deepseek-coder",  # 使用 deepseek-coder 模型，更适合代码修复
+        "messages": [
+            {"role": "system", "content": "You are a professional C/C++ code repair expert specialized in creating patches in unified diff format."},
+            {"role": "user", "content": enhanced_prompt}
+        ],
+        "max_tokens": 4000,  # 增加token限制以支持更复杂的修复
+        "temperature": 0.7,  # 降低随机性，提高一致性
+        "stream": False
+    }
+    
+    logger.debug(f"API 请求负载: {json.dumps(payload, ensure_ascii=False)}")
+
+    max_retries = 3
+    retry_delay = 5
+
+    for attempt in range(max_retries):
+        try:
+            logger.info(f"发送 API 请求 (尝试 {attempt+1}/{max_retries})...")
+            response = requests.post(
+                DEEPSEEK_API_URL,
+                headers=headers,
+                json=payload,
+                timeout=120  # 2分钟超时
+            )
+            result["status_code"] = response.status_code
+            
+            logger.debug(f"API 响应状态码: {response.status_code}")
+            
+            try:
+                result["raw_response"] = response.text
+                logger.debug(f"API 原始响应 (前500字符): {response.text[:500]}")
+            except Exception as raw_e:
+                logger.warning(f"无法获取原始文本响应: {raw_e}")
+                result["raw_response"] = f"Error getting raw response: {raw_e}"
+
+            if response.status_code == 429:
+                retry_after = int(response.headers.get('Retry-After', retry_delay))
+                logger.warning(f"API 速率限制，等待 {retry_after} 秒后重试...")
+                result["error_message"] = f"Rate limited. Retry after {retry_after}s. Attempt {attempt+1}."
+                time.sleep(retry_after)
+                if attempt < max_retries - 1:
+                    continue
+                else:
+                    break
+
+            response.raise_for_status()
+            
+            data = response.json()
+            raw_patch_content = _process_deepseek_response_content(data)
+            
+            if not raw_patch_content:
+                logger.error("API 返回了空的补丁内容")
+                result["error_message"] = "API returned empty patch content."
+                break 
+            
+            result["api_call_successful"] = True
+            
+            # 使用现有的extract_diff_from_response函数提取补丁
+            extracted_diff = extract_diff_from_response(raw_patch_content)
+            
+            if extracted_diff:
+                logger.info(f"成功从 DeepSeek API 获取并提取补丁 ({len(extracted_diff)} 字符)")
+                result["extracted_patch"] = extracted_diff
+            else:
+                logger.warning(f"API 返回的内容似乎不是有效的 diff 格式。将使用原始返回内容作为补丁。")
+                result["extracted_patch"] = raw_patch_content
+            
+            return result
+
+        except requests.exceptions.HTTPError as http_err:
+            logger.error(f"HTTP 错误 (尝试 {attempt+1}/{max_retries}): {http_err}")
+            result["error_message"] = f"HTTPError: {str(http_err)}. Response: {result['raw_response'][:500] if result['raw_response'] else 'No response'}"
+            if response.status_code in [500, 503]:  # 服务器错误，可以重试
+                if attempt < max_retries - 1:
+                    sleep_time = retry_delay * (2 ** attempt)
+                    logger.info(f"将在 {sleep_time} 秒后重试")
+                    time.sleep(sleep_time)
+                    continue
+            break
+            
+        except requests.exceptions.RequestException as req_err:
+            logger.error(f"请求错误 (尝试 {attempt+1}/{max_retries}): {req_err}")
+            result["error_message"] = f"RequestException: {str(req_err)}"
+            if attempt < max_retries - 1:
+                sleep_time = retry_delay * (2 ** attempt)
+                logger.info(f"将在 {sleep_time} 秒后重试")
+                time.sleep(sleep_time)
+            else:
+                logger.error("所有重试失败")
+                break
+                
+        except json.JSONDecodeError as json_err:
+            logger.error(f"无法解析 API 响应 JSON (尝试 {attempt+1}/{max_retries}): {json_err}")
+            result["error_message"] = f"JSONDecodeError: {str(json_err)}. Response: {result['raw_response'][:500] if result['raw_response'] else 'No response'}"
+            break
+            
+        except Exception as e:
+            logger.exception(f"处理 DeepSeek API 响应时发生未知错误 (尝试 {attempt+1}/{max_retries}): {e}")
+            result["error_message"] = f"Unknown error: {str(e)}"
+            break
+
+    if not result["api_call_successful"] and not result["error_message"]:
+        result["error_message"] = "All API call attempts failed or no patch content."
+        
+    return result
+
+
+def simple_api_call(api_key: str, prompt: str) -> dict:
+    """
+    简单的API调用，用于文件定位等任务
+    基于现有实现，但简化为单轮对话
+    """
+    logger.info("执行简单API调用...")
+    
+    result = {
+        "api_call_successful": False,
+        "response": None,
+        "error_message": None,
+        "status_code": None
+    }
+    
+    headers = {
+        "Authorization": f"Bearer {api_key}",
+        "Content-Type": "application/json"
+    }
+    
+    payload = {
+        "model": "deepseek-chat",
+        "messages": [
+            {"role": "user", "content": prompt}
+        ],
+        "max_tokens": 2000,
+        "temperature": 0.7,
+        "stream": False
+    }
+    
+    try:
+        response = requests.post(
+            DEEPSEEK_API_URL,
+            headers=headers,
+            json=payload,
+            timeout=60
+        )
+        
+        result["status_code"] = response.status_code
+        
+        if response.status_code == 200:
+            data = response.json()
+            content = _process_deepseek_response_content(data)
+            
+            if content:
+                result["api_call_successful"] = True
+                result["response"] = content
+                logger.info(f"简单API调用成功，响应长度: {len(content)}")
+            else:
+                result["error_message"] = "API returned empty content"
+                logger.error("API返回空内容")
+        else:
+            result["error_message"] = f"API请求失败: {response.status_code} - {response.text}"
+            logger.error(f"API请求失败: {response.status_code}")
+            
+    except requests.exceptions.RequestException as e:
+        result["error_message"] = f"Request exception: {str(e)}"
+        logger.error(f"API请求异常: {e}")
+    except json.JSONDecodeError as e:
+        result["error_message"] = f"JSON decode error: {str(e)}"
+        logger.error(f"JSON解析错误: {e}")
+    except Exception as e:
+        result["error_message"] = f"Unexpected error: {str(e)}"
+        logger.error(f"未预期错误: {e}")
+        
+    return result
+
+
+def extract_patch_from_response(response_text: str) -> Optional[str]:
+    """
+    从AI响应中提取补丁内容
+    这是对现有extract_diff_from_response函数的别名，保持接口一致性
+    """
+    return extract_diff_from_response(response_text)

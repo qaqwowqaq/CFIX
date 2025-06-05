@@ -1,0 +1,1 @@
+Docker测试异常: 500 Server Error for http+docker://localnpipe/v1.45/images/create?tag=914&fromImage=dongqa930%2Fdunst-project_dunst: Internal Server Error ("Get "https://registry-1.docker.io/v2/dongqa930/dunst-project_dunst/manifests/sha256:b5b31ec7ece0a00e43947cde3b862cc6ade7c4da766730a15682a651a19a6194": unexpected EOF")

@@ -1,0 +1,648 @@
+你是一个专业的C/C++代码修复专家。请分析以下问题并生成精确的修复补丁。
+
+    ## 问题描述
+    Opening angle bracket "<" breaks rendering
+`notify-send  "title"  "We <3 dunst"` shows up as:  
+
+![image](https://user-images.githubusercontent.com/1058151/132224981-c97cc72d-fefd-4264-bbf9-b413a85de8fb.png)
+
+`notify-send  "title"  "We <3> dunst"`:  
+
+![image](https://user-images.githubusercontent.com/1058151/132225032-4c4525ea-b4a1-408c-a2a0-104530fe368e.png)
+
+Even a mere `notify-send  "title"  "We < dunst"` shows up cut off at <.
+
+I have activated markup support in my dunstrc, but I think dunst should ignore these strings because they are incomplete and do not collide with supported tags (b, i, s, u).
+### Installation info
+- Version: `v1.6.1`
+- Install type: `manual`
+- Distro and version: `Xubuntu 18.04+i3-gaps `
+
+
+
+    ## 提示信息  
+    Pretty sure this is caused by the markup setting in the config
+```
+    # Possible values are:
+    # full: Allow a small subset of html markup in notifications:
+    #        <b>bold</b>
+    #        <i>italic</i>
+    #        <s>strikethrough</s>
+    #        <u>underline</u>
+    #
+    #        For a complete reference see
+    #        <https://developer.gnome.org/pango/stable/pango-Markup.html>.
+    #
+    # strip: This setting is provided for compatibility with some broken
+    #        clients that send markup even though it's not enabled on the
+    #        server. Dunst will try to strip the markup but the parsing is
+    #        simplistic so using this option outside of matching rules for
+    #        specific applications *IS GREATLY DISCOURAGED*.
+    #
+    # no:    Disable markup parsing, incoming notifications will be treated as
+    #        plain text. Dunst will not advertise that it has the body-markup
+    #        capability if this is set as a global setting.
+    #
+    # It's important to note that markup inside the format option will be parsed
+    # regardless of what this is set to.
+    markup = full
+
+```
+Turning this to no should fix it but it is still a problem... 
+
+`notify-send "title" "We \<3 dunst"` doesn't fix it also.
+If you're using markup=full, the markup is completely handled by pango, so you should report a bug there. If you use markup=strip you can see there's a warning in the documentation that it's not perfect and this would not be considered a bug.
+Either way, I believe this issue can be closed on our side. 
+[Link to the issues page of pango](https://gitlab.gnome.org/GNOME/pango/-/issues?scope=all&state=opened&search=%3C)
+I created a pango issue [here](https://gitlab.gnome.org/GNOME/pango/-/issues/612)
+Turns out, this is not a pango bug, but intended behaviour It's just plain xml. We should encode `<` with `&lt;` and to prevent accidental encodings, replace `&` with `&amp;`.
+@fwSmit You mean dunst should respect HTML entities? It seems pango is not implementing [all html entities](https://dev.w3.org/html5/html-author/charref). I didn't find relevant info on what chars to escape in [pango docs](https://docs.gtk.org/Pango).  
+
+So at this point, I think our best bet is `sed`ing `<` with `&lt;` before piping the string to `notify-send`
+> @fwSmit You mean dunst should respect HTML entities? It seems pango is not implementing [all html entities](https://dev.w3.org/html5/html-author/charref). I didn't find relevant info on what chars to escape in [pango docs](https://docs.gtk.org/Pango).  
+
+The docs aren't clear on this, but at least & and < have to be encoded. I think I'll encode ", ' and > too just to be safe. 
+
+
+> So at this point, I think our best bet is `sed`ing `<` with `&lt;` before piping the string to `notify-send`
+
+No I'll implement it inside of dunst. Then it won't matter what is passed via notify-send
+
+I wasn't entirely correct here. Since you're allowed to put markup in the notification body, we can't just escape all markup symbols. The right solution is indeed to make sure you escape any markup symbols you want to send.
+We can, however improve the way incorrect notifications are handled. Too much of the notification is stripped away, resulting in what you've noticed 
+
+    ## AI分析的修复策略
+    修复策略应包括改进markup_strip函数，使其正确处理不完整的markup标签，特别是当遇到'<'字符时不应过早截断文本。可以考虑在遇到'<'时检查后续字符是否构成有效的markup标签，如果不是则保留'<'字符。
+
+    ## 从测试变更中得出的关键信息
+    测试变更显示，期望的行为是当遇到不完整的markup标签（如'<img>'）时，不应截断后续文本。此外，测试用例还验证了当字符串中包含'<'但不成对时（如'We <3 dunst'），应保留原始字符串。
+
+    ## 测试变更差异（展示期望的修复效果）
+    ```diff
+    diff --git a/test/markup.c b/test/markup.c
+index 0644dd2d5..da6521acf 100644
+--- a/test/markup.c
++++ b/test/markup.c
+@@ -15,7 +15,7 @@ TEST test_markup_strip(void)
+         g_free(ptr);
+         ASSERT_STR_EQ("&amp;", (ptr=markup_strip(g_strdup("&amp;amp;"))));
+         g_free(ptr);
+-        ASSERT_STR_EQ(">A  ", (ptr=markup_strip(g_strdup(">A <img> <string"))));
++        ASSERT_STR_EQ(">A  <string", (ptr=markup_strip(g_strdup(">A <img> <string"))));
+         g_free(ptr);
+ 
+         PASS();
+diff --git a/test/utils.c b/test/utils.c
+index bb793752d..ade0e298d 100644
+--- a/test/utils.c
++++ b/test/utils.c
+@@ -119,10 +119,6 @@ TEST test_string_strip_delimited(void)
+         string_strip_delimited(text, '<', '>');
+         ASSERT_STR_EQ("Remove html tags", text);
+ 
+-        strcpy(text, "Calls|with|identical|delimiters|are|handled|properly");
+-        string_strip_delimited(text, '|', '|');
+-        ASSERT_STR_EQ("Calls", text);
+-
+         strcpy(text, "<Return empty string if there is nothing left>");
+         string_strip_delimited(text, '<', '>');
+         ASSERT_STR_EQ("", text);
+@@ -131,6 +127,18 @@ TEST test_string_strip_delimited(void)
+         string_strip_delimited(text, '<', '>');
+         ASSERT_STR_EQ("Nothing is done if there are no delimiters in the string", text);
+ 
++        strcpy(text, "We <3 dunst");
++        string_strip_delimited(text, '<', '>');
++        ASSERT_STR_EQ("We <3 dunst", text);
++
++        strcpy(text, "<b>We</b> <3 dunst");
++        string_strip_delimited(text, '<', '>');
++        ASSERT_STR_EQ("We <3 dunst", text);
++
++        strcpy(text, "dunst > the rest");
++        string_strip_delimited(text, '<', '>');
++        ASSERT_STR_EQ("dunst > the rest", text);
++
+         g_free(text);
+         PASS();
+ }
+        
+    需要修复的目标文件：src\markup.c
+    /* copyright 2013 Sascha Kruse and contributors (see LICENSE for licensing information) */
+
+#include "markup.h"
+
+#include <assert.h>
+#include <ctype.h>
+#include <stdbool.h>
+#include <stdio.h>
+#include <string.h>
+
+#include "log.h"
+#include "settings.h"
+#include "utils.h"
+
+/**
+ * Convert all HTML special symbols to HTML entities.
+ * @param str (nullable)
+ */
+static char *markup_quote(char *str)
+{
+        ASSERT_OR_RET(str, NULL);
+
+        str = string_replace_all("&", "&amp;", str);
+        str = string_replace_all("\"", "&quot;", str);
+        str = string_replace_all("'", "&apos;", str);
+        str = string_replace_all("<", "&lt;", str);
+        str = string_replace_all(">", "&gt;", str);
+
+        return str;
+}
+
+/**
+ * Convert all HTML special entities to their actual char.
+ * @param str (nullable)
+ */
+static char *markup_unquote(char *str)
+{
+        ASSERT_OR_RET(str, NULL);
+
+        str = string_replace_all("&quot;", "\"", str);
+        str = string_replace_all("&apos;", "'", str);
+        str = string_replace_all("&lt;", "<", str);
+        str = string_replace_all("&gt;", ">", str);
+        str = string_replace_all("&amp;", "&", str);
+
+        return str;
+}
+
+/**
+ * Convert all HTML linebreak tags to a newline character
+ * @param str (nullable)
+ */
+static char *markup_br2nl(char *str)
+{
+        ASSERT_OR_RET(str, NULL);
+
+        str = string_replace_all("<br>", "\n", str);
+        str = string_replace_all("<br/>", "\n", str);
+        str = string_replace_all("<br />", "\n", str);
+        return str;
+}
+
+/* see markup.h */
+void markup_strip_a(char **str, char **urls)
+{
+        assert(*str);
+        char *tag1 = NULL;
+
+        if (urls)
+                *urls = NULL;
+
+        while ((tag1 = strstr(*str, "<a"))) {
+                // use href=" as stated in the notification spec
+                char *href = strstr(tag1, "href=\"");
+                char *tag1_end = strstr(tag1, ">");
+                char *tag2 = strstr(tag1, "</a>");
+
+                // the tag is broken, ignore it
+                if (!tag1_end) {
+                        LOG_W("Given link is broken: '%s'",
+                              tag1);
+                        string_replace_at(*str, tag1-*str, strlen(tag1), "");
+                        break;
+                }
+                if (tag2 && tag2 < tag1_end) {
+                        int repl_len =  (tag2 - tag1) + strlen("</a>");
+                        LOG_W("Given link is broken: '%.*s.'",
+                              repl_len, tag1);
+                        string_replace_at(*str, tag1-*str, repl_len, "");
+                        break;
+                }
+
+                // search contents of href attribute
+                char *plain_url = NULL;
+                if (href && href < tag1_end) {
+
+                        // shift href to the actual begin of the value
+                        href = href+6;
+
+                        const char *quote = strstr(href, "\"");
+
+                        if (quote && quote < tag1_end) {
+                                plain_url = g_strndup(href, quote-href);
+                        }
+                }
+
+                // text between a tags
+                int text_len;
+                if (tag2)
+                        text_len = tag2 - (tag1_end+1);
+                else
+                        text_len = strlen(tag1_end+1);
+
+                char *text = g_strndup(tag1_end+1, text_len);
+
+                int repl_len = text_len + (tag1_end-tag1) + 1;
+                repl_len += tag2 ? strlen("</a>") : 0;
+
+                *str = string_replace_at(*str, tag1-*str, repl_len, text);
+
+                // if there had been a href attribute,
+                // add it to the URLs
+                if (plain_url && urls) {
+                        text = string_replace_all("]", "", text);
+                        text = string_replace_all("[", "", text);
+
+                        char *url = g_strdup_printf("[%s] %s", text, plain_url);
+
+                        *urls = string_append(*urls, url, "\n");
+                        g_free(url);
+                }
+
+                g_free(plain_url);
+                g_free(text);
+        }
+}
+
+/* see markup.h */
+void markup_strip_img(char **str, char **urls)
+{
+        const char *start;
+
+        if (urls)
+                *urls = NULL;
+
+        while ((start = strstr(*str, "<img"))) {
+                const char *end = strstr(start, ">");
+
+                // the tag is broken, ignore it
+                if (!end) {
+                        LOG_W("Given image is broken: '%s'", start);
+                        string_replace_at(*str, start-*str, strlen(start), "");
+                        break;
+                }
+
+                // use attribute=" as stated in the notification spec
+                const char *alt_s = strstr(start, "alt=\"");
+                const char *src_s = strstr(start, "src=\"");
+
+                char *text_alt = NULL;
+                char *text_src = NULL;
+
+                const char *src_e = NULL, *alt_e = NULL;
+                if (alt_s)
+                        alt_e = strstr(alt_s + strlen("alt=\""), "\"");
+                if (src_s)
+                        src_e = strstr(src_s + strlen("src=\""), "\"");
+
+                // Move pointer to the actual start
+                alt_s = alt_s ? alt_s + strlen("alt=\"") : NULL;
+                src_s = src_s ? src_s + strlen("src=\"") : NULL;
+
+                /* check if alt and src attribute are given
+                 * If both given, check the alignment of all pointers */
+                if (   alt_s && alt_e
+                    && src_s && src_e
+                    && (  (alt_s < src_s && alt_e < src_s-strlen("src=\"") && src_e < end)
+                        ||(src_s < alt_s && src_e < alt_s-strlen("alt=\"") && alt_e < end)) ) {
+
+                        text_alt = g_strndup(alt_s, alt_e-alt_s);
+                        text_src = g_strndup(src_s, src_e-src_s);
+
+                /* check if single valid alt attribute is available */
+                } else if (alt_s && alt_e && alt_e < end && (!src_s || src_s < alt_s || alt_e < src_s - strlen("src=\""))) {
+                        text_alt = g_strndup(alt_s, alt_e-alt_s);
+
+                /* check if single valid src attribute is available */
+                } else if (src_s && src_e && src_e < end && (!alt_s || alt_s < src_s || src_e < alt_s - strlen("alt=\""))) {
+                        text_src = g_strndup(src_s, src_e-src_s);
+
+                } else {
+                         LOG_W("Given image argument is broken: '%.*s'",
+                               (int)(end-start), start);
+                }
+
+                // replacement text for alt
+                int repl_len = end - start + 1;
+
+                if (!text_alt)
+                        text_alt = g_strdup("[image]");
+
+                *str = string_replace_at(*str, start-*str, repl_len, text_alt);
+
+                // if there had been a href attribute,
+                // add it to the URLs
+                if (text_src && urls) {
+                        text_alt = string_replace_all("]", "", text_alt);
+                        text_alt = string_replace_all("[", "", text_alt);
+
+                        char *url = g_strdup_printf("[%s] %s", text_alt, text_src);
+
+                        *urls = string_append(*urls, url, "\n");
+                        g_free(url);
+                }
+
+                g_free(text_src);
+                g_free(text_alt);
+        }
+}
+
+/* see markup.h */
+char *markup_strip(char *str)
+{
+        ASSERT_OR_RET(str, NULL);
+
+        /* strip all tags */
+        string_strip_delimited(str, '<', '>');
+
+        /* unquote the remainder */
+        str = markup_unquote(str);
+
+        return str;
+}
+
+/**
+ * Determine if an & character pointed to by \p str is a markup & entity or
+ * part of the text
+ *
+ * @retval true: \p str is an entity
+ * @retval false: It's no valid entity
+ */
+static bool markup_is_entity(const char *str)
+{
+        assert(str);
+        assert(*str == '&');
+
+        char *end = strchr(str, ';');
+        ASSERT_OR_RET(end, false);
+
+        // Parse (hexa)decimal entities with the format &#1234; or &#xABC;
+        if (str[1] == '#') {
+                const char *cur = str + 2;
+
+                if (*cur == 'x') {
+                        cur++;
+
+                        // Reject &#x;
+                        if (*cur == ';')
+                                return false;
+
+                        while (isxdigit(*cur) && cur < end)
+                                cur++;
+                } else {
+
+                        // Reject &#;
+                        if (*cur == ';')
+                                return false;
+
+                        while (isdigit(*cur) && cur < end)
+                                cur++;
+                }
+
+                return (cur == end);
+        } else {
+                const char *supported_tags[] = {"&amp;", "&lt;", "&gt;", "&quot;", "&apos;"};
+                for (int i = 0; i < sizeof(supported_tags)/sizeof(*supported_tags); i++) {
+                        if (g_str_has_prefix(str, supported_tags[i]))
+                                return true;
+                }
+                return false;
+        }
+}
+
+/**
+ * Escape all unsupported and invalid &-entities in a string. If the resulting
+ * string does not fit it will be reallocated.
+ *
+ * @param str The string to be transformed
+ */
+static char *markup_escape_unsupported(char *str)
+{
+        ASSERT_OR_RET(str, NULL);
+
+        char *match = str;
+        while ((match = strchr(match, '&'))) {
+                if (!markup_is_entity(match)) {
+                        int pos = match - str;
+                        str = string_replace_at(str, pos, 1, "&amp;");
+                        match = str + pos + strlen("&amp;");
+                } else {
+                        match++;
+                }
+        }
+
+        return str;
+}
+
+/* see markup.h */
+char *markup_transform(char *str, enum markup_mode markup_mode)
+{
+        ASSERT_OR_RET(str, NULL);
+
+        switch (markup_mode) {
+        case MARKUP_NULL:
+                /* `assert(false)`, but with a meaningful error message */
+                assert(markup_mode != MARKUP_NULL);
+                break;
+        case MARKUP_NO:
+                str = markup_quote(str);
+                break;
+        case MARKUP_STRIP:
+                str = markup_br2nl(str);
+                str = markup_strip(str);
+                str = markup_quote(str);
+                break;
+        case MARKUP_FULL:
+                str = markup_escape_unsupported(str);
+                str = markup_br2nl(str);
+                markup_strip_a(&str, NULL);
+                markup_strip_img(&str, NULL);
+                break;
+        }
+
+        if (settings.ignore_newline) {
+                str = string_replace_all("\n", " ", str);
+        }
+
+        return str;
+}
+
+/* vim: set ft=c tabstop=8 shiftwidth=8 expandtab textwidth=0: */
+
+    
+## 相关上下文文件
+
+### src\markup.h
+```c
+/* copyright 2013 Sascha Kruse and contributors (see LICENSE for licensing information) */
+#ifndef DUNST_MARKUP_H
+#define DUNST_MARKUP_H
+
+enum markup_mode {
+        MARKUP_NULL,
+        MARKUP_NO,
+        MARKUP_STRIP,
+        MARKUP_FULL
+};
+
+/**
+ * Strip any markup from text; turn it in to plain text.
+ *
+ * For well-formed markup, the following two commands should be
+ * roughly equivalent:
+ *
+ *     out = markup_strip(in);
+ *     pango_parse_markup(in, -1, 0, NULL, &out, NULL, NULL);
+ *
+ * However, `pango_parse_markup()` balks at invalid markup;
+ * `markup_strip()` shouldn't care if there is invalid markup.
+ */
+char *markup_strip(char *str);
+
+/**
+ * Remove HTML hyperlinks of a string.
+ *
+ * @param str The string to replace a tags
+ * @param urls (nullable) If any href-attributes found, an `\n` concatenated
+ *        string of the URLs in format `[<text between tags>] <href>`
+ */
+void markup_strip_a(char **str, char **urls);
+
+/**
+ * Remove img-tags of a string. If alt attribute given, u...
+```
+
+### src\log.h
+```c
+/* copyright 2013 Sascha Kruse and contributors (see LICENSE for licensing information) */
+
+#include <glib.h>
+#include <stdbool.h>
+#include <stdlib.h>
+
+#ifndef DUNST_LOG_H
+#define DUNST_LOG_H
+
+#define LOG_E g_error
+#define LOG_C g_critical
+#define LOG_W g_warning
+#define LOG_M g_message
+#define LOG_I g_info
+#define LOG_D g_debug
+
+#define DIE(...) do { LOG_C(__VA_ARGS__); exit(EXIT_FAILURE); } while (0)
+
+/**
+ * Set the current loglevel to `level`
+ *
+ * @param level The desired log level
+ *
+ * If `level` is `NULL`, nothing will be done.
+ * If `level` is an invalid value, nothing will be done.
+ */
+void log_set_level(GLogLevelFlags level);
+
+/**
+ * Set the current loglevel to `level`
+ *
+ * @param level The desired log level as a string
+ *
+ * If `level` is `NULL`, nothing will be done.
+ * If `level` is an invalid value, nothing will be done.
+ */
+void log_set_level_from_string(const char* level);
+
+/**
+ * Initialise log handling. Can be called any time.
+ *
+ * @param testing If we're in testing...
+```
+
+### src\settings.h
+```c
+/* copyright 2013 Sascha Kruse and contributors (see LICENSE for licensing information) */
+#ifndef DUNST_SETTINGS_H
+#define DUNST_SETTINGS_H
+
+#include <stdbool.h>
+
+#ifdef ENABLE_WAYLAND
+#include "wayland/protocols/wlr-layer-shell-unstable-v1-client-header.h"
+#endif
+
+#include "markup.h"
+#include "notification.h"
+#include "x11/x.h"
+
+#define LIST_END (-1)
+
+enum alignment { ALIGN_LEFT, ALIGN_CENTER, ALIGN_RIGHT };
+enum ellipsize { ELLIPSE_START, ELLIPSE_MIDDLE, ELLIPSE_END };
+enum icon_position { ICON_LEFT, ICON_RIGHT, ICON_OFF };
+enum vertical_alignment { VERTICAL_TOP, VERTICAL_CENTER, VERTICAL_BOTTOM };
+enum separator_color { SEP_FOREGROUND, SEP_AUTO, SEP_FRAME, SEP_CUSTOM };
+enum follow_mode { FOLLOW_NONE, FOLLOW_MOUSE, FOLLOW_KEYBOARD };
+enum mouse_action { MOUSE_NONE, MOUSE_DO_ACTION, MOUSE_CLOSE_CURRENT,
+        MOUSE_CLOSE_ALL, MOUSE_CONTEXT, MOUSE_CONTEXT_ALL, MOUSE_OPEN_URL,
+        MOUSE_ACTION_END = LIST_END /* indicates the end of a list of mouse actions */};
+#ifndef ZWLR_LAYER...
+```
+
+### src\utils.h
+```c
+/* copyright 2013 Sascha Kruse and contributors (see LICENSE for licensing information) */
+#ifndef DUNST_UTILS_H
+#define DUNST_UTILS_H
+
+#include <glib.h>
+#include <string.h>
+#include <stdbool.h>
+
+//! Test if a string is NULL or empty
+#define STR_EMPTY(s) (!s || (*s == '\0'))
+//! Test if a string is non-NULL and not empty
+#define STR_FULL(s) !(STR_EMPTY(s))
+//! Test if string a and b contain the same chars
+#define STR_EQ(a, b) (g_strcmp0(a, b) == 0)
+//! Test if string a and b are same up to n chars
+#define STRN_EQ(a, b, n) (strncmp(a, b, n) == 0)
+//! Test if string a and b are the same case-insensitively
+#define STR_CASEQ(a, b) (strcasecmp(a, b) == 0)
+
+//! Assert that expr evaluates to true, if not return with val
+#define ASSERT_OR_RET(expr, val) if (!(expr)) return val;
+
+//! Convert a second into the internal time representation
+#define S2US(s) (((gint64)(s)) * 1000 * 1000)
+
+/**
+ * Replaces all occurrences of the char \p needle with the char \p replacement in \p haystack.
+ *
+ * Does no...
+```
+
+
+    修复要求
+    精确定位问题：根据问题描述和测试变更，准确找到需要修复的代码位置
+    最小化修改：只修改必要的部分，保持代码的其他功能不变
+    符合测试期望：确保修复后的代码能通过测试变更中显示的测试用例
+    代码质量：保持良好的代码风格和错误处理
+    输出格式
+    请只输出标准的git diff格式补丁，不要包含任何解释文字：
+    diff --git a/src\markup.c b/src\markup.c
+    index abc1234..def5678 100644
+    --- a/src\markup.c
+    +++ b/src\markup.c
+    @@ -行号,行数 +行号,行数 @@
+    上下文行
+    -删除的行
+    +添加的行
+    上下文行
+    注意：
+
+    补丁必须可以直接用 patch -p1 命令应用
+
+    行号必须准确对应目标文件的实际内容
+
+    确保修复逻辑正确且完整 

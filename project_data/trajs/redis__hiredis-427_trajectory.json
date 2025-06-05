@@ -1,0 +1,43 @@
+{
+  "instance_id": "redis__hiredis-427",
+  "repo": "redis/hiredis",
+  "pull_number": 427,
+  "model_name": "CFix_DeepSeek",
+  "timestamp": "2025-06-05T14:33:26.798137+00:00",
+  "status": "SUCCESS",
+  "steps": [
+    {
+      "step": "setup",
+      "timestamp": "2025-06-05T14:26:42.269961+00:00",
+      "action": "Created instance log directory",
+      "log_dir": "D:\\上课资料\\科研课堂\\WeCode\\CFix\\project_data\\logs\\redis__hiredis-427_20250605_222642"
+    },
+    {
+      "step": "clone_repo",
+      "timestamp": "2025-06-05T14:27:17.619312+00:00",
+      "action": "Successfully cloned repository to D:\\上课资料\\科研课堂\\WeCode\\CFix\\project_data\\repositories\\redis_hiredis",
+      "success": true
+    },
+    {
+      "step": "generate_patch_attempt_1",
+      "timestamp": "2025-06-05T14:28:01.211731+00:00",
+      "attempt": 1,
+      "conversation_log": "D:\\上课资料\\科研课堂\\WeCode\\CFix\\project_data\\logs\\redis__hiredis-427_20250605_222642\\attempt_1\\ai_conversation_history.json",
+      "action": "Successfully generated AI patch",
+      "patch_file": "D:\\上课资料\\科研课堂\\WeCode\\CFix\\project_data\\logs\\redis__hiredis-427_20250605_222642\\attempt_1\\generated_patch.diff",
+      "patch_preview": "diff --git a/hiredis.c b/hiredis.c\nindex abc1234..def5678 100644\n--- a/hiredis.c\n+++ b/hiredis.c\n@@ -1013,7 +1013,7 @@ int redisFormatSdsCommandArgv(sds *target, int argc, const char **argv,\n     /* C...",
+      "success": true
+    },
+    {
+      "step": "docker_test_attempt_1",
+      "timestamp": "2025-06-05T14:33:26.797827+00:00",
+      "attempt": 1,
+      "action": "Executed Docker test",
+      "success": true,
+      "patch_exit_code": 0,
+      "test_exit_code": 0,
+      "test_log_file": "D:\\上课资料\\科研课堂\\WeCode\\CFix\\project_data\\logs\\redis__hiredis-427_20250605_222642\\attempt_1\\docker_test_heredoc.log",
+      "logs_preview": "=== METHOD: HEREDOC ===\n=== AI PATCH PREVIEW ===\ndiff --git a/hiredis.c b/hiredis.c\nindex abc1234..def5678 100644\n--- a/hiredis.c\n+++ b/hiredis.c\n@@ -1013,7 +1013,7 @@ int redisFormatSdsCommandArgv(sds *target, int argc, const char **argv,\n     /* Construct command */\n     cmd = sdscatfmt(cmd, \"*%i\\r\\n\", argc);\n     for (j=0; j < argc; j++) {\n-        len = argvlen ? argvlen[j] : strlen(argv[j]);\n+        len = argvlen ? argvlen[j] : (argv[j] ? strlen(argv[j]) : 0);\n\n\n=== TEST EXECUTION ===\npatc..."
+    }
+  ]
+}

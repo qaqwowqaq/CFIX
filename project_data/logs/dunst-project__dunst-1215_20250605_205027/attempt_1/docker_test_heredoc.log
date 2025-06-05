@@ -1,0 +1,7 @@
+=== METHOD: HEREDOC ===
+=== PATCH APPLICATION ===
+OCI runtime exec failed: exec failed: unable to start container process: exec: "cd": executable file not found in $PATH: unknown
+
+
+=== TEST EXECUTION ===
+OCI runtime exec failed: exec failed: unable to start container process: exec: "cd": executable file not found in $PATH: unknown

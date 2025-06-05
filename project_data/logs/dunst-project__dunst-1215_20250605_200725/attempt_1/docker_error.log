@@ -1,0 +1,1 @@
+Docker测试异常: 500 Server Error for http+docker://localnpipe/v1.45/containers/6d69f45de1aa71df4ac2edb51f93df26494af8bdbaec5ddfb85d35e8671ab40c/archive?path=%2Fhome: Internal Server Error ("archive/tar: invalid tar header")

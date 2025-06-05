@@ -1,0 +1,43 @@
+diff --git a/src/markup.c b/src/markup.c
+index abc1234..def5678 100644
+--- a/src/markup.c
++++ b/src/markup.c
+@@ -238,7 +238,7 @@ char *markup_strip(char *str)
+ {
+         ASSERT_OR_RET(str, NULL);
+ 
+-        /* strip all tags */
++        /* strip only known tags */
+         string_strip_delimited(str, '<', '>');
+ 
+         /* unquote the remainder */
+@@ -247,6 +247,28 @@ char *markup_strip(char *str)
+         return str;
+ }
+ 
++/* see markup.h */
++void string_strip_delimited(char *str, char delim_start, char delim_end)
++{
++        if (!str)
++                return;
++
++        char *start = strchr(str, delim_start);
++        if (!start)
++                return;
++
++        char *end = strchr(start, delim_end);
++        if (!end)
++                return;
++
++        /* Only strip if it's a known tag */
++        if (g_str_has_prefix(start, "<b>") || g_str_has_prefix(start, "<i>") ||
++            g_str_has_prefix(start, "<s>") || g_str_has_prefix(start, "<u>") ||
++            g_str_has_prefix(start, "</b>") || g_str_has_prefix(start, "</i>") ||
++            g_str_has_prefix(start, "</s>") || g_str_has_prefix(start, "</u>")) {
++                memmove(start, end + 1, strlen(end + 1) + 1);
++        }
++}
++
+ /**
+  * Determine if an & character pointed to by \p str is a markup & entity or
+  * part of the text

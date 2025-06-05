@@ -1,0 +1,47 @@
+diff --git a/src/option_parser.c b/src/option_parser.c
+index abc1234..def5678 100644
+--- a/src/option_parser.c
++++ b/src/option_parser.c
+@@ -1,5 +1,6 @@
+ /* copyright 2013 Sascha Kruse and contributors (see LICENSE for licensing information) */
+ 
++#include <wordexp.h>
+ #include "option_parser.h"
+ 
+ #include <glib.h>
+@@ -7,6 +8,7 @@
+ #include <stdio.h>
+ #include <stdlib.h>
+ #include <string.h>
++#include <wordexp.h>
+ #include <errno.h>
+ 
+ #include "x11/x.h"
+@@ -14,6 +16,28 @@
+ #include "log.h"
+ #include "utils.h"
+ #include "settings.h"
++
++char *string_to_path(char *path) {
++        if (!path)
++                return NULL;
++
++        wordexp_t p;
++        if (wordexp(path, &p, WRDE_NOCMD) {
++                wordfree(&p);
++                return path;
++        }
++
++        if (p.we_wordc != 1) {
++                wordfree(&p);
++                return path;
++        }
++
++        char *expanded = g_strdup(p.we_wordv[0]);
++        wordfree(&p);
++        g_free(path);
++        return expanded;
++}
++
+ #include "rules.h"
+ #include "settings_data.h"

@@ -1,0 +1,665 @@
+2025-06-05 20:06:20,264 - INFO - 将处理以下数据集文件: ['dataset\\test_c.jsonl', 'dataset\\test_cpp.jsonl']
+2025-06-05 20:06:20,264 - INFO - 项目数据目录: D:\上课资料\科研课堂\WeCode\CFix\project_data
+2025-06-05 20:06:20,273 - INFO - Docker客户端初始化成功
+2025-06-05 20:06:20,274 - INFO - 成功加载 8 个实例从 dataset\test_c.jsonl
+2025-06-05 20:06:20,275 - INFO - 成功加载 7 个实例从 dataset\test_cpp.jsonl
+2025-06-05 20:06:20,275 - ERROR - 未找到指定的实例: jqlang__jq-3238
+2025-06-05 20:07:25,201 - INFO - 将处理以下数据集文件: ['dataset\\test_c.jsonl', 'dataset\\test_cpp.jsonl']
+2025-06-05 20:07:25,201 - INFO - 项目数据目录: D:\上课资料\科研课堂\WeCode\CFix\project_data
+2025-06-05 20:07:25,210 - INFO - Docker客户端初始化成功
+2025-06-05 20:07:25,211 - INFO - 成功加载 8 个实例从 dataset\test_c.jsonl
+2025-06-05 20:07:25,212 - INFO - 成功加载 7 个实例从 dataset\test_cpp.jsonl
+2025-06-05 20:07:25,212 - INFO - 过滤后只处理实例: dunst-project__dunst-1215
+2025-06-05 20:07:25,212 - INFO - 处理实例: dunst-project__dunst-1215 (dunst-project/dunst)
+2025-06-05 20:07:25,213 - INFO - 克隆仓库 https://github.com/dunst-project/dunst.git 到 D:\上课资料\科研课堂\WeCode\CFix\project_data\repositories\dunst-project_dunst_dunst-project__dunst-1215
+2025-06-05 20:09:09,506 - INFO - 切换到commit 5ef093c3e2d4d42a73b84b28231f28e9314d902e
+2025-06-05 20:09:09,576 - INFO - 尝试 1/3
+2025-06-05 20:09:09,577 - INFO - Collected 1 files for context. Keys: ['.valgrind.suppressions']
+2025-06-05 20:09:09,577 - INFO - 为文件 .valgrind.suppressions 生成AI补丁...
+2025-06-05 20:09:09,577 - INFO - 开始为文件 .valgrind.suppressions 调用 DeepSeek API 生成补丁...
+2025-06-05 20:09:09,577 - INFO - 发送 API 请求 (尝试 1/3)...
+2025-06-05 20:09:27,992 - WARNING - 无法从响应中提取 diff 格式内容
+2025-06-05 20:09:27,993 - WARNING - API 返回的内容似乎不是有效的 diff 格式。将使用原始返回内容作为补丁。
+2025-06-05 20:09:27,994 - INFO - 拉取Docker镜像: dongqa930/dunst-project_dunst:1215
+2025-06-05 20:09:41,399 - INFO - 运行Docker容器测试...
+2025-06-05 20:09:51,786 - ERROR - Docker测试失败: 500 Server Error for http+docker://localnpipe/v1.45/containers/6d69f45de1aa71df4ac2edb51f93df26494af8bdbaec5ddfb85d35e8671ab40c/archive?path=%2Fhome: Internal Server Error ("archive/tar: invalid tar header")
+2025-06-05 20:09:51,786 - WARNING - 尝试 1 测试失败
+2025-06-05 20:09:53,787 - INFO - 尝试 2/3
+2025-06-05 20:09:53,787 - INFO - Collected 1 files for context. Keys: ['.valgrind.suppressions']
+2025-06-05 20:09:53,787 - INFO - 为文件 .valgrind.suppressions 生成AI补丁...
+2025-06-05 20:09:53,788 - INFO - 开始为文件 .valgrind.suppressions 调用 DeepSeek API 生成补丁...
+2025-06-05 20:09:53,788 - INFO - 发送 API 请求 (尝试 1/3)...
+2025-06-05 20:44:17,776 - INFO - 将处理以下数据集文件: ['dataset\\test_c.jsonl', 'dataset\\test_cpp.jsonl']
+2025-06-05 20:44:17,776 - INFO - 项目数据目录: D:\上课资料\科研课堂\WeCode\CFix\project_data
+2025-06-05 20:44:17,784 - INFO - Docker客户端初始化成功
+2025-06-05 20:44:17,785 - INFO - 成功加载 8 个实例从 dataset\test_c.jsonl
+2025-06-05 20:44:17,786 - INFO - 成功加载 7 个实例从 dataset\test_cpp.jsonl
+2025-06-05 20:44:17,786 - INFO - 过滤后只处理实例: dunst-project__dunst-1215
+2025-06-05 20:44:17,786 - INFO - 处理实例: dunst-project__dunst-1215 (dunst-project/dunst)
+2025-06-05 20:44:17,786 - INFO - 删除已存在的仓库目录: D:\上课资料\科研课堂\WeCode\CFix\project_data\repositories\dunst-project_dunst_dunst-project__dunst-1215
+2025-06-05 20:50:27,682 - INFO - 将处理以下数据集文件: ['dataset\\test_c.jsonl', 'dataset\\test_cpp.jsonl']
+2025-06-05 20:50:27,682 - INFO - 项目数据目录: D:\上课资料\科研课堂\WeCode\CFix\project_data
+2025-06-05 20:50:27,690 - INFO - Docker客户端初始化成功
+2025-06-05 20:50:27,691 - INFO - 成功加载 8 个实例从 dataset\test_c.jsonl
+2025-06-05 20:50:27,692 - INFO - 成功加载 7 个实例从 dataset\test_cpp.jsonl
+2025-06-05 20:50:27,692 - INFO - 过滤后只处理实例: dunst-project__dunst-1215
+2025-06-05 20:50:27,692 - INFO - 处理实例: dunst-project__dunst-1215 (dunst-project/dunst)
+2025-06-05 20:50:27,692 - INFO - 使用SSH克隆仓库 git@github.com:dunst-project/dunst.git 到 D:\上课资料\科研课堂\WeCode\CFix\project_data\repositories\dunst-project_dunst
+2025-06-05 20:52:11,576 - INFO - 切换到commit 5ef093c3e2d4d42a73b84b28231f28e9314d902e
+2025-06-05 20:52:11,653 - INFO - 尝试 1/3
+2025-06-05 20:52:11,654 - INFO - 使用 file_locator 定位需要修复的文件...
+2025-06-05 20:52:11,654 - INFO - Found 4 code blocks in issue.
+2025-06-05 20:52:11,654 - INFO - Potential file references from issue: []
+2025-06-05 20:52:11,655 - INFO - Keywords for content search: ['icons', 'foreground', 'uncomment', 'default_icon', 'with', 'frame_color', 'Otherwise', 'defined', 'notifications', 'marks']...
+2025-06-05 20:52:11,673 - INFO - Keyword Match: 'src\settings_data.h' (Score +3720.0, Reason: 'icons' in content (9x); 'foreground' in content (10x); 'default_icon' in content (3x); 'with' in content (31x); 'frame_color' in content (5x); 'defined' in content (3x); 'notifications' in content (35x); 'share' in content (2x); 'colors' in content (12x); 'ff0000' in content (1x); 'urgency_low' in content (6x); 'normal' in content (13x); 'crit' in content (22x); 'Icon' in content (64x); 'background' in content (9x); 'ffffff' in content (2x); 'critical' in content (14x); 'comment' in content (1x); 'would' in content (1x); 'urgency_critical' in content (6x); 'norm' in content (20x); 'local' in content (2x); 'urgency' in content (60x); 'urgency_normal' in content (6x); 'enable' in content (9x); 'interpreted' in content (2x); 'timeout' in content (23x); 'have' in content (1x))
+2025-06-05 20:52:11,674 - INFO - Keyword Match: 'src\notification.c' (Score +2100.0, Reason: 'icons' in content (2x); 'default_icon' in content (3x); 'notifications' in content (4x); 'colors' in content (28x); 'normal' in content (1x); 'crit' in content (5x); 'Icon' in content (106x); 'critical' in content (1x); 'norm' in content (5x); 'urgency' in content (37x); 'timeout' in content (18x))
+2025-06-05 20:52:11,674 - INFO - Keyword Match: 'src\draw.c' (Score +1370.0, Reason: 'foreground' in content (3x); 'with' in content (13x); 'share' in content (3x); 'colors' in content (5x); 'Icon' in content (98x); 'background' in content (4x); 'urgency' in content (2x); 'enable' in content (2x); 'have' in content (7x))
+2025-06-05 20:52:11,674 - INFO - Keyword Match: 'src\icon-lookup.c' (Score +1300.0, Reason: 'icons' in content (3x); 'with' in content (6x); 'share' in content (4x); 'Icon' in content (112x); 'Icon' in filename; 'local' in content (2x))
+2025-06-05 20:52:11,674 - INFO - Keyword Match: 'src\notification.h' (Score +920.0, Reason: 'default_icon' in content (1x); 'with' in content (8x); 'Otherwise' in content (1x); 'defined' in content (2x); 'notifications' in content (3x); 'colors' in content (3x); 'normal' in content (1x); 'crit' in content (2x); 'Icon' in content (55x); 'critical' in content (1x); 'norm' in content (2x); 'urgency' in content (10x); 'timeout' in content (3x))
+2025-06-05 20:52:11,674 - INFO - Keyword Match: 'src\wayland\protocols\idle-client-header.h' (Score +810.0, Reason: 'with' in content (5x); 'timeout' in content (75x); 'have' in content (1x))
+2025-06-05 20:52:11,675 - INFO - Keyword Match: 'src\wayland\protocols\xdg-shell-client-header.h' (Score +780.0, Reason: 'with' in content (41x); 'Otherwise' in content (3x); 'defined' in content (7x); 'marks' in content (1x); 'share' in content (1x); 'normal' in content (1x); 'following' in content (4x); 'norm' in content (1x); 'local' in content (4x); 'interpreted' in content (1x); 'timeout' in content (1x); 'have' in content (13x))
+2025-06-05 20:52:11,675 - INFO - Keyword Match: 'src\dbus.c' (Score +740.0, Reason: 'with' in content (3x); 'defined' in content (1x); 'notifications' in content (13x); 'colors' in content (7x); 'Icon' in content (27x); 'urgency' in content (2x); 'enable' in content (11x); 'timeout' in content (9x); 'have' in content (1x))
+2025-06-05 20:52:11,675 - INFO - Keyword Match: 'src\rules.c' (Score +670.0, Reason: 'default_icon' in content (4x); 'with' in content (1x); 'colors' in content (8x); 'urgency_low' in content (1x); 'normal' in content (1x); 'crit' in content (2x); 'Icon' in content (21x); 'critical' in content (1x); 'urgency_critical' in content (1x); 'norm' in content (2x); 'urgency' in content (12x); 'urgency_normal' in content (1x); 'enable' in content (2x); 'timeout' in content (10x))
+2025-06-05 20:52:11,675 - INFO - Keyword Match: 'dunstify.c' (Score +650.0, Reason: 'with' in content (2x); 'urgency_low' in content (1x); 'normal' in content (3x); 'crit' in content (1x); 'Icon' in content (19x); 'critical' in content (1x); 'urgency_critical' in content (1x); 'norm' in content (3x); 'local' in content (2x); 'urgency' in content (20x); 'urgency_normal' in content (2x); 'timeout' in content (9x); 'have' in content (1x))
+2025-06-05 20:52:11,675 - INFO - Keyword Match: 'src\icon.c' (Score +590.0, Reason: 'with' in content (3x); 'colors' in content (1x); 'Icon' in content (50x); 'Icon' in filename; 'enable' in content (1x); 'have' in content (1x))
+2025-06-05 20:52:11,676 - INFO - Keyword Match: 'src\wayland\wl.c' (Score +420.0, Reason: 'with' in content (7x); 'notifications' in content (4x); 'Icon' in content (1x); 'would' in content (2x); 'timeout' in content (22x); 'have' in content (6x))
+2025-06-05 20:52:11,676 - INFO - Keyword Match: 'src\wayland\protocols\wlr-layer-shell-unstable-v1-client-header.h' (Score +370.0, Reason: 'with' in content (17x); 'Otherwise' in content (1x); 'defined' in content (3x); 'share' in content (1x); 'normal' in content (2x); 'background' in content (1x); 'would' in content (2x); 'norm' in content (2x); 'local' in content (4x); 'have' in content (4x))
+2025-06-05 20:52:11,676 - INFO - Keyword Match: 'src\queues.c' (Score +360.0, Reason: 'with' in content (3x); 'Otherwise' in content (1x); 'notifications' in content (14x); 'Icon' in content (5x); 'timeout' in content (12x); 'have' in content (1x))
+2025-06-05 20:52:11,676 - INFO - Keyword Match: 'test\queues.c' (Score +357.0, Reason: 'with' in content (2x); 'notifications' in content (8x); 'normal' in content (42x); 'crit' in content (5x); 'norm' in content (42x); 'urgency' in content (7x); 'timeout' in content (12x); 'have' in content (1x); Test file penalty)
+2025-06-05 20:52:11,679 - INFO - Core File Heuristic: 'main.c' (Matches core pattern 'main\.(h|hpp|cpp|c)' in 'root') (Score +40.0)
+2025-06-05 20:52:11,679 - INFO - Final candidate scores (path, score): [('src\\settings_data.h', 3720.0), ('src\\notification.c', 2100.0), ('src\\draw.c', 1370.0), ('src\\icon-lookup.c', 1300.0), ('src\\notification.h', 920.0), ('src\\wayland\\protocols\\idle-client-header.h', 810.0), ('src\\wayland\\protocols\\xdg-shell-client-header.h', 780.0), ('src\\dbus.c', 740.0), ('src\\rules.c', 670.0), ('dunstify.c', 650.0), ('src\\icon.c', 590.0), ('src\\wayland\\wl.c', 420.0), ('src\\wayland\\protocols\\wlr-layer-shell-unstable-v1-client-header.h', 370.0), ('src\\queues.c', 360.0), ('test\\queues.c', 357.0), ('main.c', 40.0)]
+2025-06-05 20:52:11,679 - INFO - Best candidate selected: 'src\settings_data.h' with score 3720.0
+2025-06-05 20:52:11,680 - INFO - Added context file (included): src\option_parser.h
+2025-06-05 20:52:11,680 - INFO - Added context file (included): src\settings.h
+2025-06-05 20:52:11,680 - INFO - Added context file (included): src\rules.h
+2025-06-05 20:52:11,681 - INFO - Collected 4 files for context. Keys: ['src\\settings_data.h', 'src\\option_parser.h', 'src\\settings.h', 'src\\rules.h']
+2025-06-05 20:52:11,681 - INFO - 为文件 src\settings_data.h 生成AI补丁...
+2025-06-05 20:52:11,681 - INFO - 开始为文件 src\settings_data.h 调用 DeepSeek API 生成补丁...
+2025-06-05 20:52:11,681 - INFO - 发送 API 请求 (尝试 1/3)...
+2025-06-05 20:52:42,901 - INFO - 成功从 DeepSeek API 获取并提取补丁 (981 字符)
+2025-06-05 20:52:42,903 - INFO - 拉取Docker镜像: dongqa930/dunst-project_dunst:1215
+2025-06-05 20:53:02,306 - INFO - 尝试使用 volume_mount 方法...
+2025-06-05 20:53:02,308 - INFO - 使用volume挂载方法运行Docker容器...
+2025-06-05 20:55:23,109 - ERROR - Volume挂载方法异常: NpipeHTTPConnectionPool(host='localhost', port=None): Read timed out. (read timeout=70)
+2025-06-05 20:55:23,109 - WARNING - volume_mount 方法返回None，尝试下一种方法
+2025-06-05 20:55:23,109 - INFO - 尝试使用 heredoc 方法...
+2025-06-05 20:55:23,321 - INFO - 使用heredoc方法创建patch文件...
+2025-06-05 20:55:24,038 - INFO - Patch文件创建成功: 22 /home/fix.patch
+2025-06-05 20:55:24,067 - INFO - Patch文件预览: diff --git a/src/settings_data.h b/src/settings_data.h
+index abc1234..def5678 100644
+--- a/src/settings_data.h
++++ b/src/settings_data.h
+@@ -1081,7 +1081,7 @@ static const struct setting allowed_setti...
+2025-06-05 20:55:24,067 - INFO - 应用补丁...
+2025-06-05 20:55:24,096 - INFO - 运行测试...
+2025-06-05 20:55:34,282 - INFO - heredoc 方法执行成功
+2025-06-05 20:55:34,282 - WARNING - 尝试 1 测试失败
+2025-06-05 20:55:36,282 - INFO - 尝试 2/3
+2025-06-05 20:55:36,283 - INFO - 使用 file_locator 定位需要修复的文件...
+2025-06-05 20:55:36,283 - INFO - Found 4 code blocks in issue.
+2025-06-05 20:55:36,283 - INFO - Potential file references from issue: []
+2025-06-05 20:55:36,283 - INFO - Keywords for content search: ['icons', 'foreground', 'uncomment', 'default_icon', 'with', 'frame_color', 'Otherwise', 'defined', 'notifications', 'marks']...
+2025-06-05 20:55:36,302 - INFO - Keyword Match: 'src\settings_data.h' (Score +3720.0, Reason: 'icons' in content (9x); 'foreground' in content (10x); 'default_icon' in content (3x); 'with' in content (31x); 'frame_color' in content (5x); 'defined' in content (3x); 'notifications' in content (35x); 'share' in content (2x); 'colors' in content (12x); 'ff0000' in content (1x); 'urgency_low' in content (6x); 'normal' in content (13x); 'crit' in content (22x); 'Icon' in content (64x); 'background' in content (9x); 'ffffff' in content (2x); 'critical' in content (14x); 'comment' in content (1x); 'would' in content (1x); 'urgency_critical' in content (6x); 'norm' in content (20x); 'local' in content (2x); 'urgency' in content (60x); 'urgency_normal' in content (6x); 'enable' in content (9x); 'interpreted' in content (2x); 'timeout' in content (23x); 'have' in content (1x))
+2025-06-05 20:55:36,302 - INFO - Keyword Match: 'src\notification.c' (Score +2100.0, Reason: 'icons' in content (2x); 'default_icon' in content (3x); 'notifications' in content (4x); 'colors' in content (28x); 'normal' in content (1x); 'crit' in content (5x); 'Icon' in content (106x); 'critical' in content (1x); 'norm' in content (5x); 'urgency' in content (37x); 'timeout' in content (18x))
+2025-06-05 20:55:36,302 - INFO - Keyword Match: 'src\draw.c' (Score +1370.0, Reason: 'foreground' in content (3x); 'with' in content (13x); 'share' in content (3x); 'colors' in content (5x); 'Icon' in content (98x); 'background' in content (4x); 'urgency' in content (2x); 'enable' in content (2x); 'have' in content (7x))
+2025-06-05 20:55:36,303 - INFO - Keyword Match: 'src\icon-lookup.c' (Score +1300.0, Reason: 'icons' in content (3x); 'with' in content (6x); 'share' in content (4x); 'Icon' in content (112x); 'Icon' in filename; 'local' in content (2x))
+2025-06-05 20:55:36,303 - INFO - Keyword Match: 'src\notification.h' (Score +920.0, Reason: 'default_icon' in content (1x); 'with' in content (8x); 'Otherwise' in content (1x); 'defined' in content (2x); 'notifications' in content (3x); 'colors' in content (3x); 'normal' in content (1x); 'crit' in content (2x); 'Icon' in content (55x); 'critical' in content (1x); 'norm' in content (2x); 'urgency' in content (10x); 'timeout' in content (3x))
+2025-06-05 20:55:36,303 - INFO - Keyword Match: 'src\wayland\protocols\idle-client-header.h' (Score +810.0, Reason: 'with' in content (5x); 'timeout' in content (75x); 'have' in content (1x))
+2025-06-05 20:55:36,303 - INFO - Keyword Match: 'src\wayland\protocols\xdg-shell-client-header.h' (Score +780.0, Reason: 'with' in content (41x); 'Otherwise' in content (3x); 'defined' in content (7x); 'marks' in content (1x); 'share' in content (1x); 'normal' in content (1x); 'following' in content (4x); 'norm' in content (1x); 'local' in content (4x); 'interpreted' in content (1x); 'timeout' in content (1x); 'have' in content (13x))
+2025-06-05 20:55:36,303 - INFO - Keyword Match: 'src\dbus.c' (Score +740.0, Reason: 'with' in content (3x); 'defined' in content (1x); 'notifications' in content (13x); 'colors' in content (7x); 'Icon' in content (27x); 'urgency' in content (2x); 'enable' in content (11x); 'timeout' in content (9x); 'have' in content (1x))
+2025-06-05 20:55:36,304 - INFO - Keyword Match: 'src\rules.c' (Score +670.0, Reason: 'default_icon' in content (4x); 'with' in content (1x); 'colors' in content (8x); 'urgency_low' in content (1x); 'normal' in content (1x); 'crit' in content (2x); 'Icon' in content (21x); 'critical' in content (1x); 'urgency_critical' in content (1x); 'norm' in content (2x); 'urgency' in content (12x); 'urgency_normal' in content (1x); 'enable' in content (2x); 'timeout' in content (10x))
+2025-06-05 20:55:36,304 - INFO - Keyword Match: 'dunstify.c' (Score +650.0, Reason: 'with' in content (2x); 'urgency_low' in content (1x); 'normal' in content (3x); 'crit' in content (1x); 'Icon' in content (19x); 'critical' in content (1x); 'urgency_critical' in content (1x); 'norm' in content (3x); 'local' in content (2x); 'urgency' in content (20x); 'urgency_normal' in content (2x); 'timeout' in content (9x); 'have' in content (1x))
+2025-06-05 20:55:36,304 - INFO - Keyword Match: 'src\icon.c' (Score +590.0, Reason: 'with' in content (3x); 'colors' in content (1x); 'Icon' in content (50x); 'Icon' in filename; 'enable' in content (1x); 'have' in content (1x))
+2025-06-05 20:55:36,304 - INFO - Keyword Match: 'src\wayland\wl.c' (Score +420.0, Reason: 'with' in content (7x); 'notifications' in content (4x); 'Icon' in content (1x); 'would' in content (2x); 'timeout' in content (22x); 'have' in content (6x))
+2025-06-05 20:55:36,304 - INFO - Keyword Match: 'src\wayland\protocols\wlr-layer-shell-unstable-v1-client-header.h' (Score +370.0, Reason: 'with' in content (17x); 'Otherwise' in content (1x); 'defined' in content (3x); 'share' in content (1x); 'normal' in content (2x); 'background' in content (1x); 'would' in content (2x); 'norm' in content (2x); 'local' in content (4x); 'have' in content (4x))
+2025-06-05 20:55:36,304 - INFO - Keyword Match: 'src\queues.c' (Score +360.0, Reason: 'with' in content (3x); 'Otherwise' in content (1x); 'notifications' in content (14x); 'Icon' in content (5x); 'timeout' in content (12x); 'have' in content (1x))
+2025-06-05 20:55:36,305 - INFO - Keyword Match: 'test\queues.c' (Score +357.0, Reason: 'with' in content (2x); 'notifications' in content (8x); 'normal' in content (42x); 'crit' in content (5x); 'norm' in content (42x); 'urgency' in content (7x); 'timeout' in content (12x); 'have' in content (1x); Test file penalty)
+2025-06-05 20:55:36,307 - INFO - Core File Heuristic: 'main.c' (Matches core pattern 'main\.(h|hpp|cpp|c)' in 'root') (Score +40.0)
+2025-06-05 20:55:36,307 - INFO - Final candidate scores (path, score): [('src\\settings_data.h', 3720.0), ('src\\notification.c', 2100.0), ('src\\draw.c', 1370.0), ('src\\icon-lookup.c', 1300.0), ('src\\notification.h', 920.0), ('src\\wayland\\protocols\\idle-client-header.h', 810.0), ('src\\wayland\\protocols\\xdg-shell-client-header.h', 780.0), ('src\\dbus.c', 740.0), ('src\\rules.c', 670.0), ('dunstify.c', 650.0), ('src\\icon.c', 590.0), ('src\\wayland\\wl.c', 420.0), ('src\\wayland\\protocols\\wlr-layer-shell-unstable-v1-client-header.h', 370.0), ('src\\queues.c', 360.0), ('test\\queues.c', 357.0), ('main.c', 40.0)]
+2025-06-05 20:55:36,308 - INFO - Best candidate selected: 'src\settings_data.h' with score 3720.0
+2025-06-05 20:55:36,308 - INFO - Added context file (included): src\option_parser.h
+2025-06-05 20:55:36,308 - INFO - Added context file (included): src\settings.h
+2025-06-05 20:55:36,309 - INFO - Added context file (included): src\rules.h
+2025-06-05 20:55:36,309 - INFO - Collected 4 files for context. Keys: ['src\\settings_data.h', 'src\\option_parser.h', 'src\\settings.h', 'src\\rules.h']
+2025-06-05 20:55:36,309 - INFO - 为文件 src\settings_data.h 生成AI补丁...
+2025-06-05 20:55:36,309 - INFO - 开始为文件 src\settings_data.h 调用 DeepSeek API 生成补丁...
+2025-06-05 20:55:36,310 - INFO - 发送 API 请求 (尝试 1/3)...
+2025-06-05 21:26:33,493 - INFO - 将处理以下数据集文件: ['dataset\\test_c.jsonl', 'dataset\\test_cpp.jsonl']
+2025-06-05 21:26:33,493 - INFO - 项目数据目录: D:\上课资料\科研课堂\WeCode\CFix\project_data
+2025-06-05 21:26:33,502 - INFO - Docker客户端初始化成功
+2025-06-05 21:26:33,503 - INFO - 成功加载 8 个实例从 dataset\test_c.jsonl
+2025-06-05 21:26:33,503 - INFO - 成功加载 7 个实例从 dataset\test_cpp.jsonl
+2025-06-05 21:26:33,504 - INFO - 过滤后只处理实例: dunst-project__dunst-1215
+2025-06-05 21:26:33,504 - INFO - 处理实例: dunst-project__dunst-1215 (dunst-project/dunst)
+2025-06-05 21:26:33,504 - INFO - 仓库目录已存在: D:\上课资料\科研课堂\WeCode\CFix\project_data\repositories\dunst-project_dunst
+2025-06-05 21:26:33,557 - INFO - 检测到有效的git仓库，尝试更新...
+2025-06-05 21:26:38,238 - INFO - 成功更新仓库
+2025-06-05 21:26:38,238 - INFO - 切换到commit 5ef093c3e2d4d42a73b84b28231f28e9314d902e
+2025-06-05 21:26:38,260 - INFO - 成功重用现有仓库
+2025-06-05 21:26:38,261 - INFO - 尝试 1/3
+2025-06-05 21:26:38,261 - INFO - 使用AI增强的文件定位...
+2025-06-05 21:26:38,264 - WARNING - AI文件定位失败，回退到传统方法: attempted relative import with no known parent package
+2025-06-05 21:26:38,264 - INFO - Found 4 code blocks in issue.
+2025-06-05 21:26:38,264 - INFO - Potential file references from issue: []
+2025-06-05 21:26:38,265 - INFO - Keywords for content search: ['with', 'defined', 'marks', 'local', 'notifications', 'urgency_critical', 'urgency_normal', 'urgency_low', 'critical', 'foreground']...
+2025-06-05 21:26:38,285 - INFO - Keyword Match: 'src\settings_data.h' (Score +3720.0, Reason: 'with' in content (31x); 'defined' in content (3x); 'local' in content (2x); 'notifications' in content (35x); 'urgency_critical' in content (6x); 'urgency_normal' in content (6x); 'urgency_low' in content (6x); 'critical' in content (14x); 'foreground' in content (10x); 'share' in content (2x); 'crit' in content (22x); 'ff0000' in content (1x); 'colors' in content (12x); 'default_icon' in content (3x); 'norm' in content (20x); 'have' in content (1x); 'timeout' in content (23x); 'normal' in content (13x); 'icons' in content (9x); 'interpreted' in content (2x); 'background' in content (9x); 'urgency' in content (60x); 'enable' in content (9x); 'ffffff' in content (2x); 'would' in content (1x); 'frame_color' in content (5x); 'comment' in content (1x); 'Icon' in content (64x))
+2025-06-05 21:26:38,285 - INFO - Keyword Match: 'src\notification.c' (Score +2100.0, Reason: 'notifications' in content (4x); 'critical' in content (1x); 'crit' in content (5x); 'colors' in content (28x); 'default_icon' in content (3x); 'norm' in content (5x); 'timeout' in content (18x); 'normal' in content (1x); 'icons' in content (2x); 'urgency' in content (37x); 'Icon' in content (106x))
+2025-06-05 21:26:38,286 - INFO - Keyword Match: 'src\draw.c' (Score +1370.0, Reason: 'with' in content (13x); 'foreground' in content (3x); 'share' in content (3x); 'colors' in content (5x); 'have' in content (7x); 'background' in content (4x); 'urgency' in content (2x); 'enable' in content (2x); 'Icon' in content (98x))
+2025-06-05 21:26:38,286 - INFO - Keyword Match: 'src\icon-lookup.c' (Score +1300.0, Reason: 'with' in content (6x); 'local' in content (2x); 'share' in content (4x); 'icons' in content (3x); 'Icon' in content (112x); 'Icon' in filename)
+2025-06-05 21:26:38,286 - INFO - Keyword Match: 'src\notification.h' (Score +920.0, Reason: 'with' in content (8x); 'defined' in content (2x); 'notifications' in content (3x); 'critical' in content (1x); 'crit' in content (2x); 'colors' in content (3x); 'default_icon' in content (1x); 'norm' in content (2x); 'timeout' in content (3x); 'Otherwise' in content (1x); 'normal' in content (1x); 'urgency' in content (10x); 'Icon' in content (55x))
+2025-06-05 21:26:38,286 - INFO - Keyword Match: 'src\wayland\protocols\idle-client-header.h' (Score +810.0, Reason: 'with' in content (5x); 'have' in content (1x); 'timeout' in content (75x))
+2025-06-05 21:26:38,286 - INFO - Keyword Match: 'src\wayland\protocols\xdg-shell-client-header.h' (Score +780.0, Reason: 'with' in content (41x); 'defined' in content (7x); 'marks' in content (1x); 'local' in content (4x); 'share' in content (1x); 'norm' in content (1x); 'have' in content (13x); 'timeout' in content (1x); 'Otherwise' in content (3x); 'normal' in content (1x); 'interpreted' in content (1x); 'following' in content (4x))
+2025-06-05 21:26:38,287 - INFO - Keyword Match: 'src\dbus.c' (Score +740.0, Reason: 'with' in content (3x); 'defined' in content (1x); 'notifications' in content (13x); 'colors' in content (7x); 'have' in content (1x); 'timeout' in content (9x); 'urgency' in content (2x); 'enable' in content (11x); 'Icon' in content (27x))
+2025-06-05 21:26:38,287 - INFO - Keyword Match: 'src\rules.c' (Score +670.0, Reason: 'with' in content (1x); 'urgency_critical' in content (1x); 'urgency_normal' in content (1x); 'urgency_low' in content (1x); 'critical' in content (1x); 'crit' in content (2x); 'colors' in content (8x); 'default_icon' in content (4x); 'norm' in content (2x); 'timeout' in content (10x); 'normal' in content (1x); 'urgency' in content (12x); 'enable' in content (2x); 'Icon' in content (21x))
+2025-06-05 21:26:38,287 - INFO - Keyword Match: 'dunstify.c' (Score +650.0, Reason: 'with' in content (2x); 'local' in content (2x); 'urgency_critical' in content (1x); 'urgency_normal' in content (2x); 'urgency_low' in content (1x); 'critical' in content (1x); 'crit' in content (1x); 'norm' in content (3x); 'have' in content (1x); 'timeout' in content (9x); 'normal' in content (3x); 'urgency' in content (20x); 'Icon' in content (19x))
+2025-06-05 21:26:38,287 - INFO - Keyword Match: 'src\icon.c' (Score +590.0, Reason: 'with' in content (3x); 'colors' in content (1x); 'have' in content (1x); 'enable' in content (1x); 'Icon' in content (50x); 'Icon' in filename)
+2025-06-05 21:26:38,287 - INFO - Keyword Match: 'src\wayland\wl.c' (Score +420.0, Reason: 'with' in content (7x); 'notifications' in content (4x); 'have' in content (6x); 'timeout' in content (22x); 'would' in content (2x); 'Icon' in content (1x))
+2025-06-05 21:26:38,287 - INFO - Keyword Match: 'src\wayland\protocols\wlr-layer-shell-unstable-v1-client-header.h' (Score +370.0, Reason: 'with' in content (17x); 'defined' in content (3x); 'local' in content (4x); 'share' in content (1x); 'norm' in content (2x); 'have' in content (4x); 'Otherwise' in content (1x); 'normal' in content (2x); 'background' in content (1x); 'would' in content (2x))
+2025-06-05 21:26:38,287 - INFO - Keyword Match: 'src\queues.c' (Score +360.0, Reason: 'with' in content (3x); 'notifications' in content (14x); 'have' in content (1x); 'timeout' in content (12x); 'Otherwise' in content (1x); 'Icon' in content (5x))
+2025-06-05 21:26:38,288 - INFO - Keyword Match: 'test\queues.c' (Score +357.0, Reason: 'with' in content (2x); 'notifications' in content (8x); 'crit' in content (5x); 'norm' in content (42x); 'have' in content (1x); 'timeout' in content (12x); 'normal' in content (42x); 'urgency' in content (7x); Test file penalty)
+2025-06-05 21:26:38,290 - INFO - Core File Heuristic: 'main.c' (Matches core pattern 'main\.(h|hpp|cpp|c)' in 'root') (Score +40.0)
+2025-06-05 21:26:38,290 - INFO - Final candidate scores (path, score): [('src\\settings_data.h', 3720.0), ('src\\notification.c', 2100.0), ('src\\draw.c', 1370.0), ('src\\icon-lookup.c', 1300.0), ('src\\notification.h', 920.0), ('src\\wayland\\protocols\\idle-client-header.h', 810.0), ('src\\wayland\\protocols\\xdg-shell-client-header.h', 780.0), ('src\\dbus.c', 740.0), ('src\\rules.c', 670.0), ('dunstify.c', 650.0), ('src\\icon.c', 590.0), ('src\\wayland\\wl.c', 420.0), ('src\\wayland\\protocols\\wlr-layer-shell-unstable-v1-client-header.h', 370.0), ('src\\queues.c', 360.0), ('test\\queues.c', 357.0), ('main.c', 40.0)]
+2025-06-05 21:26:38,291 - INFO - Best candidate selected: 'src\settings_data.h' with score 3720.0
+2025-06-05 21:26:38,291 - INFO - 无AI分析结果，使用传统方法结果
+2025-06-05 21:26:38,291 - INFO - Added context file (included): src\option_parser.h
+2025-06-05 21:26:38,292 - INFO - Added context file (included): src\settings.h
+2025-06-05 21:26:38,292 - INFO - Added context file (included): src\rules.h
+2025-06-05 21:26:38,292 - INFO - Collected 4 files for context. Keys: ['src\\settings_data.h', 'src\\option_parser.h', 'src\\settings.h', 'src\\rules.h']
+2025-06-05 21:26:38,292 - INFO - 为文件 src\settings_data.h 生成AI补丁...
+2025-06-05 21:26:38,292 - INFO - 使用增强prompt调用AI生成补丁...
+2025-06-05 21:26:38,293 - INFO - 发送 API 请求 (尝试 1/3)...
+2025-06-05 21:32:21,449 - INFO - 将处理以下数据集文件: ['dataset\\test_c.jsonl', 'dataset\\test_cpp.jsonl']
+2025-06-05 21:32:21,449 - INFO - 项目数据目录: D:\上课资料\科研课堂\WeCode\CFix\project_data
+2025-06-05 21:32:21,457 - INFO - Docker客户端初始化成功
+2025-06-05 21:32:21,458 - INFO - 成功加载 8 个实例从 dataset\test_c.jsonl
+2025-06-05 21:32:21,458 - INFO - 成功加载 7 个实例从 dataset\test_cpp.jsonl
+2025-06-05 21:32:21,458 - INFO - 过滤后只处理实例: dunst-project__dunst-1215
+2025-06-05 21:32:21,458 - INFO - 处理实例: dunst-project__dunst-1215 (dunst-project/dunst)
+2025-06-05 21:32:21,459 - INFO - 仓库目录已存在: D:\上课资料\科研课堂\WeCode\CFix\project_data\repositories\dunst-project_dunst
+2025-06-05 21:32:21,480 - INFO - 检测到有效的git仓库，尝试更新...
+2025-06-05 21:32:26,121 - INFO - 成功更新仓库
+2025-06-05 21:32:26,121 - INFO - 切换到commit 5ef093c3e2d4d42a73b84b28231f28e9314d902e
+2025-06-05 21:32:26,142 - INFO - 成功重用现有仓库
+2025-06-05 21:32:26,143 - INFO - 尝试 1/3
+2025-06-05 21:32:26,143 - INFO - 使用AI增强的文件定位...
+2025-06-05 21:32:26,146 - INFO - 执行简单API调用...
+2025-06-05 21:32:44,458 - INFO - 简单API调用成功，响应长度: 627
+2025-06-05 21:32:44,458 - ERROR - AI响应解析失败: Expecting value: line 1 column 1 (char 0)
+2025-06-05 21:32:44,458 - ERROR - 原始响应: ```json
+{
+    "target_file": "src/option_parser.c",
+    "confidence": 9,
+    "reasoning": "1. 问题描述明确指出是关于路径解析问题，特别是环境变量($HOME/~)的解析。2. 测试变更差异显示在option_parser.c中增加了对$HOME和$TEST_ENV的环境变量测试用例。3. 该文件包含路径解析的核心逻辑(string_to_path函数)。4. 虽然icon-lookup.c也可能涉及路径处理，但测试变更明确指向option_parser.c的修改。",
+    "fix_strategy": "1. 确保string_to_path函数正确处理环境变量替换。2. 添加对~和$VAR格式的路径扩展支持。3. 参考测试用例中新增的$HOME/$TEST_ENV处理逻辑。4. 可能需要使用wordexp()或getenv()进行环境变量扩展。",
+    "test_insights": "1. 测试新增了$HOME和$TEST_ENV的环境变量测试用例。2. 显示需要支持两种环境变...
+2025-06-05 21:32:44,459 - WARNING - AI文件定位失败，回退到传统方法: Expecting value: line 1 column 1 (char 0)
+2025-06-05 21:32:44,459 - INFO - Found 4 code blocks in issue.
+2025-06-05 21:32:44,459 - INFO - Potential file references from issue: []
+2025-06-05 21:32:44,459 - INFO - Keywords for content search: ['critical', 'notifications', 'marks', 'would', 'normal', 'ff0000', 'norm', 'following', 'frame_color', 'with']...
+2025-06-05 21:32:44,477 - INFO - Keyword Match: 'src\settings_data.h' (Score +3720.0, Reason: 'critical' in content (14x); 'notifications' in content (35x); 'would' in content (1x); 'normal' in content (13x); 'ff0000' in content (1x); 'norm' in content (20x); 'frame_color' in content (5x); 'with' in content (31x); 'foreground' in content (10x); 'urgency_critical' in content (6x); 'defined' in content (3x); 'urgency' in content (60x); 'share' in content (2x); 'timeout' in content (23x); 'local' in content (2x); 'urgency_normal' in content (6x); 'comment' in content (1x); 'crit' in content (22x); 'ffffff' in content (2x); 'icons' in content (9x); 'interpreted' in content (2x); 'urgency_low' in content (6x); 'have' in content (1x); 'enable' in content (9x); 'Icon' in content (64x); 'background' in content (9x); 'colors' in content (12x); 'default_icon' in content (3x))
+2025-06-05 21:32:44,478 - INFO - Keyword Match: 'src\notification.c' (Score +2100.0, Reason: 'critical' in content (1x); 'notifications' in content (4x); 'normal' in content (1x); 'norm' in content (5x); 'urgency' in content (37x); 'timeout' in content (18x); 'crit' in content (5x); 'icons' in content (2x); 'Icon' in content (106x); 'colors' in content (28x); 'default_icon' in content (3x))
+2025-06-05 21:32:44,478 - INFO - Keyword Match: 'src\draw.c' (Score +1370.0, Reason: 'with' in content (13x); 'foreground' in content (3x); 'urgency' in content (2x); 'share' in content (3x); 'have' in content (7x); 'enable' in content (2x); 'Icon' in content (98x); 'background' in content (4x); 'colors' in content (5x))
+2025-06-05 21:32:44,478 - INFO - Keyword Match: 'src\icon-lookup.c' (Score +1300.0, Reason: 'with' in content (6x); 'share' in content (4x); 'local' in content (2x); 'icons' in content (3x); 'Icon' in content (112x); 'Icon' in filename)
+2025-06-05 21:32:44,478 - INFO - Keyword Match: 'src\notification.h' (Score +920.0, Reason: 'critical' in content (1x); 'notifications' in content (3x); 'normal' in content (1x); 'norm' in content (2x); 'with' in content (8x); 'defined' in content (2x); 'urgency' in content (10x); 'timeout' in content (3x); 'crit' in content (2x); 'Icon' in content (55x); 'Otherwise' in content (1x); 'colors' in content (3x); 'default_icon' in content (1x))
+2025-06-05 21:32:44,478 - INFO - Keyword Match: 'src\wayland\protocols\idle-client-header.h' (Score +810.0, Reason: 'with' in content (5x); 'timeout' in content (75x); 'have' in content (1x))
+2025-06-05 21:32:44,479 - INFO - Keyword Match: 'src\wayland\protocols\xdg-shell-client-header.h' (Score +780.0, Reason: 'marks' in content (1x); 'normal' in content (1x); 'norm' in content (1x); 'following' in content (4x); 'with' in content (41x); 'defined' in content (7x); 'share' in content (1x); 'timeout' in content (1x); 'local' in content (4x); 'interpreted' in content (1x); 'have' in content (13x); 'Otherwise' in content (3x))
+2025-06-05 21:32:44,479 - INFO - Keyword Match: 'src\dbus.c' (Score +740.0, Reason: 'notifications' in content (13x); 'with' in content (3x); 'defined' in content (1x); 'urgency' in content (2x); 'timeout' in content (9x); 'have' in content (1x); 'enable' in content (11x); 'Icon' in content (27x); 'colors' in content (7x))
+2025-06-05 21:32:44,479 - INFO - Keyword Match: 'src\rules.c' (Score +670.0, Reason: 'critical' in content (1x); 'normal' in content (1x); 'norm' in content (2x); 'with' in content (1x); 'urgency_critical' in content (1x); 'urgency' in content (12x); 'timeout' in content (10x); 'urgency_normal' in content (1x); 'crit' in content (2x); 'urgency_low' in content (1x); 'enable' in content (2x); 'Icon' in content (21x); 'colors' in content (8x); 'default_icon' in content (4x))
+2025-06-05 21:32:44,479 - INFO - Keyword Match: 'dunstify.c' (Score +650.0, Reason: 'critical' in content (1x); 'normal' in content (3x); 'norm' in content (3x); 'with' in content (2x); 'urgency_critical' in content (1x); 'urgency' in content (20x); 'timeout' in content (9x); 'local' in content (2x); 'urgency_normal' in content (2x); 'crit' in content (1x); 'urgency_low' in content (1x); 'have' in content (1x); 'Icon' in content (19x))
+2025-06-05 21:32:44,479 - INFO - Keyword Match: 'src\icon.c' (Score +590.0, Reason: 'with' in content (3x); 'have' in content (1x); 'enable' in content (1x); 'Icon' in content (50x); 'Icon' in filename; 'colors' in content (1x))
+2025-06-05 21:32:44,479 - INFO - Keyword Match: 'src\wayland\wl.c' (Score +420.0, Reason: 'notifications' in content (4x); 'would' in content (2x); 'with' in content (7x); 'timeout' in content (22x); 'have' in content (6x); 'Icon' in content (1x))
+2025-06-05 21:32:44,479 - INFO - Keyword Match: 'src\wayland\protocols\wlr-layer-shell-unstable-v1-client-header.h' (Score +370.0, Reason: 'would' in content (2x); 'normal' in content (2x); 'norm' in content (2x); 'with' in content (17x); 'defined' in content (3x); 'share' in content (1x); 'local' in content (4x); 'have' in content (4x); 'Otherwise' in content (1x); 'background' in content (1x))
+2025-06-05 21:32:44,480 - INFO - Keyword Match: 'src\queues.c' (Score +360.0, Reason: 'notifications' in content (14x); 'with' in content (3x); 'timeout' in content (12x); 'have' in content (1x); 'Icon' in content (5x); 'Otherwise' in content (1x))
+2025-06-05 21:32:44,480 - INFO - Keyword Match: 'test\queues.c' (Score +357.0, Reason: 'notifications' in content (8x); 'normal' in content (42x); 'norm' in content (42x); 'with' in content (2x); 'urgency' in content (7x); 'timeout' in content (12x); 'crit' in content (5x); 'have' in content (1x); Test file penalty)
+2025-06-05 21:32:44,483 - INFO - Core File Heuristic: 'main.c' (Matches core pattern 'main\.(h|hpp|cpp|c)' in 'root') (Score +40.0)
+2025-06-05 21:32:44,483 - INFO - Final candidate scores (path, score): [('src\\settings_data.h', 3720.0), ('src\\notification.c', 2100.0), ('src\\draw.c', 1370.0), ('src\\icon-lookup.c', 1300.0), ('src\\notification.h', 920.0), ('src\\wayland\\protocols\\idle-client-header.h', 810.0), ('src\\wayland\\protocols\\xdg-shell-client-header.h', 780.0), ('src\\dbus.c', 740.0), ('src\\rules.c', 670.0), ('dunstify.c', 650.0), ('src\\icon.c', 590.0), ('src\\wayland\\wl.c', 420.0), ('src\\wayland\\protocols\\wlr-layer-shell-unstable-v1-client-header.h', 370.0), ('src\\queues.c', 360.0), ('test\\queues.c', 357.0), ('main.c', 40.0)]
+2025-06-05 21:32:44,484 - INFO - Best candidate selected: 'src\settings_data.h' with score 3720.0
+2025-06-05 21:32:44,484 - INFO - 无AI分析结果，使用传统方法结果
+2025-06-05 21:32:44,484 - INFO - Added context file (included): src\option_parser.h
+2025-06-05 21:32:44,484 - INFO - Added context file (included): src\settings.h
+2025-06-05 21:32:44,485 - INFO - Added context file (included): src\rules.h
+2025-06-05 21:32:44,485 - INFO - Collected 4 files for context. Keys: ['src\\settings_data.h', 'src\\option_parser.h', 'src\\settings.h', 'src\\rules.h']
+2025-06-05 21:32:44,485 - INFO - 为文件 src\settings_data.h 生成AI补丁...
+2025-06-05 21:32:44,485 - INFO - 使用增强prompt调用AI生成补丁...
+2025-06-05 21:32:44,486 - INFO - 发送 API 请求 (尝试 1/3)...
+2025-06-05 21:39:29,376 - INFO - 将处理以下数据集文件: ['dataset\\test_c.jsonl', 'dataset\\test_cpp.jsonl']
+2025-06-05 21:39:29,376 - INFO - 项目数据目录: D:\上课资料\科研课堂\WeCode\CFix\project_data
+2025-06-05 21:39:29,384 - INFO - Docker客户端初始化成功
+2025-06-05 21:39:29,385 - INFO - 成功加载 8 个实例从 dataset\test_c.jsonl
+2025-06-05 21:39:29,386 - INFO - 成功加载 7 个实例从 dataset\test_cpp.jsonl
+2025-06-05 21:39:29,386 - INFO - 过滤后只处理实例: dunst-project__dunst-1215
+2025-06-05 21:39:29,386 - INFO - 处理实例: dunst-project__dunst-1215 (dunst-project/dunst)
+2025-06-05 21:39:29,386 - INFO - 仓库目录已存在: D:\上课资料\科研课堂\WeCode\CFix\project_data\repositories\dunst-project_dunst
+2025-06-05 21:39:29,408 - INFO - 检测到有效的git仓库，尝试更新...
+2025-06-05 21:39:33,934 - INFO - 成功更新仓库
+2025-06-05 21:39:33,934 - INFO - 切换到commit 5ef093c3e2d4d42a73b84b28231f28e9314d902e
+2025-06-05 21:39:33,956 - INFO - 成功重用现有仓库
+2025-06-05 21:39:33,956 - INFO - 尝试 1/3
+2025-06-05 21:39:33,956 - INFO - 使用AI增强的文件定位...
+2025-06-05 21:39:33,957 - INFO - 扫描项目结构...
+2025-06-05 21:39:33,959 - INFO - 项目结构扫描完成，找到 3 个文件
+2025-06-05 21:39:33,960 - INFO - 构建AI定位prompt，长度: 9417
+2025-06-05 21:39:33,960 - INFO - 开始调用AI API...
+2025-06-05 21:39:33,960 - INFO - 执行简单API调用...
+2025-06-05 21:39:54,938 - INFO - 简单API调用成功，响应长度: 648
+2025-06-05 21:39:54,939 - INFO - AI API调用成功，开始解析响应...
+2025-06-05 21:39:54,939 - INFO - AI分析成功解析: 目标文件=src/option_parser.c, 置信度=9
+2025-06-05 21:39:54,939 - INFO - AI文件定位结果: {'target_file': 'src/option_parser.c', 'confidence': 9, 'reasoning': '从问题描述来看，问题涉及环境变量（$HOME和~）在default_icon路径中的解析问题。测试变更差异显示在option_parser.c中添加了对环境变量路径解析的测试用例，特别是$HOME和自定义环境变量的处理。这表明option_parser.c是处理路径解析和环境变量扩展的关键文件。此外，问题描述中提到这是一个配置解析问题，而option_parser.c正是处理这类问题的核心文件。', 'fix_strategy': '在option_parser.c中，需要确保string_to_path函数能够正确处理$HOME和~等环境变量和特殊字符的路径扩展。可以参考测试用例中的实现，使用glib提供的环境变量处理函数（如g_strconcat和getenv）来扩展路径。', 'test_insights': '测试变更显示，string_to_path函数需要能够处理$HOME和自定义环境变量（如$TEST_ENV）的路径扩展。测试用例中还提到了对未定义变量的处理（仅在glibc下有效），这表明路径解析需要考虑到不同环境下的兼容性问题。', 'alternative_files': ['src/utils.c', 'src/icon-lookup.c']}
+2025-06-05 21:39:54,940 - INFO - Found 4 code blocks in issue.
+2025-06-05 21:39:54,940 - INFO - Potential file references from issue: []
+2025-06-05 21:39:54,940 - INFO - Keywords for content search: ['ffffff', 'interpreted', 'colors', 'comment', 'norm', 'Otherwise', 'notifications', 'have', 'critical', 'background']...
+2025-06-05 21:39:54,959 - INFO - Keyword Match: 'src\settings_data.h' (Score +3720.0, Reason: 'ffffff' in content (2x); 'interpreted' in content (2x); 'colors' in content (12x); 'comment' in content (1x); 'norm' in content (20x); 'notifications' in content (35x); 'have' in content (1x); 'critical' in content (14x); 'background' in content (9x); 'Icon' in content (64x); 'timeout' in content (23x); 'with' in content (31x); 'urgency' in content (60x); 'crit' in content (22x); 'urgency_low' in content (6x); 'foreground' in content (10x); 'would' in content (1x); 'urgency_critical' in content (6x); 'share' in content (2x); 'icons' in content (9x); 'enable' in content (9x); 'normal' in content (13x); 'defined' in content (3x); 'local' in content (2x); 'urgency_normal' in content (6x); 'ff0000' in content (1x); 'frame_color' in content (5x); 'default_icon' in content (3x))
+2025-06-05 21:39:54,960 - INFO - Keyword Match: 'src\notification.c' (Score +2100.0, Reason: 'colors' in content (28x); 'norm' in content (5x); 'notifications' in content (4x); 'critical' in content (1x); 'Icon' in content (106x); 'timeout' in content (18x); 'urgency' in content (37x); 'crit' in content (5x); 'icons' in content (2x); 'normal' in content (1x); 'default_icon' in content (3x))
+2025-06-05 21:39:54,960 - INFO - Keyword Match: 'src\draw.c' (Score +1370.0, Reason: 'colors' in content (5x); 'have' in content (7x); 'background' in content (4x); 'Icon' in content (98x); 'with' in content (13x); 'urgency' in content (2x); 'foreground' in content (3x); 'share' in content (3x); 'enable' in content (2x))
+2025-06-05 21:39:54,960 - INFO - Keyword Match: 'src\icon-lookup.c' (Score +1300.0, Reason: 'Icon' in content (112x); 'Icon' in filename; 'with' in content (6x); 'share' in content (4x); 'icons' in content (3x); 'local' in content (2x))
+2025-06-05 21:39:54,960 - INFO - Keyword Match: 'src\notification.h' (Score +920.0, Reason: 'colors' in content (3x); 'norm' in content (2x); 'Otherwise' in content (1x); 'notifications' in content (3x); 'critical' in content (1x); 'Icon' in content (55x); 'timeout' in content (3x); 'with' in content (8x); 'urgency' in content (10x); 'crit' in content (2x); 'normal' in content (1x); 'defined' in content (2x); 'default_icon' in content (1x))
+2025-06-05 21:39:54,960 - INFO - Keyword Match: 'src\wayland\protocols\idle-client-header.h' (Score +810.0, Reason: 'have' in content (1x); 'timeout' in content (75x); 'with' in content (5x))
+2025-06-05 21:39:54,961 - INFO - Keyword Match: 'src\wayland\protocols\xdg-shell-client-header.h' (Score +780.0, Reason: 'interpreted' in content (1x); 'norm' in content (1x); 'Otherwise' in content (3x); 'have' in content (13x); 'timeout' in content (1x); 'with' in content (41x); 'following' in content (4x); 'share' in content (1x); 'normal' in content (1x); 'marks' in content (1x); 'defined' in content (7x); 'local' in content (4x))
+2025-06-05 21:39:54,961 - INFO - Keyword Match: 'src\dbus.c' (Score +740.0, Reason: 'colors' in content (7x); 'notifications' in content (13x); 'have' in content (1x); 'Icon' in content (27x); 'timeout' in content (9x); 'with' in content (3x); 'urgency' in content (2x); 'enable' in content (11x); 'defined' in content (1x))
+2025-06-05 21:39:54,961 - INFO - Keyword Match: 'src\rules.c' (Score +670.0, Reason: 'colors' in content (8x); 'norm' in content (2x); 'critical' in content (1x); 'Icon' in content (21x); 'timeout' in content (10x); 'with' in content (1x); 'urgency' in content (12x); 'crit' in content (2x); 'urgency_low' in content (1x); 'urgency_critical' in content (1x); 'enable' in content (2x); 'normal' in content (1x); 'urgency_normal' in content (1x); 'default_icon' in content (4x))
+2025-06-05 21:39:54,961 - INFO - Keyword Match: 'dunstify.c' (Score +650.0, Reason: 'norm' in content (3x); 'have' in content (1x); 'critical' in content (1x); 'Icon' in content (19x); 'timeout' in content (9x); 'with' in content (2x); 'urgency' in content (20x); 'crit' in content (1x); 'urgency_low' in content (1x); 'urgency_critical' in content (1x); 'normal' in content (3x); 'local' in content (2x); 'urgency_normal' in content (2x))
+2025-06-05 21:39:54,961 - INFO - Keyword Match: 'src\icon.c' (Score +590.0, Reason: 'colors' in content (1x); 'have' in content (1x); 'Icon' in content (50x); 'Icon' in filename; 'with' in content (3x); 'enable' in content (1x))
+2025-06-05 21:39:54,962 - INFO - Keyword Match: 'src\wayland\wl.c' (Score +420.0, Reason: 'notifications' in content (4x); 'have' in content (6x); 'Icon' in content (1x); 'timeout' in content (22x); 'with' in content (7x); 'would' in content (2x))
+2025-06-05 21:39:54,962 - INFO - Keyword Match: 'src\wayland\protocols\wlr-layer-shell-unstable-v1-client-header.h' (Score +370.0, Reason: 'norm' in content (2x); 'Otherwise' in content (1x); 'have' in content (4x); 'background' in content (1x); 'with' in content (17x); 'would' in content (2x); 'share' in content (1x); 'normal' in content (2x); 'defined' in content (3x); 'local' in content (4x))
+2025-06-05 21:39:54,962 - INFO - Keyword Match: 'src\queues.c' (Score +360.0, Reason: 'Otherwise' in content (1x); 'notifications' in content (14x); 'have' in content (1x); 'Icon' in content (5x); 'timeout' in content (12x); 'with' in content (3x))
+2025-06-05 21:39:54,962 - INFO - Keyword Match: 'test\queues.c' (Score +357.0, Reason: 'norm' in content (42x); 'notifications' in content (8x); 'have' in content (1x); 'timeout' in content (12x); 'with' in content (2x); 'urgency' in content (7x); 'crit' in content (5x); 'normal' in content (42x); Test file penalty)
+2025-06-05 21:39:54,965 - INFO - Core File Heuristic: 'main.c' (Matches core pattern 'main\.(h|hpp|cpp|c)' in 'root') (Score +40.0)
+2025-06-05 21:39:54,965 - INFO - Final candidate scores (path, score): [('src\\settings_data.h', 3720.0), ('src\\notification.c', 2100.0), ('src\\draw.c', 1370.0), ('src\\icon-lookup.c', 1300.0), ('src\\notification.h', 920.0), ('src\\wayland\\protocols\\idle-client-header.h', 810.0), ('src\\wayland\\protocols\\xdg-shell-client-header.h', 780.0), ('src\\dbus.c', 740.0), ('src\\rules.c', 670.0), ('dunstify.c', 650.0), ('src\\icon.c', 590.0), ('src\\wayland\\wl.c', 420.0), ('src\\wayland\\protocols\\wlr-layer-shell-unstable-v1-client-header.h', 370.0), ('src\\queues.c', 360.0), ('test\\queues.c', 357.0), ('main.c', 40.0)]
+2025-06-05 21:39:54,966 - INFO - Best candidate selected: 'src\settings_data.h' with score 3720.0
+2025-06-05 21:39:54,966 - INFO - AI高置信度(9)选择: src\option_parser.c
+2025-06-05 21:39:54,966 - INFO - AI文件定位成功: src/option_parser.c (置信度: 9)
+2025-06-05 21:39:54,966 - INFO - AI分析结果已保存到: D:\上课资料\科研课堂\WeCode\CFix\project_data\logs\dunst-project__dunst-1215_20250605_213929\attempt_1\ai_file_localization.json
+2025-06-05 21:39:54,967 - INFO - Added context file (included): src\option_parser.h
+2025-06-05 21:39:54,967 - INFO - Added context file (included): src\x11\x.h
+2025-06-05 21:39:54,967 - INFO - Added context file (included): src\dunst.h
+2025-06-05 21:39:54,968 - INFO - Added context file (included): src\log.h
+2025-06-05 21:39:54,968 - INFO - Collected 5 files for context. Keys: ['src\\option_parser.c', 'src\\option_parser.h', 'src\\x11\\x.h', 'src\\dunst.h', 'src\\log.h']
+2025-06-05 21:39:54,968 - INFO - 为文件 src\option_parser.c 生成AI补丁...
+2025-06-05 21:39:54,968 - INFO - 使用增强prompt调用AI生成补丁...
+2025-06-05 21:39:54,968 - INFO - 发送 API 请求 (尝试 1/3)...
+2025-06-05 21:40:30,873 - INFO - 成功从 DeepSeek API 获取并提取补丁 (1052 字符)
+2025-06-05 21:40:30,875 - INFO - 拉取Docker镜像: dongqa930/dunst-project_dunst:1215
+2025-06-05 21:40:48,714 - INFO - 尝试使用 heredoc 方法...
+2025-06-05 21:40:48,936 - INFO - 使用heredoc方法创建patch文件...
+2025-06-05 21:40:50,586 - INFO - Patch文件创建成功: 47 /home/fix.patch
+2025-06-05 21:40:50,616 - INFO - Patch文件预览: diff --git a/src/option_parser.c b/src/option_parser.c
+index abc1234..def5678 100644
+--- a/src/option_parser.c
++++ b/src/option_parser.c
+@@ -1,5 +1,6 @@
+...
+2025-06-05 21:40:50,617 - INFO - 应用补丁...
+2025-06-05 21:40:50,653 - INFO - 运行测试...
+2025-06-05 21:41:02,157 - INFO - heredoc 方法执行成功
+2025-06-05 21:41:02,157 - WARNING - 尝试 1 测试失败
+2025-06-05 21:41:04,157 - INFO - 尝试 2/3
+2025-06-05 21:41:04,158 - INFO - 使用AI增强的文件定位...
+2025-06-05 21:41:04,158 - INFO - 扫描项目结构...
+2025-06-05 21:41:04,161 - INFO - 项目结构扫描完成，找到 3 个文件
+2025-06-05 21:41:04,162 - INFO - 构建AI定位prompt，长度: 9417
+2025-06-05 21:41:04,162 - INFO - 开始调用AI API...
+2025-06-05 21:41:04,162 - INFO - 执行简单API调用...
+2025-06-05 21:41:23,296 - INFO - 简单API调用成功，响应长度: 573
+2025-06-05 21:41:23,297 - INFO - AI API调用成功，开始解析响应...
+2025-06-05 21:41:23,297 - INFO - AI分析成功解析: 目标文件=src/option_parser.c, 置信度=9
+2025-06-05 21:41:23,297 - INFO - AI文件定位结果: {'target_file': 'src/option_parser.c', 'confidence': 9, 'reasoning': '从问题描述来看，问题涉及环境变量（$HOME和~）在default_icon路径中的解析。测试变更差异显示在option_parser.c中添加了对环境变量路径的支持测试，特别是$HOME和自定义环境变量的处理。这表明option_parser.c是处理路径解析的主要文件。此外，问题描述中提到这是一个配置解析问题，而option_parser.c通常负责解析配置选项。', 'fix_strategy': '在option_parser.c中，确保路径解析函数能够正确处理环境变量（如$HOME）和波浪号（~）扩展。可能需要修改string_to_path函数或相关路径处理逻辑，以支持这些特殊字符的解析和替换。', 'test_insights': '测试变更显示添加了对$HOME和自定义环境变量（$TEST_ENV）的路径解析测试，验证了路径扩展功能。测试还涉及波浪号（~）的处理，表明这些是修复的关键点。', 'alternative_files': ['src/utils.c', 'src/settings.c']}
+2025-06-05 21:41:23,298 - INFO - Found 4 code blocks in issue.
+2025-06-05 21:41:23,298 - INFO - Potential file references from issue: []
+2025-06-05 21:41:23,298 - INFO - Keywords for content search: ['ffffff', 'interpreted', 'colors', 'comment', 'norm', 'Otherwise', 'notifications', 'have', 'critical', 'background']...
+2025-06-05 21:41:23,318 - INFO - Keyword Match: 'src\settings_data.h' (Score +3720.0, Reason: 'ffffff' in content (2x); 'interpreted' in content (2x); 'colors' in content (12x); 'comment' in content (1x); 'norm' in content (20x); 'notifications' in content (35x); 'have' in content (1x); 'critical' in content (14x); 'background' in content (9x); 'Icon' in content (64x); 'timeout' in content (23x); 'with' in content (31x); 'urgency' in content (60x); 'crit' in content (22x); 'urgency_low' in content (6x); 'foreground' in content (10x); 'would' in content (1x); 'urgency_critical' in content (6x); 'share' in content (2x); 'icons' in content (9x); 'enable' in content (9x); 'normal' in content (13x); 'defined' in content (3x); 'local' in content (2x); 'urgency_normal' in content (6x); 'ff0000' in content (1x); 'frame_color' in content (5x); 'default_icon' in content (3x))
+2025-06-05 21:41:23,319 - INFO - Keyword Match: 'src\notification.c' (Score +2100.0, Reason: 'colors' in content (28x); 'norm' in content (5x); 'notifications' in content (4x); 'critical' in content (1x); 'Icon' in content (106x); 'timeout' in content (18x); 'urgency' in content (37x); 'crit' in content (5x); 'icons' in content (2x); 'normal' in content (1x); 'default_icon' in content (3x))
+2025-06-05 21:41:23,319 - INFO - Keyword Match: 'src\draw.c' (Score +1370.0, Reason: 'colors' in content (5x); 'have' in content (7x); 'background' in content (4x); 'Icon' in content (98x); 'with' in content (13x); 'urgency' in content (2x); 'foreground' in content (3x); 'share' in content (3x); 'enable' in content (2x))
+2025-06-05 21:41:23,319 - INFO - Keyword Match: 'src\icon-lookup.c' (Score +1300.0, Reason: 'Icon' in content (112x); 'Icon' in filename; 'with' in content (6x); 'share' in content (4x); 'icons' in content (3x); 'local' in content (2x))
+2025-06-05 21:41:23,319 - INFO - Keyword Match: 'src\notification.h' (Score +920.0, Reason: 'colors' in content (3x); 'norm' in content (2x); 'Otherwise' in content (1x); 'notifications' in content (3x); 'critical' in content (1x); 'Icon' in content (55x); 'timeout' in content (3x); 'with' in content (8x); 'urgency' in content (10x); 'crit' in content (2x); 'normal' in content (1x); 'defined' in content (2x); 'default_icon' in content (1x))
+2025-06-05 21:41:23,319 - INFO - Keyword Match: 'src\wayland\protocols\idle-client-header.h' (Score +810.0, Reason: 'have' in content (1x); 'timeout' in content (75x); 'with' in content (5x))
+2025-06-05 21:41:23,320 - INFO - Keyword Match: 'src\wayland\protocols\xdg-shell-client-header.h' (Score +780.0, Reason: 'interpreted' in content (1x); 'norm' in content (1x); 'Otherwise' in content (3x); 'have' in content (13x); 'timeout' in content (1x); 'with' in content (41x); 'following' in content (4x); 'share' in content (1x); 'normal' in content (1x); 'marks' in content (1x); 'defined' in content (7x); 'local' in content (4x))
+2025-06-05 21:41:23,320 - INFO - Keyword Match: 'src\dbus.c' (Score +740.0, Reason: 'colors' in content (7x); 'notifications' in content (13x); 'have' in content (1x); 'Icon' in content (27x); 'timeout' in content (9x); 'with' in content (3x); 'urgency' in content (2x); 'enable' in content (11x); 'defined' in content (1x))
+2025-06-05 21:41:23,320 - INFO - Keyword Match: 'src\rules.c' (Score +670.0, Reason: 'colors' in content (8x); 'norm' in content (2x); 'critical' in content (1x); 'Icon' in content (21x); 'timeout' in content (10x); 'with' in content (1x); 'urgency' in content (12x); 'crit' in content (2x); 'urgency_low' in content (1x); 'urgency_critical' in content (1x); 'enable' in content (2x); 'normal' in content (1x); 'urgency_normal' in content (1x); 'default_icon' in content (4x))
+2025-06-05 21:41:23,320 - INFO - Keyword Match: 'dunstify.c' (Score +650.0, Reason: 'norm' in content (3x); 'have' in content (1x); 'critical' in content (1x); 'Icon' in content (19x); 'timeout' in content (9x); 'with' in content (2x); 'urgency' in content (20x); 'crit' in content (1x); 'urgency_low' in content (1x); 'urgency_critical' in content (1x); 'normal' in content (3x); 'local' in content (2x); 'urgency_normal' in content (2x))
+2025-06-05 21:41:23,320 - INFO - Keyword Match: 'src\icon.c' (Score +590.0, Reason: 'colors' in content (1x); 'have' in content (1x); 'Icon' in content (50x); 'Icon' in filename; 'with' in content (3x); 'enable' in content (1x))
+2025-06-05 21:41:23,320 - INFO - Keyword Match: 'src\wayland\wl.c' (Score +420.0, Reason: 'notifications' in content (4x); 'have' in content (6x); 'Icon' in content (1x); 'timeout' in content (22x); 'with' in content (7x); 'would' in content (2x))
+2025-06-05 21:41:23,321 - INFO - Keyword Match: 'src\wayland\protocols\wlr-layer-shell-unstable-v1-client-header.h' (Score +370.0, Reason: 'norm' in content (2x); 'Otherwise' in content (1x); 'have' in content (4x); 'background' in content (1x); 'with' in content (17x); 'would' in content (2x); 'share' in content (1x); 'normal' in content (2x); 'defined' in content (3x); 'local' in content (4x))
+2025-06-05 21:41:23,321 - INFO - Keyword Match: 'src\queues.c' (Score +360.0, Reason: 'Otherwise' in content (1x); 'notifications' in content (14x); 'have' in content (1x); 'Icon' in content (5x); 'timeout' in content (12x); 'with' in content (3x))
+2025-06-05 21:41:23,321 - INFO - Keyword Match: 'test\queues.c' (Score +357.0, Reason: 'norm' in content (42x); 'notifications' in content (8x); 'have' in content (1x); 'timeout' in content (12x); 'with' in content (2x); 'urgency' in content (7x); 'crit' in content (5x); 'normal' in content (42x); Test file penalty)
+2025-06-05 21:41:23,324 - INFO - Core File Heuristic: 'main.c' (Matches core pattern 'main\.(h|hpp|cpp|c)' in 'root') (Score +40.0)
+2025-06-05 21:41:23,324 - INFO - Final candidate scores (path, score): [('src\\settings_data.h', 3720.0), ('src\\notification.c', 2100.0), ('src\\draw.c', 1370.0), ('src\\icon-lookup.c', 1300.0), ('src\\notification.h', 920.0), ('src\\wayland\\protocols\\idle-client-header.h', 810.0), ('src\\wayland\\protocols\\xdg-shell-client-header.h', 780.0), ('src\\dbus.c', 740.0), ('src\\rules.c', 670.0), ('dunstify.c', 650.0), ('src\\icon.c', 590.0), ('src\\wayland\\wl.c', 420.0), ('src\\wayland\\protocols\\wlr-layer-shell-unstable-v1-client-header.h', 370.0), ('src\\queues.c', 360.0), ('test\\queues.c', 357.0), ('main.c', 40.0)]
+2025-06-05 21:41:23,324 - INFO - Best candidate selected: 'src\settings_data.h' with score 3720.0
+2025-06-05 21:41:23,325 - INFO - AI高置信度(9)选择: src\option_parser.c
+2025-06-05 21:41:23,325 - INFO - AI文件定位成功: src/option_parser.c (置信度: 9)
+2025-06-05 21:41:23,325 - INFO - AI分析结果已保存到: D:\上课资料\科研课堂\WeCode\CFix\project_data\logs\dunst-project__dunst-1215_20250605_213929\attempt_2\ai_file_localization.json
+2025-06-05 21:41:23,326 - INFO - Added context file (included): src\option_parser.h
+2025-06-05 21:41:23,326 - INFO - Added context file (included): src\x11\x.h
+2025-06-05 21:41:23,326 - INFO - Added context file (included): src\dunst.h
+2025-06-05 21:41:23,327 - INFO - Added context file (included): src\log.h
+2025-06-05 21:41:23,327 - INFO - Collected 5 files for context. Keys: ['src\\option_parser.c', 'src\\option_parser.h', 'src\\x11\\x.h', 'src\\dunst.h', 'src\\log.h']
+2025-06-05 21:41:23,327 - INFO - 为文件 src\option_parser.c 生成AI补丁...
+2025-06-05 21:41:23,327 - INFO - 使用增强prompt调用AI生成补丁...
+2025-06-05 21:41:23,327 - INFO - 发送 API 请求 (尝试 1/3)...
+2025-06-05 21:57:58,356 - INFO - 将处理以下数据集文件: ['dataset\\test_c.jsonl', 'dataset\\test_cpp.jsonl']
+2025-06-05 21:57:58,356 - INFO - 项目数据目录: D:\上课资料\科研课堂\WeCode\CFix\project_data
+2025-06-05 21:57:58,365 - INFO - Docker客户端初始化成功
+2025-06-05 21:57:58,366 - INFO - 成功加载 8 个实例从 dataset\test_c.jsonl
+2025-06-05 21:57:58,366 - INFO - 成功加载 7 个实例从 dataset\test_cpp.jsonl
+2025-06-05 21:57:58,367 - INFO - 过滤后只处理实例: dunst-project__dunst-914
+2025-06-05 21:57:58,367 - INFO - 处理实例: dunst-project__dunst-914 (dunst-project/dunst)
+2025-06-05 21:57:58,367 - INFO - 仓库目录已存在: D:\上课资料\科研课堂\WeCode\CFix\project_data\repositories\dunst-project_dunst
+2025-06-05 21:57:58,388 - INFO - 检测到有效的git仓库，尝试更新...
+2025-06-05 21:58:03,452 - INFO - 成功更新仓库
+2025-06-05 21:58:03,452 - INFO - 切换到commit 82c8c06907df9cc653fd108adca9a84ca5de36e0
+2025-06-05 21:58:03,501 - INFO - 成功重用现有仓库
+2025-06-05 21:58:03,502 - INFO - 尝试 1/3
+2025-06-05 21:58:03,502 - INFO - 使用AI增强的文件定位...
+2025-06-05 21:58:03,502 - INFO - 扫描项目结构...
+2025-06-05 21:58:03,505 - INFO - 项目结构扫描完成，找到 3 个文件
+2025-06-05 21:58:03,505 - INFO - 构建AI定位prompt，长度: 10444
+2025-06-05 21:58:03,505 - INFO - 开始调用AI API...
+2025-06-05 21:58:03,505 - INFO - 执行简单API调用...
+2025-06-05 21:58:21,806 - INFO - 简单API调用成功，响应长度: 574
+2025-06-05 21:58:21,806 - INFO - AI API调用成功，开始解析响应...
+2025-06-05 21:58:21,806 - INFO - AI分析成功解析: 目标文件=src/markup.c, 置信度=9
+2025-06-05 21:58:21,806 - INFO - AI文件定位结果: {'target_file': 'src/markup.c', 'confidence': 9, 'reasoning': '1. 问题描述明确指出与markup设置相关，特别是处理HTML标记时的渲染问题。2. 测试变更主要涉及markup_strip函数的测试，该函数位于markup.c中。3. 问题讨论中提到需要改进对不正确通知的处理方式，这与markup.c中的标记处理逻辑直接相关。4. 测试变更中的差异显示了对标记剥离行为的修改，这正是markup.c的核心功能。', 'fix_strategy': "修改markup_strip函数，使其正确处理不完整的HTML标记，特别是当遇到'<'字符时不应过早截断文本。可能需要改进标记检测逻辑，确保只有当遇到完整的已知标记(如<b>, <i>等)时才进行处理。", 'test_insights': "1. 测试显示当前实现会错误地截断'<img> <string'这样的文本。2. 新的测试用例验证了对'<3'这类非标记文本的处理。3. 测试表明需要保留未闭合的标记文本而不是删除它们。", 'alternative_files': ['src/utils.c', 'src/notification.c']}
+2025-06-05 21:58:21,807 - INFO - Found 2 code blocks in issue.
+2025-06-05 21:58:21,807 - INFO - Potential file references from issue: []
+2025-06-05 21:58:21,807 - INFO - Keywords for content search: ['strikethrough', 'https', 'html', 'though', 'global', 'pango', 'Markup', 'important', 'subset', 'italic']...
+2025-06-05 21:58:21,831 - INFO - Keyword Match: 'src\wayland\protocols\xdg-shell-client-header.h' (Score +3680.0, Reason: 'though' in content (2x); 'global' in content (2x); 'setting' in content (3x); 'with' in content (35x); 'some' in content (11x); 'send' in content (7x); 'treated' in content (2x); 'Allow' in content (8x); 'even' in content (65x); 'note' in content (2x); 'text' in content (1x); 'complete' in content (10x); 'format' in content (10x); 'small' in content (2x); 'clients' in content (11x); 'rules' in content (10x); 'outside' in content (3x); 'Possible' in content (5x); 'applications' in content (2x); 'specific' in content (5x); 'will' in content (66x); 'values' in content (9x); 'option' in content (1x); 'server' in content (2x); 'that' in content (46x); 'reference' in content (1x); 'full' in content (32x); 'what' in content (10x); 'provided' in content (5x))
+2025-06-05 21:58:21,832 - INFO - Keyword Match: 'src\settings_data.h' (Score +3280.0, Reason: 'https' in content (1x); 'global' in content (54x); 'Markup' in content (11x); 'setting' in content (101x); 'setting' in filename; 'with' in content (30x); 'some' in content (4x); 'strip' in content (2x); 'gnome' in content (3x); 'Allow' in content (3x); 'even' in content (7x); 'parsing' in content (1x); 'text' in content (10x); 'format' in content (10x); 'small' in content (2x); 'notifications' in content (33x); 'Disable' in content (2x); 'rules' in content (5x); 'developer' in content (1x); 'applications' in content (1x); 'will' in content (5x); 'parsed' in content (2x); 'option' in content (2x); 'Dunst' in content (8x); 'body' in content (4x); 'markup' in content (11x); 'that' in content (2x); 'full' in content (9x); 'what' in content (1x))
+2025-06-05 21:58:21,832 - INFO - Keyword Match: 'src\draw.c' (Score +2620.0, Reason: 'pango' in content (55x); 'Markup' in content (6x); 'setting' in content (103x); 'plain' in content (1x); 'with' in content (13x); 'strip' in content (1x); 'even' in content (1x); 'note' in content (1x); 'text' in content (66x); 'format' in content (2x); 'small' in content (3x); 'will' in content (1x); 'Dunst' in content (1x); 'markup' in content (6x); 'full' in content (2x))
+2025-06-05 21:58:21,832 - INFO - Keyword Match: 'src\wayland\wl.c' (Score +1560.0, Reason: 'global' in content (12x); 'setting' in content (16x); 'with' in content (8x); 'some' in content (7x); 'send' in content (7x); 'capability' in content (2x); 'even' in content (4x); 'text' in content (2x); 'stable' in content (4x); 'format' in content (1x); 'small' in content (1x); 'notifications' in content (4x); 'will' in content (7x); 'Dunst' in content (28x); 'that' in content (7x); 'full' in content (38x); 'what' in content (7x); 'provided' in content (1x))
+2025-06-05 21:58:21,832 - INFO - Keyword Match: 'src\markup.c' (Score +1410.0, Reason: 'html' in content (4x); 'Markup' in content (34x); 'Markup' in filename; 'setting' in content (2x); 'plain' in content (5x); 'with' in content (2x); 'strip' in content (9x); 'broken' in content (6x); 'text' in content (35x); 'format' in content (2x); 'will' in content (1x); 'markup' in content (34x); 'markup' in filename; 'full' in content (1x))
+2025-06-05 21:58:21,833 - INFO - Keyword Match: 'src\dbus.c' (Score +1380.0, Reason: 'Markup' in content (3x); 'setting' in content (3x); 'with' in content (3x); 'send' in content (28x); 'Allow' in content (1x); 'parsing' in content (1x); 'text' in content (8x); 'format' in content (9x); 'notifications' in content (11x); 'rules' in content (2x); 'will' in content (2x); 'values' in content (1x); 'Dunst' in content (42x); 'server' in content (7x); 'body' in content (9x); 'markup' in content (3x); 'that' in content (5x))
+2025-06-05 21:58:21,833 - INFO - Keyword Match: 'src\notification.c' (Score +1370.0, Reason: 'https' in content (1x); 'Markup' in content (17x); 'setting' in content (17x); 'plain' in content (1x); 'strip' in content (2x); 'even' in content (1x); 'text' in content (12x); 'format' in content (14x); 'notifications' in content (4x); 'rules' in content (2x); 'values' in content (1x); 'Dunst' in content (22x); 'body' in content (18x); 'markup' in content (17x); 'full' in content (8x))
+2025-06-05 21:58:21,833 - INFO - Keyword Match: 'src\wayland\protocols\wlr-foreign-toplevel-management-unstable-v1-client-header.h' (Score +1250.0, Reason: 'setting' in content (1x); 'with' in content (13x); 'some' in content (2x); 'send' in content (5x); 'Allow' in content (1x); 'even' in content (36x); 'stable' in content (6x); 'stable' in filename; 'format' in content (1x); 'applications' in content (2x); 'specific' in content (2x); 'will' in content (16x); 'server' in content (1x); 'regardless' in content (1x); 'that' in content (15x); 'full' in content (16x); 'what' in content (1x); 'provided' in content (3x))
+2025-06-05 21:58:21,833 - INFO - Keyword Match: 'src\x11\x.c' (Score +1250.0, Reason: 'Markup' in content (1x); 'setting' in content (53x); 'with' in content (2x); 'some' in content (1x); 'strip' in content (1x); 'matching' in content (1x); 'even' in content (30x); 'text' in content (16x); 'incoming' in content (1x); 'format' in content (1x); 'Dunst' in content (8x); 'markup' in content (1x); 'reference' in content (1x); 'full' in content (8x))
+2025-06-05 21:58:21,833 - INFO - Keyword Match: 'src\option_parser.c' (Score +1150.0, Reason: 'setting' in content (74x); 'with' in content (3x); 'strip' in content (5x); 'matching' in content (1x); 'Allow' in content (11x); 'parsing' in content (1x); 'text' in content (1x); 'format' in content (2x); 'Disable' in content (1x); 'rules' in content (3x); 'will' in content (1x); 'option' in content (5x); 'option' in filename; 'Dunst' in content (2x); 'that' in content (1x); 'full' in content (1x))
+2025-06-05 21:58:21,833 - INFO - Keyword Match: 'src\wayland\protocols\wlr-layer-shell-unstable-v1-client-header.h' (Score +1130.0, Reason: 'setting' in content (1x); 'with' in content (17x); 'some' in content (3x); 'send' in content (4x); 'treated' in content (1x); 'Allow' in content (1x); 'even' in content (17x); 'stable' in content (6x); 'stable' in filename; 'format' in content (1x); 'small' in content (2x); 'clients' in content (4x); 'applications' in content (2x); 'specific' in content (1x); 'will' in content (14x); 'values' in content (2x); 'that' in content (28x); 'full' in content (1x); 'what' in content (2x); 'provided' in content (3x))
+2025-06-05 21:58:21,834 - INFO - Keyword Match: 'src\wayland\protocols\xdg-output-unstable-v1-client-header.h' (Score +1090.0, Reason: 'global' in content (18x); 'setting' in content (1x); 'with' in content (16x); 'some' in content (3x); 'matching' in content (1x); 'send' in content (2x); 'Allow' in content (4x); 'even' in content (19x); 'stable' in content (8x); 'stable' in filename; 'format' in content (5x); 'clients' in content (2x); 'applications' in content (1x); 'specific' in content (2x); 'will' in content (7x); 'advertise' in content (5x); 'option' in content (1x); 'server' in content (2x); 'that' in content (5x); 'what' in content (1x); 'provided' in content (3x))
+2025-06-05 21:58:21,834 - INFO - Keyword Match: 'src\notification.h' (Score +750.0, Reason: 'Markup' in content (7x); 'setting' in content (2x); 'plain' in content (2x); 'with' in content (8x); 'matching' in content (1x); 'text' in content (8x); 'format' in content (7x); 'notifications' in content (3x); 'rules' in content (2x); 'will' in content (2x); 'values' in content (1x); 'Dunst' in content (3x); 'body' in content (1x); 'markup' in content (7x); 'that' in content (2x); 'reference' in content (7x); 'full' in content (11x); 'what' in content (1x))
+2025-06-05 21:58:21,834 - INFO - Keyword Match: 'src\markup.h' (Score +730.0, Reason: 'html' in content (1x); 'pango' in content (2x); 'Markup' in content (22x); 'Markup' in filename; 'setting' in content (1x); 'plain' in content (1x); 'with' in content (1x); 'strip' in content (7x); 'text' in content (4x); 'format' in content (3x); 'Dunst' in content (2x); 'markup' in content (22x); 'markup' in filename; 'full' in content (1x))
+2025-06-05 21:58:21,834 - INFO - Keyword Match: 'dunstify.c' (Score +700.0, Reason: 'https' in content (1x); 'html' in content (1x); 'with' in content (2x); 'some' in content (1x); 'send' in content (1x); 'gnome' in content (1x); 'parsing' in content (1x); 'text' in content (12x); 'stable' in content (1x); 'format' in content (2x); 'developer' in content (1x); 'option' in content (22x); 'Dunst' in content (2x); 'Dunst' in filename; 'server' in content (13x); 'body' in content (4x); 'that' in content (1x); 'provided' in content (1x))
+2025-06-05 21:58:21,836 - INFO - Core File Heuristic: 'main.c' (Matches core pattern 'main\.(h|hpp|cpp|c)' in 'root') (Score +40.0)
+2025-06-05 21:58:21,837 - INFO - Final candidate scores (path, score): [('src\\wayland\\protocols\\xdg-shell-client-header.h', 3680.0), ('src\\settings_data.h', 3280.0), ('src\\draw.c', 2620.0), ('src\\wayland\\wl.c', 1560.0), ('src\\markup.c', 1410.0), ('src\\dbus.c', 1380.0), ('src\\notification.c', 1370.0), ('src\\wayland\\protocols\\wlr-foreign-toplevel-management-unstable-v1-client-header.h', 1250.0), ('src\\x11\\x.c', 1250.0), ('src\\option_parser.c', 1150.0), ('src\\wayland\\protocols\\wlr-layer-shell-unstable-v1-client-header.h', 1130.0), ('src\\wayland\\protocols\\xdg-output-unstable-v1-client-header.h', 1090.0), ('src\\notification.h', 750.0), ('src\\markup.h', 730.0), ('dunstify.c', 700.0), ('main.c', 40.0)]
+2025-06-05 21:58:21,837 - INFO - Best candidate selected: 'src\wayland\protocols\xdg-shell-client-header.h' with score 3680.0
+2025-06-05 21:58:21,837 - INFO - AI高置信度(9)选择: src\markup.c
+2025-06-05 21:58:21,837 - INFO - Added context file (included): src\markup.h
+2025-06-05 21:58:21,838 - INFO - Added context file (included): src\log.h
+2025-06-05 21:58:21,838 - INFO - Added context file (included): src\settings.h
+2025-06-05 21:58:21,838 - INFO - Added context file (included): src\utils.h
+2025-06-05 21:58:21,838 - INFO - Collected 5 files for context. Keys: ['src\\markup.c', 'src\\markup.h', 'src\\log.h', 'src\\settings.h', 'src\\utils.h']
+2025-06-05 21:58:21,838 - INFO - 为文件 src\markup.c 生成AI补丁...
+2025-06-05 21:58:21,838 - INFO - 使用增强prompt调用AI生成补丁...
+2025-06-05 21:58:21,839 - INFO - 发送 API 请求 (尝试 1/3)...
+2025-06-05 21:58:52,481 - INFO - 成功从 DeepSeek API 获取并提取补丁 (1318 字符)
+2025-06-05 21:58:52,483 - INFO - AI补丁生成成功，完整对话历史已保存到: D:\上课资料\科研课堂\WeCode\CFix\project_data\logs\dunst-project__dunst-914_20250605_215758\attempt_1\ai_conversation_history.json
+2025-06-05 21:58:52,483 - INFO - 拉取Docker镜像: dongqa930/dunst-project_dunst:914
+2025-06-05 22:04:14,396 - ERROR - Docker测试完全失败: 500 Server Error for http+docker://localnpipe/v1.45/images/create?tag=914&fromImage=dongqa930%2Fdunst-project_dunst: Internal Server Error ("Get "https://registry-1.docker.io/v2/dongqa930/dunst-project_dunst/manifests/sha256:b5b31ec7ece0a00e43947cde3b862cc6ade7c4da766730a15682a651a19a6194": unexpected EOF")
+2025-06-05 22:04:14,397 - WARNING - 尝试 1 测试失败
+2025-06-05 22:04:16,397 - INFO - 尝试 2/3
+2025-06-05 22:04:16,398 - INFO - 使用AI增强的文件定位...
+2025-06-05 22:04:16,398 - INFO - 扫描项目结构...
+2025-06-05 22:04:16,401 - INFO - 项目结构扫描完成，找到 3 个文件
+2025-06-05 22:04:16,401 - INFO - 构建AI定位prompt，长度: 10444
+2025-06-05 22:04:16,401 - INFO - 开始调用AI API...
+2025-06-05 22:04:16,401 - INFO - 执行简单API调用...
+2025-06-05 22:04:36,919 - INFO - 简单API调用成功，响应长度: 611
+2025-06-05 22:04:36,919 - INFO - AI API调用成功，开始解析响应...
+2025-06-05 22:04:36,919 - INFO - AI分析成功解析: 目标文件=src/markup.c, 置信度=9
+2025-06-05 22:04:36,919 - INFO - AI文件定位结果: {'target_file': 'src/markup.c', 'confidence': 9, 'reasoning': "从问题描述来看，问题与markup处理相关，特别是当markup=full时对'<'字符的处理。测试变更中修改了markup.c和utils.c中的测试用例，特别是对string_strip_delimited函数的测试修改，这表明markup处理逻辑存在问题。markup.c文件直接处理markup相关的逻辑，且测试变更中修改了markup_strip函数的测试用例，进一步确认了这一点。", 'fix_strategy': "修复策略应包括改进markup_strip函数，使其正确处理不完整的markup标签，特别是当遇到'<'字符时不应过早截断文本。可以考虑在遇到'<'时检查后续字符是否构成有效的markup标签，如果不是则保留'<'字符。", 'test_insights': "测试变更显示，期望的行为是当遇到不完整的markup标签（如'<img>'）时，不应截断后续文本。此外，测试用例还验证了当字符串中包含'<'但不成对时（如'We <3 dunst'），应保留原始字符串。", 'alternative_files': ['src/utils.c', 'src/notification.c']}
+2025-06-05 22:04:36,920 - INFO - Found 2 code blocks in issue.
+2025-06-05 22:04:36,920 - INFO - Potential file references from issue: []
+2025-06-05 22:04:36,920 - INFO - Keywords for content search: ['strikethrough', 'https', 'html', 'though', 'global', 'pango', 'Markup', 'important', 'subset', 'italic']...
+2025-06-05 22:04:36,945 - INFO - Keyword Match: 'src\wayland\protocols\xdg-shell-client-header.h' (Score +3680.0, Reason: 'though' in content (2x); 'global' in content (2x); 'setting' in content (3x); 'with' in content (35x); 'some' in content (11x); 'send' in content (7x); 'treated' in content (2x); 'Allow' in content (8x); 'even' in content (65x); 'note' in content (2x); 'text' in content (1x); 'complete' in content (10x); 'format' in content (10x); 'small' in content (2x); 'clients' in content (11x); 'rules' in content (10x); 'outside' in content (3x); 'Possible' in content (5x); 'applications' in content (2x); 'specific' in content (5x); 'will' in content (66x); 'values' in content (9x); 'option' in content (1x); 'server' in content (2x); 'that' in content (46x); 'reference' in content (1x); 'full' in content (32x); 'what' in content (10x); 'provided' in content (5x))
+2025-06-05 22:04:36,946 - INFO - Keyword Match: 'src\settings_data.h' (Score +3280.0, Reason: 'https' in content (1x); 'global' in content (54x); 'Markup' in content (11x); 'setting' in content (101x); 'setting' in filename; 'with' in content (30x); 'some' in content (4x); 'strip' in content (2x); 'gnome' in content (3x); 'Allow' in content (3x); 'even' in content (7x); 'parsing' in content (1x); 'text' in content (10x); 'format' in content (10x); 'small' in content (2x); 'notifications' in content (33x); 'Disable' in content (2x); 'rules' in content (5x); 'developer' in content (1x); 'applications' in content (1x); 'will' in content (5x); 'parsed' in content (2x); 'option' in content (2x); 'Dunst' in content (8x); 'body' in content (4x); 'markup' in content (11x); 'that' in content (2x); 'full' in content (9x); 'what' in content (1x))
+2025-06-05 22:04:36,946 - INFO - Keyword Match: 'src\draw.c' (Score +2620.0, Reason: 'pango' in content (55x); 'Markup' in content (6x); 'setting' in content (103x); 'plain' in content (1x); 'with' in content (13x); 'strip' in content (1x); 'even' in content (1x); 'note' in content (1x); 'text' in content (66x); 'format' in content (2x); 'small' in content (3x); 'will' in content (1x); 'Dunst' in content (1x); 'markup' in content (6x); 'full' in content (2x))
+2025-06-05 22:04:36,946 - INFO - Keyword Match: 'src\wayland\wl.c' (Score +1560.0, Reason: 'global' in content (12x); 'setting' in content (16x); 'with' in content (8x); 'some' in content (7x); 'send' in content (7x); 'capability' in content (2x); 'even' in content (4x); 'text' in content (2x); 'stable' in content (4x); 'format' in content (1x); 'small' in content (1x); 'notifications' in content (4x); 'will' in content (7x); 'Dunst' in content (28x); 'that' in content (7x); 'full' in content (38x); 'what' in content (7x); 'provided' in content (1x))
+2025-06-05 22:04:36,946 - INFO - Keyword Match: 'src\markup.c' (Score +1410.0, Reason: 'html' in content (4x); 'Markup' in content (34x); 'Markup' in filename; 'setting' in content (2x); 'plain' in content (5x); 'with' in content (2x); 'strip' in content (9x); 'broken' in content (6x); 'text' in content (35x); 'format' in content (2x); 'will' in content (1x); 'markup' in content (34x); 'markup' in filename; 'full' in content (1x))
+2025-06-05 22:04:36,947 - INFO - Keyword Match: 'src\dbus.c' (Score +1380.0, Reason: 'Markup' in content (3x); 'setting' in content (3x); 'with' in content (3x); 'send' in content (28x); 'Allow' in content (1x); 'parsing' in content (1x); 'text' in content (8x); 'format' in content (9x); 'notifications' in content (11x); 'rules' in content (2x); 'will' in content (2x); 'values' in content (1x); 'Dunst' in content (42x); 'server' in content (7x); 'body' in content (9x); 'markup' in content (3x); 'that' in content (5x))
+2025-06-05 22:04:36,947 - INFO - Keyword Match: 'src\notification.c' (Score +1370.0, Reason: 'https' in content (1x); 'Markup' in content (17x); 'setting' in content (17x); 'plain' in content (1x); 'strip' in content (2x); 'even' in content (1x); 'text' in content (12x); 'format' in content (14x); 'notifications' in content (4x); 'rules' in content (2x); 'values' in content (1x); 'Dunst' in content (22x); 'body' in content (18x); 'markup' in content (17x); 'full' in content (8x))
+2025-06-05 22:04:36,947 - INFO - Keyword Match: 'src\wayland\protocols\wlr-foreign-toplevel-management-unstable-v1-client-header.h' (Score +1250.0, Reason: 'setting' in content (1x); 'with' in content (13x); 'some' in content (2x); 'send' in content (5x); 'Allow' in content (1x); 'even' in content (36x); 'stable' in content (6x); 'stable' in filename; 'format' in content (1x); 'applications' in content (2x); 'specific' in content (2x); 'will' in content (16x); 'server' in content (1x); 'regardless' in content (1x); 'that' in content (15x); 'full' in content (16x); 'what' in content (1x); 'provided' in content (3x))
+2025-06-05 22:04:36,947 - INFO - Keyword Match: 'src\x11\x.c' (Score +1250.0, Reason: 'Markup' in content (1x); 'setting' in content (53x); 'with' in content (2x); 'some' in content (1x); 'strip' in content (1x); 'matching' in content (1x); 'even' in content (30x); 'text' in content (16x); 'incoming' in content (1x); 'format' in content (1x); 'Dunst' in content (8x); 'markup' in content (1x); 'reference' in content (1x); 'full' in content (8x))
+2025-06-05 22:04:36,947 - INFO - Keyword Match: 'src\option_parser.c' (Score +1150.0, Reason: 'setting' in content (74x); 'with' in content (3x); 'strip' in content (5x); 'matching' in content (1x); 'Allow' in content (11x); 'parsing' in content (1x); 'text' in content (1x); 'format' in content (2x); 'Disable' in content (1x); 'rules' in content (3x); 'will' in content (1x); 'option' in content (5x); 'option' in filename; 'Dunst' in content (2x); 'that' in content (1x); 'full' in content (1x))
+2025-06-05 22:04:36,947 - INFO - Keyword Match: 'src\wayland\protocols\wlr-layer-shell-unstable-v1-client-header.h' (Score +1130.0, Reason: 'setting' in content (1x); 'with' in content (17x); 'some' in content (3x); 'send' in content (4x); 'treated' in content (1x); 'Allow' in content (1x); 'even' in content (17x); 'stable' in content (6x); 'stable' in filename; 'format' in content (1x); 'small' in content (2x); 'clients' in content (4x); 'applications' in content (2x); 'specific' in content (1x); 'will' in content (14x); 'values' in content (2x); 'that' in content (28x); 'full' in content (1x); 'what' in content (2x); 'provided' in content (3x))
+2025-06-05 22:04:36,948 - INFO - Keyword Match: 'src\wayland\protocols\xdg-output-unstable-v1-client-header.h' (Score +1090.0, Reason: 'global' in content (18x); 'setting' in content (1x); 'with' in content (16x); 'some' in content (3x); 'matching' in content (1x); 'send' in content (2x); 'Allow' in content (4x); 'even' in content (19x); 'stable' in content (8x); 'stable' in filename; 'format' in content (5x); 'clients' in content (2x); 'applications' in content (1x); 'specific' in content (2x); 'will' in content (7x); 'advertise' in content (5x); 'option' in content (1x); 'server' in content (2x); 'that' in content (5x); 'what' in content (1x); 'provided' in content (3x))
+2025-06-05 22:04:36,948 - INFO - Keyword Match: 'src\notification.h' (Score +750.0, Reason: 'Markup' in content (7x); 'setting' in content (2x); 'plain' in content (2x); 'with' in content (8x); 'matching' in content (1x); 'text' in content (8x); 'format' in content (7x); 'notifications' in content (3x); 'rules' in content (2x); 'will' in content (2x); 'values' in content (1x); 'Dunst' in content (3x); 'body' in content (1x); 'markup' in content (7x); 'that' in content (2x); 'reference' in content (7x); 'full' in content (11x); 'what' in content (1x))
+2025-06-05 22:04:36,948 - INFO - Keyword Match: 'src\markup.h' (Score +730.0, Reason: 'html' in content (1x); 'pango' in content (2x); 'Markup' in content (22x); 'Markup' in filename; 'setting' in content (1x); 'plain' in content (1x); 'with' in content (1x); 'strip' in content (7x); 'text' in content (4x); 'format' in content (3x); 'Dunst' in content (2x); 'markup' in content (22x); 'markup' in filename; 'full' in content (1x))
+2025-06-05 22:04:36,948 - INFO - Keyword Match: 'dunstify.c' (Score +700.0, Reason: 'https' in content (1x); 'html' in content (1x); 'with' in content (2x); 'some' in content (1x); 'send' in content (1x); 'gnome' in content (1x); 'parsing' in content (1x); 'text' in content (12x); 'stable' in content (1x); 'format' in content (2x); 'developer' in content (1x); 'option' in content (22x); 'Dunst' in content (2x); 'Dunst' in filename; 'server' in content (13x); 'body' in content (4x); 'that' in content (1x); 'provided' in content (1x))
+2025-06-05 22:04:36,950 - INFO - Core File Heuristic: 'main.c' (Matches core pattern 'main\.(h|hpp|cpp|c)' in 'root') (Score +40.0)
+2025-06-05 22:04:36,950 - INFO - Final candidate scores (path, score): [('src\\wayland\\protocols\\xdg-shell-client-header.h', 3680.0), ('src\\settings_data.h', 3280.0), ('src\\draw.c', 2620.0), ('src\\wayland\\wl.c', 1560.0), ('src\\markup.c', 1410.0), ('src\\dbus.c', 1380.0), ('src\\notification.c', 1370.0), ('src\\wayland\\protocols\\wlr-foreign-toplevel-management-unstable-v1-client-header.h', 1250.0), ('src\\x11\\x.c', 1250.0), ('src\\option_parser.c', 1150.0), ('src\\wayland\\protocols\\wlr-layer-shell-unstable-v1-client-header.h', 1130.0), ('src\\wayland\\protocols\\xdg-output-unstable-v1-client-header.h', 1090.0), ('src\\notification.h', 750.0), ('src\\markup.h', 730.0), ('dunstify.c', 700.0), ('main.c', 40.0)]
+2025-06-05 22:04:36,951 - INFO - Best candidate selected: 'src\wayland\protocols\xdg-shell-client-header.h' with score 3680.0
+2025-06-05 22:04:36,951 - INFO - AI高置信度(9)选择: src\markup.c
+2025-06-05 22:04:36,951 - INFO - Added context file (included): src\markup.h
+2025-06-05 22:04:36,952 - INFO - Added context file (included): src\log.h
+2025-06-05 22:04:36,952 - INFO - Added context file (included): src\settings.h
+2025-06-05 22:04:36,952 - INFO - Added context file (included): src\utils.h
+2025-06-05 22:04:36,952 - INFO - Collected 5 files for context. Keys: ['src\\markup.c', 'src\\markup.h', 'src\\log.h', 'src\\settings.h', 'src\\utils.h']
+2025-06-05 22:04:36,952 - INFO - 为文件 src\markup.c 生成AI补丁...
+2025-06-05 22:04:36,952 - INFO - 使用增强prompt调用AI生成补丁...
+2025-06-05 22:04:36,953 - INFO - 发送 API 请求 (尝试 1/3)...
+2025-06-05 22:05:03,896 - INFO - 成功从 DeepSeek API 获取并提取补丁 (989 字符)
+2025-06-05 22:05:03,897 - INFO - AI补丁生成成功，完整对话历史已保存到: D:\上课资料\科研课堂\WeCode\CFix\project_data\logs\dunst-project__dunst-914_20250605_215758\attempt_2\ai_conversation_history.json
+2025-06-05 22:05:03,897 - INFO - 拉取Docker镜像: dongqa930/dunst-project_dunst:914
+2025-06-05 22:05:36,454 - INFO - 尝试使用 heredoc 方法...
+2025-06-05 22:05:36,701 - INFO - 使用heredoc方法创建patch文件...
+2025-06-05 22:05:37,640 - INFO - Patch文件创建成功: 29 /home/fix.patch
+2025-06-05 22:05:37,673 - INFO - AI生成的补丁预览:
+diff --git a/src/markup.c b/src/markup.c
+index abc1234..def5678 100644
+--- a/src/markup.c
++++ b/src/markup.c
+@@ -267,7 +267,19 @@
+ char *markup_strip(char *str)
+ {
+         ASSERT_OR_RET(str, NULL);
+-
+-        /* strip all tags */
+
+2025-06-05 22:05:37,674 - INFO - 运行测试脚本（fix_run.sh会自动应用测试补丁）...
+2025-06-05 22:05:47,878 - INFO - heredoc 方法执行成功
+2025-06-05 22:10:54,931 - INFO - 将处理以下数据集文件: ['dataset\\test_c.jsonl', 'dataset\\test_cpp.jsonl']
+2025-06-05 22:10:54,931 - INFO - 项目数据目录: D:\上课资料\科研课堂\WeCode\CFix\project_data
+2025-06-05 22:10:54,939 - INFO - Docker客户端初始化成功
+2025-06-05 22:10:54,940 - INFO - 成功加载 8 个实例从 dataset\test_c.jsonl
+2025-06-05 22:10:54,940 - INFO - 成功加载 7 个实例从 dataset\test_cpp.jsonl
+2025-06-05 22:10:54,940 - INFO - 过滤后只处理实例: dunst-project__dunst-914
+2025-06-05 22:10:54,940 - INFO - 处理实例: dunst-project__dunst-914 (dunst-project/dunst)
+2025-06-05 22:10:54,941 - INFO - 仓库目录已存在: D:\上课资料\科研课堂\WeCode\CFix\project_data\repositories\dunst-project_dunst
+2025-06-05 22:10:54,971 - INFO - 检测到有效的git仓库，尝试更新...
+2025-06-05 22:10:59,178 - INFO - 成功更新仓库
+2025-06-05 22:10:59,178 - INFO - 切换到commit 82c8c06907df9cc653fd108adca9a84ca5de36e0
+2025-06-05 22:10:59,201 - INFO - 成功重用现有仓库
+2025-06-05 22:10:59,201 - INFO - 尝试 1/3
+2025-06-05 22:10:59,202 - INFO - 使用AI增强的文件定位...
+2025-06-05 22:10:59,202 - INFO - 扫描项目结构...
+2025-06-05 22:10:59,205 - INFO - 项目结构扫描完成，找到 3 个文件
+2025-06-05 22:10:59,205 - INFO - 构建AI定位prompt，长度: 10444
+2025-06-05 22:10:59,205 - INFO - 开始调用AI API...
+2025-06-05 22:10:59,205 - INFO - 执行简单API调用...
+2025-06-05 22:11:18,881 - INFO - 简单API调用成功，响应长度: 644
+2025-06-05 22:11:18,881 - INFO - AI API调用成功，开始解析响应...
+2025-06-05 22:11:18,881 - INFO - AI分析成功解析: 目标文件=src/markup.c, 置信度=9
+2025-06-05 22:11:18,881 - INFO - AI文件定位结果: {'target_file': 'src/markup.c', 'confidence': 9, 'reasoning': "从问题描述来看，问题与HTML标记解析和渲染相关，特别是'<'字符的处理。测试变更中修改了markup.c和utils.c中的相关测试，特别是markup_strip函数的测试用例。markup.c文件负责处理标记解析逻辑，这与问题描述中的标记处理问题直接相关。测试变更显示了对标记剥离行为的修改，这进一步确认了markup.c是主要修复目标。", 'fix_strategy': "修复策略应包括改进markup_strip函数，使其正确处理不完整的标记和特殊字符。可能需要添加逻辑来区分有效的HTML标记和普通文本中的'<'字符，确保后者不会被错误地解析为标记起始。对于无效或不完整的标记，应该保留原始文本而不是截断内容。", 'test_insights': "测试变更显示：1) markup_strip函数现在应该保留不完整标记后的文本(如'<string')；2) 添加了新的测试用例验证特殊字符(如'<3')的处理；3) 移除了对相同分隔符的特殊处理测试；4) 添加了包含'>'字符的测试用例。这些变化指向需要改进标记剥离逻辑以更好地处理边界情况。", 'alternative_files': ['src/utils.c', 'src/notification.c']}
+2025-06-05 22:11:18,882 - INFO - Found 2 code blocks in issue.
+2025-06-05 22:11:18,882 - INFO - Potential file references from issue: []
+2025-06-05 22:11:18,882 - INFO - Keywords for content search: ['with', 'rules', 'server', 'Allow', 'that', 'full', 'Possible', 'markup', 'applications', 'Markup']...
+2025-06-05 22:11:18,905 - INFO - Keyword Match: 'src\wayland\protocols\xdg-shell-client-header.h' (Score +3680.0, Reason: 'with' in content (35x); 'rules' in content (10x); 'server' in content (2x); 'Allow' in content (8x); 'that' in content (46x); 'full' in content (32x); 'Possible' in content (5x); 'applications' in content (2x); 'global' in content (2x); 'specific' in content (5x); 'will' in content (66x); 'what' in content (10x); 'setting' in content (3x); 'even' in content (65x); 'reference' in content (1x); 'clients' in content (11x); 'format' in content (10x); 'small' in content (2x); 'outside' in content (3x); 'treated' in content (2x); 'though' in content (2x); 'provided' in content (5x); 'send' in content (7x); 'text' in content (1x); 'complete' in content (10x); 'some' in content (11x); 'option' in content (1x); 'values' in content (9x); 'note' in content (2x))
+2025-06-05 22:11:18,906 - INFO - Keyword Match: 'src\settings_data.h' (Score +3280.0, Reason: 'with' in content (30x); 'rules' in content (5x); 'Allow' in content (3x); 'that' in content (2x); 'full' in content (9x); 'markup' in content (11x); 'applications' in content (1x); 'Markup' in content (11x); 'global' in content (54x); 'will' in content (5x); 'parsed' in content (2x); 'what' in content (1x); 'developer' in content (1x); 'Dunst' in content (8x); 'setting' in content (101x); 'setting' in filename; 'even' in content (7x); 'body' in content (4x); 'strip' in content (2x); 'format' in content (10x); 'small' in content (2x); 'text' in content (10x); 'notifications' in content (33x); 'parsing' in content (1x); 'https' in content (1x); 'some' in content (4x); 'gnome' in content (3x); 'option' in content (2x); 'Disable' in content (2x))
+2025-06-05 22:11:18,906 - INFO - Keyword Match: 'src\draw.c' (Score +2620.0, Reason: 'with' in content (13x); 'full' in content (2x); 'markup' in content (6x); 'Markup' in content (6x); 'plain' in content (1x); 'will' in content (1x); 'Dunst' in content (1x); 'pango' in content (55x); 'setting' in content (103x); 'even' in content (1x); 'strip' in content (1x); 'format' in content (2x); 'small' in content (3x); 'text' in content (66x); 'note' in content (1x))
+2025-06-05 22:11:18,906 - INFO - Keyword Match: 'src\wayland\wl.c' (Score +1560.0, Reason: 'with' in content (8x); 'that' in content (7x); 'full' in content (38x); 'global' in content (12x); 'will' in content (7x); 'stable' in content (4x); 'what' in content (7x); 'Dunst' in content (28x); 'setting' in content (16x); 'even' in content (4x); 'capability' in content (2x); 'format' in content (1x); 'small' in content (1x); 'provided' in content (1x); 'send' in content (7x); 'text' in content (2x); 'notifications' in content (4x); 'some' in content (7x))
+2025-06-05 22:11:18,907 - INFO - Keyword Match: 'src\markup.c' (Score +1410.0, Reason: 'with' in content (2x); 'full' in content (1x); 'markup' in content (34x); 'markup' in filename; 'Markup' in content (34x); 'Markup' in filename; 'plain' in content (5x); 'will' in content (1x); 'setting' in content (2x); 'html' in content (4x); 'strip' in content (9x); 'format' in content (2x); 'text' in content (35x); 'broken' in content (6x))
+2025-06-05 22:11:18,907 - INFO - Keyword Match: 'src\dbus.c' (Score +1380.0, Reason: 'with' in content (3x); 'rules' in content (2x); 'server' in content (7x); 'Allow' in content (1x); 'that' in content (5x); 'markup' in content (3x); 'Markup' in content (3x); 'will' in content (2x); 'Dunst' in content (42x); 'setting' in content (3x); 'body' in content (9x); 'format' in content (9x); 'send' in content (28x); 'text' in content (8x); 'notifications' in content (11x); 'parsing' in content (1x); 'values' in content (1x))
+2025-06-05 22:11:18,907 - INFO - Keyword Match: 'src\notification.c' (Score +1370.0, Reason: 'rules' in content (2x); 'full' in content (8x); 'markup' in content (17x); 'Markup' in content (17x); 'plain' in content (1x); 'Dunst' in content (22x); 'setting' in content (17x); 'even' in content (1x); 'body' in content (18x); 'strip' in content (2x); 'format' in content (14x); 'text' in content (12x); 'notifications' in content (4x); 'https' in content (1x); 'values' in content (1x))
+2025-06-05 22:11:18,907 - INFO - Keyword Match: 'src\wayland\protocols\wlr-foreign-toplevel-management-unstable-v1-client-header.h' (Score +1250.0, Reason: 'with' in content (13x); 'server' in content (1x); 'Allow' in content (1x); 'that' in content (15x); 'full' in content (16x); 'applications' in content (2x); 'specific' in content (2x); 'will' in content (16x); 'stable' in content (6x); 'stable' in filename; 'regardless' in content (1x); 'what' in content (1x); 'setting' in content (1x); 'even' in content (36x); 'format' in content (1x); 'provided' in content (3x); 'send' in content (5x); 'some' in content (2x))
+2025-06-05 22:11:18,907 - INFO - Keyword Match: 'src\x11\x.c' (Score +1250.0, Reason: 'with' in content (2x); 'full' in content (8x); 'markup' in content (1x); 'Markup' in content (1x); 'Dunst' in content (8x); 'setting' in content (53x); 'even' in content (30x); 'reference' in content (1x); 'strip' in content (1x); 'format' in content (1x); 'matching' in content (1x); 'text' in content (16x); 'some' in content (1x); 'incoming' in content (1x))
+2025-06-05 22:11:18,908 - INFO - Keyword Match: 'src\option_parser.c' (Score +1150.0, Reason: 'with' in content (3x); 'rules' in content (3x); 'Allow' in content (11x); 'that' in content (1x); 'full' in content (1x); 'will' in content (1x); 'Dunst' in content (2x); 'setting' in content (74x); 'strip' in content (5x); 'format' in content (2x); 'matching' in content (1x); 'text' in content (1x); 'parsing' in content (1x); 'option' in content (5x); 'option' in filename; 'Disable' in content (1x))
+2025-06-05 22:11:18,908 - INFO - Keyword Match: 'src\wayland\protocols\wlr-layer-shell-unstable-v1-client-header.h' (Score +1130.0, Reason: 'with' in content (17x); 'Allow' in content (1x); 'that' in content (28x); 'full' in content (1x); 'applications' in content (2x); 'specific' in content (1x); 'will' in content (14x); 'stable' in content (6x); 'stable' in filename; 'what' in content (2x); 'setting' in content (1x); 'even' in content (17x); 'clients' in content (4x); 'format' in content (1x); 'small' in content (2x); 'treated' in content (1x); 'provided' in content (3x); 'send' in content (4x); 'some' in content (3x); 'values' in content (2x))
+2025-06-05 22:11:18,908 - INFO - Keyword Match: 'src\wayland\protocols\xdg-output-unstable-v1-client-header.h' (Score +1090.0, Reason: 'with' in content (16x); 'server' in content (2x); 'Allow' in content (4x); 'that' in content (5x); 'applications' in content (1x); 'global' in content (18x); 'specific' in content (2x); 'will' in content (7x); 'advertise' in content (5x); 'stable' in content (8x); 'stable' in filename; 'what' in content (1x); 'setting' in content (1x); 'even' in content (19x); 'clients' in content (2x); 'format' in content (5x); 'matching' in content (1x); 'provided' in content (3x); 'send' in content (2x); 'some' in content (3x); 'option' in content (1x))
+2025-06-05 22:11:18,908 - INFO - Keyword Match: 'src\notification.h' (Score +750.0, Reason: 'with' in content (8x); 'rules' in content (2x); 'that' in content (2x); 'full' in content (11x); 'markup' in content (7x); 'Markup' in content (7x); 'plain' in content (2x); 'will' in content (2x); 'what' in content (1x); 'Dunst' in content (3x); 'setting' in content (2x); 'body' in content (1x); 'reference' in content (7x); 'format' in content (7x); 'matching' in content (1x); 'text' in content (8x); 'notifications' in content (3x); 'values' in content (1x))
+2025-06-05 22:11:18,908 - INFO - Keyword Match: 'src\markup.h' (Score +730.0, Reason: 'with' in content (1x); 'full' in content (1x); 'markup' in content (22x); 'markup' in filename; 'Markup' in content (22x); 'Markup' in filename; 'plain' in content (1x); 'Dunst' in content (2x); 'pango' in content (2x); 'setting' in content (1x); 'html' in content (1x); 'strip' in content (7x); 'format' in content (3x); 'text' in content (4x))
+2025-06-05 22:11:18,909 - INFO - Keyword Match: 'dunstify.c' (Score +700.0, Reason: 'with' in content (2x); 'server' in content (13x); 'that' in content (1x); 'stable' in content (1x); 'developer' in content (1x); 'Dunst' in content (2x); 'Dunst' in filename; 'body' in content (4x); 'html' in content (1x); 'format' in content (2x); 'provided' in content (1x); 'send' in content (1x); 'text' in content (12x); 'parsing' in content (1x); 'https' in content (1x); 'some' in content (1x); 'gnome' in content (1x); 'option' in content (22x))
+2025-06-05 22:11:18,911 - INFO - Core File Heuristic: 'main.c' (Matches core pattern 'main\.(h|hpp|cpp|c)' in 'root') (Score +40.0)
+2025-06-05 22:11:18,911 - INFO - Final candidate scores (path, score): [('src\\wayland\\protocols\\xdg-shell-client-header.h', 3680.0), ('src\\settings_data.h', 3280.0), ('src\\draw.c', 2620.0), ('src\\wayland\\wl.c', 1560.0), ('src\\markup.c', 1410.0), ('src\\dbus.c', 1380.0), ('src\\notification.c', 1370.0), ('src\\wayland\\protocols\\wlr-foreign-toplevel-management-unstable-v1-client-header.h', 1250.0), ('src\\x11\\x.c', 1250.0), ('src\\option_parser.c', 1150.0), ('src\\wayland\\protocols\\wlr-layer-shell-unstable-v1-client-header.h', 1130.0), ('src\\wayland\\protocols\\xdg-output-unstable-v1-client-header.h', 1090.0), ('src\\notification.h', 750.0), ('src\\markup.h', 730.0), ('dunstify.c', 700.0), ('main.c', 40.0)]
+2025-06-05 22:11:18,911 - INFO - Best candidate selected: 'src\wayland\protocols\xdg-shell-client-header.h' with score 3680.0
+2025-06-05 22:11:18,912 - INFO - AI高置信度(9)选择: src\markup.c
+2025-06-05 22:11:18,912 - INFO - Added context file (included): src\markup.h
+2025-06-05 22:11:18,912 - INFO - Added context file (included): src\log.h
+2025-06-05 22:11:18,913 - INFO - Added context file (included): src\settings.h
+2025-06-05 22:11:18,913 - INFO - Added context file (included): src\utils.h
+2025-06-05 22:11:18,913 - INFO - Collected 5 files for context. Keys: ['src\\markup.c', 'src\\markup.h', 'src\\log.h', 'src\\settings.h', 'src\\utils.h']
+2025-06-05 22:11:18,913 - INFO - 为文件 src\markup.c 生成AI补丁...
+2025-06-05 22:11:18,913 - INFO - 使用增强prompt调用AI生成补丁...
+2025-06-05 22:11:18,913 - INFO - 发送 API 请求 (尝试 1/3)...
+2025-06-05 22:11:44,217 - INFO - 成功从 DeepSeek API 获取并提取补丁 (632 字符)
+2025-06-05 22:11:44,218 - INFO - AI补丁生成成功，完整对话历史已保存到: D:\上课资料\科研课堂\WeCode\CFix\project_data\logs\dunst-project__dunst-914_20250605_221054\attempt_1\ai_conversation_history.json
+2025-06-05 22:11:44,219 - INFO - 拉取Docker镜像: dongqa930/dunst-project_dunst:914
+2025-06-05 22:12:00,530 - INFO - 尝试使用 heredoc 方法...
+2025-06-05 22:12:00,769 - INFO - 使用heredoc方法创建patch文件...
+2025-06-05 22:12:11,266 - ERROR - Heredoc方法异常: No closing quotation
+2025-06-05 22:12:11,266 - WARNING - heredoc 方法返回None，尝试下一种方法
+2025-06-05 22:12:11,266 - INFO - 尝试使用 base64 方法...
+2025-06-05 22:12:11,473 - INFO - 使用base64编码方法创建patch文件...
+2025-06-05 22:12:11,562 - ERROR - base64解码失败: base64: extra operand '>'
+Try 'base64 --help' for more information.
+
+2025-06-05 22:12:21,716 - WARNING - base64 方法返回None，尝试下一种方法
+2025-06-05 22:12:21,716 - ERROR - Docker测试完全失败: 所有Docker测试方法都失败了
+2025-06-05 22:12:21,716 - WARNING - 尝试 1 测试失败
+2025-06-05 22:12:23,717 - INFO - 尝试 2/3
+2025-06-05 22:12:23,717 - INFO - 使用AI增强的文件定位...
+2025-06-05 22:12:23,718 - INFO - 扫描项目结构...
+2025-06-05 22:12:23,720 - INFO - 项目结构扫描完成，找到 3 个文件
+2025-06-05 22:12:23,720 - INFO - 构建AI定位prompt，长度: 10444
+2025-06-05 22:12:23,720 - INFO - 开始调用AI API...
+2025-06-05 22:12:23,720 - INFO - 执行简单API调用...
+2025-06-05 22:12:46,411 - INFO - 简单API调用成功，响应长度: 586
+2025-06-05 22:12:46,411 - INFO - AI API调用成功，开始解析响应...
+2025-06-05 22:12:46,412 - INFO - AI分析成功解析: 目标文件=src/markup.c, 置信度=9
+2025-06-05 22:12:46,412 - INFO - AI文件定位结果: {'target_file': 'src/markup.c', 'confidence': 9, 'reasoning': "从问题描述来看，问题与HTML标记解析和渲染有关，特别是'<'字符的处理。测试变更差异显示了对markup.c文件中markup_strip函数的修改，以及相关的字符串处理逻辑。此外，问题讨论中提到了markup设置和Pango库的使用，而markup.c文件正是处理这些功能的。文件结构也显示markup.c是专门处理标记相关逻辑的文件。", 'fix_strategy': "修复策略应包括改进markup_strip函数，使其正确处理未闭合的标记和特殊字符。可能需要添加逻辑来区分有效的HTML标记和普通文本中的'<'字符。对于未闭合的标记，应保留文本而不是截断。", 'test_insights': "测试变更显示了对markup_strip函数的期望行为修改：1) 现在应该保留未闭合标记后的文本(如'<string') 2) 添加了新的测试用例来验证特殊字符(如'<3')和混合标记文本的处理 3) 移除了对相同分隔符的特殊处理测试", 'alternative_files': ['src/utils.c', 'src/notification.c']}
+2025-06-05 22:12:46,412 - INFO - Found 2 code blocks in issue.
+2025-06-05 22:12:46,413 - INFO - Potential file references from issue: []
+2025-06-05 22:12:46,413 - INFO - Keywords for content search: ['with', 'rules', 'server', 'Allow', 'that', 'full', 'Possible', 'markup', 'applications', 'Markup']...
+2025-06-05 22:12:46,439 - INFO - Keyword Match: 'src\wayland\protocols\xdg-shell-client-header.h' (Score +3680.0, Reason: 'with' in content (35x); 'rules' in content (10x); 'server' in content (2x); 'Allow' in content (8x); 'that' in content (46x); 'full' in content (32x); 'Possible' in content (5x); 'applications' in content (2x); 'global' in content (2x); 'specific' in content (5x); 'will' in content (66x); 'what' in content (10x); 'setting' in content (3x); 'even' in content (65x); 'reference' in content (1x); 'clients' in content (11x); 'format' in content (10x); 'small' in content (2x); 'outside' in content (3x); 'treated' in content (2x); 'though' in content (2x); 'provided' in content (5x); 'send' in content (7x); 'text' in content (1x); 'complete' in content (10x); 'some' in content (11x); 'option' in content (1x); 'values' in content (9x); 'note' in content (2x))
+2025-06-05 22:12:46,439 - INFO - Keyword Match: 'src\settings_data.h' (Score +3280.0, Reason: 'with' in content (30x); 'rules' in content (5x); 'Allow' in content (3x); 'that' in content (2x); 'full' in content (9x); 'markup' in content (11x); 'applications' in content (1x); 'Markup' in content (11x); 'global' in content (54x); 'will' in content (5x); 'parsed' in content (2x); 'what' in content (1x); 'developer' in content (1x); 'Dunst' in content (8x); 'setting' in content (101x); 'setting' in filename; 'even' in content (7x); 'body' in content (4x); 'strip' in content (2x); 'format' in content (10x); 'small' in content (2x); 'text' in content (10x); 'notifications' in content (33x); 'parsing' in content (1x); 'https' in content (1x); 'some' in content (4x); 'gnome' in content (3x); 'option' in content (2x); 'Disable' in content (2x))
+2025-06-05 22:12:46,439 - INFO - Keyword Match: 'src\draw.c' (Score +2620.0, Reason: 'with' in content (13x); 'full' in content (2x); 'markup' in content (6x); 'Markup' in content (6x); 'plain' in content (1x); 'will' in content (1x); 'Dunst' in content (1x); 'pango' in content (55x); 'setting' in content (103x); 'even' in content (1x); 'strip' in content (1x); 'format' in content (2x); 'small' in content (3x); 'text' in content (66x); 'note' in content (1x))
+2025-06-05 22:12:46,439 - INFO - Keyword Match: 'src\wayland\wl.c' (Score +1560.0, Reason: 'with' in content (8x); 'that' in content (7x); 'full' in content (38x); 'global' in content (12x); 'will' in content (7x); 'stable' in content (4x); 'what' in content (7x); 'Dunst' in content (28x); 'setting' in content (16x); 'even' in content (4x); 'capability' in content (2x); 'format' in content (1x); 'small' in content (1x); 'provided' in content (1x); 'send' in content (7x); 'text' in content (2x); 'notifications' in content (4x); 'some' in content (7x))
+2025-06-05 22:12:46,440 - INFO - Keyword Match: 'src\markup.c' (Score +1410.0, Reason: 'with' in content (2x); 'full' in content (1x); 'markup' in content (34x); 'markup' in filename; 'Markup' in content (34x); 'Markup' in filename; 'plain' in content (5x); 'will' in content (1x); 'setting' in content (2x); 'html' in content (4x); 'strip' in content (9x); 'format' in content (2x); 'text' in content (35x); 'broken' in content (6x))
+2025-06-05 22:12:46,440 - INFO - Keyword Match: 'src\dbus.c' (Score +1380.0, Reason: 'with' in content (3x); 'rules' in content (2x); 'server' in content (7x); 'Allow' in content (1x); 'that' in content (5x); 'markup' in content (3x); 'Markup' in content (3x); 'will' in content (2x); 'Dunst' in content (42x); 'setting' in content (3x); 'body' in content (9x); 'format' in content (9x); 'send' in content (28x); 'text' in content (8x); 'notifications' in content (11x); 'parsing' in content (1x); 'values' in content (1x))
+2025-06-05 22:12:46,440 - INFO - Keyword Match: 'src\notification.c' (Score +1370.0, Reason: 'rules' in content (2x); 'full' in content (8x); 'markup' in content (17x); 'Markup' in content (17x); 'plain' in content (1x); 'Dunst' in content (22x); 'setting' in content (17x); 'even' in content (1x); 'body' in content (18x); 'strip' in content (2x); 'format' in content (14x); 'text' in content (12x); 'notifications' in content (4x); 'https' in content (1x); 'values' in content (1x))
+2025-06-05 22:12:46,440 - INFO - Keyword Match: 'src\wayland\protocols\wlr-foreign-toplevel-management-unstable-v1-client-header.h' (Score +1250.0, Reason: 'with' in content (13x); 'server' in content (1x); 'Allow' in content (1x); 'that' in content (15x); 'full' in content (16x); 'applications' in content (2x); 'specific' in content (2x); 'will' in content (16x); 'stable' in content (6x); 'stable' in filename; 'regardless' in content (1x); 'what' in content (1x); 'setting' in content (1x); 'even' in content (36x); 'format' in content (1x); 'provided' in content (3x); 'send' in content (5x); 'some' in content (2x))
+2025-06-05 22:12:46,441 - INFO - Keyword Match: 'src\x11\x.c' (Score +1250.0, Reason: 'with' in content (2x); 'full' in content (8x); 'markup' in content (1x); 'Markup' in content (1x); 'Dunst' in content (8x); 'setting' in content (53x); 'even' in content (30x); 'reference' in content (1x); 'strip' in content (1x); 'format' in content (1x); 'matching' in content (1x); 'text' in content (16x); 'some' in content (1x); 'incoming' in content (1x))
+2025-06-05 22:12:46,441 - INFO - Keyword Match: 'src\option_parser.c' (Score +1150.0, Reason: 'with' in content (3x); 'rules' in content (3x); 'Allow' in content (11x); 'that' in content (1x); 'full' in content (1x); 'will' in content (1x); 'Dunst' in content (2x); 'setting' in content (74x); 'strip' in content (5x); 'format' in content (2x); 'matching' in content (1x); 'text' in content (1x); 'parsing' in content (1x); 'option' in content (5x); 'option' in filename; 'Disable' in content (1x))
+2025-06-05 22:12:46,441 - INFO - Keyword Match: 'src\wayland\protocols\wlr-layer-shell-unstable-v1-client-header.h' (Score +1130.0, Reason: 'with' in content (17x); 'Allow' in content (1x); 'that' in content (28x); 'full' in content (1x); 'applications' in content (2x); 'specific' in content (1x); 'will' in content (14x); 'stable' in content (6x); 'stable' in filename; 'what' in content (2x); 'setting' in content (1x); 'even' in content (17x); 'clients' in content (4x); 'format' in content (1x); 'small' in content (2x); 'treated' in content (1x); 'provided' in content (3x); 'send' in content (4x); 'some' in content (3x); 'values' in content (2x))
+2025-06-05 22:12:46,441 - INFO - Keyword Match: 'src\wayland\protocols\xdg-output-unstable-v1-client-header.h' (Score +1090.0, Reason: 'with' in content (16x); 'server' in content (2x); 'Allow' in content (4x); 'that' in content (5x); 'applications' in content (1x); 'global' in content (18x); 'specific' in content (2x); 'will' in content (7x); 'advertise' in content (5x); 'stable' in content (8x); 'stable' in filename; 'what' in content (1x); 'setting' in content (1x); 'even' in content (19x); 'clients' in content (2x); 'format' in content (5x); 'matching' in content (1x); 'provided' in content (3x); 'send' in content (2x); 'some' in content (3x); 'option' in content (1x))
+2025-06-05 22:12:46,442 - INFO - Keyword Match: 'src\notification.h' (Score +750.0, Reason: 'with' in content (8x); 'rules' in content (2x); 'that' in content (2x); 'full' in content (11x); 'markup' in content (7x); 'Markup' in content (7x); 'plain' in content (2x); 'will' in content (2x); 'what' in content (1x); 'Dunst' in content (3x); 'setting' in content (2x); 'body' in content (1x); 'reference' in content (7x); 'format' in content (7x); 'matching' in content (1x); 'text' in content (8x); 'notifications' in content (3x); 'values' in content (1x))
+2025-06-05 22:12:46,442 - INFO - Keyword Match: 'src\markup.h' (Score +730.0, Reason: 'with' in content (1x); 'full' in content (1x); 'markup' in content (22x); 'markup' in filename; 'Markup' in content (22x); 'Markup' in filename; 'plain' in content (1x); 'Dunst' in content (2x); 'pango' in content (2x); 'setting' in content (1x); 'html' in content (1x); 'strip' in content (7x); 'format' in content (3x); 'text' in content (4x))
+2025-06-05 22:12:46,442 - INFO - Keyword Match: 'dunstify.c' (Score +700.0, Reason: 'with' in content (2x); 'server' in content (13x); 'that' in content (1x); 'stable' in content (1x); 'developer' in content (1x); 'Dunst' in content (2x); 'Dunst' in filename; 'body' in content (4x); 'html' in content (1x); 'format' in content (2x); 'provided' in content (1x); 'send' in content (1x); 'text' in content (12x); 'parsing' in content (1x); 'https' in content (1x); 'some' in content (1x); 'gnome' in content (1x); 'option' in content (22x))
+2025-06-05 22:12:46,445 - INFO - Core File Heuristic: 'main.c' (Matches core pattern 'main\.(h|hpp|cpp|c)' in 'root') (Score +40.0)
+2025-06-05 22:12:46,445 - INFO - Final candidate scores (path, score): [('src\\wayland\\protocols\\xdg-shell-client-header.h', 3680.0), ('src\\settings_data.h', 3280.0), ('src\\draw.c', 2620.0), ('src\\wayland\\wl.c', 1560.0), ('src\\markup.c', 1410.0), ('src\\dbus.c', 1380.0), ('src\\notification.c', 1370.0), ('src\\wayland\\protocols\\wlr-foreign-toplevel-management-unstable-v1-client-header.h', 1250.0), ('src\\x11\\x.c', 1250.0), ('src\\option_parser.c', 1150.0), ('src\\wayland\\protocols\\wlr-layer-shell-unstable-v1-client-header.h', 1130.0), ('src\\wayland\\protocols\\xdg-output-unstable-v1-client-header.h', 1090.0), ('src\\notification.h', 750.0), ('src\\markup.h', 730.0), ('dunstify.c', 700.0), ('main.c', 40.0)]
+2025-06-05 22:12:46,445 - INFO - Best candidate selected: 'src\wayland\protocols\xdg-shell-client-header.h' with score 3680.0
+2025-06-05 22:12:46,446 - INFO - AI高置信度(9)选择: src\markup.c
+2025-06-05 22:12:46,446 - INFO - Added context file (included): src\markup.h
+2025-06-05 22:12:46,446 - INFO - Added context file (included): src\log.h
+2025-06-05 22:12:46,447 - INFO - Added context file (included): src\settings.h
+2025-06-05 22:12:46,447 - INFO - Added context file (included): src\utils.h
+2025-06-05 22:12:46,447 - INFO - Collected 5 files for context. Keys: ['src\\markup.c', 'src\\markup.h', 'src\\log.h', 'src\\settings.h', 'src\\utils.h']
+2025-06-05 22:12:46,447 - INFO - 为文件 src\markup.c 生成AI补丁...
+2025-06-05 22:12:46,447 - INFO - 使用增强prompt调用AI生成补丁...
+2025-06-05 22:12:46,448 - INFO - 发送 API 请求 (尝试 1/3)...
+2025-06-05 22:13:24,220 - INFO - 成功从 DeepSeek API 获取并提取补丁 (366 字符)
+2025-06-05 22:13:24,222 - INFO - AI补丁生成成功，完整对话历史已保存到: D:\上课资料\科研课堂\WeCode\CFix\project_data\logs\dunst-project__dunst-914_20250605_221054\attempt_2\ai_conversation_history.json
+2025-06-05 22:13:24,222 - INFO - 拉取Docker镜像: dongqa930/dunst-project_dunst:914
+2025-06-05 22:13:40,392 - INFO - 尝试使用 heredoc 方法...
+2025-06-05 22:13:40,624 - INFO - 使用heredoc方法创建patch文件...
+2025-06-05 22:13:41,111 - INFO - Patch文件创建成功: 13 /home/fix.patch
+2025-06-05 22:13:41,143 - INFO - AI生成的补丁预览:
+diff --git a/src/markup.c b/src/markup.c
+index abc1234..def5678 100644
+--- a/src/markup.c
++++ b/src/markup.c
+@@ -269,7 +269,7 @@ char *markup_strip(char *str)
+ {
+         ASSERT_OR_RET(str, NULL);
+ 
+-        /* strip all tags */
++        /* strip all properly closed tags only */
+
+2025-06-05 22:13:41,143 - INFO - 运行测试脚本（fix_run.sh会自动应用测试补丁）...
+2025-06-05 22:13:51,403 - INFO - heredoc 方法执行成功
+2025-06-05 22:25:47,864 - INFO - 将处理以下数据集文件: ['dataset\\test_c.jsonl', 'dataset\\test_cpp.jsonl']
+2025-06-05 22:25:47,864 - INFO - 项目数据目录: D:\上课资料\科研课堂\WeCode\CFix\project_data
+2025-06-05 22:25:47,872 - INFO - Docker客户端初始化成功
+2025-06-05 22:25:47,873 - INFO - 成功加载 8 个实例从 dataset\test_c.jsonl
+2025-06-05 22:25:47,874 - INFO - 成功加载 7 个实例从 dataset\test_cpp.jsonl
+2025-06-05 22:25:47,874 - ERROR - 未找到指定的实例: dongqa930/redis_hiredis:427
+2025-06-05 22:26:10,774 - INFO - 将处理以下数据集文件: ['dataset\\test_c.jsonl', 'dataset\\test_cpp.jsonl']
+2025-06-05 22:26:10,774 - INFO - 项目数据目录: D:\上课资料\科研课堂\WeCode\CFix\project_data
+2025-06-05 22:26:10,782 - INFO - Docker客户端初始化成功
+2025-06-05 22:26:10,783 - INFO - 成功加载 8 个实例从 dataset\test_c.jsonl
+2025-06-05 22:26:10,783 - INFO - 成功加载 7 个实例从 dataset\test_cpp.jsonl
+2025-06-05 22:26:10,784 - ERROR - 未找到指定的实例: redis_hiredis:427
+2025-06-05 22:26:22,758 - INFO - 将处理以下数据集文件: ['dataset\\test_c.jsonl', 'dataset\\test_cpp.jsonl']
+2025-06-05 22:26:22,758 - INFO - 项目数据目录: D:\上课资料\科研课堂\WeCode\CFix\project_data
+2025-06-05 22:26:22,767 - INFO - Docker客户端初始化成功
+2025-06-05 22:26:22,768 - INFO - 成功加载 8 个实例从 dataset\test_c.jsonl
+2025-06-05 22:26:22,768 - INFO - 成功加载 7 个实例从 dataset\test_cpp.jsonl
+2025-06-05 22:26:22,768 - ERROR - 未找到指定的实例: redis_hiredis-427
+2025-06-05 22:26:42,258 - INFO - 将处理以下数据集文件: ['dataset\\test_c.jsonl', 'dataset\\test_cpp.jsonl']
+2025-06-05 22:26:42,259 - INFO - 项目数据目录: D:\上课资料\科研课堂\WeCode\CFix\project_data
+2025-06-05 22:26:42,267 - INFO - Docker客户端初始化成功
+2025-06-05 22:26:42,269 - INFO - 成功加载 8 个实例从 dataset\test_c.jsonl
+2025-06-05 22:26:42,269 - INFO - 成功加载 7 个实例从 dataset\test_cpp.jsonl
+2025-06-05 22:26:42,269 - INFO - 过滤后只处理实例: redis__hiredis-427
+2025-06-05 22:26:42,269 - INFO - 处理实例: redis__hiredis-427 (redis/hiredis)
+2025-06-05 22:26:42,270 - INFO - 使用SSH克隆仓库 git@github.com:redis/hiredis.git 到 D:\上课资料\科研课堂\WeCode\CFix\project_data\repositories\redis_hiredis
+2025-06-05 22:27:17,576 - INFO - 切换到commit e93c05a7aa64736c91e455322c83181e8e67cd0e
+2025-06-05 22:27:17,619 - INFO - 尝试 1/3
+2025-06-05 22:27:17,620 - INFO - 使用AI增强的文件定位...
+2025-06-05 22:27:17,620 - INFO - 扫描项目结构...
+2025-06-05 22:27:17,624 - INFO - 项目结构扫描完成，找到 1 个文件
+2025-06-05 22:27:17,624 - INFO - 构建AI定位prompt，长度: 5979
+2025-06-05 22:27:17,624 - INFO - 开始调用AI API...
+2025-06-05 22:27:17,624 - INFO - 执行简单API调用...
+2025-06-05 22:27:36,979 - INFO - 简单API调用成功，响应长度: 657
+2025-06-05 22:27:36,979 - INFO - AI API调用成功，开始解析响应...
+2025-06-05 22:27:36,980 - INFO - AI分析成功解析: 目标文件=hiredis.c, 置信度=9
+2025-06-05 22:27:36,980 - INFO - AI文件定位结果: {'target_file': 'hiredis.c', 'confidence': 9, 'reasoning': "1. 问题描述提到'redisFormatSdsCommandArgv'函数存在格式错误，这个函数是Redis命令格式化相关的核心功能。2. 测试变更中测试的是命令格式化功能，特别是SDS字符串的命令格式化。3. 在项目结构中，hiredis.c是核心实现文件，包含了Redis客户端的主要功能实现。4. 函数名'redisFormatSdsCommandArgv'表明这是一个Redis命令格式化函数，通常在核心客户端实现文件中。5. 虽然sds.c处理SDS字符串，但命令格式化逻辑更可能在Redis客户端主文件中。", 'fix_strategy': '检查redisFormatSdsCommandArgv函数中的字符串格式化逻辑，特别是处理bulk length的部分，确保正确生成Redis协议格式的命令字符串。可能需要修正字符串长度计算或格式字符串生成。', 'test_insights': '测试变更添加了对redisFormatSdsCommandArgv函数的测试用例，验证了带长度和不带长度参数的两种情况。测试期望的输出格式为Redis协议格式的命令字符串，包含正确的bulk length指示符($数字)。', 'alternative_files': ['sds.c', 'net.c']}
+2025-06-05 22:27:36,980 - INFO - Found 0 code blocks in issue.
+2025-06-05 22:27:36,981 - INFO - Potential file references from issue: []
+2025-06-05 22:27:36,982 - WARNING - No candidate files found after all stages.
+2025-06-05 22:27:36,982 - INFO - AI高置信度(9)选择: hiredis.c
+2025-06-05 22:27:36,982 - INFO - Added context file (included): fmacros.h
+2025-06-05 22:27:36,983 - INFO - Added context file (included): hiredis.h
+2025-06-05 22:27:36,983 - INFO - Added context file (included): net.h
+2025-06-05 22:27:36,983 - INFO - Added context file (included): sds.h
+2025-06-05 22:27:36,983 - INFO - Collected 5 files for context. Keys: ['hiredis.c', 'fmacros.h', 'hiredis.h', 'net.h', 'sds.h']
+2025-06-05 22:27:36,983 - INFO - 为文件 hiredis.c 生成AI补丁...
+2025-06-05 22:27:36,983 - INFO - 使用增强prompt调用AI生成补丁...
+2025-06-05 22:27:36,984 - INFO - 发送 API 请求 (尝试 1/3)...
+2025-06-05 22:28:01,210 - INFO - 成功从 DeepSeek API 获取并提取补丁 (570 字符)
+2025-06-05 22:28:01,211 - INFO - AI补丁生成成功，完整对话历史已保存到: D:\上课资料\科研课堂\WeCode\CFix\project_data\logs\redis__hiredis-427_20250605_222642\attempt_1\ai_conversation_history.json
+2025-06-05 22:28:01,211 - INFO - 拉取Docker镜像: dongqa930/redis_hiredis:427
+2025-06-05 22:33:05,584 - INFO - 尝试使用 heredoc 方法...
+2025-06-05 22:33:05,920 - INFO - 使用heredoc方法创建patch文件...
+2025-06-05 22:33:06,433 - INFO - Patch文件创建成功: 13 /home/fix.patch
+2025-06-05 22:33:06,468 - INFO - AI生成的补丁预览:
+diff --git a/hiredis.c b/hiredis.c
+index abc1234..def5678 100644
+--- a/hiredis.c
++++ b/hiredis.c
+@@ -1013,7 +1013,7 @@ int redisFormatSdsCommandArgv(sds *target, int argc, const char **argv,
+     /* Construct command */
+     cmd = sdscatfmt(cmd, "*%i\r\n", argc);
+     for (j=0; j < argc; j++) {
+-        len = argvlen ? argvlen[j] : strlen(argv[j]);
++        len = argvlen ? argvlen[j] : (argv[j] ? strlen(argv[j]) : 0);
+
+2025-06-05 22:33:06,468 - INFO - 运行测试脚本（fix_run.sh会自动应用测试补丁）...
+2025-06-05 22:33:26,797 - INFO - heredoc 方法执行成功
+2025-06-05 22:33:26,798 - INFO - 结果已保存到 D:\上课资料\科研课堂\WeCode\CFix\project_data\results\execution_results.json
+2025-06-05 22:33:26,798 - INFO - ==================================================
+2025-06-05 22:33:26,798 - INFO - 执行完成!
+2025-06-05 22:33:26,799 - INFO - 总实例数: 1
+2025-06-05 22:33:26,799 - INFO - 成功: 1 (100.0%)
+2025-06-05 22:33:26,799 - INFO - 失败: 0 (0.0%)
+2025-06-05 22:33:26,799 - INFO - 日志目录: D:\上课资料\科研课堂\WeCode\CFix\project_data\logs
+2025-06-05 22:33:26,799 - INFO - 结果目录: D:\上课资料\科研课堂\WeCode\CFix\project_data\results
+2025-06-05 22:33:26,799 - INFO - 轨迹目录: D:\上课资料\科研课堂\WeCode\CFix\project_data\trajs
+2025-06-05 22:33:26,799 - INFO - ==================================================

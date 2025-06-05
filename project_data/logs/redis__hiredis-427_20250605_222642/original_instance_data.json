@@ -1,0 +1,14 @@
+{
+  "repo": "redis/hiredis",
+  "pull_number": 427,
+  "instance_id": "redis__hiredis-427",
+  "issue_numbers": [
+    "426"
+  ],
+  "base_commit": "e93c05a7aa64736c91e455322c83181e8e67cd0e",
+  "patch": "diff --git a/hiredis.c b/hiredis.c\nindex 2b876d913..18bdfc99c 100644\n--- a/hiredis.c\n+++ b/hiredis.c\n@@ -507,7 +507,7 @@ int redisFormatSdsCommandArgv(sds *target, int argc, const char **argv,\n     cmd = sdscatfmt(cmd, \"*%i\\r\\n\", argc);\n     for (j=0; j < argc; j++) {\n         len = argvlen ? argvlen[j] : strlen(argv[j]);\n-        cmd = sdscatfmt(cmd, \"$%T\\r\\n\", len);\n+        cmd = sdscatfmt(cmd, \"$%u\\r\\n\", len);\n         cmd = sdscatlen(cmd, argv[j], len);\n         cmd = sdscatlen(cmd, \"\\r\\n\", sizeof(\"\\r\\n\")-1);\n     }\n",
+  "test_patch": "diff --git a/test.c b/test.c\nindex 538d37658..a23d60676 100644\n--- a/test.c\n+++ b/test.c\n@@ -224,6 +224,22 @@ static void test_format_commands(void) {\n     test_cond(strncmp(cmd,\"*3\\r\\n$3\\r\\nSET\\r\\n$7\\r\\nfoo\\0xxx\\r\\n$3\\r\\nbar\\r\\n\",len) == 0 &&\n         len == 4+4+(3+2)+4+(7+2)+4+(3+2));\n     free(cmd);\n+\n+    sds sds_cmd;\n+\n+    sds_cmd = sdsempty();\n+    test(\"Format command into sds by passing argc/argv without lengths: \");\n+    len = redisFormatSdsCommandArgv(&sds_cmd,argc,argv,NULL);\n+    test_cond(strncmp(sds_cmd,\"*3\\r\\n$3\\r\\nSET\\r\\n$3\\r\\nfoo\\r\\n$3\\r\\nbar\\r\\n\",len) == 0 &&\n+        len == 4+4+(3+2)+4+(3+2)+4+(3+2));\n+    sdsfree(sds_cmd);\n+\n+    sds_cmd = sdsempty();\n+    test(\"Format command into sds by passing argc/argv with lengths: \");\n+    len = redisFormatSdsCommandArgv(&sds_cmd,argc,argv,lens);\n+    test_cond(strncmp(sds_cmd,\"*3\\r\\n$3\\r\\nSET\\r\\n$7\\r\\nfoo\\0xxx\\r\\n$3\\r\\nbar\\r\\n\",len) == 0 &&\n+        len == 4+4+(3+2)+4+(7+2)+4+(3+2));\n+    sdsfree(sds_cmd);\n }\n \n static void test_append_formatted_commands(struct config config) {\n",
+  "problem_statement": "Typo format in redisFormatSdsCommandArgv function\nthis issue is very significant, because not allow the proper execution of the \"function redisCommandArgv\". The server returns \"invalid bulk length\".\nThanks!\n\n",
+  "hints_text": "",
+  "created_at": "2016-05-14T09:26:51Z"
+}
