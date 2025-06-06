@@ -1,0 +1,43 @@
+{
+  "instance_id": "nanomsg__nng-613",
+  "repo": "nanomsg/nng",
+  "pull_number": 613,
+  "model_name": "CFix_DeepSeek",
+  "timestamp": "2025-06-06T07:18:06.775249+00:00",
+  "status": "SUCCESS",
+  "steps": [
+    {
+      "step": "setup",
+      "timestamp": "2025-06-06T07:15:28.146337+00:00",
+      "action": "Created instance log directory",
+      "log_dir": "D:\\上课资料\\科研课堂\\WeCode\\CFix\\project_data\\logs\\nanomsg__nng-613_20250606_151528"
+    },
+    {
+      "step": "clone_repo",
+      "timestamp": "2025-06-06T07:15:33.529925+00:00",
+      "action": "Successfully cloned repository to D:\\上课资料\\科研课堂\\WeCode\\CFix\\project_data\\repositories\\nanomsg_nng",
+      "success": true
+    },
+    {
+      "step": "generate_patch_attempt_1",
+      "timestamp": "2025-06-06T07:16:15.093209+00:00",
+      "attempt": 1,
+      "conversation_log": "D:\\上课资料\\科研课堂\\WeCode\\CFix\\project_data\\logs\\nanomsg__nng-613_20250606_151528\\attempt_1\\ai_conversation_history.json",
+      "action": "Successfully generated AI patch",
+      "patch_file": "D:\\上课资料\\科研课堂\\WeCode\\CFix\\project_data\\logs\\nanomsg__nng-613_20250606_151528\\attempt_1\\generated_patch.diff",
+      "patch_preview": "diff --git a/src/core/pipe.c b/src/core/pipe.c\nindex abc1234..def5678 100644\n--- a/src/core/pipe.c\n+++ b/src/core/pipe.c\n@@ -194,6 +194,9 @@ nni_pipe_close(nni_pipe *p)\n \t// abort any pending negotiat...",
+      "success": true
+    },
+    {
+      "step": "docker_test_attempt_1",
+      "timestamp": "2025-06-06T07:18:06.774928+00:00",
+      "attempt": 1,
+      "action": "Executed Docker test",
+      "success": true,
+      "patch_exit_code": 0,
+      "test_exit_code": 0,
+      "test_log_file": "D:\\上课资料\\科研课堂\\WeCode\\CFix\\project_data\\logs\\nanomsg__nng-613_20250606_151528\\attempt_1\\docker_test_heredoc.log",
+      "logs_preview": "=== METHOD: HEREDOC ===\n=== AI PATCH PREVIEW ===\n    diff --git a/src/core/pipe.c b/src/core/pipe.c\nindex abc1234..def5678 100644\n--- a/src/core/pipe.c\n+++ b/src/core/pipe.c\n@@ -194,6 +194,9 @@ nni_pipe_close(nni_pipe *p)\n \t// abort any pending negotiation/start process.\n \tnni_aio_close(p->p_start_aio);\n \n+\t// Abort any pending receive/send operations\n+\tp->p_tran_ops.p_close(p->p_tran_data);\n\n\n=== TEST EXECUTION ===\n-- The C compiler identification is GNU 11.4.0\n-- Detecting C compiler ABI info\n..."
+    }
+  ]
+}

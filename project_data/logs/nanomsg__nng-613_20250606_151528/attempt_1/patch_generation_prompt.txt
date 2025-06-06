@@ -1,0 +1,498 @@
+你是一个专业的C/C++代码修复专家。请分析以下问题并生成精确的修复补丁。
+
+    ## 问题描述
+    Race condition closing between header & body
+For some protocols (TCP, IPC, and TLS stream transports), if the pipe is closed, we
+can wind up closing the pipe, but rescheduling a transfer of data which won't fail
+as the underlying aio is closed.
+
+For this to occur, the close has to occur between receiving the message header
+and the message body.
+
+
+
+    ## 提示信息  
+    
+
+    ## AI分析的修复策略
+    修复策略应包括在关闭管道时确保所有挂起的数据传输操作被正确取消或完成。可能需要引入额外的同步机制或状态检查，以确保在管道关闭时不会调度新的数据传输操作。
+
+    ## 从测试变更中得出的关键信息
+    测试变更主要集中在TLS传输的初始化和连接设置上，但问题的核心是管道关闭和数据传输的竞态条件，这表明问题可能出现在更底层的管道处理逻辑中。
+
+    ## 测试变更差异（展示期望的修复效果）
+    ```diff
+    diff --git a/tests/tls.c b/tests/tls.c
+index 1f1f244c6..01e49aa74 100644
+--- a/tests/tls.c
++++ b/tests/tls.c
+@@ -265,7 +265,6 @@ init_listener_tls_file(nng_listener l)
+ }
+ 
+ TestMain("TLS Transport", {
+-
+ 	static trantest tt;
+ 
+ 	tt.dialer_init   = init_dialer_tls;
+@@ -291,28 +290,39 @@ TestMain("TLS Transport", {
+ 	});
+ 
+ 	Convey("We can bind to wild card", {
+-		nng_socket s1;
+-		nng_socket s2;
+-		char       addr[NNG_MAXADDRLEN];
++		nng_socket   s1;
++		nng_socket   s2;
++		char         addr[NNG_MAXADDRLEN];
++		nng_listener l;
++		nng_dialer   d;
+ 
+ 		So(nng_tls_register() == 0);
++
+ 		So(nng_pair_open(&s1) == 0);
+ 		So(nng_pair_open(&s2) == 0);
++
+ 		Reset({
+ 			nng_close(s2);
+ 			nng_close(s1);
+ 		});
+ 		trantest_next_address(addr, "tls+tcp://*:%u");
+-		So(nng_listen(s1, addr, NULL, 0) == 0);
+-		// reset port back one
++		So(nng_listener_create(&l, s1, addr) == 0);
++		So(init_listener_tls(l) == 0);
+ 		trantest_prev_address(addr, "tls+tcp://127.0.0.1:%u");
+-		So(nng_dial(s2, addr, NULL, 0) == 0);
++		So(nng_dialer_create(&d, s2, addr) == 0);
++		So(init_dialer_tls(d) == 0);
++		So(nng_dialer_setopt_int(
++		       d, NNG_OPT_TLS_AUTH_MODE, NNG_TLS_AUTH_MODE_NONE) == 0);
++
++		So(nng_listener_start(l, 0) == 0);
++		So(nng_dialer_start(d, 0) == 0);
+ 	});
+ 
+ 	Convey("We can bind to port zero", {
+ 		nng_socket   s1;
+ 		nng_socket   s2;
+ 		nng_listener l;
++		nng_dialer   d;
+ 		char *       addr;
+ 		size_t       sz;
+ 
+@@ -323,10 +333,16 @@ TestMain("TLS Transport", {
+ 			nng_close(s2);
+ 			nng_close(s1);
+ 		});
+-		So(nng_listen(s1, "tls+tcp://127.0.0.1:0", &l, 0) == 0);
++		So(nng_listener_create(&l, s1, "tls+tcp://127.0.0.1:0") == 0);
++		So(init_listener_tls(l) == 0);
++		So(nng_listener_start(l, 0) == 0);
+ 		sz = NNG_MAXADDRLEN;
+ 		So(nng_listener_getopt_string(l, NNG_OPT_URL, &addr) == 0);
+-		So(nng_dial(s2, addr, NULL, 0) == 0);
++		So(nng_dialer_create(&d, s2, addr) == 0);
++		So(init_dialer_tls(d) == 0);
++		So(nng_dialer_setopt_int(
++		       d, NNG_OPT_TLS_AUTH_MODE, NNG_TLS_AUTH_MODE_NONE) == 0);
++		So(nng_dialer_start(d, 0) == 0);
+ 		nng_strfree(addr);
+ 	});
+ 
+@@ -572,5 +588,4 @@ TestMain("TLS Transport", {
+ 		So(nng_dialer_getopt_bool(d, NNG_OPT_TCP_KEEPALIVE, &v) == 0);
+ 		So(v == true);
+ 	});
+-
+ })
+        
+    需要修复的目标文件：src\core\pipe.c
+    //
+// Copyright 2018 Staysail Systems, Inc. <info@staysail.tech>
+// Copyright 2018 Capitar IT Group BV <info@capitar.com>
+//
+// This software is supplied under the terms of the MIT License, a
+// copy of which should be located in the distribution where this
+// file was obtained (LICENSE.txt).  A copy of the license may also be
+// found online at https://opensource.org/licenses/MIT.
+//
+
+#include "core/nng_impl.h"
+#include "sockimpl.h"
+
+#include <string.h>
+
+// This file contains functions relating to pipes.
+//
+// Operations on pipes (to the transport) are generally blocking operations,
+// performed in the context of the protocol.
+
+static nni_idhash *nni_pipes;
+static nni_mtx     nni_pipe_lk;
+
+int
+nni_pipe_sys_init(void)
+{
+	int rv;
+
+	nni_mtx_init(&nni_pipe_lk);
+
+	if ((rv = nni_idhash_init(&nni_pipes)) != 0) {
+		return (rv);
+	}
+
+	// Note that pipes have their own namespace.  ID hash will
+	// guarantee the that the first value is reasonable (non-zero),
+	// if we supply an out of range value (0).  (Consequently the
+	// value "1" has a bias -- its roughly twice as likely to be
+	// chosen as any other value.  This does not mater.)
+	nni_idhash_set_limits(
+	    nni_pipes, 1, 0x7fffffff, nni_random() & 0x7fffffff);
+
+	return (0);
+}
+
+void
+nni_pipe_sys_fini(void)
+{
+	nni_reap_drain();
+	nni_mtx_fini(&nni_pipe_lk);
+	if (nni_pipes != NULL) {
+		nni_idhash_fini(nni_pipes);
+		nni_pipes = NULL;
+	}
+}
+
+static void
+pipe_destroy(nni_pipe *p)
+{
+	if (p == NULL) {
+		return;
+	}
+
+	nni_pipe_run_cb(p, NNG_PIPE_EV_REM_POST);
+
+	// Make sure any unlocked holders are done with this.
+	// This happens during initialization for example.
+	nni_mtx_lock(&nni_pipe_lk);
+	if (p->p_id != 0) {
+		nni_idhash_remove(nni_pipes, p->p_id);
+	}
+	// This wait guarantees that all callers are done with us.
+	while (p->p_refcnt != 0) {
+		nni_cv_wait(&p->p_cv);
+	}
+	nni_mtx_unlock(&nni_pipe_lk);
+
+	// Wait for neg callbacks to finish. (Already closed).
+	nni_aio_stop(p->p_start_aio);
+
+	if (p->p_proto_data != NULL) {
+		p->p_proto_ops.pipe_stop(p->p_proto_data);
+	}
+	if ((p->p_tran_data != NULL) && (p->p_tran_ops.p_stop != NULL)) {
+		p->p_tran_ops.p_stop(p->p_tran_data);
+	}
+
+	nni_pipe_remove(p);
+
+	if (p->p_proto_data != NULL) {
+		p->p_proto_ops.pipe_fini(p->p_proto_data);
+	}
+	if (p->p_tran_data != NULL) {
+		p->p_tran_ops.p_fini(p->p_tran_data);
+	}
+	nni_aio_fini(p->p_start_aio);
+	nni_cv_fini(&p->p_cv);
+	nni_mtx_fini(&p->p_mtx);
+	NNI_FREE_STRUCT(p);
+}
+
+int
+nni_pipe_find(nni_pipe **pp, uint32_t id)
+{
+	int       rv;
+	nni_pipe *p;
+	nni_mtx_lock(&nni_pipe_lk);
+
+	// We don't care if the pipe is "closed".  End users only have
+	// access to the pipe in order to obtain properties (which may
+	// be retried during the post-close notification callback) or to
+	// close the pipe.
+	if ((rv = nni_idhash_find(nni_pipes, id, (void **) &p)) == 0) {
+		p->p_refcnt++;
+		*pp = p;
+	}
+	nni_mtx_unlock(&nni_pipe_lk);
+	return (rv);
+}
+
+void
+nni_pipe_rele(nni_pipe *p)
+{
+	nni_mtx_lock(&nni_pipe_lk);
+	p->p_refcnt--;
+	if (p->p_refcnt == 0) {
+		nni_cv_wake(&p->p_cv);
+	}
+	nni_mtx_unlock(&nni_pipe_lk);
+}
+
+// nni_pipe_id returns the 32-bit pipe id, which can be used in backtraces.
+uint32_t
+nni_pipe_id(nni_pipe *p)
+{
+	return (p->p_id);
+}
+
+void
+nni_pipe_recv(nni_pipe *p, nni_aio *aio)
+{
+	p->p_tran_ops.p_recv(p->p_tran_data, aio);
+}
+
+void
+nni_pipe_send(nni_pipe *p, nni_aio *aio)
+{
+	p->p_tran_ops.p_send(p->p_tran_data, aio);
+}
+
+// nni_pipe_close closes the underlying connection.  It is expected that
+// subsequent attempts to receive or send (including any waiting receive) will
+// simply return NNG_ECLOSED.
+void
+nni_pipe_close(nni_pipe *p)
+{
+	// abort any pending negotiation/start process.
+	nni_aio_close(p->p_start_aio);
+
+	nni_mtx_lock(&p->p_mtx);
+	if (p->p_closed) {
+		// We already did a close.
+		nni_mtx_unlock(&p->p_mtx);
+		return;
+	}
+	p->p_closed = true;
+	nni_mtx_unlock(&p->p_mtx);
+
+	if (p->p_proto_data != NULL) {
+		p->p_proto_ops.pipe_close(p->p_proto_data);
+	}
+
+	// Close the underlying transport.
+	if (p->p_tran_data != NULL) {
+		p->p_tran_ops.p_close(p->p_tran_data);
+	}
+
+	nni_reap(&p->p_reap, (nni_cb) pipe_destroy, p);
+}
+
+bool
+nni_pipe_closed(nni_pipe *p)
+{
+	bool rv;
+	nni_mtx_lock(&p->p_mtx);
+	rv = p->p_closed;
+	nni_mtx_unlock(&p->p_mtx);
+	return (rv);
+}
+
+uint16_t
+nni_pipe_peer(nni_pipe *p)
+{
+	return (p->p_tran_ops.p_peer(p->p_tran_data));
+}
+
+static void
+nni_pipe_start_cb(void *arg)
+{
+	nni_pipe *p   = arg;
+	nni_sock *s   = p->p_sock;
+	nni_aio * aio = p->p_start_aio;
+
+	if (nni_aio_result(aio) != 0) {
+		nni_pipe_close(p);
+		return;
+	}
+
+	nni_pipe_run_cb(p, NNG_PIPE_EV_ADD_PRE);
+	if (nni_pipe_closed(p)) {
+		nni_pipe_close(p);
+		return;
+	}
+
+	if ((p->p_proto_ops.pipe_start(p->p_proto_data) != 0) ||
+	    nni_sock_closing(s)) {
+		nni_pipe_close(p);
+		return;
+	}
+
+	nni_pipe_run_cb(p, NNG_PIPE_EV_ADD_POST);
+}
+
+int
+nni_pipe_create(nni_pipe **pp, nni_sock *sock, nni_tran *tran, void *tdata)
+{
+	nni_pipe *          p;
+	int                 rv;
+	void *              sdata = nni_sock_proto_data(sock);
+	nni_proto_pipe_ops *pops  = nni_sock_proto_pipe_ops(sock);
+
+	if ((p = NNI_ALLOC_STRUCT(p)) == NULL) {
+		// In this case we just toss the pipe...
+		tran->tran_pipe->p_fini(tdata);
+		return (NNG_ENOMEM);
+	}
+
+	// Make a private copy of the transport ops.
+	p->p_start_aio  = NULL;
+	p->p_tran_ops   = *tran->tran_pipe;
+	p->p_tran_data  = tdata;
+	p->p_proto_ops  = *pops;
+	p->p_proto_data = NULL;
+	p->p_sock       = sock;
+	p->p_closed     = false;
+	p->p_cbs        = false;
+	p->p_refcnt     = 0;
+
+	nni_atomic_flag_reset(&p->p_stop);
+	NNI_LIST_NODE_INIT(&p->p_sock_node);
+	NNI_LIST_NODE_INIT(&p->p_ep_node);
+
+	nni_mtx_init(&p->p_mtx);
+	nni_cv_init(&p->p_cv, &nni_pipe_lk);
+
+	if ((rv = nni_aio_init(&p->p_start_aio, nni_pipe_start_cb, p)) == 0) {
+		uint64_t id;
+		nni_mtx_lock(&nni_pipe_lk);
+		if ((rv = nni_idhash_alloc(nni_pipes, &id, p)) == 0) {
+			p->p_id = (uint32_t) id;
+		}
+		nni_mtx_unlock(&nni_pipe_lk);
+	}
+
+	if ((rv != 0) ||
+	    ((rv = pops->pipe_init(&p->p_proto_data, p, sdata)) != 0)) {
+		nni_pipe_close(p);
+		return (rv);
+	}
+
+	*pp = p;
+	return (0);
+}
+
+int
+nni_pipe_getopt(
+    nni_pipe *p, const char *name, void *val, size_t *szp, nni_opt_type t)
+{
+	nni_tran_option *o;
+
+	for (o = p->p_tran_ops.p_options; o && o->o_name; o++) {
+		if (strcmp(o->o_name, name) != 0) {
+			continue;
+		}
+		return (o->o_get(p->p_tran_data, val, szp, t));
+	}
+
+	// Maybe the endpoint knows? The guarantees on pipes ensure that the
+	// pipe will not outlive its creating endpoint.
+	if (p->p_dialer != NULL) {
+		return (nni_dialer_getopt(p->p_dialer, name, val, szp, t));
+	}
+	if (p->p_listener != NULL) {
+		return (nni_listener_getopt(p->p_listener, name, val, szp, t));
+	}
+	return (NNG_ENOTSUP);
+}
+
+void
+nni_pipe_start(nni_pipe *p)
+{
+	if (p->p_tran_ops.p_start == NULL) {
+		nni_aio_finish(p->p_start_aio, 0, 0);
+	} else {
+		p->p_tran_ops.p_start(p->p_tran_data, p->p_start_aio);
+	}
+}
+
+void *
+nni_pipe_get_proto_data(nni_pipe *p)
+{
+	return (p->p_proto_data);
+}
+
+uint32_t
+nni_pipe_sock_id(nni_pipe *p)
+{
+	return (nni_sock_id(p->p_sock));
+}
+
+uint32_t
+nni_pipe_listener_id(nni_pipe *p)
+{
+	return (p->p_listener ? nni_listener_id(p->p_listener) : 0);
+}
+
+uint32_t
+nni_pipe_dialer_id(nni_pipe *p)
+{
+	return (p->p_dialer ? nni_dialer_id(p->p_dialer) : 0);
+}
+
+    
+## 相关上下文文件
+
+### src\core\sockimpl.h
+```c
+//
+// Copyright 2018 Staysail Systems, Inc. <info@staysail.tech>
+// Copyright 2018 Capitar IT Group BV <info@capitar.com>
+//
+// This software is supplied under the terms of the MIT License, a
+// copy of which should be located in the distribution where this
+// file was obtained (LICENSE.txt).  A copy of the license may also be
+// found online at https://opensource.org/licenses/MIT.
+//
+
+#ifndef CORE_SOCKIMPL_H
+#define CORE_SOCKIMPL_H
+
+// This file contains stuff shared within the core between sockets, endpoints,
+// and pipes.  This must not be exposed to other subsystems -- these internals
+// are subject to change at any time.
+
+struct nni_dialer {
+	nni_tran_dialer_ops d_ops;  // transport ops
+	nni_tran *          d_tran; // transport pointer
+	void *              d_data; // transport private
+	uint32_t            d_id;   // endpoint id
+	nni_list_node       d_node; // per socket list
+	nni_sock *          d_sock;
+	nni_url *           d_url;
+	nni_pipe *          d_pipe; // active pipe (for r...
+```
+
+
+    修复要求
+    精确定位问题：根据问题描述和测试变更，准确找到需要修复的代码位置
+    最小化修改：只修改必要的部分，保持代码的其他功能不变
+    符合测试期望：确保修复后的代码能通过测试变更中显示的测试用例
+    代码质量：保持良好的代码风格和错误处理
+    输出格式
+    请只输出标准的git diff格式补丁，不要包含任何解释文字：
+    diff --git a/src\core\pipe.c b/src\core\pipe.c
+    index abc1234..def5678 100644
+    --- a/src\core\pipe.c
+    +++ b/src\core\pipe.c
+    @@ -行号,行数 +行号,行数 @@
+    上下文行
+    -删除的行
+    +添加的行
+    上下文行
+    注意：
+
+    补丁必须可以直接用 patch -p1 命令应用
+
+    行号必须准确对应目标文件的实际内容
+
+    确保修复逻辑正确且完整 

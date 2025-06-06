@@ -1,0 +1,250 @@
+=== METHOD: HEREDOC ===
+=== AI PATCH PREVIEW ===
+    diff --git a/src/nng.c b/src/nng.c
+index abc1234..def5678 100644
+--- a/src/nng.c
++++ b/src/nng.c
+@@ -123,6 +123,9 @@ nng_recvmsg(nng_socket s, nng_msg **msgp, int flags)
+ 	if ((rv = nng_aio_result(ap)) == 0) {
+ 		*msgp = nng_aio_get_msg(ap);
+ 
++		if (nni_sock_isclosed(s.id)) {
++			rv = NNG_ECLOSED;
+
+
+=== TEST EXECUTION ===
+-- The C compiler identification is GNU 11.4.0
+-- Detecting C compiler ABI info
+-- Detecting C compiler ABI info - done
+-- Check for working C compiler: /usr/bin/cc - skipped
+-- Detecting C compile features
+-- Detecting C compile features - done
+-- Found UnixCommands: /usr/bin/bash  
+-- Performing Test NNG_HIDDEN_VISIBILITY
+-- Performing Test NNG_HIDDEN_VISIBILITY - Success
+-- Looking for pthread.h
+-- Looking for pthread.h - found
+-- Performing Test CMAKE_HAVE_LIBC_PTHREAD
+-- Performing Test CMAKE_HAVE_LIBC_PTHREAD - Success
+-- Found Threads: TRUE  
+-- Looking for lockf
+-- Looking for lockf - found
+-- Looking for flock
+-- Looking for flock - found
+-- Looking for clock_gettime in rt
+-- Looking for clock_gettime in rt - found
+-- Looking for sem_wait in pthread
+-- Looking for sem_wait in pthread - found
+-- Looking for gethostbyname in nsl
+-- Looking for gethostbyname in nsl - found
+-- Looking for socket in socket
+-- Looking for socket in socket - not found
+-- Looking for AF_UNIX
+-- Looking for AF_UNIX - found
+-- Looking for backtrace_symbols_fd
+-- Looking for backtrace_symbols_fd - found
+-- Looking for alloca
+-- Looking for alloca - found
+-- Performing Test NNG_HAVE_MSG_CONTROL
+-- Performing Test NNG_HAVE_MSG_CONTROL - Success
+-- Looking for kqueue
+-- Looking for kqueue - not found
+-- Looking for port_create
+-- Looking for port_create - not found
+-- Looking for epoll_create
+-- Looking for epoll_create - found
+-- Looking for epoll_create1
+-- Looking for epoll_create1 - found
+-- Looking for getpeereid
+-- Looking for getpeereid - not found
+-- Looking for SO_PEERCRED
+-- Looking for SO_PEERCRED - found
+-- Looking for LOCAL_PEERCRED
+-- Looking for LOCAL_PEERCRED - not found
+-- Looking for getpeerucred
+-- Looking for getpeerucred - not found
+-- Looking for atomic_flag_test_and_set
+-- Looking for atomic_flag_test_and_set - found
+-- Looking for strlcat
+-- Looking for strlcat - not found
+-- Looking for strlcpy
+-- Looking for strlcpy - not found
+-- Looking for strnlen
+-- Looking for strnlen - found
+-- Looking for strcasecmp
+-- Looking for strcasecmp - found
+-- Looking for strncasecmp
+-- Looking for strncasecmp - found
+-- Building static libs
+-- Test tls disabled (unconfigured)
+-- Test wss disabled (unconfigured)
+-- Test wssfile disabled (unconfigured)
+-- Test zt disabled (unconfigured)
+-- The CXX compiler identification is GNU 11.4.0
+-- Detecting CXX compiler ABI info
+-- Detecting CXX compiler ABI info - done
+-- Check for working CXX compiler: /usr/bin/c++ - skipped
+-- Detecting CXX compile features
+-- Detecting CXX compile features - done
+-- Configuring done
+-- Generating done
+CMake Warning:
+  Manually-specified variables were not used by the project:
+
+    CATCH_DEVELOPMENT_BUILD
+    CMAKE_POLICY_VERSION_MINIMUM
+
+
+-- Build files have been written to: /home/nng/build
+[1/281] Building C object src/CMakeFiles/nng.dir/core/file.c.o
+[2/281] Building C object src/CMakeFiles/nng.dir/core/clock.c.o
+[3/281] Building C object src/CMakeFiles/nng.dir/core/list.c.o
+[4/281] Building C object src/CMakeFiles/nng.dir/core/listener.c.o
+[5/281] Building C object src/CMakeFiles/nng.dir/core/options.c.o
+[6/281] Building C object src/CMakeFiles/nng.dir/core/device.c.o
+[7/281] Building C object src/CMakeFiles/nng.dir/core/pollable.c.o
+[8/281] Building C object src/CMakeFiles/nng.dir/core/init.c.o
+[9/281] Building C object src/CMakeFiles/nng.dir/core/msgqueue.c.o
+[10/281] Building C object src/CMakeFiles/nng.dir/core/idhash.c.o
+[11/281] Building C object src/CMakeFiles/nng.dir/core/message.c.o
+[12/281] Building C object src/CMakeFiles/nng.dir/core/panic.c.o
+[13/281] Building C object src/CMakeFiles/nng.dir/core/dialer.c.o
+[14/281] Building C object src/CMakeFiles/nng.dir/core/aio.c.o
+[15/281] Building C object src/CMakeFiles/nng.dir/core/protocol.c.o
+[16/281] Building C object src/CMakeFiles/nng.dir/core/pipe.c.o
+[17/281] Building C object src/CMakeFiles/nng.dir/core/reap.c.o
+[18/281] Building C object src/CMakeFiles/nng.dir/core/random.c.o
+[19/281] Building C object src/CMakeFiles/nng.dir/core/thread.c.o
+[20/281] Building C object src/CMakeFiles/nng.dir/core/taskq.c.o
+[21/281] Building C object src/CMakeFiles/nng.dir/core/strs.c.o
+[22/281] Building C object src/CMakeFiles/nng.dir/platform/posix/posix_alloc.c.o
+[23/281] Building C object src/CMakeFiles/nng.dir/platform/posix/posix_clock.c.o
+[24/281] Building C object src/CMakeFiles/nng.dir/platform/posix/posix_atomic.c.o
+[25/281] Building C object src/CMakeFiles/nng.dir/core/timer.c.o
+[26/281] Building C object src/CMakeFiles/nng.dir/core/transport.c.o
+[27/281] Building C object src/CMakeFiles/nng.dir/platform/posix/posix_debug.c.o
+[28/281] Building C object src/CMakeFiles/nng.dir/nng.c.o
+/home/nng/src/nng.c: In function 'nng_recvmsg':
+/home/nng/src/nng.c:142:21: warning: implicit declaration of function 'nni_sock_isclosed'; did you mean 'nni_sock_close'? [-Wimplicit-function-declaration]
+  142 |                 if (nni_sock_isclosed(s.id)) {
+      |                     ^~~~~~~~~~~~~~~~~
+      |                     nni_sock_close
+[29/281] Building C object src/CMakeFiles/nng.dir/core/url.c.o
+[30/281] Building C object src/CMakeFiles/nng.dir/platform/posix/posix_pipe.c.o
+[31/281] Building C object src/CMakeFiles/nng.dir/platform/posix/posix_rand.c.o
+[32/281] Building C object src/CMakeFiles/nng.dir/platform/posix/posix_ipclisten.c.o
+[33/281] Building C object src/CMakeFiles/nng.dir/platform/posix/posix_ipcconn.c.o
+[34/281] Building C object src/CMakeFiles/nng.dir/platform/posix/posix_file.c.o
+[35/281] Building C object src/CMakeFiles/nng.dir/platform/posix/posix_tcpdial.c.o
+[36/281] Building C object src/CMakeFiles/nng.dir/platform/posix/posix_ipcdial.c.o
+[37/281] Building C object src/CMakeFiles/nng.dir/platform/posix/posix_resolv_gai.c.o
+[38/281] Building C object src/CMakeFiles/nng.dir/platform/posix/posix_sockaddr.c.o
+[39/281] Building C object src/CMakeFiles/nng.dir/core/socket.c.o
+[40/281] Building C object src/CMakeFiles/nng.dir/platform/posix/posix_thread.c.o
+[41/281] Building C object src/CMakeFiles/nng.dir/supplemental/base64/base64.c.o
+[42/281] Building C object src/CMakeFiles/nng.dir/platform/posix/posix_tcplisten.c.o
+[43/281] Building C object src/CMakeFiles/nng.dir/platform/posix/posix_tcpconn.c.o
+[44/281] Building C object src/CMakeFiles/nng.dir/supplemental/sha1/sha1.c.o
+[45/281] Building C object src/CMakeFiles/nng.dir/platform/posix/posix_udp.c.o
+[46/281] Building C object src/CMakeFiles/nng.dir/supplemental/http/http_client.c.o
+[47/281] Building C object src/CMakeFiles/nng.dir/compat/nanomsg/nn.c.o
+[48/281] Building C object src/CMakeFiles/nng.dir/supplemental/http/http_conn.c.o
+[49/281] Building C object src/CMakeFiles/nng.dir/supplemental/tls/none/tls.c.o
+[50/281] Building C object src/CMakeFiles/nng.dir/supplemental/util/platform.c.o
+[51/281] Building C object src/CMakeFiles/nng.dir/supplemental/util/options.c.o
+[52/281] Building C object src/CMakeFiles/nng.dir/platform/posix/posix_pollq_epoll.c.o
+[53/281] Building C object src/CMakeFiles/nng.dir/supplemental/http/http_msg.c.o
+[54/281] Building C object src/CMakeFiles/nng.dir/protocol/bus0/bus.c.o
+[55/281] Building C object src/CMakeFiles/nng.dir/protocol/pipeline0/push.c.o
+[56/281] Building C object src/CMakeFiles/nng.dir/protocol/pipeline0/pull.c.o
+[57/281] Building C object src/CMakeFiles/nng.dir/supplemental/http/http_public.c.o
+[58/281] Building C object src/CMakeFiles/nng.dir/protocol/pair1/pair.c.o
+[59/281] Building C object src/CMakeFiles/nng.dir/protocol/pubsub0/pub.c.o
+[60/281] Building C object src/CMakeFiles/nng.dir/protocol/reqrep0/req.c.o
+[61/281] Building C object src/CMakeFiles/nng.dir/protocol/pair0/pair.c.o
+[62/281] Building C object src/CMakeFiles/nng.dir/supplemental/http/http_server.c.o
+[63/281] Building C object src/CMakeFiles/nng.dir/protocol/reqrep0/xrep.c.o
+[64/281] Building C object src/CMakeFiles/nng.dir/protocol/pubsub0/sub.c.o
+[65/281] Building C object src/CMakeFiles/nng.dir/protocol/reqrep0/xreq.c.o
+[66/281] Building C object src/CMakeFiles/nng.dir/protocol/reqrep0/rep.c.o
+[67/281] Building C object src/CMakeFiles/nng.dir/protocol/survey0/xrespond.c.o
+[68/281] Building C object src/CMakeFiles/nng.dir/protocol/survey0/survey.c.o
+[69/281] Building C object src/CMakeFiles/nng.dir/supplemental/websocket/websocket.c.o
+[70/281] Building C object src/CMakeFiles/nng.dir/protocol/survey0/respond.c.o
+[71/281] Building C object src/CMakeFiles/nng.dir/protocol/survey0/xsurvey.c.o
+[72/281] Building C object src/CMakeFiles/nng.dir/transport/inproc/inproc.c.o
+[73/281] Building C object tests/CMakeFiles/base64.dir/base64.c.o
+[74/281] Building C object tests/CMakeFiles/aio.dir/aio.c.o
+[75/281] Building C object tests/CMakeFiles/errors.dir/errors.c.o
+[76/281] Building C object src/CMakeFiles/nng.dir/transport/ipc/ipc.c.o
+[77/281] Building C object tests/CMakeFiles/aio.dir/convey.c.o
+[78/281] Building C object src/CMakeFiles/nng.dir/transport/ws/websocket.c.o
+[79/281] Building C object tests/CMakeFiles/device.dir/device.c.o
+[80/281] Building C object tests/CMakeFiles/base64.dir/convey.c.o
+[81/281] Building C object tests/CMakeFiles/multistress.dir/multistress.c.o
+[82/281] Building C object tests/CMakeFiles/bufsz.dir/bufsz.c.o
+[83/281] Building C object tests/CMakeFiles/device.dir/convey.c.o
+[84/281] Building C object src/CMakeFiles/nng.dir/transport/tcp/tcp.c.o
+[85/281] Building C object tests/CMakeFiles/bufsz.dir/convey.c.o
+[86/281] Building C object tests/CMakeFiles/errors.dir/convey.c.o
+[87/281] Building C object tests/CMakeFiles/files.dir/files.c.o
+[88/281] Building C object tests/CMakeFiles/files.dir/convey.c.o
+[89/281] Building C object tests/CMakeFiles/httpclient.dir/convey.c.o
+[90/281] Building C object tests/CMakeFiles/httpserver.dir/convey.c.o
+[91/281] Linking C static library libnng.a
+[92/281] Building C object tests/CMakeFiles/idhash.dir/convey.c.o
+[93/281] Building C object tests/CMakeFiles/httpclient.dir/httpclient.c.o
+[94/281] Building C object tests/CMakeFiles/idhash.dir/idhash.c.o
+[95/281] Building C object tests/CMakeFiles/ipc.dir/convey.c.o
+[96/281] Building C object tests/CMakeFiles/inproc.dir/inproc.c.o
+[97/281] Linking C executable tests/base64
+[98/281] Linking C executable tests/aio
+FAILED: tests/aio 
+: && /usr/bin/cc -Wall -Wextra -fno-omit-frame-pointer -rdynamic tests/CMakeFiles/aio.dir/aio.c.o tests/CMakeFiles/aio.dir/convey.c.o -o tests/aio  libnng.a  -lrt  -lpthread  -lnsl && :
+/usr/bin/ld: libnng.a(nng.c.o): in function `nng_recvmsg':
+nng.c:(.text+0x366): undefined reference to `nni_sock_isclosed'
+/usr/bin/ld: libnng.a(nng.c.o): in function `nng_sendmsg':
+nng.c:(.text+0x54a): undefined reference to `nni_sock_isclosed'
+collect2: error: ld returned 1 exit status
+[99/281] Building C object tests/CMakeFiles/httpserver.dir/httpserver.c.o
+[100/281] Building C object tests/CMakeFiles/inproc.dir/convey.c.o
+[101/281] Linking C executable tests/device
+FAILED: tests/device 
+: && /usr/bin/cc -Wall -Wextra -fno-omit-frame-pointer -rdynamic tests/CMakeFiles/device.dir/device.c.o tests/CMakeFiles/device.dir/convey.c.o -o tests/device  libnng.a  -lrt  -lpthread  -lnsl && :
+/usr/bin/ld: libnng.a(nng.c.o): in function `nng_recvmsg':
+nng.c:(.text+0x366): undefined reference to `nni_sock_isclosed'
+/usr/bin/ld: libnng.a(nng.c.o): in function `nng_sendmsg':
+nng.c:(.text+0x54a): undefined reference to `nni_sock_isclosed'
+collect2: error: ld returned 1 exit status
+[102/281] Building C object tests/CMakeFiles/ipc.dir/ipc.c.o
+[103/281] Linking C executable tests/bufsz
+FAILED: tests/bufsz 
+: && /usr/bin/cc -Wall -Wextra -fno-omit-frame-pointer -rdynamic tests/CMakeFiles/bufsz.dir/bufsz.c.o tests/CMakeFiles/bufsz.dir/convey.c.o -o tests/bufsz  libnng.a  -lrt  -lpthread  -lnsl && :
+/usr/bin/ld: libnng.a(nng.c.o): in function `nng_recvmsg':
+nng.c:(.text+0x366): undefined reference to `nni_sock_isclosed'
+/usr/bin/ld: libnng.a(nng.c.o): in function `nng_sendmsg':
+nng.c:(.text+0x54a): undefined reference to `nni_sock_isclosed'
+collect2: error: ld returned 1 exit status
+[104/281] Linking C executable tests/files
+[105/281] Building C object tests/CMakeFiles/ipcwinsec.dir/convey.c.o
+[106/281] Linking C executable tests/errors
+FAILED: tests/errors 
+: && /usr/bin/cc -Wall -Wextra -fno-omit-frame-pointer -rdynamic tests/CMakeFiles/errors.dir/errors.c.o tests/CMakeFiles/errors.dir/convey.c.o -o tests/errors  libnng.a  -lrt  -lpthread  -lnsl && :
+/usr/bin/ld: libnng.a(nng.c.o): in function `nng_recvmsg':
+nng.c:(.text+0x366): undefined reference to `nni_sock_isclosed'
+/usr/bin/ld: libnng.a(nng.c.o): in function `nng_sendmsg':
+nng.c:(.text+0x54a): undefined reference to `nni_sock_isclosed'
+collect2: error: ld returned 1 exit status
+[107/281] Building C object tests/CMakeFiles/ipcperms.dir/convey.c.o
+[108/281] Building C object tests/CMakeFiles/list.dir/list.c.o
+[109/281] Linking C executable tests/httpclient
+FAILED: tests/httpclient 
+: && /usr/bin/cc -Wall -Wextra -fno-omit-frame-pointer -rdynamic tests/CMakeFiles/httpclient.dir/httpclient.c.o tests/CMakeFiles/httpclient.dir/convey.c.o -o tests/httpclient  libnng.a  -lrt  -lpthread  -lnsl && :
+/usr/bin/ld: libnng.a(nng.c.o): in function `nng_recvmsg':
+nng.c:(.text+0x366): undefined reference to `nni_sock_isclosed'
+/usr/bin/ld: libnng.a(nng.c.o): in function `nng_sendmsg':
+nng.c:(.text+0x54a): undefined reference to `nni_sock_isclosed'
+collect2: error: ld returned 1 exit status
+[110/281] Building C object tests/CMakeFiles/ipcwinsec.dir/ipcwinsec.c.o
+[111/281] Building C object tests/CMakeFiles/ipcperms.dir/ipcperms.c.o
+ninja: build stopped: subcommand failed.

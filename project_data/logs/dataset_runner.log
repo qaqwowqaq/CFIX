@@ -1612,3 +1612,639 @@ index ec96412..114f597 100644
 2025-06-06 14:13:37,563 - INFO - 结果目录: D:\上课资料\科研课堂\WeCode\CFix\project_data\results
 2025-06-06 14:13:37,563 - INFO - 轨迹目录: D:\上课资料\科研课堂\WeCode\CFix\project_data\trajs
 2025-06-06 14:13:37,563 - INFO - ==================================================
+2025-06-06 14:31:48,018 - INFO - 将处理以下数据集文件: ['dataset\\test_c.jsonl', 'dataset\\test_cpp.jsonl']
+2025-06-06 14:31:48,018 - INFO - 项目数据目录: D:\上课资料\科研课堂\WeCode\CFix\project_data
+2025-06-06 14:31:48,026 - INFO - Docker客户端初始化成功
+2025-06-06 14:31:48,028 - INFO - 成功加载 8 个实例从 dataset\test_c.jsonl
+2025-06-06 14:31:48,029 - INFO - 成功加载 7 个实例从 dataset\test_cpp.jsonl
+2025-06-06 14:31:48,029 - INFO - 过滤后只处理实例: redis__hiredis-1097
+2025-06-06 14:31:48,029 - INFO - 处理实例: redis__hiredis-1097 (redis/hiredis)
+2025-06-06 14:31:48,030 - INFO - 仓库目录已存在: D:\上课资料\科研课堂\WeCode\CFix\project_data\repositories\redis_hiredis
+2025-06-06 14:31:48,058 - INFO - 检测到有效的git仓库，尝试更新...
+2025-06-06 14:31:53,306 - INFO - 成功更新仓库
+2025-06-06 14:31:53,306 - INFO - 切换到commit eaae7321c2c84c45f40ccb01233d299644f4e786
+2025-06-06 14:31:53,337 - INFO - 成功重用现有仓库
+2025-06-06 14:31:53,337 - INFO - 尝试 1/3
+2025-06-06 14:31:53,337 - INFO - 使用AI增强的文件定位...
+2025-06-06 14:31:53,337 - INFO - 扫描项目结构...
+2025-06-06 14:31:53,341 - INFO - 项目结构扫描完成，找到 1 个文件
+2025-06-06 14:31:53,341 - INFO - 构建AI定位prompt，长度: 10085
+2025-06-06 14:31:53,341 - INFO - 开始调用AI API...
+2025-06-06 14:31:53,341 - INFO - 执行简单API调用...
+2025-06-06 14:32:13,451 - INFO - 简单API调用成功，响应长度: 720
+2025-06-06 14:32:13,452 - INFO - AI API调用成功，开始解析响应...
+2025-06-06 14:32:13,452 - INFO - AI分析成功解析: 目标文件=hiredis.c, 置信度=9
+2025-06-06 14:32:13,452 - INFO - AI文件定位结果: {'target_file': 'hiredis.c', 'confidence': 9, 'reasoning': '1. 问题描述中明确指出了堆缓冲区溢出发生在hiredis.c文件的231行，在redisvFormatCommand函数中。2. 调用栈显示问题从format_command_fuzzer.c通过redisFormatCommand最终到达redisvFormatCommand。3. 测试变更差异中提到了格式命令处理的问题，这与hiredis.c中处理Redis命令格式化的功能直接相关。4. hiredis.c是核心实现文件，包含了Redis协议格式化等关键功能。5. 虽然sds.c也涉及字符串处理，但调用栈明确指向hiredis.c。', 'fix_strategy': "1. 检查redisvFormatCommand函数中231行附近的缓冲区访问逻辑。2. 确保所有字符串操作都有正确的边界检查。3. 特别关注格式字符串解析部分，可能需要添加对不完整格式说明符(如'%-')的处理。4. 参考测试变更中新增的无效格式测试用例，确保类似情况被正确处理。", 'test_insights': "1. 测试变更显示需要处理无效的printf格式说明符。2. 新增了针对不完整格式说明符'%-'的测试用例。3. 确认当遇到不支持的格式说明符(如'%p')时应返回错误。4. 测试强调了格式字符串解析的健壮性需求。", 'alternative_files': ['sds.c', 'format_command_fuzzer.c']}
+2025-06-06 14:32:13,453 - INFO - Found 2 code blocks in issue.
+2025-06-06 14:32:13,453 - INFO - Potential file references from issue: ['src/hiredis/format_command_fuzzer.c', 'src/llvm-project/compiler-rt/lib/fuzzer/FuzzerDriver.cpp', 'src/llvm-project/compiler-rt/lib/asan/asan_malloc_linux.cpp', 'src/llvm-project/compiler-rt/lib/fuzzer/FuzzerLoop.cpp', 'src/llvm-project/compiler-rt/lib/fuzzer/FuzzerMain.cpp', 'src/hiredis/hiredis.c', 'fuzzer.h', 'fuzzer.hpp']
+2025-06-06 14:32:13,454 - INFO - File Name Match: 'fuzzing\format_command_fuzzer.c' from 'format_command_fuzzer.c' (Score +75.0)
+2025-06-06 14:32:13,457 - INFO - File Name Match: 'hiredis.c' from 'hiredis.c' (Score +75.0)
+2025-06-06 14:32:13,461 - INFO - Keywords for content search: ['libc', 'MutateAndTestOne', 'asan_malloc_linux', 'project', 'llvm', 'ExecuteCallback', 'format', 'x86_64', '__libc_start_main', 'SizedFile']...
+2025-06-06 14:32:13,470 - INFO - Keyword Match: 'test.c' (Score +2690.0, Reason: 'format' in content (40x); 'hiredis' in content (26x); 'redisFormatCommand' in content (13x); 'malloc' in content (12x); 'main' in content (8x); 'Loop' in content (9x); 'command' in content (161x))
+2025-06-06 14:32:13,470 - INFO - Keyword Match: 'hiredis.c' (Score +1160.0, Reason: 'format' in content (44x); 'hiredis' in content (1x); 'hiredis' in filename; 'redisFormatCommand' in content (4x); 'redisvFormatCommand' in content (3x); 'malloc' in content (6x); '_start' in content (3x); 'command' in content (52x))
+2025-06-06 14:32:13,470 - INFO - Keyword Match: 'adapters\macosx.h' (Score +610.0, Reason: 'hiredis' in content (3x); 'Loop' in content (58x))
+2025-06-06 14:32:13,470 - INFO - Keyword Match: 'hiredis.h' (Score +570.0, Reason: 'format' in content (14x); 'hiredis' in content (10x); 'hiredis' in filename; 'redisFormatCommand' in content (2x); 'redisvFormatCommand' in content (1x); 'main' in content (1x); 'command' in content (26x))
+2025-06-06 14:32:13,471 - INFO - Keyword Match: 'async.c' (Score +490.0, Reason: 'format' in content (11x); 'hiredis' in content (1x); 'redisvFormatCommand' in content (1x); 'malloc' in content (2x); 'main' in content (1x); 'Loop' in content (1x); '_start' in content (1x); 'command' in content (31x))
+2025-06-06 14:32:13,471 - INFO - Keyword Match: 'adapters\ae.h' (Score +280.0, Reason: 'hiredis' in content (3x); 'malloc' in content (1x); 'Loop' in content (24x))
+2025-06-06 14:32:13,471 - INFO - Keyword Match: 'adapters\libev.h' (Score +270.0, Reason: 'hiredis' in content (3x); 'Loop' in content (22x); '_start' in content (2x))
+2025-06-06 14:32:13,471 - INFO - Keyword Match: 'alloc.c' (Score +240.0, Reason: 'libc' in content (1x); 'hiredis' in content (17x); 'malloc' in content (6x))
+2025-06-06 14:32:13,471 - INFO - Keyword Match: 'fuzzing\format_command_fuzzer.c' (Score +240.0, Reason: 'llvm' in content (1x); 'format' in content (1x); 'format' in filename; 'hiredis' in content (1x); 'LLVMFuzzerTestOneInput' in content (1x); 'redisFormatCommand' in content (1x); 'fuzzer' in content (1x); 'fuzzer' in filename; 'format_command_fuzzer' in filename; 'Fuzzer' in content (1x); 'Fuzzer' in filename; 'malloc' in content (1x); 'command' in content (1x); 'command' in filename)
+2025-06-06 14:32:13,471 - INFO - Keyword Match: 'sds.c' (Score +230.0, Reason: 'libc' in content (1x); 'format' in content (5x); 'malloc' in content (9x); 'main' in content (6x); '_start' in content (2x))
+2025-06-06 14:32:13,471 - INFO - Keyword Match: 'alloc.h' (Score +210.0, Reason: 'hiredis' in content (17x); 'malloc' in content (4x))
+2025-06-06 14:32:13,472 - INFO - Keyword Match: 'net.c' (Score +180.0, Reason: 'libc' in content (1x); 'hiredis' in content (2x); 'malloc' in content (4x); 'command' in content (11x))
+2025-06-06 14:32:13,472 - INFO - Keyword Match: 'async.h' (Score +150.0, Reason: 'format' in content (3x); 'hiredis' in content (5x); 'command' in content (7x))
+2025-06-06 14:32:13,472 - INFO - Keyword Match: 'adapters\libuv.h' (Score +130.0, Reason: 'hiredis' in content (3x); 'malloc' in content (1x); 'Loop' in content (4x); '_start' in content (5x))
+2025-06-06 14:32:13,472 - INFO - Keyword Match: 'adapters\glib.h' (Score +100.0, Reason: 'hiredis' in content (4x); 'main' in content (5x); 'Loop' in content (1x))
+2025-06-06 14:32:13,474 - INFO - Final candidate scores (path, score): [('test.c', 2690.0), ('hiredis.c', 1235.0), ('adapters\\macosx.h', 610.0), ('hiredis.h', 570.0), ('async.c', 490.0), ('fuzzing\\format_command_fuzzer.c', 315.0), ('adapters\\ae.h', 280.0), ('adapters\\libev.h', 270.0), ('alloc.c', 240.0), ('sds.c', 230.0), ('alloc.h', 210.0), ('net.c', 180.0), ('async.h', 150.0), ('adapters\\libuv.h', 130.0), ('adapters\\glib.h', 100.0)]
+2025-06-06 14:32:13,474 - INFO - Best candidate selected: 'test.c' with score 2690.0
+2025-06-06 14:32:13,474 - INFO - AI高置信度(9)选择: hiredis.c
+2025-06-06 14:32:13,474 - INFO - Added context file (included): fmacros.h
+2025-06-06 14:32:13,475 - INFO - Added context file (included): hiredis.h
+2025-06-06 14:32:13,475 - INFO - Added context file (included): net.h
+2025-06-06 14:32:13,475 - INFO - Added context file (included): sds.h
+2025-06-06 14:32:13,475 - INFO - Collected 5 files for context. Keys: ['hiredis.c', 'fmacros.h', 'hiredis.h', 'net.h', 'sds.h']
+2025-06-06 14:32:13,475 - INFO - 为文件 hiredis.c 生成AI补丁...
+2025-06-06 14:32:13,476 - INFO - 使用增强prompt调用AI生成补丁...
+2025-06-06 14:32:13,476 - INFO - 发送 API 请求 (尝试 1/3)...
+2025-06-06 14:32:37,950 - INFO - 成功从 DeepSeek API 获取并提取补丁 (947 字符)
+2025-06-06 14:32:37,952 - INFO - AI补丁生成成功，完整对话历史已保存到: D:\上课资料\科研课堂\WeCode\CFix\project_data\logs\redis__hiredis-1097_20250606_143148\attempt_1\ai_conversation_history.json
+2025-06-06 14:32:37,952 - INFO - 拉取Docker镜像: dongqa930/redis_hiredis:1097
+2025-06-06 14:33:05,146 - INFO - 尝试使用 heredoc 方法...
+2025-06-06 14:33:05,418 - INFO - 使用heredoc方法创建patch文件...
+2025-06-06 14:33:15,905 - ERROR - Heredoc方法异常: No closing quotation
+2025-06-06 14:33:15,905 - WARNING - heredoc 方法返回None，尝试下一种方法
+2025-06-06 14:33:15,905 - INFO - 尝试使用 base64 方法...
+2025-06-06 14:33:16,184 - INFO - 使用base64编码方法创建patch文件...
+2025-06-06 14:33:16,312 - ERROR - base64解码失败: base64: extra operand '>'
+Try 'base64 --help' for more information.
+
+2025-06-06 14:33:26,461 - WARNING - base64 方法返回None，尝试下一种方法
+2025-06-06 14:33:26,461 - ERROR - Docker测试完全失败: 所有Docker测试方法都失败了
+2025-06-06 14:33:26,462 - WARNING - 尝试 1 测试失败
+2025-06-06 14:33:28,462 - INFO - 尝试 2/3
+2025-06-06 14:33:28,463 - INFO - 使用AI增强的文件定位...
+2025-06-06 14:33:28,463 - INFO - 扫描项目结构...
+2025-06-06 14:33:28,465 - INFO - 项目结构扫描完成，找到 1 个文件
+2025-06-06 14:33:28,466 - INFO - 构建AI定位prompt，长度: 10085
+2025-06-06 14:33:28,466 - INFO - 开始调用AI API...
+2025-06-06 14:33:28,466 - INFO - 执行简单API调用...
+2025-06-06 14:33:50,602 - INFO - 简单API调用成功，响应长度: 733
+2025-06-06 14:33:50,602 - INFO - AI API调用成功，开始解析响应...
+2025-06-06 14:33:50,602 - INFO - AI分析成功解析: 目标文件=hiredis.c, 置信度=9
+2025-06-06 14:33:50,602 - INFO - AI文件定位结果: {'target_file': 'hiredis.c', 'confidence': 9, 'reasoning': '1. 问题描述中明确指出了堆缓冲区溢出发生在`redisvFormatCommand`函数中，该函数位于`hiredis.c`文件的第231行。2. 调用栈显示问题从`format_command_fuzzer.c`开始，通过`redisFormatCommand`调用到`redisvFormatCommand`，这两个函数都在`hiredis.c`中实现。3. 测试变更差异显示了对格式化命令的测试修改，这与`hiredis.c`中处理Redis命令格式化的功能直接相关。4. 虽然`sds.c`也处理字符串操作，但问题明确指向了命令格式化逻辑，这是`hiredis.c`的核心功能。', 'fix_strategy': "修复策略应集中在`redisvFormatCommand`函数中对格式化字符串的边界检查。需要确保在解析格式化字符串时不会越界访问内存，特别是处理不完整或无效的格式说明符时（如问题中出现的'%-'情况）。可能需要在解析循环中添加对格式字符串结束的检查。", 'test_insights': "测试变更显示：1. 添加了对未处理的printf格式说明符（如'p'）的测试。2. 特别添加了对不完整格式说明符（'%-'）的测试。这表明问题域是命令格式化中对printf风格格式字符串的处理，特别是边界情况和无效格式的处理。", 'alternative_files': ['sds.c', 'format_command_fuzzer.c']}
+2025-06-06 14:33:50,603 - INFO - Found 2 code blocks in issue.
+2025-06-06 14:33:50,603 - INFO - Potential file references from issue: ['src/hiredis/format_command_fuzzer.c', 'src/llvm-project/compiler-rt/lib/fuzzer/FuzzerDriver.cpp', 'src/llvm-project/compiler-rt/lib/asan/asan_malloc_linux.cpp', 'src/llvm-project/compiler-rt/lib/fuzzer/FuzzerLoop.cpp', 'src/llvm-project/compiler-rt/lib/fuzzer/FuzzerMain.cpp', 'src/hiredis/hiredis.c', 'fuzzer.h', 'fuzzer.hpp']
+2025-06-06 14:33:50,604 - INFO - File Name Match: 'fuzzing\format_command_fuzzer.c' from 'format_command_fuzzer.c' (Score +75.0)
+2025-06-06 14:33:50,607 - INFO - File Name Match: 'hiredis.c' from 'hiredis.c' (Score +75.0)
+2025-06-06 14:33:50,611 - INFO - Keywords for content search: ['libc', 'MutateAndTestOne', 'asan_malloc_linux', 'project', 'llvm', 'ExecuteCallback', 'format', 'x86_64', '__libc_start_main', 'SizedFile']...
+2025-06-06 14:33:50,620 - INFO - Keyword Match: 'test.c' (Score +2690.0, Reason: 'format' in content (40x); 'hiredis' in content (26x); 'redisFormatCommand' in content (13x); 'malloc' in content (12x); 'main' in content (8x); 'Loop' in content (9x); 'command' in content (161x))
+2025-06-06 14:33:50,620 - INFO - Keyword Match: 'hiredis.c' (Score +1160.0, Reason: 'format' in content (44x); 'hiredis' in content (1x); 'hiredis' in filename; 'redisFormatCommand' in content (4x); 'redisvFormatCommand' in content (3x); 'malloc' in content (6x); '_start' in content (3x); 'command' in content (52x))
+2025-06-06 14:33:50,620 - INFO - Keyword Match: 'adapters\macosx.h' (Score +610.0, Reason: 'hiredis' in content (3x); 'Loop' in content (58x))
+2025-06-06 14:33:50,620 - INFO - Keyword Match: 'hiredis.h' (Score +570.0, Reason: 'format' in content (14x); 'hiredis' in content (10x); 'hiredis' in filename; 'redisFormatCommand' in content (2x); 'redisvFormatCommand' in content (1x); 'main' in content (1x); 'command' in content (26x))
+2025-06-06 14:33:50,621 - INFO - Keyword Match: 'async.c' (Score +490.0, Reason: 'format' in content (11x); 'hiredis' in content (1x); 'redisvFormatCommand' in content (1x); 'malloc' in content (2x); 'main' in content (1x); 'Loop' in content (1x); '_start' in content (1x); 'command' in content (31x))
+2025-06-06 14:33:50,621 - INFO - Keyword Match: 'adapters\ae.h' (Score +280.0, Reason: 'hiredis' in content (3x); 'malloc' in content (1x); 'Loop' in content (24x))
+2025-06-06 14:33:50,621 - INFO - Keyword Match: 'adapters\libev.h' (Score +270.0, Reason: 'hiredis' in content (3x); 'Loop' in content (22x); '_start' in content (2x))
+2025-06-06 14:33:50,621 - INFO - Keyword Match: 'alloc.c' (Score +240.0, Reason: 'libc' in content (1x); 'hiredis' in content (17x); 'malloc' in content (6x))
+2025-06-06 14:33:50,621 - INFO - Keyword Match: 'fuzzing\format_command_fuzzer.c' (Score +240.0, Reason: 'llvm' in content (1x); 'format' in content (1x); 'format' in filename; 'hiredis' in content (1x); 'LLVMFuzzerTestOneInput' in content (1x); 'redisFormatCommand' in content (1x); 'fuzzer' in content (1x); 'fuzzer' in filename; 'format_command_fuzzer' in filename; 'Fuzzer' in content (1x); 'Fuzzer' in filename; 'malloc' in content (1x); 'command' in content (1x); 'command' in filename)
+2025-06-06 14:33:50,621 - INFO - Keyword Match: 'sds.c' (Score +230.0, Reason: 'libc' in content (1x); 'format' in content (5x); 'malloc' in content (9x); 'main' in content (6x); '_start' in content (2x))
+2025-06-06 14:33:50,621 - INFO - Keyword Match: 'alloc.h' (Score +210.0, Reason: 'hiredis' in content (17x); 'malloc' in content (4x))
+2025-06-06 14:33:50,622 - INFO - Keyword Match: 'net.c' (Score +180.0, Reason: 'libc' in content (1x); 'hiredis' in content (2x); 'malloc' in content (4x); 'command' in content (11x))
+2025-06-06 14:33:50,622 - INFO - Keyword Match: 'async.h' (Score +150.0, Reason: 'format' in content (3x); 'hiredis' in content (5x); 'command' in content (7x))
+2025-06-06 14:33:50,622 - INFO - Keyword Match: 'adapters\libuv.h' (Score +130.0, Reason: 'hiredis' in content (3x); 'malloc' in content (1x); 'Loop' in content (4x); '_start' in content (5x))
+2025-06-06 14:33:50,622 - INFO - Keyword Match: 'adapters\glib.h' (Score +100.0, Reason: 'hiredis' in content (4x); 'main' in content (5x); 'Loop' in content (1x))
+2025-06-06 14:33:50,623 - INFO - Final candidate scores (path, score): [('test.c', 2690.0), ('hiredis.c', 1235.0), ('adapters\\macosx.h', 610.0), ('hiredis.h', 570.0), ('async.c', 490.0), ('fuzzing\\format_command_fuzzer.c', 315.0), ('adapters\\ae.h', 280.0), ('adapters\\libev.h', 270.0), ('alloc.c', 240.0), ('sds.c', 230.0), ('alloc.h', 210.0), ('net.c', 180.0), ('async.h', 150.0), ('adapters\\libuv.h', 130.0), ('adapters\\glib.h', 100.0)]
+2025-06-06 14:33:50,623 - INFO - Best candidate selected: 'test.c' with score 2690.0
+2025-06-06 14:33:50,624 - INFO - AI高置信度(9)选择: hiredis.c
+2025-06-06 14:33:50,624 - INFO - Added context file (included): fmacros.h
+2025-06-06 14:33:50,624 - INFO - Added context file (included): hiredis.h
+2025-06-06 14:33:50,625 - INFO - Added context file (included): net.h
+2025-06-06 14:33:50,625 - INFO - Added context file (included): sds.h
+2025-06-06 14:33:50,625 - INFO - Collected 5 files for context. Keys: ['hiredis.c', 'fmacros.h', 'hiredis.h', 'net.h', 'sds.h']
+2025-06-06 14:33:50,625 - INFO - 为文件 hiredis.c 生成AI补丁...
+2025-06-06 14:33:50,625 - INFO - 使用增强prompt调用AI生成补丁...
+2025-06-06 14:33:50,626 - INFO - 发送 API 请求 (尝试 1/3)...
+2025-06-06 14:34:18,133 - INFO - 成功从 DeepSeek API 获取并提取补丁 (1237 字符)
+2025-06-06 14:34:18,134 - INFO - AI补丁生成成功，完整对话历史已保存到: D:\上课资料\科研课堂\WeCode\CFix\project_data\logs\redis__hiredis-1097_20250606_143148\attempt_2\ai_conversation_history.json
+2025-06-06 14:34:18,135 - INFO - 拉取Docker镜像: dongqa930/redis_hiredis:1097
+2025-06-06 14:34:35,785 - INFO - 尝试使用 heredoc 方法...
+2025-06-06 14:34:36,043 - INFO - 使用heredoc方法创建patch文件...
+2025-06-06 14:34:46,577 - ERROR - Heredoc方法异常: No closing quotation
+2025-06-06 14:34:46,577 - WARNING - heredoc 方法返回None，尝试下一种方法
+2025-06-06 14:34:46,577 - INFO - 尝试使用 base64 方法...
+2025-06-06 14:34:46,823 - INFO - 使用base64编码方法创建patch文件...
+2025-06-06 14:34:46,946 - ERROR - base64解码失败: base64: extra operand '>'
+Try 'base64 --help' for more information.
+
+2025-06-06 14:43:09,118 - INFO - 将处理以下数据集文件: ['dataset\\test_c.jsonl', 'dataset\\test_cpp.jsonl']
+2025-06-06 14:43:09,118 - INFO - 项目数据目录: D:\上课资料\科研课堂\WeCode\CFix\project_data
+2025-06-06 14:43:09,127 - INFO - Docker客户端初始化成功
+2025-06-06 14:43:09,128 - INFO - 成功加载 8 个实例从 dataset\test_c.jsonl
+2025-06-06 14:43:09,128 - INFO - 成功加载 7 个实例从 dataset\test_cpp.jsonl
+2025-06-06 14:43:09,128 - INFO - 过滤后只处理实例: redis__hiredis-1097
+2025-06-06 14:43:09,128 - INFO - 处理实例: redis__hiredis-1097 (redis/hiredis)
+2025-06-06 14:43:09,129 - INFO - 仓库目录已存在: D:\上课资料\科研课堂\WeCode\CFix\project_data\repositories\redis_hiredis
+2025-06-06 14:43:09,155 - INFO - 检测到有效的git仓库，尝试更新...
+2025-06-06 14:43:13,118 - INFO - 成功更新仓库
+2025-06-06 14:43:13,118 - INFO - 切换到commit eaae7321c2c84c45f40ccb01233d299644f4e786
+2025-06-06 14:43:13,139 - INFO - 成功重用现有仓库
+2025-06-06 14:43:13,140 - INFO - 尝试 1/3
+2025-06-06 14:43:13,140 - INFO - 使用AI增强的文件定位...
+2025-06-06 14:43:13,140 - INFO - 扫描项目结构...
+2025-06-06 14:43:13,143 - INFO - 项目结构扫描完成，找到 1 个文件
+2025-06-06 14:43:13,143 - INFO - 构建AI定位prompt，长度: 10085
+2025-06-06 14:43:13,144 - INFO - 开始调用AI API...
+2025-06-06 14:43:13,144 - INFO - 执行简单API调用...
+2025-06-06 14:43:32,803 - INFO - 简单API调用成功，响应长度: 698
+2025-06-06 14:43:32,804 - INFO - AI API调用成功，开始解析响应...
+2025-06-06 14:43:32,804 - INFO - AI分析成功解析: 目标文件=hiredis.c, 置信度=9
+2025-06-06 14:43:32,804 - INFO - AI文件定位结果: {'target_file': 'hiredis.c', 'confidence': 9, 'reasoning': '1. 问题描述明确指出堆缓冲区溢出发生在redisvFormatCommand函数中，该函数位于hiredis.c文件的231行。2. 调用栈显示问题从format_command_fuzzer.c通过redisFormatCommand调用到redisvFormatCommand，而这两个函数都在hiredis.c中实现。3. 测试变更差异显示了对格式化命令的测试修改，这与hiredis.c中处理Redis命令格式化的功能直接相关。4. 虽然sds.c也涉及字符串处理，但错误发生在命令格式化逻辑中，这是hiredis.c的核心功能。', 'fix_strategy': "修复策略应集中在redisvFormatCommand函数中对格式化字符串的边界检查。需要确保在解析格式化字符串时不会越界访问内存，特别是处理不完整或无效的格式说明符时（如问题中出现的'%-'情况）。可能需要在解析循环中添加对格式字符串结束的额外检查。", 'test_insights': "测试变更显示：1. 添加了对未处理的printf格式说明符（如'p'）的明确测试。2. 特别添加了对不完整格式说明符（'%-'）的测试用例。这表明问题与格式字符串解析的鲁棒性相关，特别是对边缘情况的处理。", 'alternative_files': ['sds.c', 'format_command_fuzzer.c']}
+2025-06-06 14:43:32,805 - INFO - Found 2 code blocks in issue.
+2025-06-06 14:43:32,805 - INFO - Potential file references from issue: ['src/hiredis/hiredis.c', 'src/llvm-project/compiler-rt/lib/fuzzer/FuzzerDriver.cpp', 'fuzzer.h', 'src/hiredis/format_command_fuzzer.c', 'src/llvm-project/compiler-rt/lib/fuzzer/FuzzerLoop.cpp', 'fuzzer.hpp', 'src/llvm-project/compiler-rt/lib/asan/asan_malloc_linux.cpp', 'src/llvm-project/compiler-rt/lib/fuzzer/FuzzerMain.cpp']
+2025-06-06 14:43:32,805 - INFO - File Name Match: 'hiredis.c' from 'hiredis.c' (Score +75.0)
+2025-06-06 14:43:32,808 - INFO - File Name Match: 'fuzzing\format_command_fuzzer.c' from 'format_command_fuzzer.c' (Score +75.0)
+2025-06-06 14:43:32,813 - INFO - Keywords for content search: ['command', 'FuzzerMain', 'FuzzerDriver', '__libc_start_main', 'FuzzerLoop', 'compiler', 'MutateAndTestOne', 'LLVMFuzzerTestOneInput', 'main', 'ExecuteCallback']...
+2025-06-06 14:43:32,821 - INFO - Keyword Match: 'test.c' (Score +2690.0, Reason: 'command' in content (161x); 'main' in content (8x); 'format' in content (40x); 'hiredis' in content (26x); 'redisFormatCommand' in content (13x); 'malloc' in content (12x); 'Loop' in content (9x))
+2025-06-06 14:43:32,822 - INFO - Keyword Match: 'hiredis.c' (Score +1160.0, Reason: 'command' in content (52x); 'format' in content (44x); '_start' in content (3x); 'redisvFormatCommand' in content (3x); 'hiredis' in content (1x); 'hiredis' in filename; 'redisFormatCommand' in content (4x); 'malloc' in content (6x))
+2025-06-06 14:43:32,822 - INFO - Keyword Match: 'adapters\macosx.h' (Score +610.0, Reason: 'hiredis' in content (3x); 'Loop' in content (58x))
+2025-06-06 14:43:32,822 - INFO - Keyword Match: 'hiredis.h' (Score +570.0, Reason: 'command' in content (26x); 'main' in content (1x); 'format' in content (14x); 'redisvFormatCommand' in content (1x); 'hiredis' in content (10x); 'hiredis' in filename; 'redisFormatCommand' in content (2x))
+2025-06-06 14:43:32,822 - INFO - Keyword Match: 'async.c' (Score +490.0, Reason: 'command' in content (31x); 'main' in content (1x); 'format' in content (11x); '_start' in content (1x); 'redisvFormatCommand' in content (1x); 'hiredis' in content (1x); 'malloc' in content (2x); 'Loop' in content (1x))
+2025-06-06 14:43:32,822 - INFO - Keyword Match: 'adapters\ae.h' (Score +280.0, Reason: 'hiredis' in content (3x); 'malloc' in content (1x); 'Loop' in content (24x))
+2025-06-06 14:43:32,822 - INFO - Keyword Match: 'adapters\libev.h' (Score +270.0, Reason: '_start' in content (2x); 'hiredis' in content (3x); 'Loop' in content (22x))
+2025-06-06 14:43:32,823 - INFO - Keyword Match: 'alloc.c' (Score +240.0, Reason: 'libc' in content (1x); 'hiredis' in content (17x); 'malloc' in content (6x))
+2025-06-06 14:43:32,823 - INFO - Keyword Match: 'fuzzing\format_command_fuzzer.c' (Score +240.0, Reason: 'command' in content (1x); 'command' in filename; 'LLVMFuzzerTestOneInput' in content (1x); 'format' in content (1x); 'format' in filename; 'format_command_fuzzer' in filename; 'llvm' in content (1x); 'fuzzer' in content (1x); 'fuzzer' in filename; 'hiredis' in content (1x); 'Fuzzer' in content (1x); 'Fuzzer' in filename; 'redisFormatCommand' in content (1x); 'malloc' in content (1x))
+2025-06-06 14:43:32,823 - INFO - Keyword Match: 'sds.c' (Score +230.0, Reason: 'main' in content (6x); 'libc' in content (1x); 'format' in content (5x); '_start' in content (2x); 'malloc' in content (9x))
+2025-06-06 14:43:32,823 - INFO - Keyword Match: 'alloc.h' (Score +210.0, Reason: 'hiredis' in content (17x); 'malloc' in content (4x))
+2025-06-06 14:43:32,823 - INFO - Keyword Match: 'net.c' (Score +180.0, Reason: 'command' in content (11x); 'libc' in content (1x); 'hiredis' in content (2x); 'malloc' in content (4x))
+2025-06-06 14:43:32,823 - INFO - Keyword Match: 'async.h' (Score +150.0, Reason: 'command' in content (7x); 'format' in content (3x); 'hiredis' in content (5x))
+2025-06-06 14:43:32,824 - INFO - Keyword Match: 'adapters\libuv.h' (Score +130.0, Reason: '_start' in content (5x); 'hiredis' in content (3x); 'malloc' in content (1x); 'Loop' in content (4x))
+2025-06-06 14:43:32,824 - INFO - Keyword Match: 'adapters\glib.h' (Score +100.0, Reason: 'main' in content (5x); 'hiredis' in content (4x); 'Loop' in content (1x))
+2025-06-06 14:43:32,826 - INFO - Final candidate scores (path, score): [('test.c', 2690.0), ('hiredis.c', 1235.0), ('adapters\\macosx.h', 610.0), ('hiredis.h', 570.0), ('async.c', 490.0), ('fuzzing\\format_command_fuzzer.c', 315.0), ('adapters\\ae.h', 280.0), ('adapters\\libev.h', 270.0), ('alloc.c', 240.0), ('sds.c', 230.0), ('alloc.h', 210.0), ('net.c', 180.0), ('async.h', 150.0), ('adapters\\libuv.h', 130.0), ('adapters\\glib.h', 100.0)]
+2025-06-06 14:43:32,826 - INFO - Best candidate selected: 'test.c' with score 2690.0
+2025-06-06 14:43:32,826 - INFO - AI高置信度(9)选择: hiredis.c
+2025-06-06 14:43:32,827 - INFO - Added context file (included): fmacros.h
+2025-06-06 14:43:32,827 - INFO - Added context file (included): hiredis.h
+2025-06-06 14:43:32,827 - INFO - Added context file (included): net.h
+2025-06-06 14:43:32,827 - INFO - Added context file (included): sds.h
+2025-06-06 14:43:32,828 - INFO - Collected 5 files for context. Keys: ['hiredis.c', 'fmacros.h', 'hiredis.h', 'net.h', 'sds.h']
+2025-06-06 14:43:32,828 - INFO - 为文件 hiredis.c 生成AI补丁...
+2025-06-06 14:43:32,828 - INFO - 使用增强prompt调用AI生成补丁...
+2025-06-06 14:43:32,828 - INFO - 发送 API 请求 (尝试 1/3)...
+2025-06-06 14:43:56,910 - INFO - 成功从 DeepSeek API 获取并提取补丁 (950 字符)
+2025-06-06 14:43:56,911 - INFO - AI补丁生成成功，完整对话历史已保存到: D:\上课资料\科研课堂\WeCode\CFix\project_data\logs\redis__hiredis-1097_20250606_144309\attempt_1\ai_conversation_history.json
+2025-06-06 14:43:56,912 - INFO - 拉取Docker镜像: dongqa930/redis_hiredis:1097
+2025-06-06 14:44:08,202 - INFO - 尝试使用 heredoc 方法...
+2025-06-06 14:44:08,443 - INFO - 使用单次heredoc方法创建patch文件...
+2025-06-06 14:44:08,514 - INFO - Patch文件创建成功: 24 /home/fix.patch
+2025-06-06 14:44:08,560 - INFO - Patch文件预览:
+    diff --git a/hiredis.c b/hiredis.c
+index abc1234..def5678 100644
+--- a/hiredis.c
++++ b/hiredis.c
+@@ -228,7 +228,7 @@ int redisvFormatCommand(char **target, const char *format, va_list ap) {
+
+2025-06-06 14:44:08,581 - INFO - AI生成的补丁预览:
+    diff --git a/hiredis.c b/hiredis.c
+index abc1234..def5678 100644
+--- a/hiredis.c
++++ b/hiredis.c
+@@ -228,7 +228,7 @@ int redisvFormatCommand(char **target, const char *format, va_list ap) {
+                     /* Flags */
+                     while (*_p != '\0' && strchr(flags,*_p) != NULL) _p++;
+ 
+-                    /* Field width */
++                    /* Field width (check for end of string before accessing) */
+
+2025-06-06 14:44:08,582 - INFO - 运行测试脚本（fix_run.sh会自动应用测试补丁）...
+2025-06-06 14:44:28,639 - INFO - heredoc 方法执行成功
+2025-06-06 14:44:28,640 - INFO - 结果已保存到 D:\上课资料\科研课堂\WeCode\CFix\project_data\results\execution_results.json
+2025-06-06 14:44:28,640 - INFO - ==================================================
+2025-06-06 14:44:28,640 - INFO - 执行完成!
+2025-06-06 14:44:28,641 - INFO - 总实例数: 1
+2025-06-06 14:44:28,641 - INFO - 成功: 1 (100.0%)
+2025-06-06 14:44:28,641 - INFO - 失败: 0 (0.0%)
+2025-06-06 14:44:28,641 - INFO - 日志目录: D:\上课资料\科研课堂\WeCode\CFix\project_data\logs
+2025-06-06 14:44:28,641 - INFO - 结果目录: D:\上课资料\科研课堂\WeCode\CFix\project_data\results
+2025-06-06 14:44:28,641 - INFO - 轨迹目录: D:\上课资料\科研课堂\WeCode\CFix\project_data\trajs
+2025-06-06 14:44:28,641 - INFO - ==================================================
+2025-06-06 14:50:29,020 - INFO - 将处理以下数据集文件: ['dataset\\test_c.jsonl', 'dataset\\test_cpp.jsonl']
+2025-06-06 14:50:29,020 - INFO - 项目数据目录: D:\上课资料\科研课堂\WeCode\CFix\project_data
+2025-06-06 14:50:29,028 - INFO - Docker客户端初始化成功
+2025-06-06 14:50:29,029 - INFO - 成功加载 8 个实例从 dataset\test_c.jsonl
+2025-06-06 14:50:29,030 - INFO - 成功加载 7 个实例从 dataset\test_cpp.jsonl
+2025-06-06 14:50:29,030 - INFO - 过滤后只处理实例: nanomsg__nng-1082
+2025-06-06 14:50:29,030 - INFO - 处理实例: nanomsg__nng-1082 (nanomsg/nng)
+2025-06-06 14:50:29,030 - INFO - 使用SSH克隆仓库 git@github.com:nanomsg/nng.git 到 D:\上课资料\科研课堂\WeCode\CFix\project_data\repositories\nanomsg_nng
+2025-06-06 14:53:11,020 - INFO - 切换到commit 0ab3403ef9407db4604cbb451c42a179ab807342
+2025-06-06 14:53:11,182 - INFO - 尝试 1/3
+2025-06-06 14:53:11,182 - INFO - 使用AI增强的文件定位...
+2025-06-06 14:53:11,183 - INFO - 扫描项目结构...
+2025-06-06 14:53:11,187 - INFO - 项目结构扫描完成，找到 3 个文件
+2025-06-06 14:53:11,187 - INFO - 构建AI定位prompt，长度: 8476
+2025-06-06 14:53:11,187 - INFO - 开始调用AI API...
+2025-06-06 14:53:11,187 - INFO - 执行简单API调用...
+2025-06-06 14:53:33,461 - INFO - 简单API调用成功，响应长度: 731
+2025-06-06 14:53:33,461 - INFO - AI API调用成功，开始解析响应...
+2025-06-06 14:53:33,461 - INFO - AI分析成功解析: 目标文件=src/nng.c, 置信度=8
+2025-06-06 14:53:33,461 - INFO - AI文件定位结果: {'target_file': 'src/nng.c', 'confidence': 8, 'reasoning': '1. 问题描述提到需要改进访问NNG对象统计信息的方式，这通常涉及核心功能实现。2. 测试变更中使用了nng_stats_get()和nng_stat_find_socket()等统计相关API，这些核心统计功能最可能实现在主库文件中。3. nng.c是NNG的核心实现文件，包含大部分基础功能的实现。4. 测试文件只是验证功能，而实际统计功能的实现应在核心库中。5. 项目结构中其他文件要么是测试文件，要么是性能测试/特定协议实现，不太可能包含核心统计功能。', 'fix_strategy': '1. 在nng.c中实现新的统计查找函数，如nng_stat_find_socket()。2. 改进现有统计API以支持按名称和对象类型查找统计信息。3. 确保统计树结构可以按NNG对象(如dialer/listener/socket)进行遍历。4. 添加必要的内部函数来关联统计信息和NNG对象。', 'test_insights': '1. 测试验证了通过socket查找统计信息的能力(nng_stat_find_socket)。2. 测试检查了统计值的类型和有效性(NNG_STAT_COUNTER)。3. 测试展示了完整的统计使用流程:获取统计树->查找特定统计->验证统计属性。4. 测试使用了非阻塞连接场景来生成统计信息。', 'alternative_files': ['src/core/stat.c', 'src/core/socket.c']}
+2025-06-06 14:53:33,462 - INFO - Found 0 code blocks in issue.
+2025-06-06 14:53:33,462 - INFO - Potential file references from issue: []
+2025-06-06 14:53:33,470 - WARNING - No candidate files found after all stages.
+2025-06-06 14:53:33,470 - INFO - AI高置信度(8)选择: src\nng.c
+2025-06-06 14:53:33,470 - INFO - Added context file (included): src\core\nng_impl.h
+2025-06-06 14:53:33,471 - INFO - Collected 2 files for context. Keys: ['src\\nng.c', 'src\\core\\nng_impl.h']
+2025-06-06 14:53:33,471 - INFO - 为文件 src\nng.c 生成AI补丁...
+2025-06-06 14:53:33,471 - INFO - 使用增强prompt调用AI生成补丁...
+2025-06-06 14:53:33,471 - INFO - 发送 API 请求 (尝试 1/3)...
+2025-06-06 14:54:03,404 - INFO - 成功从 DeepSeek API 获取并提取补丁 (1173 字符)
+2025-06-06 14:54:03,406 - INFO - AI补丁生成成功，完整对话历史已保存到: D:\上课资料\科研课堂\WeCode\CFix\project_data\logs\nanomsg__nng-1082_20250606_145029\attempt_1\ai_conversation_history.json
+2025-06-06 14:54:03,406 - INFO - 拉取Docker镜像: dongqa930/nanomsg_nng:1082
+2025-06-06 14:54:26,196 - INFO - 尝试使用 heredoc 方法...
+2025-06-06 14:54:26,468 - INFO - 使用单次heredoc方法创建patch文件...
+2025-06-06 14:54:26,525 - INFO - Patch文件创建成功: 56 /home/fix.patch
+2025-06-06 14:54:26,559 - INFO - Patch文件预览:
+    diff --git a/src/nng.c b/src/nng.c
+index abc1234..def5678 100644
+--- a/src/nng.c
++++ b/src/nng.c
+@@ -1234,6 +1234,40 @@ nng_stats_free(nng_stat *stat)
+
+2025-06-06 14:54:26,592 - INFO - AI生成的补丁预览:
+    diff --git a/src/nng.c b/src/nng.c
+index abc1234..def5678 100644
+--- a/src/nng.c
++++ b/src/nng.c
+@@ -1234,6 +1234,40 @@ nng_stats_free(nng_stat *stat)
+ 	nni_stat_free(stat);
+ }
+ 
++nng_stat *
++nng_stat_find(nng_stat *stat, const char *name)
+
+2025-06-06 14:54:26,593 - INFO - 运行测试脚本（fix_run.sh会自动应用测试补丁）...
+2025-06-06 14:54:36,771 - INFO - heredoc 方法执行成功
+2025-06-06 14:54:36,772 - WARNING - 尝试 1 测试失败
+2025-06-06 14:54:38,772 - INFO - 尝试 2/3
+2025-06-06 14:54:38,773 - INFO - 使用AI增强的文件定位...
+2025-06-06 14:54:38,773 - INFO - 扫描项目结构...
+2025-06-06 14:54:38,777 - INFO - 项目结构扫描完成，找到 3 个文件
+2025-06-06 14:54:38,777 - INFO - 构建AI定位prompt，长度: 8476
+2025-06-06 14:54:38,777 - INFO - 开始调用AI API...
+2025-06-06 14:54:38,777 - INFO - 执行简单API调用...
+2025-06-06 14:54:59,258 - INFO - 简单API调用成功，响应长度: 598
+2025-06-06 14:54:59,258 - INFO - AI API调用成功，开始解析响应...
+2025-06-06 14:54:59,258 - INFO - AI分析成功解析: 目标文件=src/nng.c, 置信度=9
+2025-06-06 14:54:59,259 - INFO - AI文件定位结果: {'target_file': 'src/nng.c', 'confidence': 9, 'reasoning': '1. 问题描述涉及NNG对象的统计信息访问，这是核心功能，应在主实现文件中。2. 测试变更中使用了nng_stats_get()和nng_stat_find_socket()等统计相关API，这些通常在核心实现中定义。3. nng.c是NNG的核心源文件，包含大部分基础功能的实现。4. 测试文件只是验证功能，不包含实际实现。5. 其他文件要么是测试文件，要么是性能测试/协议实现，不涉及核心统计功能。', 'fix_strategy': '1. 在nng.c中添加/修改统计访问API，如nng_stat_find_socket()的实现。2. 增强统计树遍历功能，支持按对象类型和名称查找。3. 确保统计数据结构能有效关联到各种NNG对象(socket/dialer/listener)。', 'test_insights': '1. 测试验证了通过socket查找统计树的能力。2. 测试检查了统计值的类型和内容。3. 测试使用了新的地址生成工具函数(testutil_scratch_addr)。4. 重点关注socket级别的统计访问。', 'alternative_files': []}
+2025-06-06 14:54:59,259 - INFO - Found 0 code blocks in issue.
+2025-06-06 14:54:59,259 - INFO - Potential file references from issue: []
+2025-06-06 14:54:59,266 - WARNING - No candidate files found after all stages.
+2025-06-06 14:54:59,266 - INFO - AI高置信度(9)选择: src\nng.c
+2025-06-06 14:54:59,267 - INFO - Added context file (included): src\core\nng_impl.h
+2025-06-06 14:54:59,267 - INFO - Collected 2 files for context. Keys: ['src\\nng.c', 'src\\core\\nng_impl.h']
+2025-06-06 14:54:59,267 - INFO - 为文件 src\nng.c 生成AI补丁...
+2025-06-06 14:54:59,267 - INFO - 使用增强prompt调用AI生成补丁...
+2025-06-06 14:54:59,268 - INFO - 发送 API 请求 (尝试 1/3)...
+2025-06-06 14:55:34,766 - INFO - 成功从 DeepSeek API 获取并提取补丁 (1229 字符)
+2025-06-06 14:55:34,767 - INFO - AI补丁生成成功，完整对话历史已保存到: D:\上课资料\科研课堂\WeCode\CFix\project_data\logs\nanomsg__nng-1082_20250606_145029\attempt_2\ai_conversation_history.json
+2025-06-06 14:55:34,768 - INFO - 拉取Docker镜像: dongqa930/nanomsg_nng:1082
+2025-06-06 14:55:47,436 - INFO - 尝试使用 heredoc 方法...
+2025-06-06 14:55:47,698 - INFO - 使用单次heredoc方法创建patch文件...
+2025-06-06 14:55:47,767 - INFO - Patch文件创建成功: 60 /home/fix.patch
+2025-06-06 14:55:47,799 - INFO - Patch文件预览:
+    diff --git a/src/nng.c b/src/nng.c
+index abc1234..def5678 100644
+--- a/src/nng.c
++++ b/src/nng.c
+@@ -2000,6 +2000,48 @@ nng_stats_free(nng_stat *stat)
+
+2025-06-06 14:55:47,829 - INFO - AI生成的补丁预览:
+    diff --git a/src/nng.c b/src/nng.c
+index abc1234..def5678 100644
+--- a/src/nng.c
++++ b/src/nng.c
+@@ -2000,6 +2000,48 @@ nng_stats_free(nng_stat *stat)
+ 	nni_stat_free(stat);
+ }
+ 
++nng_stat *
++nng_stat_find(nng_stat *stat, const char *name)
+
+2025-06-06 14:55:47,829 - INFO - 运行测试脚本（fix_run.sh会自动应用测试补丁）...
+2025-06-06 14:55:58,018 - INFO - heredoc 方法执行成功
+2025-06-06 14:55:58,018 - WARNING - 尝试 2 测试失败
+2025-06-06 14:56:00,019 - INFO - 尝试 3/3
+2025-06-06 14:56:00,019 - INFO - 使用AI增强的文件定位...
+2025-06-06 14:56:00,019 - INFO - 扫描项目结构...
+2025-06-06 14:56:00,023 - INFO - 项目结构扫描完成，找到 3 个文件
+2025-06-06 14:56:00,023 - INFO - 构建AI定位prompt，长度: 8476
+2025-06-06 14:56:00,024 - INFO - 开始调用AI API...
+2025-06-06 14:56:00,024 - INFO - 执行简单API调用...
+2025-06-06 14:56:18,818 - INFO - 简单API调用成功，响应长度: 607
+2025-06-06 14:56:18,818 - INFO - AI API调用成功，开始解析响应...
+2025-06-06 14:56:18,818 - INFO - AI分析成功解析: 目标文件=src/nng.c, 置信度=8
+2025-06-06 14:56:18,819 - INFO - AI文件定位结果: {'target_file': 'src/nng.c', 'confidence': 8, 'reasoning': '1. 问题描述提到需要改进对NNG对象统计数据的访问方式，这属于核心功能，通常在核心实现文件中处理。2. 测试变更中使用了nng_stats_get、nng_stat_find_socket等统计相关API，这些API通常在核心实现文件中定义。3. 在项目文件结构中，src/nng.c是最大的源文件，很可能包含统计功能的实现。4. 测试文件只是验证功能，不包含实际实现。', 'fix_strategy': '1. 在nng.c中添加新的API函数来查找特定对象的统计树。2. 实现按名称查找统计值的通用方法。3. 确保新的API与现有的统计系统兼容。4. 可能需要修改统计数据的存储结构以支持更灵活的查询。', 'test_insights': "1. 测试验证了通过socket查找统计信息的能力(nng_stat_find_socket)。2. 测试检查了特定统计项('reject')的存在和值。3. 测试展示了统计数据的层级结构(先找socket，再找具体统计项)。4. 测试使用了新的testutil_scratch_addr辅助函数来创建临时地址。", 'alternative_files': []}
+2025-06-06 14:56:18,819 - INFO - Found 0 code blocks in issue.
+2025-06-06 14:56:18,819 - INFO - Potential file references from issue: []
+2025-06-06 14:56:18,827 - WARNING - No candidate files found after all stages.
+2025-06-06 14:56:18,827 - INFO - AI高置信度(8)选择: src\nng.c
+2025-06-06 14:56:18,827 - INFO - Added context file (included): src\core\nng_impl.h
+2025-06-06 14:56:18,827 - INFO - Collected 2 files for context. Keys: ['src\\nng.c', 'src\\core\\nng_impl.h']
+2025-06-06 14:56:18,827 - INFO - 为文件 src\nng.c 生成AI补丁...
+2025-06-06 14:56:18,828 - INFO - 使用增强prompt调用AI生成补丁...
+2025-06-06 14:56:18,828 - INFO - 发送 API 请求 (尝试 1/3)...
+2025-06-06 14:56:55,132 - INFO - 成功从 DeepSeek API 获取并提取补丁 (1290 字符)
+2025-06-06 14:56:55,133 - INFO - AI补丁生成成功，完整对话历史已保存到: D:\上课资料\科研课堂\WeCode\CFix\project_data\logs\nanomsg__nng-1082_20250606_145029\attempt_3\ai_conversation_history.json
+2025-06-06 14:56:55,134 - INFO - 拉取Docker镜像: dongqa930/nanomsg_nng:1082
+2025-06-06 14:57:06,977 - INFO - 尝试使用 heredoc 方法...
+2025-06-06 14:57:07,233 - INFO - 使用单次heredoc方法创建patch文件...
+2025-06-06 14:57:07,301 - INFO - Patch文件创建成功: 59 /home/fix.patch
+2025-06-06 14:57:07,337 - INFO - Patch文件预览:
+    diff --git a/src/nng.c b/src/nng.c
+index abc1234..def5678 100644
+--- a/src/nng.c
++++ b/src/nng.c
+@@ -2000,6 +2000,50 @@ nng_stats_free(nng_stat *stat)
+
+2025-06-06 14:57:07,366 - INFO - AI生成的补丁预览:
+    diff --git a/src/nng.c b/src/nng.c
+index abc1234..def5678 100644
+--- a/src/nng.c
++++ b/src/nng.c
+@@ -2000,6 +2000,50 @@ nng_stats_free(nng_stat *stat)
+ 	nni_stat_free(stat);
+ }
+ 
++nng_stat *
++nng_stat_find(nng_stat *stat, const char *name)
+
+2025-06-06 14:57:07,366 - INFO - 运行测试脚本（fix_run.sh会自动应用测试补丁）...
+2025-06-06 14:57:17,556 - INFO - heredoc 方法执行成功
+2025-06-06 14:57:17,556 - WARNING - 尝试 3 测试失败
+2025-06-06 14:57:17,557 - INFO - 结果已保存到 D:\上课资料\科研课堂\WeCode\CFix\project_data\results\execution_results.json
+2025-06-06 14:57:17,557 - INFO - ==================================================
+2025-06-06 14:57:17,557 - INFO - 执行完成!
+2025-06-06 14:57:17,557 - INFO - 总实例数: 1
+2025-06-06 14:57:17,558 - INFO - 成功: 0 (0.0%)
+2025-06-06 14:57:17,558 - INFO - 失败: 1 (100.0%)
+2025-06-06 14:57:17,558 - INFO - 日志目录: D:\上课资料\科研课堂\WeCode\CFix\project_data\logs
+2025-06-06 14:57:17,558 - INFO - 结果目录: D:\上课资料\科研课堂\WeCode\CFix\project_data\results
+2025-06-06 14:57:17,558 - INFO - 轨迹目录: D:\上课资料\科研课堂\WeCode\CFix\project_data\trajs
+2025-06-06 14:57:17,558 - INFO - ==================================================
+2025-06-06 15:04:23,886 - INFO - 将处理以下数据集文件: ['dataset\\test_c.jsonl', 'dataset\\test_cpp.jsonl']
+2025-06-06 15:04:23,886 - INFO - 项目数据目录: D:\上课资料\科研课堂\WeCode\CFix\project_data
+2025-06-06 15:04:23,894 - INFO - Docker客户端初始化成功
+2025-06-06 15:04:23,895 - INFO - 成功加载 8 个实例从 dataset\test_c.jsonl
+2025-06-06 15:04:23,896 - INFO - 成功加载 7 个实例从 dataset\test_cpp.jsonl
+2025-06-06 15:04:23,896 - INFO - 过滤后只处理实例: nanomsg__nng-613
+2025-06-06 15:04:23,896 - INFO - 处理实例: nanomsg__nng-613 (nanomsg/nng)
+2025-06-06 15:04:23,896 - INFO - 仓库目录已存在: D:\上课资料\科研课堂\WeCode\CFix\project_data\repositories\nanomsg_nng
+2025-06-06 15:04:23,961 - INFO - 检测到有效的git仓库，尝试更新...
+2025-06-06 15:04:28,021 - INFO - 成功更新仓库
+2025-06-06 15:04:28,021 - INFO - 切换到commit ccc24a8e508131a2226474642a038baaa2cbcc8c
+2025-06-06 15:04:28,159 - INFO - 成功重用现有仓库
+2025-06-06 15:04:28,160 - INFO - 尝试 1/3
+2025-06-06 15:04:28,160 - INFO - 使用AI增强的文件定位...
+2025-06-06 15:04:28,161 - INFO - 扫描项目结构...
+2025-06-06 15:04:28,165 - INFO - 项目结构扫描完成，找到 5 个文件
+2025-06-06 15:04:28,165 - INFO - 构建AI定位prompt，长度: 6401
+2025-06-06 15:04:28,165 - INFO - 开始调用AI API...
+2025-06-06 15:04:28,166 - INFO - 执行简单API调用...
+2025-06-06 15:04:50,797 - INFO - 简单API调用成功，响应长度: 640
+2025-06-06 15:04:50,797 - INFO - AI API调用成功，开始解析响应...
+2025-06-06 15:04:50,797 - INFO - AI分析成功解析: 目标文件=src/nng.c, 置信度=8
+2025-06-06 15:04:50,797 - INFO - AI文件定位结果: {'target_file': 'src/nng.c', 'confidence': 8, 'reasoning': "1. 问题描述涉及TCP/IPC/TLS传输层的竞态条件，这些核心传输逻辑通常在核心实现文件中处理\n2. 测试变更虽然修改的是tls.c测试文件，但测试的是底层传输行为，指向核心实现\n3. nng.c是项目最大的核心源文件(34.8KB)，包含协议栈和传输层实现\n4. 问题描述提到'aio关闭'和'消息头/体传输'，这些都是核心协议栈功能\n5. 其他备选文件要么是测试文件，要么是头文件，不符合修复条件", 'fix_strategy': '需要在消息头接收和消息体接收之间添加状态检查，确保在关闭操作发生时能正确终止传输。可能的修复点包括：\n1. 在aio回调中增加连接状态检查\n2. 在消息头处理完成后添加连接有效性验证\n3. 确保关闭操作能正确中断正在进行的传输', 'test_insights': '1. 测试变更主要验证TLS传输层的连接建立过程\n2. 新增了更详细的连接建立步骤(nng_listener_create/dialer_create)\n3. 增加了TLS认证模式设置\n4. 测试场景涉及连接建立和消息传输的时序问题', 'alternative_files': ['src/nng.h', 'tests/compat_tcp.c']}
+2025-06-06 15:04:50,798 - INFO - Found 0 code blocks in issue.
+2025-06-06 15:04:50,798 - INFO - Potential file references from issue: []
+2025-06-06 15:04:50,804 - WARNING - No candidate files found after all stages.
+2025-06-06 15:04:50,804 - INFO - AI高置信度(8)选择: src\nng.c
+2025-06-06 15:04:50,805 - INFO - Added context file (included): src\nng.h
+2025-06-06 15:04:50,805 - INFO - Added context file (included): src\core\nng_impl.h
+2025-06-06 15:04:50,805 - INFO - Collected 3 files for context. Keys: ['src\\nng.c', 'src\\nng.h', 'src\\core\\nng_impl.h']
+2025-06-06 15:04:50,805 - INFO - 为文件 src\nng.c 生成AI补丁...
+2025-06-06 15:04:50,806 - INFO - 使用增强prompt调用AI生成补丁...
+2025-06-06 15:04:50,806 - INFO - 发送 API 请求 (尝试 1/3)...
+2025-06-06 15:05:21,446 - INFO - 成功从 DeepSeek API 获取并提取补丁 (890 字符)
+2025-06-06 15:05:21,447 - INFO - AI补丁生成成功，完整对话历史已保存到: D:\上课资料\科研课堂\WeCode\CFix\project_data\logs\nanomsg__nng-613_20250606_150423\attempt_1\ai_conversation_history.json
+2025-06-06 15:05:21,448 - INFO - 拉取Docker镜像: dongqa930/nanomsg_nng:613
+2025-06-06 15:05:40,332 - INFO - 尝试使用 heredoc 方法...
+2025-06-06 15:05:40,609 - INFO - 使用单次heredoc方法创建patch文件...
+2025-06-06 15:05:40,682 - INFO - Patch文件创建成功: 37 /home/fix.patch
+2025-06-06 15:05:40,716 - INFO - Patch文件预览:
+    diff --git a/src/nng.c b/src/nng.c
+index abc1234..def5678 100644
+--- a/src/nng.c
++++ b/src/nng.c
+@@ -120,6 +120,9 @@ nng_recvmsg(nng_socket s, nng_msg **msgp, int flags)
+
+2025-06-06 15:05:40,751 - INFO - AI生成的补丁预览:
+    diff --git a/src/nng.c b/src/nng.c
+index abc1234..def5678 100644
+--- a/src/nng.c
++++ b/src/nng.c
+@@ -120,6 +120,9 @@ nng_recvmsg(nng_socket s, nng_msg **msgp, int flags)
+ 	if ((rv = nng_aio_result(ap)) == 0) {
+ 		*msgp = nng_aio_get_msg(ap);
+ 
++	} else if (rv == NNG_ECLOSED) {
++		rv = NNG_ECONNRESET;
+
+2025-06-06 15:05:40,751 - INFO - 运行测试脚本（fix_run.sh会自动应用测试补丁）...
+2025-06-06 15:05:50,928 - INFO - heredoc 方法执行成功
+2025-06-06 15:05:50,928 - WARNING - 尝试 1 测试失败
+2025-06-06 15:05:52,929 - INFO - 尝试 2/3
+2025-06-06 15:05:52,929 - INFO - 使用AI增强的文件定位...
+2025-06-06 15:05:52,929 - INFO - 扫描项目结构...
+2025-06-06 15:05:52,933 - INFO - 项目结构扫描完成，找到 5 个文件
+2025-06-06 15:05:52,933 - INFO - 构建AI定位prompt，长度: 6401
+2025-06-06 15:05:52,933 - INFO - 开始调用AI API...
+2025-06-06 15:05:52,934 - INFO - 执行简单API调用...
+2025-06-06 15:06:15,550 - INFO - 简单API调用成功，响应长度: 638
+2025-06-06 15:06:15,550 - INFO - AI API调用成功，开始解析响应...
+2025-06-06 15:06:15,551 - INFO - AI分析成功解析: 目标文件=src/nng.c, 置信度=8
+2025-06-06 15:06:15,551 - INFO - AI文件定位结果: {'target_file': 'src/nng.c', 'confidence': 8, 'reasoning': "1. 问题描述涉及TCP/IPC/TLS传输层的竞态条件，这些核心传输逻辑通常在主库实现文件中。2. 测试变更虽然修改了tls.c测试文件，但测试的是底层传输行为，指向核心实现。3. nng.c是项目核心源文件（34800B大体积），包含传输层实现。4. 问题描述中的'aio关闭'和'消息头/体处理'是核心传输逻辑，应在主库而非测试代码中。5. 其他备选文件要么是测试文件，要么是头文件，不符合修复条件。", 'fix_strategy': "1. 在消息头接收完成后检查连接状态。2. 添加关闭状态的原子标记检查。3. 在aio操作前验证底层传输是否存活。4. 可能需要引入新的状态机来区分'正在关闭'和'已关闭'状态。", 'test_insights': '1. 测试修改主要验证TLS传输层的连接建立过程。2. 新增了dialer/listener的显式创建和启动流程。3. 测试变更暗示需要更精细的连接状态控制。4. 特别关注了NNG_OPT_TLS_AUTH_MODE选项设置，可能与安全关闭相关。', 'alternative_files': ['src/transport/tls/tls.c', 'src/sp/protocol/reqrep/req.c']}
+2025-06-06 15:06:15,551 - INFO - Found 0 code blocks in issue.
+2025-06-06 15:06:15,551 - INFO - Potential file references from issue: []
+2025-06-06 15:06:15,557 - WARNING - No candidate files found after all stages.
+2025-06-06 15:06:15,557 - INFO - AI高置信度(8)选择: src\nng.c
+2025-06-06 15:06:15,558 - INFO - Added context file (included): src\nng.h
+2025-06-06 15:06:15,558 - INFO - Added context file (included): src\core\nng_impl.h
+2025-06-06 15:06:15,558 - INFO - Collected 3 files for context. Keys: ['src\\nng.c', 'src\\nng.h', 'src\\core\\nng_impl.h']
+2025-06-06 15:06:15,558 - INFO - 为文件 src\nng.c 生成AI补丁...
+2025-06-06 15:06:15,559 - INFO - 使用增强prompt调用AI生成补丁...
+2025-06-06 15:06:15,559 - INFO - 发送 API 请求 (尝试 1/3)...
+2025-06-06 15:06:46,170 - INFO - 成功从 DeepSeek API 获取并提取补丁 (781 字符)
+2025-06-06 15:06:46,171 - INFO - AI补丁生成成功，完整对话历史已保存到: D:\上课资料\科研课堂\WeCode\CFix\project_data\logs\nanomsg__nng-613_20250606_150423\attempt_2\ai_conversation_history.json
+2025-06-06 15:06:46,172 - INFO - 拉取Docker镜像: dongqa930/nanomsg_nng:613
+2025-06-06 15:07:07,227 - INFO - 尝试使用 heredoc 方法...
+2025-06-06 15:07:07,485 - INFO - 使用单次heredoc方法创建patch文件...
+2025-06-06 15:07:07,563 - INFO - Patch文件创建成功: 26 /home/fix.patch
+2025-06-06 15:07:07,613 - INFO - Patch文件预览:
+    diff --git a/src/nng.c b/src/nng.c
+index abc1234..def5678 100644
+--- a/src/nng.c
++++ b/src/nng.c
+@@ -123,6 +123,9 @@ nng_recvmsg(nng_socket s, nng_msg **msgp, int flags)
+
+2025-06-06 15:07:07,647 - INFO - AI生成的补丁预览:
+    diff --git a/src/nng.c b/src/nng.c
+index abc1234..def5678 100644
+--- a/src/nng.c
++++ b/src/nng.c
+@@ -123,6 +123,9 @@ nng_recvmsg(nng_socket s, nng_msg **msgp, int flags)
+ 	if ((rv = nng_aio_result(ap)) == 0) {
+ 		*msgp = nng_aio_get_msg(ap);
+ 
++		if (nni_sock_isclosed(s.id)) {
++			rv = NNG_ECLOSED;
+
+2025-06-06 15:07:07,647 - INFO - 运行测试脚本（fix_run.sh会自动应用测试补丁）...
+2025-06-06 15:07:19,340 - INFO - heredoc 方法执行成功
+2025-06-06 15:07:19,340 - WARNING - 尝试 2 测试失败
+2025-06-06 15:07:21,340 - INFO - 尝试 3/3
+2025-06-06 15:07:21,341 - INFO - 使用AI增强的文件定位...
+2025-06-06 15:07:21,341 - INFO - 扫描项目结构...
+2025-06-06 15:07:21,345 - INFO - 项目结构扫描完成，找到 5 个文件
+2025-06-06 15:07:21,345 - INFO - 构建AI定位prompt，长度: 6401
+2025-06-06 15:07:21,345 - INFO - 开始调用AI API...
+2025-06-06 15:07:21,346 - INFO - 执行简单API调用...
+2025-06-06 15:07:44,183 - INFO - 简单API调用成功，响应长度: 690
+2025-06-06 15:07:44,183 - INFO - AI API调用成功，开始解析响应...
+2025-06-06 15:07:44,184 - INFO - AI分析成功解析: 目标文件=src/nng.c, 置信度=9
+2025-06-06 15:07:44,184 - INFO - AI文件定位结果: {'target_file': 'src/nng.c', 'confidence': 9, 'reasoning': "1. 问题描述涉及TCP/IPC/TLS传输层的竞态条件，这些核心传输逻辑通常在核心实现文件中处理\n2. 测试变更主要验证TLS传输层的行为，而nng.c是NNG的核心实现文件，包含所有传输层的底层逻辑\n3. 问题描述提到'pipe关闭'和'aio关闭'，这些都是核心传输层的概念，nng.c中会有相关实现\n4. 文件结构中nng.c是最大的源文件，包含了NNG的核心网络逻辑\n5. 测试变更虽然修改的是tls.c，但实际测试的是底层传输行为，这指向核心实现而非测试代码", 'fix_strategy': '需要在消息头接收和消息体接收之间添加同步机制，确保在管道关闭时能正确终止未完成的传输操作。可能需要：\n1. 在管道关闭时检查是否有未完成的传输\n2. 添加状态标志防止竞态条件\n3. 确保aio操作在管道关闭时能正确终止', 'test_insights': '1. 测试变更主要围绕TLS传输的连接建立和关闭流程\n2. 测试更详细地模拟了连接建立过程(nng_listener_create/dialer_create)\n3. 测试验证了在连接建立过程中可能出现的竞态条件\n4. 测试强调了传输层关闭和重连的场景', 'alternative_files': ['src/transport/tls/tls.c', 'src/core/pipe.c']}
+2025-06-06 15:07:44,184 - INFO - Found 0 code blocks in issue.
+2025-06-06 15:07:44,184 - INFO - Potential file references from issue: []
+2025-06-06 15:07:44,190 - WARNING - No candidate files found after all stages.
+2025-06-06 15:07:44,190 - INFO - AI高置信度(9)选择: src\nng.c
+2025-06-06 15:07:44,190 - INFO - Added context file (included): src\nng.h
+2025-06-06 15:07:44,191 - INFO - Added context file (included): src\core\nng_impl.h
+2025-06-06 15:07:44,191 - INFO - Collected 3 files for context. Keys: ['src\\nng.c', 'src\\nng.h', 'src\\core\\nng_impl.h']
+2025-06-06 15:07:44,191 - INFO - 为文件 src\nng.c 生成AI补丁...
+2025-06-06 15:07:44,191 - INFO - 使用增强prompt调用AI生成补丁...
+2025-06-06 15:07:44,191 - INFO - 发送 API 请求 (尝试 1/3)...
+2025-06-06 15:08:17,243 - INFO - 成功从 DeepSeek API 获取并提取补丁 (753 字符)
+2025-06-06 15:08:17,244 - INFO - AI补丁生成成功，完整对话历史已保存到: D:\上课资料\科研课堂\WeCode\CFix\project_data\logs\nanomsg__nng-613_20250606_150423\attempt_3\ai_conversation_history.json
+2025-06-06 15:08:17,245 - INFO - 拉取Docker镜像: dongqa930/nanomsg_nng:613
+2025-06-06 15:08:29,075 - INFO - 尝试使用 heredoc 方法...
+2025-06-06 15:08:29,336 - INFO - 使用单次heredoc方法创建patch文件...
+2025-06-06 15:08:29,416 - INFO - Patch文件创建成功: 25 /home/fix.patch
+2025-06-06 15:08:29,449 - INFO - Patch文件预览:
+    diff --git a/src/nng.c b/src/nng.c
+index abc1234..def5678 100644
+--- a/src/nng.c
++++ b/src/nng.c
+@@ -123,6 +123,9 @@ nng_recv(nng_socket s, void *buf, size_t *szp, int flags)
+
+2025-06-06 15:08:29,482 - INFO - AI生成的补丁预览:
+    diff --git a/src/nng.c b/src/nng.c
+index abc1234..def5678 100644
+--- a/src/nng.c
++++ b/src/nng.c
+@@ -123,6 +123,9 @@ nng_recv(nng_socket s, void *buf, size_t *szp, int flags)
+ 	if ((rv = nng_recvmsg(s, &msg, flags & ~(NNG_FLAG_ALLOC))) != 0) {
+ 		return (rv);
+ 	}
++	if (nng_msg_len(msg) == 0) {
++		return (NNG_ECLOSED);
+
+2025-06-06 15:08:29,482 - INFO - 运行测试脚本（fix_run.sh会自动应用测试补丁）...
+2025-06-06 15:10:07,509 - INFO - heredoc 方法执行成功
+2025-06-06 15:10:07,510 - WARNING - 尝试 3 测试失败
+2025-06-06 15:10:07,510 - INFO - 结果已保存到 D:\上课资料\科研课堂\WeCode\CFix\project_data\results\execution_results.json
+2025-06-06 15:10:07,511 - INFO - ==================================================
+2025-06-06 15:10:07,511 - INFO - 执行完成!
+2025-06-06 15:10:07,511 - INFO - 总实例数: 1
+2025-06-06 15:10:07,511 - INFO - 成功: 0 (0.0%)
+2025-06-06 15:10:07,511 - INFO - 失败: 1 (100.0%)
+2025-06-06 15:10:07,511 - INFO - 日志目录: D:\上课资料\科研课堂\WeCode\CFix\project_data\logs
+2025-06-06 15:10:07,511 - INFO - 结果目录: D:\上课资料\科研课堂\WeCode\CFix\project_data\results
+2025-06-06 15:10:07,511 - INFO - 轨迹目录: D:\上课资料\科研课堂\WeCode\CFix\project_data\trajs
+2025-06-06 15:10:07,511 - INFO - ==================================================
+2025-06-06 15:13:34,731 - INFO - 将处理以下数据集文件: ['dataset\\test_c.jsonl', 'dataset\\test_cpp.jsonl']
+2025-06-06 15:13:34,731 - INFO - 项目数据目录: D:\上课资料\科研课堂\WeCode\CFix\project_data
+2025-06-06 15:13:34,739 - INFO - Docker客户端初始化成功
+2025-06-06 15:13:34,740 - INFO - 成功加载 8 个实例从 dataset\test_c.jsonl
+2025-06-06 15:13:34,741 - INFO - 成功加载 7 个实例从 dataset\test_cpp.jsonl
+2025-06-06 15:13:34,741 - INFO - 过滤后只处理实例: nanomsg__nng-613
+2025-06-06 15:13:34,741 - INFO - 处理实例: nanomsg__nng-613 (nanomsg/nng)
+2025-06-06 15:13:34,741 - INFO - 仓库目录已存在: D:\上课资料\科研课堂\WeCode\CFix\project_data\repositories\nanomsg_nng
+2025-06-06 15:13:34,795 - INFO - 检测到有效的git仓库，尝试更新...
+2025-06-06 15:13:39,202 - INFO - 成功更新仓库
+2025-06-06 15:13:39,202 - INFO - 切换到commit ccc24a8e508131a2226474642a038baaa2cbcc8c
+2025-06-06 15:13:39,226 - INFO - 成功重用现有仓库
+2025-06-06 15:13:39,227 - INFO - 尝试 1/3
+2025-06-06 15:13:39,227 - INFO - 使用AI增强的文件定位...
+2025-06-06 15:13:39,227 - INFO - 扫描项目结构...
+2025-06-06 15:13:39,243 - INFO - 项目结构扫描完成，从 257 个源文件中选择了 100 个最重要的文件
+2025-06-06 15:13:39,243 - INFO - 项目结构扫描完成，找到 5 个文件
+2025-06-06 15:13:39,243 - INFO - 构建AI定位prompt，长度: 15932
+2025-06-06 15:13:39,244 - INFO - 开始调用AI API...
+2025-06-06 15:13:39,244 - INFO - 执行简单API调用...
+2025-06-06 15:15:28,135 - INFO - 将处理以下数据集文件: ['dataset\\test_c.jsonl', 'dataset\\test_cpp.jsonl']
+2025-06-06 15:15:28,135 - INFO - 项目数据目录: D:\上课资料\科研课堂\WeCode\CFix\project_data
+2025-06-06 15:15:28,143 - INFO - Docker客户端初始化成功
+2025-06-06 15:15:28,145 - INFO - 成功加载 8 个实例从 dataset\test_c.jsonl
+2025-06-06 15:15:28,145 - INFO - 成功加载 7 个实例从 dataset\test_cpp.jsonl
+2025-06-06 15:15:28,145 - INFO - 过滤后只处理实例: nanomsg__nng-613
+2025-06-06 15:15:28,146 - INFO - 处理实例: nanomsg__nng-613 (nanomsg/nng)
+2025-06-06 15:15:28,146 - INFO - 仓库目录已存在: D:\上课资料\科研课堂\WeCode\CFix\project_data\repositories\nanomsg_nng
+2025-06-06 15:15:28,170 - INFO - 检测到有效的git仓库，尝试更新...
+2025-06-06 15:15:33,506 - INFO - 成功更新仓库
+2025-06-06 15:15:33,506 - INFO - 切换到commit ccc24a8e508131a2226474642a038baaa2cbcc8c
+2025-06-06 15:15:33,529 - INFO - 成功重用现有仓库
+2025-06-06 15:15:33,530 - INFO - 尝试 1/3
+2025-06-06 15:15:33,530 - INFO - 使用AI增强的文件定位...
+2025-06-06 15:15:33,531 - INFO - 扫描项目结构...
+2025-06-06 15:15:33,546 - INFO - 项目结构扫描完成，从 257 个源文件中选择了 100 个最重要的文件
+2025-06-06 15:15:33,546 - INFO - 项目结构扫描完成，为AI提供了 330 个文件的信息
+2025-06-06 15:15:33,546 - INFO - 构建AI定位prompt，长度: 15932
+2025-06-06 15:15:33,546 - INFO - 开始调用AI API...
+2025-06-06 15:15:33,547 - INFO - 执行简单API调用...
+2025-06-06 15:15:52,054 - INFO - 简单API调用成功，响应长度: 546
+2025-06-06 15:15:52,055 - INFO - AI API调用成功，开始解析响应...
+2025-06-06 15:15:52,055 - INFO - AI分析成功解析: 目标文件=src/core/pipe.c, 置信度=8
+2025-06-06 15:15:52,055 - INFO - AI文件定位结果: {'target_file': 'src/core/pipe.c', 'confidence': 8, 'reasoning': '问题描述提到了在关闭管道时出现的竞态条件，特别是在接收消息头和消息体之间。这直接指向了管道处理的核心逻辑。pipe.c文件是处理管道操作的核心实现文件，包含了管道的创建、关闭和数据传输逻辑。测试变更虽然涉及TLS传输，但问题的本质是管道关闭和数据传输的竞态条件，因此pipe.c是最可能包含需要修复逻辑的文件。', 'fix_strategy': '修复策略应包括在关闭管道时确保所有挂起的数据传输操作被正确取消或完成。可能需要引入额外的同步机制或状态检查，以确保在管道关闭时不会调度新的数据传输操作。', 'test_insights': '测试变更主要集中在TLS传输的初始化和连接设置上，但问题的核心是管道关闭和数据传输的竞态条件，这表明问题可能出现在更底层的管道处理逻辑中。', 'alternative_files': ['src/transport/tcp/tcp.c', 'src/transport/tls/tls.c']}
+2025-06-06 15:15:52,055 - INFO - Found 0 code blocks in issue.
+2025-06-06 15:15:52,055 - INFO - Potential file references from issue: []
+2025-06-06 15:15:52,061 - WARNING - No candidate files found after all stages.
+2025-06-06 15:15:52,062 - INFO - AI高置信度(8)选择: src\core\pipe.c
+2025-06-06 15:15:52,062 - INFO - Added context file (included): src\core\sockimpl.h
+2025-06-06 15:15:52,062 - INFO - Collected 2 files for context. Keys: ['src\\core\\pipe.c', 'src\\core\\sockimpl.h']
+2025-06-06 15:15:52,063 - INFO - 为文件 src\core\pipe.c 生成AI补丁...
+2025-06-06 15:15:52,063 - INFO - 使用增强prompt调用AI生成补丁...
+2025-06-06 15:15:52,063 - INFO - 发送 API 请求 (尝试 1/3)...
+2025-06-06 15:16:15,028 - INFO - 成功从 DeepSeek API 获取并提取补丁 (693 字符)
+2025-06-06 15:16:15,052 - INFO - AI补丁生成成功，完整对话历史已保存到: D:\上课资料\科研课堂\WeCode\CFix\project_data\logs\nanomsg__nng-613_20250606_151528\attempt_1\ai_conversation_history.json
+2025-06-06 15:16:15,093 - INFO - 拉取Docker镜像: dongqa930/nanomsg_nng:613
+2025-06-06 15:16:29,467 - INFO - 尝试使用 heredoc 方法...
+2025-06-06 15:16:29,739 - INFO - 使用单次heredoc方法创建patch文件...
+2025-06-06 15:16:29,816 - INFO - Patch文件创建成功: 26 /home/fix.patch
+2025-06-06 15:16:29,852 - INFO - Patch文件预览:
+    diff --git a/src/core/pipe.c b/src/core/pipe.c
+index abc1234..def5678 100644
+--- a/src/core/pipe.c
++++ b/src/core/pipe.c
+@@ -194,6 +194,9 @@ nni_pipe_close(nni_pipe *p)
+
+2025-06-06 15:16:29,877 - INFO - AI生成的补丁预览:
+    diff --git a/src/core/pipe.c b/src/core/pipe.c
+index abc1234..def5678 100644
+--- a/src/core/pipe.c
++++ b/src/core/pipe.c
+@@ -194,6 +194,9 @@ nni_pipe_close(nni_pipe *p)
+ 	// abort any pending negotiation/start process.
+ 	nni_aio_close(p->p_start_aio);
+ 
++	// Abort any pending receive/send operations
++	p->p_tran_ops.p_close(p->p_tran_data);
+
+2025-06-06 15:16:29,878 - INFO - 运行测试脚本（fix_run.sh会自动应用测试补丁）...
+2025-06-06 15:18:06,774 - INFO - heredoc 方法执行成功
+2025-06-06 15:18:06,775 - INFO - 结果已保存到 D:\上课资料\科研课堂\WeCode\CFix\project_data\results\execution_results.json
+2025-06-06 15:18:06,775 - INFO - ==================================================
+2025-06-06 15:18:06,776 - INFO - 执行完成!
+2025-06-06 15:18:06,776 - INFO - 总实例数: 1
+2025-06-06 15:18:06,776 - INFO - 成功: 1 (100.0%)
+2025-06-06 15:18:06,776 - INFO - 失败: 0 (0.0%)
+2025-06-06 15:18:06,776 - INFO - 日志目录: D:\上课资料\科研课堂\WeCode\CFix\project_data\logs
+2025-06-06 15:18:06,776 - INFO - 结果目录: D:\上课资料\科研课堂\WeCode\CFix\project_data\results
+2025-06-06 15:18:06,776 - INFO - 轨迹目录: D:\上课资料\科研课堂\WeCode\CFix\project_data\trajs
+2025-06-06 15:18:06,776 - INFO - ==================================================

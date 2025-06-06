@@ -1,0 +1,25 @@
+diff --git a/src/nng.c b/src/nng.c
+index abc1234..def5678 100644
+--- a/src/nng.c
++++ b/src/nng.c
+@@ -123,6 +123,9 @@ nng_recvmsg(nng_socket s, nng_msg **msgp, int flags)
+ 	if ((rv = nng_aio_result(ap)) == 0) {
+ 		*msgp = nng_aio_get_msg(ap);
+ 
++		if (nni_sock_isclosed(s.id)) {
++			rv = NNG_ECLOSED;
++		}
+ 	} else if ((rv == NNG_ETIMEDOUT) && (flags == NNG_FLAG_NONBLOCK)) {
+ 		rv = NNG_EAGAIN;
+ 	}
+@@ -180,6 +183,10 @@ nng_sendmsg(nng_socket s, nng_msg *msg, int flags)
+ 	rv = nng_aio_result(ap);
+ 	nng_aio_free(ap);
+ 
++	if (nni_sock_isclosed(s.id)) {
++		rv = NNG_ECLOSED;
++	}
++
+ 	// Possibly massage nonblocking attempt.  Note that nonblocking is
+ 	// still done asynchronously, and the calling thread loses context.
+ 	if ((rv == NNG_ETIMEDOUT) && (flags == NNG_FLAG_NONBLOCK)) {

@@ -1,0 +1,85 @@
+{
+  "instance_id": "nanomsg__nng-1082",
+  "repo": "nanomsg/nng",
+  "pull_number": 1082,
+  "model_name": "CFix_DeepSeek",
+  "timestamp": "2025-06-06T06:57:17.556953+00:00",
+  "status": "FAILED",
+  "steps": [
+    {
+      "step": "setup",
+      "timestamp": "2025-06-06T06:50:29.030633+00:00",
+      "action": "Created instance log directory",
+      "log_dir": "D:\\上课资料\\科研课堂\\WeCode\\CFix\\project_data\\logs\\nanomsg__nng-1082_20250606_145029"
+    },
+    {
+      "step": "clone_repo",
+      "timestamp": "2025-06-06T06:53:11.182113+00:00",
+      "action": "Successfully cloned repository to D:\\上课资料\\科研课堂\\WeCode\\CFix\\project_data\\repositories\\nanomsg_nng",
+      "success": true
+    },
+    {
+      "step": "generate_patch_attempt_1",
+      "timestamp": "2025-06-06T06:54:03.406177+00:00",
+      "attempt": 1,
+      "conversation_log": "D:\\上课资料\\科研课堂\\WeCode\\CFix\\project_data\\logs\\nanomsg__nng-1082_20250606_145029\\attempt_1\\ai_conversation_history.json",
+      "action": "Successfully generated AI patch",
+      "patch_file": "D:\\上课资料\\科研课堂\\WeCode\\CFix\\project_data\\logs\\nanomsg__nng-1082_20250606_145029\\attempt_1\\generated_patch.diff",
+      "patch_preview": "diff --git a/src/nng.c b/src/nng.c\nindex abc1234..def5678 100644\n--- a/src/nng.c\n+++ b/src/nng.c\n@@ -1234,6 +1234,40 @@ nng_stats_free(nng_stat *stat)\n \tnni_stat_free(stat);\n }\n \n+nng_stat *\n+nng_stat...",
+      "success": true
+    },
+    {
+      "step": "docker_test_attempt_1",
+      "timestamp": "2025-06-06T06:54:36.771996+00:00",
+      "attempt": 1,
+      "action": "Executed Docker test",
+      "success": false,
+      "patch_exit_code": 128,
+      "test_exit_code": 128,
+      "test_log_file": "D:\\上课资料\\科研课堂\\WeCode\\CFix\\project_data\\logs\\nanomsg__nng-1082_20250606_145029\\attempt_1\\docker_test_heredoc.log",
+      "logs_preview": "=== METHOD: HEREDOC ===\n=== AI PATCH PREVIEW ===\n    diff --git a/src/nng.c b/src/nng.c\nindex abc1234..def5678 100644\n--- a/src/nng.c\n+++ b/src/nng.c\n@@ -1234,6 +1234,40 @@ nng_stats_free(nng_stat *stat)\n \tnni_stat_free(stat);\n }\n \n+nng_stat *\n+nng_stat_find(nng_stat *stat, const char *name)\n\n\n=== TEST EXECUTION ===\nerror: corrupt patch at line 195\n"
+    },
+    {
+      "step": "generate_patch_attempt_2",
+      "timestamp": "2025-06-06T06:55:34.767995+00:00",
+      "attempt": 2,
+      "conversation_log": "D:\\上课资料\\科研课堂\\WeCode\\CFix\\project_data\\logs\\nanomsg__nng-1082_20250606_145029\\attempt_2\\ai_conversation_history.json",
+      "action": "Successfully generated AI patch",
+      "patch_file": "D:\\上课资料\\科研课堂\\WeCode\\CFix\\project_data\\logs\\nanomsg__nng-1082_20250606_145029\\attempt_2\\generated_patch.diff",
+      "patch_preview": "diff --git a/src/nng.c b/src/nng.c\nindex abc1234..def5678 100644\n--- a/src/nng.c\n+++ b/src/nng.c\n@@ -2000,6 +2000,48 @@ nng_stats_free(nng_stat *stat)\n \tnni_stat_free(stat);\n }\n \n+nng_stat *\n+nng_stat...",
+      "success": true
+    },
+    {
+      "step": "docker_test_attempt_2",
+      "timestamp": "2025-06-06T06:55:58.018569+00:00",
+      "attempt": 2,
+      "action": "Executed Docker test",
+      "success": false,
+      "patch_exit_code": 128,
+      "test_exit_code": 128,
+      "test_log_file": "D:\\上课资料\\科研课堂\\WeCode\\CFix\\project_data\\logs\\nanomsg__nng-1082_20250606_145029\\attempt_2\\docker_test_heredoc.log",
+      "logs_preview": "=== METHOD: HEREDOC ===\n=== AI PATCH PREVIEW ===\n    diff --git a/src/nng.c b/src/nng.c\nindex abc1234..def5678 100644\n--- a/src/nng.c\n+++ b/src/nng.c\n@@ -2000,6 +2000,48 @@ nng_stats_free(nng_stat *stat)\n \tnni_stat_free(stat);\n }\n \n+nng_stat *\n+nng_stat_find(nng_stat *stat, const char *name)\n\n\n=== TEST EXECUTION ===\nerror: corrupt patch at line 199\n"
+    },
+    {
+      "step": "generate_patch_attempt_3",
+      "timestamp": "2025-06-06T06:56:55.133811+00:00",
+      "attempt": 3,
+      "conversation_log": "D:\\上课资料\\科研课堂\\WeCode\\CFix\\project_data\\logs\\nanomsg__nng-1082_20250606_145029\\attempt_3\\ai_conversation_history.json",
+      "action": "Successfully generated AI patch",
+      "patch_file": "D:\\上课资料\\科研课堂\\WeCode\\CFix\\project_data\\logs\\nanomsg__nng-1082_20250606_145029\\attempt_3\\generated_patch.diff",
+      "patch_preview": "diff --git a/src/nng.c b/src/nng.c\nindex abc1234..def5678 100644\n--- a/src/nng.c\n+++ b/src/nng.c\n@@ -2000,6 +2000,50 @@ nng_stats_free(nng_stat *stat)\n \tnni_stat_free(stat);\n }\n \n+nng_stat *\n+nng_stat...",
+      "success": true
+    },
+    {
+      "step": "docker_test_attempt_3",
+      "timestamp": "2025-06-06T06:57:17.556797+00:00",
+      "attempt": 3,
+      "action": "Executed Docker test",
+      "success": false,
+      "patch_exit_code": 128,
+      "test_exit_code": 128,
+      "test_log_file": "D:\\上课资料\\科研课堂\\WeCode\\CFix\\project_data\\logs\\nanomsg__nng-1082_20250606_145029\\attempt_3\\docker_test_heredoc.log",
+      "logs_preview": "=== METHOD: HEREDOC ===\n=== AI PATCH PREVIEW ===\n    diff --git a/src/nng.c b/src/nng.c\nindex abc1234..def5678 100644\n--- a/src/nng.c\n+++ b/src/nng.c\n@@ -2000,6 +2000,50 @@ nng_stats_free(nng_stat *stat)\n \tnni_stat_free(stat);\n }\n \n+nng_stat *\n+nng_stat_find(nng_stat *stat, const char *name)\n\n\n=== TEST EXECUTION ===\nerror: corrupt patch at line 198\n"
+    }
+  ]
+}

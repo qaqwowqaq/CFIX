@@ -1,0 +1,208 @@
+=== METHOD: HEREDOC ===
+=== AI PATCH PREVIEW ===
+    diff --git a/hiredis.c b/hiredis.c
+index abc1234..def5678 100644
+--- a/hiredis.c
++++ b/hiredis.c
+@@ -228,7 +228,7 @@ int redisvFormatCommand(char **target, const char *format, va_list ap) {
+                     /* Flags */
+                     while (*_p != '\0' && strchr(flags,*_p) != NULL) _p++;
+ 
+-                    /* Field width */
++                    /* Field width (check for end of string before accessing) */
+
+
+=== TEST EXECUTION ===
+patching file hiredis.c
+Hunk #1 succeeded at 390 (offset 162 lines).
+Hunk #2 succeeded at 398 (offset 162 lines).
+cc -std=c99 -c -O3 -fPIC   -Wall -W -Wstrict-prototypes -Wwrite-strings -Wno-missing-field-initializers -g -ggdb  -pedantic hiredis.c
+cc  -shared -Wl,-soname,libhiredis.so.1.0.3-dev -o libhiredis.so alloc.o net.o hiredis.o sds.o async.o read.o sockcompat.o 
+ar rcs libhiredis.a alloc.o net.o hiredis.o sds.o async.o read.o sockcompat.o
+cc -o hiredis-test -O3 -fPIC   -Wall -W -Wstrict-prototypes -Wwrite-strings -Wno-missing-field-initializers -g -ggdb  -pedantic -I. test.o libhiredis.a  
+./hiredis-test
+#01 redisContext uses injected allocators: [0;32mPASSED[0;0m
+#02 redisReader uses injected allocators: [0;32mPASSED[0;0m
+#03 hiredis calloc wrapper protects against overflow: [0;32mPASSED[0;0m
+#04 Format command without interpolation: [0;32mPASSED[0;0m
+#05 Format command with %s string interpolation: [0;32mPASSED[0;0m
+#06 Format command with %s and an empty string: [0;32mPASSED[0;0m
+#07 Format command with an empty string in between proper interpolations: [0;32mPASSED[0;0m
+#08 Format command with %b string interpolation: [0;32mPASSED[0;0m
+#09 Format command with %b and an empty string: [0;32mPASSED[0;0m
+#10 Format command with literal %: [0;32mPASSED[0;0m
+#11 Format command with printf-delegation (int): [0;32mPASSED[0;0m
+#12 Format command with printf-delegation (char): [0;32mPASSED[0;0m
+#13 Format command with printf-delegation (short): [0;32mPASSED[0;0m
+#14 Format command with printf-delegation (long): [0;32mPASSED[0;0m
+#15 Format command with printf-delegation (long long): [0;32mPASSED[0;0m
+#16 Format command with printf-delegation (unsigned int): [0;32mPASSED[0;0m
+#17 Format command with printf-delegation (unsigned char): [0;32mPASSED[0;0m
+#18 Format command with printf-delegation (unsigned short): [0;32mPASSED[0;0m
+#19 Format command with printf-delegation (unsigned long): [0;32mPASSED[0;0m
+#20 Format command with printf-delegation (unsigned long long): [0;32mPASSED[0;0m
+#21 Format command with printf-delegation (float): [0;32mPASSED[0;0m
+#22 Format command with printf-delegation (double): [0;32mPASSED[0;0m
+#23 Format command with invalid printf format: [0;32mPASSED[0;0m
+#24 Format command by passing argc/argv without lengths: [0;32mPASSED[0;0m
+#25 Format command by passing argc/argv with lengths: [0;32mPASSED[0;0m
+#26 Format command into sds by passing argc/argv without lengths: [0;32mPASSED[0;0m
+#27 Format command into sds by passing argc/argv with lengths: [0;32mPASSED[0;0m
+#28 Error handling in reply parser: [0;32mPASSED[0;0m
+#29 Memory cleanup in reply parser: [0;32mPASSED[0;0m
+#30 Can handle arbitrarily nested multi-bulks: [0;32mPASSED[0;0m
+#31 Can parse arbitrarily nested multi-bulks correctly: [0;32mPASSED[0;0m
+#32 Correctly parses LLONG_MAX: [0;32mPASSED[0;0m
+#33 Set error when > LLONG_MAX: [0;32mPASSED[0;0m
+#34 Correctly parses LLONG_MIN: [0;32mPASSED[0;0m
+#35 Set error when < LLONG_MIN: [0;32mPASSED[0;0m
+#36 Set error when array < -1: [0;32mPASSED[0;0m
+#37 Set error when bulk < -1: [0;32mPASSED[0;0m
+#38 Can configure maximum multi-bulk elements: [0;32mPASSED[0;0m
+#39 Multi-bulk never overflows regardless of maxelements: [0;32mPASSED[0;0m
+#40 Works with NULL functions for reply: [0;32mPASSED[0;0m
+#41 Works when a single newline (\r\n) covers two calls to feed: [0;32mPASSED[0;0m
+#42 Don't reset state after protocol error: [0;32mPASSED[0;0m
+#43 Don't reset state after protocol error(not segfault): [0;32mPASSED[0;0m
+#44 Don't do empty allocation for empty multi bulk: [0;32mPASSED[0;0m
+#45 Can parse RESP3 verbatim strings: [0;32mPASSED[0;0m
+#46 Can parse RESP3 push messages: [0;32mPASSED[0;0m
+#47 Can parse RESP3 doubles: [0;32mPASSED[0;0m
+#48 Set error on invalid RESP3 double: [0;32mPASSED[0;0m
+#49 Correctly parses RESP3 double INFINITY: [0;32mPASSED[0;0m
+#50 Set error when RESP3 double is NaN: [0;32mPASSED[0;0m
+#51 Can parse RESP3 nil: [0;32mPASSED[0;0m
+#52 Set error on invalid RESP3 nil: [0;32mPASSED[0;0m
+#53 Can parse RESP3 bool (true): [0;32mPASSED[0;0m
+#54 Can parse RESP3 bool (false): [0;32mPASSED[0;0m
+#55 Set error on invalid RESP3 bool: [0;32mPASSED[0;0m
+#56 Can parse RESP3 map: [0;32mPASSED[0;0m
+#57 Can parse RESP3 set: [0;32mPASSED[0;0m
+#58 Can parse RESP3 bignum: [0;32mPASSED[0;0m
+#59 Returns error when host cannot be resolved: [0;32mPASSED[0;0m
+#60 Returns error when the port is not open: [0;32mPASSED[0;0m
+#61 Returns error when the unix_sock socket path doesn't accept connections: [0;32mPASSED[0;0m
+#62 Don't fail when redisFree is passed a NULL value: [0;32mPASSED[0;0m
+#63 Don't fail when freeReplyObject is passed a NULL value: [0;32mPASSED[0;0m
+
+Testing against TCP connection (172.17.0.2:6379):
+#64 Is able to deliver commands: [0;32mPASSED[0;0m
+#65 Is a able to send commands verbatim: [0;32mPASSED[0;0m
+#66 %s String interpolation works: [0;32mPASSED[0;0m
+#67 %b String interpolation works: [0;32mPASSED[0;0m
+#68 Binary reply length is correct: [0;32mPASSED[0;0m
+#69 Can parse nil replies: [0;32mPASSED[0;0m
+#70 Can parse integer replies: [0;32mPASSED[0;0m
+#71 Can parse multi bulk replies: [0;32mPASSED[0;0m
+#72 Can handle nested multi bulk replies: [0;32mPASSED[0;0m
+#73 Can pass NULL to redisGetReply: [0;32mPASSED[0;0m
+#74 RESP3 PUSH messages are handled out of band by default: [0;32mPASSED[0;0m
+#75 We can set a custom RESP3 PUSH handler: [0;32mPASSED[0;0m
+[0;32mPASSED[0;0m
+#76 We properly handle a NIL invalidation payload: [0;32mPASSED[0;0m
+#77 With no handler, PUSH replies come in-band: [0;32mPASSED[0;0m
+#78 With no PUSH handler, no replies are lost: [0;32mPASSED[0;0m
+#79 We set a default RESP3 handler for redisContext: [0;32mPASSED[0;0m
+#80 We don't set a default RESP3 push handler for redisAsyncContext: [0;32mPASSED[0;0m
+#81 Our REDIS_OPT_NO_PUSH_AUTOFREE flag works: [0;32mPASSED[0;0m
+#82 We can use redisOptions to set a custom PUSH handler for redisContext: [0;32mPASSED[0;0m
+#83 We can use redisOptions to set a custom PUSH handler for redisAsyncContext: [0;32mPASSED[0;0m
+#84 We can use redisOptions to set privdata: [0;32mPASSED[0;0m
+#85 Our privdata destructor fires when we free the context: [0;32mPASSED[0;0m
+#86 Successfully completes a command when the timeout is not exceeded: [0;32mPASSED[0;0m
+#87 Does not return a reply when the command times out: [0;32mPASSED[0;0m
+#88 Reconnect properly reconnects after a timeout: [0;32mPASSED[0;0m
+#89 Reconnect properly uses owned parameters: [0;32mPASSED[0;0m
+#90 Returns I/O error when the connection is lost: [0;32mPASSED[0;0m
+#91 Returns I/O error on socket timeout: [0;32mPASSED[0;0m
+#92 Set error when an invalid timeout usec value is given to redisConnectWithTimeout: [0;32mPASSED[0;0m
+#93 Set error when an invalid timeout sec value is given to redisConnectWithTimeout: [0;32mPASSED[0;0m
+#94 Append format command: [0;32mPASSED[0;0m
+#95 Throughput:
+	(1000x PING: 0.031s)
+	(1000x LRANGE with 500 elements: 0.074s)
+	(1000x INCRBY: 0.036s)
+	(10000x PING (pipelined): 0.003s)
+	(10000x LRANGE with 500 elements (pipelined): 0.429s)
+	(10000x INCRBY (pipelined): 0.022s)
+
+Testing against Unix socket connection (/tmp/redis.sock): 
+#96 Is able to deliver commands: [0;32mPASSED[0;0m
+#97 Is a able to send commands verbatim: [0;32mPASSED[0;0m
+#98 %s String interpolation works: [0;32mPASSED[0;0m
+#99 %b String interpolation works: [0;32mPASSED[0;0m
+#100 Binary reply length is correct: [0;32mPASSED[0;0m
+#101 Can parse nil replies: [0;32mPASSED[0;0m
+#102 Can parse integer replies: [0;32mPASSED[0;0m
+#103 Can parse multi bulk replies: [0;32mPASSED[0;0m
+#104 Can handle nested multi bulk replies: [0;32mPASSED[0;0m
+#105 Can pass NULL to redisGetReply: [0;32mPASSED[0;0m
+#106 RESP3 PUSH messages are handled out of band by default: [0;32mPASSED[0;0m
+#107 We can set a custom RESP3 PUSH handler: [0;32mPASSED[0;0m
+[0;32mPASSED[0;0m
+#108 We properly handle a NIL invalidation payload: [0;32mPASSED[0;0m
+#109 With no handler, PUSH replies come in-band: [0;32mPASSED[0;0m
+#110 With no PUSH handler, no replies are lost: [0;32mPASSED[0;0m
+#111 We set a default RESP3 handler for redisContext: [0;32mPASSED[0;0m
+#112 We don't set a default RESP3 push handler for redisAsyncContext: [0;32mPASSED[0;0m
+#113 Our REDIS_OPT_NO_PUSH_AUTOFREE flag works: [0;32mPASSED[0;0m
+#114 We can use redisOptions to set a custom PUSH handler for redisContext: [0;32mPASSED[0;0m
+#115 We can use redisOptions to set a custom PUSH handler for redisAsyncContext: [0;32mPASSED[0;0m
+#116 We can use redisOptions to set privdata: [0;32mPASSED[0;0m
+#117 Our privdata destructor fires when we free the context: [0;32mPASSED[0;0m
+#118 Successfully completes a command when the timeout is not exceeded: [0;32mPASSED[0;0m
+#119 Does not return a reply when the command times out: [0;32mPASSED[0;0m
+#120 Reconnect properly reconnects after a timeout: [0;32mPASSED[0;0m
+#121 Reconnect properly uses owned parameters: [0;32mPASSED[0;0m
+#122 Returns I/O error when the connection is lost: [0;32mPASSED[0;0m
+#123 Returns I/O error on socket timeout: [0;32mPASSED[0;0m
+#124 Throughput:
+	(1000x PING: 0.024s)
+	(1000x LRANGE with 500 elements: 0.077s)
+	(1000x INCRBY: 0.026s)
+	(10000x PING (pipelined): 0.003s)
+	(10000x LRANGE with 500 elements (pipelined): 0.450s)
+	(10000x INCRBY (pipelined): 0.023s)
+
+Testing asynchronous API using polling_adapter TCP (172.17.0.2:6379):
+#125 Async connect: [0;32mPASSED[0;0m
+#126 Async free after connect: [0;32mPASSED[0;0m
+#127 Async connect timeout: [0;32mPASSED[0;0m
+#128 Async PING/PONG: [0;32mPASSED[0;0m
+#129 Async PING/PONG after connect timeout: [0;32mPASSED[0;0m
+#130 Disconnect from onConnected callback (Issue #931): [0;32mPASSED[0;0m
+#131 Ping/Pong from onConnected callback (Issue #931): [0;32mPASSED[0;0m
+
+Testing asynchronous API using polling_adapter UNIX (/tmp/redis.sock):
+#132 Async connect: [0;32mPASSED[0;0m
+#133 Async free after connect: [0;32mPASSED[0;0m
+#134 Async PING/PONG: [0;32mPASSED[0;0m
+#135 Disconnect from onConnected callback (Issue #931): [0;32mPASSED[0;0m
+#136 Ping/Pong from onConnected callback (Issue #931): [0;32mPASSED[0;0m
+
+Testing against inherited fd (/tmp/redis.sock): 
+Connecting to inherited fd 3
+#137 Is able to deliver commands: [0;32mPASSED[0;0m
+#138 Is a able to send commands verbatim: [0;32mPASSED[0;0m
+#139 %s String interpolation works: [0;32mPASSED[0;0m
+#140 %b String interpolation works: [0;32mPASSED[0;0m
+#141 Binary reply length is correct: [0;32mPASSED[0;0m
+#142 Can parse nil replies: [0;32mPASSED[0;0m
+#143 Can parse integer replies: [0;32mPASSED[0;0m
+#144 Can parse multi bulk replies: [0;32mPASSED[0;0m
+#145 Can handle nested multi bulk replies: [0;32mPASSED[0;0m
+#146 Can pass NULL to redisGetReply: [0;32mPASSED[0;0m
+#147 RESP3 PUSH messages are handled out of band by default: [0;32mPASSED[0;0m
+#148 We can set a custom RESP3 PUSH handler: [0;32mPASSED[0;0m
+[0;32mPASSED[0;0m
+#149 We properly handle a NIL invalidation payload: [0;32mPASSED[0;0m
+#150 With no handler, PUSH replies come in-band: [0;32mPASSED[0;0m
+#151 With no PUSH handler, no replies are lost: [0;32mPASSED[0;0m
+#152 We set a default RESP3 handler for redisContext: [0;32mPASSED[0;0m
+#153 We don't set a default RESP3 push handler for redisAsyncContext: [0;32mPASSED[0;0m
+#154 Our REDIS_OPT_NO_PUSH_AUTOFREE flag works: [0;32mPASSED[0;0m
+#155 We can use redisOptions to set a custom PUSH handler for redisContext: [0;32mPASSED[0;0m
+#156 We can use redisOptions to set a custom PUSH handler for redisAsyncContext: [0;32mPASSED[0;0m
+#157 We can use redisOptions to set privdata: [0;32mPASSED[0;0m
+#158 Our privdata destructor fires when we free the context: [0;32mPASSED[0;0m
+ALL TESTS PASSED (0 skipped)

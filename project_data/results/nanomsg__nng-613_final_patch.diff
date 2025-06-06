@@ -1,0 +1,25 @@
+diff --git a/src/core/pipe.c b/src/core/pipe.c
+index abc1234..def5678 100644
+--- a/src/core/pipe.c
++++ b/src/core/pipe.c
+@@ -194,6 +194,9 @@ nni_pipe_close(nni_pipe *p)
+ 	// abort any pending negotiation/start process.
+ 	nni_aio_close(p->p_start_aio);
+ 
++	// Abort any pending receive/send operations
++	p->p_tran_ops.p_close(p->p_tran_data);
++
+ 	nni_mtx_lock(&p->p_mtx);
+ 	if (p->p_closed) {
+ 		// We already did a close.
+@@ -208,10 +211,6 @@ nni_pipe_close(nni_pipe *p)
+ 		p->p_proto_ops.pipe_close(p->p_proto_data);
+ 	}
+ 
+-	// Close the underlying transport.
+-	if (p->p_tran_data != NULL) {
+-		p->p_tran_ops.p_close(p->p_tran_data);
+-	}
+ 
+ 	nni_reap(&p->p_reap, (nni_cb) pipe_destroy, p);
+ }

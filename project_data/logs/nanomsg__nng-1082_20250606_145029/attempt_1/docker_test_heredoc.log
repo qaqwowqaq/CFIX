@@ -1,0 +1,16 @@
+=== METHOD: HEREDOC ===
+=== AI PATCH PREVIEW ===
+    diff --git a/src/nng.c b/src/nng.c
+index abc1234..def5678 100644
+--- a/src/nng.c
++++ b/src/nng.c
+@@ -1234,6 +1234,40 @@ nng_stats_free(nng_stat *stat)
+ 	nni_stat_free(stat);
+ }
+ 
++nng_stat *
++nng_stat_find(nng_stat *stat, const char *name)
+
+
+=== TEST EXECUTION ===
+error: corrupt patch at line 195

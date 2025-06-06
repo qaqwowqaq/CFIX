@@ -1,0 +1,59 @@
+diff --git a/src/nng.c b/src/nng.c
+index abc1234..def5678 100644
+--- a/src/nng.c
++++ b/src/nng.c
+@@ -2000,6 +2000,48 @@ nng_stats_free(nng_stat *stat)
+ 	nni_stat_free(stat);
+ }
+ 
++nng_stat *
++nng_stat_find(nng_stat *stat, const char *name)
++{
++	return (nni_stat_find(stat, name));
++}
++
++nng_stat *
++nng_stat_find_socket(nng_stat *stat, nng_socket s)
++{
++	nni_sock *sock;
++	int       rv;
++
++	if ((rv = nni_sock_find(&sock, s.id)) != 0) {
++		return (NULL);
++	}
++	nng_stat *found = nni_stat_find_socket(stat, sock);
++	nni_sock_rele(sock);
++	return (found);
++}
++
++nng_stat *
++nng_stat_find_dialer(nng_stat *stat, nng_dialer d)
++{
++	nni_dialer *dialer;
++	int         rv;
++
++	if ((rv = nni_dialer_find(&dialer, d.id)) != 0) {
++		return (NULL);
++	}
++	nng_stat *found = nni_stat_find_dialer(stat, dialer);
++	nni_dialer_rele(dialer);
++	return (found);
++}
++
++nng_stat *
++nng_stat_find_listener(nng_stat *stat, nng_listener l)
++{
++	nni_listener *listener;
++	int           rv;
++
++	if ((rv = nni_listener_find(&listener, l.id)) != 0) {
++		return (NULL);
++	}
++	nng_stat *found = nni_stat_find_listener(stat, listener);
++	nni_listener_rele(listener);
++	return (found);
++}
++
+ // Message handling.
+ int
+ nng_msg_alloc(nng_msg **msgp, size_t size)

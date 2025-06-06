@@ -643,7 +643,7 @@ class DatasetRunner:
             return None
 
     def _docker_test_heredoc(self, image_name, patch_content, test_log_dir, method_name):
-        """方法2: 使用heredoc创建文件"""
+        """方法2: 使用heredoc创建文件 - 使用安全的单次heredoc传输"""
         try:
             container = self.docker_client.containers.create(
                 image_name,
@@ -659,33 +659,30 @@ class DatasetRunner:
                 # 确保删除已存在的fix.patch
                 container.exec_run("rm -f /home/fix.patch")
                 
-                # 使用heredoc创建文件，避免shell特殊字符问题
-                logger.info("使用heredoc方法创建patch文件...")
+                logger.info("使用单次heredoc方法创建patch文件...")
                 
-                # 将patch内容写入临时文件，然后用cat读取
-                # 这样可以避免shell转义的复杂性
-                lines = patch_content.split('\n')
+                # 使用单次heredoc，避免逐行处理的复杂性
+                # 使用 'PATCH_EOF' 作为分隔符，确保不会与patch内容冲突
+                heredoc_command = f'''bash -c "cat << 'PATCH_EOF' > /home/fix.patch
+    {patch_content}
+    PATCH_EOF"'''
                 
-                # 方法: 逐行echo并追加
-                container.exec_run("touch /home/fix.patch")  # 创建空文件
-                
-                for i, line in enumerate(lines):
-                    # 转义特殊字符
-                    escaped_line = line.replace('\\', '\\\\').replace('"', '\\"').replace('$', '\\$').replace('`', '\\`')
-                    if i == 0:
-                        cmd = f'echo "{escaped_line}" > /home/fix.patch'
-                    else:
-                        cmd = f'echo "{escaped_line}" >> /home/fix.patch'
-                    
-                    result = container.exec_run(f"bash -c '{cmd}'")
-                    if result.exit_code != 0:
-                        logger.error(f"写入第{i+1}行失败")
-                        return None
+                # 执行heredoc命令
+                result = container.exec_run(heredoc_command)
+                if result.exit_code != 0:
+                    logger.error(f"Heredoc创建patch文件失败: {result.output.decode('utf-8', errors='ignore')}")
+                    return None
                 
                 # 验证文件创建成功
                 verify_result = container.exec_run("wc -l /home/fix.patch")
                 if verify_result.exit_code == 0:
-                    logger.info(f"Patch文件创建成功: {verify_result.output.decode('utf-8', errors='ignore').strip()}")
+                    lines_info = verify_result.output.decode('utf-8', errors='ignore').strip()
+                    logger.info(f"Patch文件创建成功: {lines_info}")
+                    
+                    # 显示文件前几行用于调试
+                    preview_result = container.exec_run("head -n 5 /home/fix.patch")
+                    if preview_result.exit_code == 0:
+                        logger.info(f"Patch文件预览:\n{preview_result.output.decode('utf-8', errors='ignore')}")
                 else:
                     logger.error("验证patch文件失败")
                     return None
@@ -701,7 +698,7 @@ class DatasetRunner:
             return None
 
     def _docker_test_base64(self, image_name, patch_content, test_log_dir, method_name):
-        """方法3: 使用base64编码传输（最安全）"""
+        """方法3: 使用base64编码传输（最安全）- 修复解码问题"""
         try:
             import base64
             
@@ -717,47 +714,65 @@ class DatasetRunner:
                 container.start()
                 
                 # 确保删除已存在的fix.patch
-                container.exec_run("rm -f /home/fix.patch")
+                container.exec_run("rm -f /home/fix.patch /home/fix.patch.b64")
                 
                 logger.info("使用base64编码方法创建patch文件...")
                 
                 # 使用base64编码传输文件内容
                 patch_b64 = base64.b64encode(patch_content.encode('utf-8')).decode('ascii')
+                logger.info(f"Base64编码长度: {len(patch_b64)} 字符")
                 
-                # 分块传输，避免命令行长度限制
-                chunk_size = 1000  # 每块1000字符
-                chunks = [patch_b64[i:i+chunk_size] for i in range(0, len(patch_b64), chunk_size)]
+                # 一次性写入base64内容，避免分块可能的问题
+                # 使用heredoc写入base64内容
+                b64_write_command = f'''bash -c "cat << 'B64_EOF' > /home/fix.patch.b64
+    {patch_b64}
+    B64_EOF"'''
                 
-                # 创建空文件
-                container.exec_run("touch /home/fix.patch.b64")
-                
-                # 分块写入base64数据
-                for i, chunk in enumerate(chunks):
-                    if i == 0:
-                        cmd = f'echo "{chunk}" > /home/fix.patch.b64'
-                    else:
-                        cmd = f'echo "{chunk}" >> /home/fix.patch.b64'
-                    
-                    result = container.exec_run(f"bash -c '{cmd}'")
-                    if result.exit_code != 0:
-                        logger.error(f"写入base64块{i+1}失败")
-                        return None
-                
-                # 解码base64文件
-                decode_result = container.exec_run("base64 -d /home/fix.patch.b64 > /home/fix.patch")
-                if decode_result.exit_code != 0:
-                    logger.error(f"base64解码失败: {decode_result.output.decode('utf-8', errors='ignore')}")
+                result = container.exec_run(b64_write_command)
+                if result.exit_code != 0:
+                    logger.error(f"写入base64数据失败: {result.output.decode('utf-8', errors='ignore')}")
                     return None
+                
+                # 验证base64文件创建
+                verify_b64 = container.exec_run("wc -c /home/fix.patch.b64")
+                if verify_b64.exit_code == 0:
+                    logger.info(f"Base64文件创建成功: {verify_b64.output.decode('utf-8', errors='ignore').strip()}")
+                
+                # 修复解码命令 - 使用正确的语法
+                decode_command = "base64 -d /home/fix.patch.b64 > /home/fix.patch"
+                logger.info(f"执行解码命令: {decode_command}")
+                
+                decode_result = container.exec_run(decode_command)
+                if decode_result.exit_code != 0:
+                    error_output = decode_result.output.decode('utf-8', errors='ignore')
+                    logger.error(f"base64解码失败: {error_output}")
+                    
+                    # 尝试备用解码方法
+                    logger.info("尝试备用解码方法...")
+                    alt_decode_command = "cat /home/fix.patch.b64 | base64 -d > /home/fix.patch"
+                    alt_result = container.exec_run(f"bash -c '{alt_decode_command}'")
+                    
+                    if alt_result.exit_code != 0:
+                        logger.error(f"备用解码也失败: {alt_result.output.decode('utf-8', errors='ignore')}")
+                        return None
+                    else:
+                        logger.info("备用解码方法成功")
                 
                 # 清理临时文件
                 container.exec_run("rm -f /home/fix.patch.b64")
                 
-                # 验证文件创建成功
+                # 验证最终文件创建成功
                 verify_result = container.exec_run("ls -la /home/fix.patch")
                 if verify_result.exit_code == 0:
-                    logger.info("Base64方法patch文件创建成功")
+                    file_info = verify_result.output.decode('utf-8', errors='ignore').strip()
+                    logger.info(f"最终patch文件创建成功: {file_info}")
+                    
+                    # 显示文件前几行用于调试
+                    preview_result = container.exec_run("head -n 5 /home/fix.patch")
+                    if preview_result.exit_code == 0:
+                        logger.info(f"解码后patch文件预览:\n{preview_result.output.decode('utf-8', errors='ignore')}")
                 else:
-                    logger.error("验证patch文件失败")
+                    logger.error("验证最终patch文件失败")
                     return None
                 
                 return self._execute_patch_and_test(container, test_log_dir, method_name)

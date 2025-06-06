@@ -1,0 +1,520 @@
+=== METHOD: HEREDOC ===
+=== AI PATCH PREVIEW ===
+    diff --git a/src/core/pipe.c b/src/core/pipe.c
+index abc1234..def5678 100644
+--- a/src/core/pipe.c
++++ b/src/core/pipe.c
+@@ -194,6 +194,9 @@ nni_pipe_close(nni_pipe *p)
+ 	// abort any pending negotiation/start process.
+ 	nni_aio_close(p->p_start_aio);
+ 
++	// Abort any pending receive/send operations
++	p->p_tran_ops.p_close(p->p_tran_data);
+
+
+=== TEST EXECUTION ===
+-- The C compiler identification is GNU 11.4.0
+-- Detecting C compiler ABI info
+-- Detecting C compiler ABI info - done
+-- Check for working C compiler: /usr/bin/cc - skipped
+-- Detecting C compile features
+-- Detecting C compile features - done
+-- Found UnixCommands: /usr/bin/bash  
+-- Performing Test NNG_HIDDEN_VISIBILITY
+-- Performing Test NNG_HIDDEN_VISIBILITY - Success
+-- Looking for pthread.h
+-- Looking for pthread.h - found
+-- Performing Test CMAKE_HAVE_LIBC_PTHREAD
+-- Performing Test CMAKE_HAVE_LIBC_PTHREAD - Success
+-- Found Threads: TRUE  
+-- Looking for lockf
+-- Looking for lockf - found
+-- Looking for flock
+-- Looking for flock - found
+-- Looking for clock_gettime in rt
+-- Looking for clock_gettime in rt - found
+-- Looking for sem_wait in pthread
+-- Looking for sem_wait in pthread - found
+-- Looking for gethostbyname in nsl
+-- Looking for gethostbyname in nsl - found
+-- Looking for socket in socket
+-- Looking for socket in socket - not found
+-- Looking for AF_UNIX
+-- Looking for AF_UNIX - found
+-- Looking for backtrace_symbols_fd
+-- Looking for backtrace_symbols_fd - found
+-- Looking for alloca
+-- Looking for alloca - found
+-- Performing Test NNG_HAVE_MSG_CONTROL
+-- Performing Test NNG_HAVE_MSG_CONTROL - Success
+-- Looking for kqueue
+-- Looking for kqueue - not found
+-- Looking for port_create
+-- Looking for port_create - not found
+-- Looking for epoll_create
+-- Looking for epoll_create - found
+-- Looking for epoll_create1
+-- Looking for epoll_create1 - found
+-- Looking for getpeereid
+-- Looking for getpeereid - not found
+-- Looking for SO_PEERCRED
+-- Looking for SO_PEERCRED - found
+-- Looking for LOCAL_PEERCRED
+-- Looking for LOCAL_PEERCRED - not found
+-- Looking for getpeerucred
+-- Looking for getpeerucred - not found
+-- Looking for atomic_flag_test_and_set
+-- Looking for atomic_flag_test_and_set - found
+-- Looking for strlcat
+-- Looking for strlcat - not found
+-- Looking for strlcpy
+-- Looking for strlcpy - not found
+-- Looking for strnlen
+-- Looking for strnlen - found
+-- Looking for strcasecmp
+-- Looking for strcasecmp - found
+-- Looking for strncasecmp
+-- Looking for strncasecmp - found
+-- Building static libs
+-- Test tls disabled (unconfigured)
+-- Test wss disabled (unconfigured)
+-- Test wssfile disabled (unconfigured)
+-- Test zt disabled (unconfigured)
+-- The CXX compiler identification is GNU 11.4.0
+-- Detecting CXX compiler ABI info
+-- Detecting CXX compiler ABI info - done
+-- Check for working CXX compiler: /usr/bin/c++ - skipped
+-- Detecting CXX compile features
+-- Detecting CXX compile features - done
+-- Configuring done
+-- Generating done
+CMake Warning:
+  Manually-specified variables were not used by the project:
+
+    CATCH_DEVELOPMENT_BUILD
+    CMAKE_POLICY_VERSION_MINIMUM
+
+
+-- Build files have been written to: /home/nng/build
+[1/281] Building C object src/CMakeFiles/nng.dir/core/file.c.o
+[2/281] Building C object src/CMakeFiles/nng.dir/core/init.c.o
+[3/281] Building C object src/CMakeFiles/nng.dir/core/list.c.o
+[4/281] Building C object src/CMakeFiles/nng.dir/core/device.c.o
+[5/281] Building C object src/CMakeFiles/nng.dir/core/idhash.c.o
+[6/281] Building C object src/CMakeFiles/nng.dir/core/clock.c.o
+[7/281] Building C object src/CMakeFiles/nng.dir/core/pollable.c.o
+[8/281] Building C object src/CMakeFiles/nng.dir/core/aio.c.o
+[9/281] Building C object src/CMakeFiles/nng.dir/core/message.c.o
+[10/281] Building C object src/CMakeFiles/nng.dir/core/options.c.o
+[11/281] Building C object src/CMakeFiles/nng.dir/core/dialer.c.o
+[12/281] Building C object src/CMakeFiles/nng.dir/core/panic.c.o
+[13/281] Building C object src/CMakeFiles/nng.dir/core/msgqueue.c.o
+[14/281] Building C object src/CMakeFiles/nng.dir/core/protocol.c.o
+[15/281] Building C object src/CMakeFiles/nng.dir/core/random.c.o
+[16/281] Building C object src/CMakeFiles/nng.dir/core/reap.c.o
+[17/281] Building C object src/CMakeFiles/nng.dir/core/listener.c.o
+[18/281] Building C object src/CMakeFiles/nng.dir/core/strs.c.o
+[19/281] Building C object src/CMakeFiles/nng.dir/core/pipe.c.o
+[20/281] Building C object src/CMakeFiles/nng.dir/core/thread.c.o
+[21/281] Building C object src/CMakeFiles/nng.dir/core/transport.c.o
+[22/281] Building C object src/CMakeFiles/nng.dir/core/taskq.c.o
+[23/281] Building C object src/CMakeFiles/nng.dir/platform/posix/posix_alloc.c.o
+[24/281] Building C object src/CMakeFiles/nng.dir/platform/posix/posix_atomic.c.o
+[25/281] Building C object src/CMakeFiles/nng.dir/core/url.c.o
+[26/281] Building C object src/CMakeFiles/nng.dir/core/timer.c.o
+[27/281] Building C object src/CMakeFiles/nng.dir/nng.c.o
+[28/281] Building C object src/CMakeFiles/nng.dir/platform/posix/posix_clock.c.o
+[29/281] Building C object src/CMakeFiles/nng.dir/platform/posix/posix_debug.c.o
+[30/281] Building C object src/CMakeFiles/nng.dir/core/socket.c.o
+[31/281] Building C object src/CMakeFiles/nng.dir/platform/posix/posix_rand.c.o
+[32/281] Building C object src/CMakeFiles/nng.dir/platform/posix/posix_file.c.o
+[33/281] Building C object src/CMakeFiles/nng.dir/platform/posix/posix_pipe.c.o
+[34/281] Building C object src/CMakeFiles/nng.dir/platform/posix/posix_ipcconn.c.o
+[35/281] Building C object src/CMakeFiles/nng.dir/platform/posix/posix_ipcdial.c.o
+[36/281] Building C object src/CMakeFiles/nng.dir/platform/posix/posix_ipclisten.c.o
+[37/281] Building C object src/CMakeFiles/nng.dir/platform/posix/posix_sockaddr.c.o
+[38/281] Building C object src/CMakeFiles/nng.dir/platform/posix/posix_resolv_gai.c.o
+[39/281] Building C object src/CMakeFiles/nng.dir/supplemental/base64/base64.c.o
+[40/281] Building C object src/CMakeFiles/nng.dir/platform/posix/posix_tcpdial.c.o
+[41/281] Building C object src/CMakeFiles/nng.dir/platform/posix/posix_thread.c.o
+[42/281] Building C object src/CMakeFiles/nng.dir/platform/posix/posix_udp.c.o
+[43/281] Building C object src/CMakeFiles/nng.dir/platform/posix/posix_tcpconn.c.o
+[44/281] Building C object src/CMakeFiles/nng.dir/platform/posix/posix_pollq_epoll.c.o
+[45/281] Building C object src/CMakeFiles/nng.dir/supplemental/sha1/sha1.c.o
+[46/281] Building C object src/CMakeFiles/nng.dir/platform/posix/posix_tcplisten.c.o
+[47/281] Building C object src/CMakeFiles/nng.dir/supplemental/http/http_conn.c.o
+[48/281] Building C object src/CMakeFiles/nng.dir/supplemental/http/http_client.c.o
+[49/281] Building C object src/CMakeFiles/nng.dir/supplemental/http/http_public.c.o
+[50/281] Building C object src/CMakeFiles/nng.dir/supplemental/tls/none/tls.c.o
+[51/281] Building C object src/CMakeFiles/nng.dir/compat/nanomsg/nn.c.o
+[52/281] Building C object src/CMakeFiles/nng.dir/supplemental/util/platform.c.o
+[53/281] Building C object src/CMakeFiles/nng.dir/supplemental/http/http_msg.c.o
+[54/281] Building C object src/CMakeFiles/nng.dir/supplemental/util/options.c.o
+[55/281] Building C object src/CMakeFiles/nng.dir/protocol/pipeline0/push.c.o
+[56/281] Building C object src/CMakeFiles/nng.dir/protocol/pair0/pair.c.o
+[57/281] Building C object src/CMakeFiles/nng.dir/protocol/bus0/bus.c.o
+[58/281] Building C object src/CMakeFiles/nng.dir/protocol/pipeline0/pull.c.o
+[59/281] Building C object src/CMakeFiles/nng.dir/protocol/pair1/pair.c.o
+[60/281] Building C object src/CMakeFiles/nng.dir/protocol/pubsub0/sub.c.o
+[61/281] Building C object src/CMakeFiles/nng.dir/protocol/pubsub0/pub.c.o
+[62/281] Building C object src/CMakeFiles/nng.dir/supplemental/http/http_server.c.o
+[63/281] Building C object src/CMakeFiles/nng.dir/protocol/reqrep0/xreq.c.o
+[64/281] Building C object src/CMakeFiles/nng.dir/protocol/reqrep0/req.c.o
+[65/281] Building C object src/CMakeFiles/nng.dir/protocol/reqrep0/xrep.c.o
+[66/281] Building C object src/CMakeFiles/nng.dir/protocol/survey0/xsurvey.c.o
+[67/281] Building C object src/CMakeFiles/nng.dir/protocol/reqrep0/rep.c.o
+[68/281] Building C object src/CMakeFiles/nng.dir/protocol/survey0/xrespond.c.o
+[69/281] Building C object src/CMakeFiles/nng.dir/protocol/survey0/respond.c.o
+[70/281] Building C object src/CMakeFiles/nng.dir/protocol/survey0/survey.c.o
+[71/281] Building C object src/CMakeFiles/nng.dir/transport/inproc/inproc.c.o
+[72/281] Building C object src/CMakeFiles/nng.dir/transport/ipc/ipc.c.o
+[73/281] Building C object src/CMakeFiles/nng.dir/supplemental/websocket/websocket.c.o
+[74/281] Building C object src/CMakeFiles/nng.dir/transport/ws/websocket.c.o
+[75/281] Building C object tests/CMakeFiles/base64.dir/base64.c.o
+[76/281] Building C object tests/CMakeFiles/aio.dir/aio.c.o
+[77/281] Building C object src/CMakeFiles/nng.dir/transport/tcp/tcp.c.o
+[78/281] Building C object tests/CMakeFiles/errors.dir/errors.c.o
+[79/281] Building C object tests/CMakeFiles/device.dir/device.c.o
+[80/281] Building C object tests/CMakeFiles/aio.dir/convey.c.o
+[81/281] Building C object tests/CMakeFiles/base64.dir/convey.c.o
+[82/281] Building C object tests/CMakeFiles/multistress.dir/multistress.c.o
+[83/281] Building C object tests/CMakeFiles/bufsz.dir/convey.c.o
+[84/281] Building C object tests/CMakeFiles/files.dir/convey.c.o
+[85/281] Building C object tests/CMakeFiles/bufsz.dir/bufsz.c.o
+[86/281] Linking C static library libnng.a
+[87/281] Building C object tests/CMakeFiles/errors.dir/convey.c.o
+[88/281] Building C object tests/CMakeFiles/device.dir/convey.c.o
+[89/281] Building C object tests/CMakeFiles/files.dir/files.c.o
+[90/281] Building C object tests/CMakeFiles/httpserver.dir/convey.c.o
+[91/281] Building C object tests/CMakeFiles/httpclient.dir/convey.c.o
+[92/281] Linking C executable tests/base64
+[93/281] Building C object tests/CMakeFiles/idhash.dir/convey.c.o
+[94/281] Linking C executable tests/aio
+[95/281] Building C object tests/CMakeFiles/inproc.dir/inproc.c.o
+[96/281] Building C object tests/CMakeFiles/inproc.dir/convey.c.o
+[97/281] Linking C executable tests/bufsz
+[98/281] Building C object tests/CMakeFiles/httpclient.dir/httpclient.c.o
+[99/281] Linking C executable tests/files
+[100/281] Linking C executable tests/device
+[101/281] Linking C executable tests/errors
+[102/281] Building C object tests/CMakeFiles/idhash.dir/idhash.c.o
+[103/281] Building C object tests/CMakeFiles/ipc.dir/convey.c.o
+[104/281] Building C object tests/CMakeFiles/httpserver.dir/httpserver.c.o
+[105/281] Linking C executable tests/httpclient
+[106/281] Building C object tests/CMakeFiles/ipc.dir/ipc.c.o
+[107/281] Linking C executable tests/idhash
+[108/281] Linking C executable tests/inproc
+[109/281] Building C object tests/CMakeFiles/list.dir/list.c.o
+[110/281] Building C object tests/CMakeFiles/ipcperms.dir/convey.c.o
+[111/281] Linking C executable tests/httpserver
+[112/281] Linking C executable tests/ipc
+[113/281] Building C object tests/CMakeFiles/list.dir/convey.c.o
+[114/281] Building C object tests/CMakeFiles/nonblock.dir/nonblock.c.o
+[115/281] Building C object tests/CMakeFiles/message.dir/convey.c.o
+[116/281] Building C object tests/CMakeFiles/message.dir/message.c.o
+[117/281] Linking C executable tests/list
+[118/281] Building C object tests/CMakeFiles/ipcwinsec.dir/ipcwinsec.c.o
+[119/281] Building C object tests/CMakeFiles/ipcwinsec.dir/convey.c.o
+[120/281] Building C object tests/CMakeFiles/multistress.dir/convey.c.o
+[121/281] Building C object tests/CMakeFiles/platform.dir/platform.c.o
+[122/281] Building C object tests/CMakeFiles/ipcperms.dir/ipcperms.c.o
+[123/281] Building C object tests/CMakeFiles/options.dir/options.c.o
+[124/281] Building C object tests/CMakeFiles/nonblock.dir/convey.c.o
+[125/281] Linking C executable tests/message
+[126/281] Building C object tests/CMakeFiles/pipe.dir/pipe.c.o
+[127/281] Building C object tests/CMakeFiles/pollfd.dir/pollfd.c.o
+[128/281] Building C object tests/CMakeFiles/pipe.dir/convey.c.o
+[129/281] Building C object tests/CMakeFiles/options.dir/convey.c.o
+[130/281] Linking C executable tests/ipcwinsec
+[131/281] Building C object tests/CMakeFiles/reconnect.dir/reconnect.c.o
+[132/281] Linking C executable tests/ipcperms
+[133/281] Building C object tests/CMakeFiles/platform.dir/convey.c.o
+[134/281] Linking C executable tests/options
+[135/281] Linking C executable tests/multistress
+[136/281] Building C object tests/CMakeFiles/pollfd.dir/convey.c.o
+[137/281] Building C object tests/CMakeFiles/sha1.dir/sha1.c.o
+[138/281] Linking C executable tests/nonblock
+[139/281] Linking C executable tests/pipe
+[140/281] Building C object tests/CMakeFiles/scalability.dir/scalability.c.o
+[141/281] Building C object tests/CMakeFiles/reconnect.dir/convey.c.o
+[142/281] Building C object tests/CMakeFiles/resolv.dir/resolv.c.o
+[143/281] Linking C executable tests/platform
+[144/281] Building C object tests/CMakeFiles/resolv.dir/convey.c.o
+[145/281] Linking C executable tests/pollfd
+[146/281] Linking C executable tests/reconnect
+[147/281] Building C object tests/CMakeFiles/synch.dir/synch.c.o
+[148/281] Building C object tests/CMakeFiles/scalability.dir/convey.c.o
+[149/281] Building C object tests/CMakeFiles/sha1.dir/convey.c.o
+[150/281] Building C object tests/CMakeFiles/transport.dir/transport.c.o
+[151/281] Building C object tests/CMakeFiles/sock.dir/convey.c.o
+[152/281] Building C object tests/CMakeFiles/tcp.dir/convey.c.o
+[153/281] Building C object tests/CMakeFiles/synch.dir/convey.c.o
+[154/281] Linking C executable tests/resolv
+[155/281] Linking C executable tests/sha1
+[156/281] Linking C executable tests/scalability
+[157/281] Building C object tests/CMakeFiles/tcp6.dir/convey.c.o
+[158/281] Building C object tests/CMakeFiles/tcp6.dir/tcp6.c.o
+[159/281] Linking C executable tests/synch
+[160/281] Building C object tests/CMakeFiles/transport.dir/convey.c.o
+[161/281] Building C object tests/CMakeFiles/tcp.dir/tcp.c.o
+[162/281] Building C object tests/CMakeFiles/udp.dir/convey.c.o
+[163/281] Building C object tests/CMakeFiles/url.dir/convey.c.o
+[164/281] Building C object tests/CMakeFiles/ws.dir/convey.c.o
+[165/281] Linking C executable tests/tcp6
+[166/281] Linking C executable tests/transport
+[167/281] Building C object tests/CMakeFiles/bus.dir/convey.c.o
+[168/281] Building C object tests/CMakeFiles/pipeline.dir/pipeline.c.o
+[169/281] Building C object tests/CMakeFiles/bus.dir/bus.c.o
+[170/281] Building C object tests/CMakeFiles/url.dir/url.c.o
+[171/281] Building C object tests/CMakeFiles/pipeline.dir/convey.c.o
+[172/281] Building C object tests/CMakeFiles/udp.dir/udp.c.o
+[173/281] Building C object tests/CMakeFiles/ws.dir/ws.c.o
+[174/281] Linking C executable tests/tcp
+[175/281] Linking C executable tests/url
+[176/281] Linking C executable tests/bus
+[177/281] Linking C executable tests/pipeline
+[178/281] Building C object tests/CMakeFiles/reqctx.dir/reqctx.c.o
+[179/281] Building C object tests/CMakeFiles/pubsub.dir/pubsub.c.o
+[180/281] Linking C executable tests/udp
+[181/281] Building C object tests/CMakeFiles/pubsub.dir/convey.c.o
+[182/281] Building C object tests/CMakeFiles/pair1.dir/convey.c.o
+[183/281] Building C object tests/CMakeFiles/reqpoll.dir/reqpoll.c.o
+[184/281] Building C object tests/CMakeFiles/sock.dir/sock.c.o
+[185/281] Linking C executable tests/ws
+[186/281] Building C object tests/CMakeFiles/reqctx.dir/convey.c.o
+[187/281] Building C object tests/CMakeFiles/reqstress.dir/reqstress.c.o
+[188/281] Linking C executable tests/pubsub
+[189/281] Linking C executable tests/sock
+[190/281] Building C object tests/CMakeFiles/respondpoll.dir/respondpoll.c.o
+[191/281] Building C object tests/CMakeFiles/reqpoll.dir/convey.c.o
+[192/281] Building C object tests/CMakeFiles/reqrep.dir/convey.c.o
+[193/281] Building C object tests/CMakeFiles/reqrep.dir/reqrep.c.o
+[194/281] Building C object tests/CMakeFiles/reqstress.dir/convey.c.o
+[195/281] Linking C executable tests/reqctx
+[196/281] Building C object tests/CMakeFiles/surveyctx.dir/surveyctx.c.o
+[197/281] Building C object tests/CMakeFiles/respondpoll.dir/convey.c.o
+[198/281] Building C object tests/CMakeFiles/survey.dir/convey.c.o
+[199/281] Linking C executable tests/reqpoll
+[200/281] Building C object tests/CMakeFiles/compat_block.dir/compat_block.c.o
+[201/281] Building C object tests/CMakeFiles/compat_bug777.dir/compat_bug777.c.o
+[202/281] Linking C executable tests/reqrep
+[203/281] Building C object tests/CMakeFiles/survey.dir/survey.c.o
+[204/281] Building C object tests/CMakeFiles/compat_block.dir/compat_testutil.c.o
+[205/281] Building C object tests/CMakeFiles/compat_bug777.dir/compat_testutil.c.o
+[206/281] Building C object tests/CMakeFiles/surveypoll.dir/surveypoll.c.o
+[207/281] Linking C executable tests/reqstress
+[208/281] Linking C executable tests/respondpoll
+[209/281] Building C object tests/CMakeFiles/compat_cmsg.dir/compat_cmsg.c.o
+[210/281] Building C object tests/CMakeFiles/surveypoll.dir/convey.c.o
+[211/281] Building C object tests/CMakeFiles/compat_bus.dir/compat_bus.c.o
+[212/281] Building C object tests/CMakeFiles/compat_bus.dir/compat_testutil.c.o
+[213/281] Linking C executable tests/survey
+[214/281] Building C object tests/CMakeFiles/pair1.dir/pair1.c.o
+[215/281] Building C object tests/CMakeFiles/surveyctx.dir/convey.c.o
+[216/281] Building C object tests/CMakeFiles/compat_msg.dir/compat_msg.c.o
+[217/281] Linking C executable tests/compat_block
+[218/281] Building C object tests/CMakeFiles/compat_cmsg.dir/compat_testutil.c.o
+[219/281] Building C object tests/CMakeFiles/compat_msg.dir/compat_testutil.c.o
+[220/281] Building C object tests/CMakeFiles/compat_iovec.dir/compat_iovec.c.o
+[221/281] Linking C executable tests/compat_bug777
+[222/281] Building C object tests/CMakeFiles/compat_pair.dir/compat_pair.c.o
+[223/281] Building C object tests/CMakeFiles/compat_iovec.dir/compat_testutil.c.o
+[224/281] Building C object tests/CMakeFiles/compat_device.dir/compat_device.c.o
+[225/281] Building C object tests/CMakeFiles/compat_device.dir/compat_testutil.c.o
+[226/281] Linking C executable tests/surveypoll
+[227/281] Linking C executable tests/compat_bus
+[228/281] Linking C executable tests/pair1
+[229/281] Building C object tests/CMakeFiles/compat_pipeline.dir/compat_pipeline.c.o
+[230/281] Linking C executable tests/surveyctx
+[231/281] Building C object tests/CMakeFiles/compat_pair.dir/compat_testutil.c.o
+[232/281] Building C object tests/CMakeFiles/compat_pipeline.dir/compat_testutil.c.o
+[233/281] Linking C executable tests/compat_cmsg
+[234/281] Building C object tests/CMakeFiles/compat_poll.dir/compat_poll.c.o
+[235/281] Linking C executable tests/compat_msg
+[236/281] Building C object tests/CMakeFiles/compat_survey.dir/compat_survey.c.o
+[237/281] Building C object tests/CMakeFiles/compat_reqrep.dir/compat_reqrep.c.o
+[238/281] Building C object tests/CMakeFiles/compat_poll.dir/compat_testutil.c.o
+[239/281] Linking C executable tests/compat_iovec
+[240/281] Building C object tests/CMakeFiles/compat_reqrep.dir/compat_testutil.c.o
+[241/281] Building C object tests/CMakeFiles/compat_survey.dir/compat_testutil.c.o
+[242/281] Building C object tests/CMakeFiles/compat_reqttl.dir/compat_reqttl.c.o
+[243/281] Linking C executable tests/compat_device
+[244/281] Building C object tests/CMakeFiles/compat_shutdown.dir/compat_shutdown.c.o
+[245/281] Linking C executable tests/compat_pair
+[246/281] Building C object tests/CMakeFiles/compat_shutdown.dir/compat_testutil.c.o
+[247/281] Building C object tests/CMakeFiles/compat_surveyttl.dir/compat_surveyttl.c.o
+[248/281] Building C object tests/CMakeFiles/compat_reqttl.dir/compat_testutil.c.o
+[249/281] Linking C executable tests/compat_pipeline
+[250/281] Linking C executable tests/compat_reqrep
+[251/281] Building C object tests/CMakeFiles/compat_tcp.dir/compat_tcp.c.o
+[252/281] Building C object tests/CMakeFiles/compat_tcp.dir/compat_testutil.c.o
+[253/281] Building C object tests/CMakeFiles/compat_surveyttl.dir/compat_testutil.c.o
+[254/281] Building C object tests/CMakeFiles/compat_ws.dir/compat_ws.c.o
+[255/281] Building C object tests/CMakeFiles/compat_ws.dir/compat_testutil.c.o
+[256/281] Building C object tests/CMakeFiles/compat_options.dir/compat_options.c.o
+[257/281] Linking C executable tests/compat_survey
+[258/281] Linking C executable tests/compat_poll
+[259/281] Linking C executable tests/compat_reqttl
+[260/281] Linking C executable tests/compat_shutdown
+[261/281] Linking C executable tests/compat_surveyttl
+[262/281] Building C object perf/CMakeFiles/remote_lat.dir/perf.c.o
+[263/281] Building C object perf/CMakeFiles/local_thr.dir/perf.c.o
+[264/281] Linking C executable tests/compat_tcp
+[265/281] Building C object tests/CMakeFiles/compat_options.dir/convey.c.o
+[266/281] Linking C executable tests/compat_ws
+[267/281] Building C object perf/CMakeFiles/local_lat.dir/perf.c.o
+[268/281] Building C object perf/CMakeFiles/remote_thr.dir/perf.c.o
+[269/281] Building C object perf/CMakeFiles/inproc_thr.dir/perf.c.o
+[270/281] Building C object perf/CMakeFiles/inproc_lat.dir/perf.c.o
+[271/281] Linking C executable perf/remote_lat
+[272/281] Linking C executable perf/local_thr
+[273/281] Linking C executable perf/remote_thr
+[274/281] Linking C executable perf/local_lat
+[275/281] Linking C executable tests/compat_options
+[276/281] Building C object tools/nngcat/CMakeFiles/nngcat.dir/nngcat.c.o
+[277/281] Linking C executable perf/inproc_thr
+[278/281] Linking C executable perf/inproc_lat
+[279/281] Linking C executable tools/nngcat/nngcat
+[280/281] Building CXX object tests/CMakeFiles/cplusplus_pair.dir/cplusplus_pair.cc.o
+[281/281] Linking CXX executable tests/cplusplus_pair
+Test project /home/nng/build
+      Start  1: aio
+ 1/68 Test  #1: aio ..............................   Passed    0.39 sec
+      Start  2: base64
+ 2/68 Test  #2: base64 ...........................   Passed    0.00 sec
+      Start  3: bufsz
+ 3/68 Test  #3: bufsz ............................   Passed    0.00 sec
+      Start  4: device
+ 4/68 Test  #4: device ...........................   Passed    0.21 sec
+      Start  5: errors
+ 5/68 Test  #5: errors ...........................   Passed    0.00 sec
+      Start  6: files
+ 6/68 Test  #6: files ............................   Passed    0.00 sec
+      Start  7: httpserver
+ 7/68 Test  #7: httpserver .......................   Passed    0.92 sec
+      Start  8: idhash
+ 8/68 Test  #8: idhash ...........................   Passed    0.01 sec
+      Start  9: inproc
+ 9/68 Test  #9: inproc ...........................   Passed    0.81 sec
+      Start 10: ipc
+10/68 Test #10: ipc ..............................   Passed    1.01 sec
+      Start 11: ipcperms
+11/68 Test #11: ipcperms .........................   Passed    0.00 sec
+      Start 12: ipcwinsec
+12/68 Test #12: ipcwinsec ........................   Passed    0.00 sec
+      Start 13: list
+13/68 Test #13: list .............................   Passed    0.00 sec
+      Start 14: message
+14/68 Test #14: message ..........................   Passed    0.00 sec
+      Start 15: multistress
+15/68 Test #15: multistress ......................   Passed   30.01 sec
+      Start 16: nonblock
+16/68 Test #16: nonblock .........................   Passed   15.01 sec
+      Start 17: options
+17/68 Test #17: options ..........................   Passed    0.00 sec
+      Start 18: pipe
+18/68 Test #18: pipe .............................   Passed    0.31 sec
+      Start 19: platform
+19/68 Test #19: platform .........................   Passed    0.30 sec
+      Start 20: pollfd
+20/68 Test #20: pollfd ...........................   Passed    0.36 sec
+      Start 21: reconnect
+21/68 Test #21: reconnect ........................   Passed    1.94 sec
+      Start 22: resolv
+22/68 Test #22: resolv ...........................   Passed    0.01 sec
+      Start 23: scalability
+23/68 Test #23: scalability ......................   Passed    0.04 sec
+      Start 24: sha1
+24/68 Test #24: sha1 .............................   Passed    0.01 sec
+      Start 25: sock
+25/68 Test #25: sock .............................   Passed    0.30 sec
+      Start 26: synch
+26/68 Test #26: synch ............................   Passed    0.25 sec
+      Start 27: transport
+27/68 Test #27: transport ........................   Passed    0.00 sec
+      Start 28: udp
+28/68 Test #28: udp ..............................   Passed    0.01 sec
+      Start 29: url
+29/68 Test #29: url ..............................   Passed    0.00 sec
+      Start 30: bus
+30/68 Test #30: bus ..............................   Passed    0.21 sec
+      Start 31: pipeline
+31/68 Test #31: pipeline .........................   Passed    0.35 sec
+      Start 32: pair1
+32/68 Test #32: pair1 ............................   Passed    3.66 sec
+      Start 33: pubsub
+33/68 Test #33: pubsub ...........................   Passed    1.00 sec
+      Start 34: reqctx
+34/68 Test #34: reqctx ...........................   Passed    0.21 sec
+      Start 35: reqpoll
+35/68 Test #35: reqpoll ..........................   Passed    0.71 sec
+      Start 36: reqrep
+36/68 Test #36: reqrep ...........................   Passed    0.07 sec
+      Start 37: respondpoll
+37/68 Test #37: respondpoll ......................   Passed    1.31 sec
+      Start 38: survey
+38/68 Test #38: survey ...........................   Passed    2.67 sec
+      Start 39: surveyctx
+39/68 Test #39: surveyctx ........................   Passed    0.11 sec
+      Start 40: surveypoll
+40/68 Test #40: surveypoll .......................   Passed    1.31 sec
+      Start 41: compat_block
+41/68 Test #41: compat_block .....................   Passed    0.20 sec
+      Start 42: compat_bug777
+42/68 Test #42: compat_bug777 ....................   Passed    0.10 sec
+      Start 43: compat_bus
+43/68 Test #43: compat_bus .......................   Passed    0.21 sec
+      Start 44: compat_cmsg
+44/68 Test #44: compat_cmsg ......................   Passed    0.00 sec
+      Start 45: compat_msg
+45/68 Test #45: compat_msg .......................   Passed    0.01 sec
+      Start 46: compat_iovec
+46/68 Test #46: compat_iovec .....................   Passed    0.00 sec
+      Start 47: compat_device
+47/68 Test #47: compat_device ....................   Passed    0.83 sec
+      Start 48: compat_pair
+48/68 Test #48: compat_pair ......................   Passed    0.00 sec
+      Start 49: compat_pipeline
+49/68 Test #49: compat_pipeline ..................   Passed    0.07 sec
+      Start 50: compat_poll
+50/68 Test #50: compat_poll ......................   Passed    0.35 sec
+      Start 51: compat_reqrep
+51/68 Test #51: compat_reqrep ....................   Passed    0.92 sec
+      Start 52: compat_survey
+52/68 Test #52: compat_survey ....................   Passed    3.01 sec
+      Start 53: compat_reqttl
+53/68 Test #53: compat_reqttl ....................   Passed    0.20 sec
+      Start 54: compat_shutdown
+54/68 Test #54: compat_shutdown ..................   Passed    0.00 sec
+      Start 55: compat_surveyttl
+55/68 Test #55: compat_surveyttl .................   Passed    0.20 sec
+      Start 56: compat_options
+56/68 Test #56: compat_options ...................   Passed    0.00 sec
+      Start 57: cplusplus_pair
+57/68 Test #57: cplusplus_pair ...................   Passed    0.00 sec
+      Start 58: inproc_lat
+58/68 Test #58: inproc_lat .......................   Passed    1.23 sec
+      Start 59: inproc_thr
+59/68 Test #59: inproc_thr .......................   Passed    0.83 sec
+      Start 60: nngcat_async
+60/68 Test #60: nngcat_async .....................   Passed    4.01 sec
+      Start 61: nngcat_ambiguous
+61/68 Test #61: nngcat_ambiguous .................   Passed    0.00 sec
+      Start 62: nngcat_need_proto
+62/68 Test #62: nngcat_need_proto ................   Passed    0.00 sec
+      Start 63: nngcat_dup_proto
+63/68 Test #63: nngcat_dup_proto .................   Passed    0.00 sec
+      Start 64: nngcat_help
+64/68 Test #64: nngcat_help ......................   Passed    0.00 sec
+      Start 65: nngcat_incompat
+65/68 Test #65: nngcat_incompat ..................   Passed    0.00 sec
+      Start 66: nngcat_pubsub
+66/68 Test #66: nngcat_pubsub ....................   Passed    4.61 sec
+      Start 67: nngcat_recvmaxsz
+67/68 Test #67: nngcat_recvmaxsz .................   Passed    2.01 sec
+      Start 68: nngcat_unlimited
+68/68 Test #68: nngcat_unlimited .................   Passed    2.24 sec
+
+100% tests passed, 0 tests failed out of 68
+
+Total Test time (real) =  84.59 sec

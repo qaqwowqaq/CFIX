@@ -52,7 +52,8 @@ def ai_locate_target_file(issue_details: dict, project_path: str, test_patch_dif
     # 扫描项目结构
     logger.info("扫描项目结构...")
     project_structure = scan_project_files_for_ai(project_path)
-    logger.info(f"项目结构扫描完成，找到 {len(project_structure.split('\\n'))} 个文件")
+    file_lines = [line for line in project_structure.split('\n') if line.strip()]
+    logger.info(f"项目结构扫描完成，为AI提供了 {len(file_lines)} 个文件的信息")
     
     # 构建AI分析prompt
     prompt = build_file_localization_prompt(issue_details, test_patch_diff, project_structure)
@@ -117,96 +118,182 @@ def ai_locate_target_file(issue_details: dict, project_path: str, test_patch_dif
         logger.error(f"清理后内容: {cleaned_response[:1000] if 'cleaned_response' in locals() else 'N/A'}...")
         raise
 
-def scan_project_files_for_ai(project_path: str, max_files: int = 30) -> str:
-    """扫描项目文件结构，为AI提供上下文"""
+def scan_project_files_for_ai(project_path: str, max_files: int = 100) -> str:
+    """扫描项目文件结构，为AI提供上下文 - 改进版本"""
     
     file_info = []
     file_count = 0
     
-    # 优先级目录（按重要性排序）
-    priority_dirs = ['src', 'include', 'lib', 'source', '', 'core']
+    # 收集所有源代码文件，按重要性排序
+    all_files = []
     
-    for priority_dir in priority_dirs:
+    # 遍历整个项目目录
+    for root, dirs, files in os.walk(project_path):
+        # 跳过无关目录
+        dirs[:] = [d for d in dirs if d not in [
+            '.git', '.svn', 'build', 'cmake-build-debug', 'cmake-build-release',
+            '__pycache__', 'node_modules', '.vs', '.vscode', 'Debug', 'Release',
+            'bin', 'obj', 'target', 'dist', '.idea'
+        ]]
+        
+        # 跳过测试目录（但记录，以备后用）
+        skip_dir = False
+        for skip_pattern in ['test', 'tests', 'unittest', 'example', 'examples', 'sample', 'demo']:
+            if skip_pattern in root.lower():
+                skip_dir = True
+                break
+        
+        for file in files:
+            # 只关注源代码文件
+            if not file.lower().endswith(('.c', '.cpp', '.cc', '.cxx', '.h', '.hpp', '.hxx', '.inl', '.tcc')):
+                continue
+            
+            file_path = os.path.join(root, file)
+            rel_path = os.path.relpath(file_path, project_path)
+            
+            try:
+                size = os.path.getsize(file_path)
+                
+                # 计算文件重要性分数
+                importance_score = calculate_file_importance(rel_path, project_path)
+                
+                # 如果是测试文件，降低优先级但不完全排除
+                if skip_dir:
+                    importance_score *= 0.3
+                
+                all_files.append({
+                    'rel_path': rel_path,
+                    'size': size,
+                    'importance': importance_score,
+                    'is_test': skip_dir
+                })
+                
+            except Exception as e:
+                logger.debug(f"读取文件信息失败 {rel_path}: {e}")
+    
+    # 按重要性排序
+    all_files.sort(key=lambda x: x['importance'], reverse=True)
+    
+    # 选择最重要的文件进行详细分析
+    for file_info_dict in all_files[:max_files]:
         if file_count >= max_files:
             break
             
-        search_dir = os.path.join(project_path, priority_dir) if priority_dir else project_path
-        if not os.path.exists(search_dir):
-            continue
-            
-        # 只遍历当前目录和一级子目录
-        max_depth = 1 if priority_dir else 2
+        rel_path = file_info_dict['rel_path']
+        size = file_info_dict['size']
+        is_test = file_info_dict['is_test']
         
-        for root, dirs, files in os.walk(search_dir):
-            # 限制搜索深度
-            level = root.replace(search_dir, '').count(os.sep)
-            if level >= max_depth:
-                dirs[:] = []  # 不继续深入
-                continue
+        try:
+            # 读取文件内容预览
+            file_path = os.path.join(project_path, rel_path)
+            with open(file_path, 'r', encoding='utf-8', errors='ignore') as f:
+                lines = []
+                for i, line in enumerate(f):
+                    if i >= 15:  # 读取前15行
+                        break
+                    line = line.strip()
+                    if line and not line.startswith('//') and not line.startswith('/*'):
+                        lines.append(line)
                 
-            # 跳过无关目录
-            dirs[:] = [d for d in dirs if d not in ['.git', 'build', '__pycache__', 'node_modules', 'cmake-build']]
+                preview = '\n'.join(lines[:8])  # 取前8个有效行
             
-            for file in files:
-                if file_count >= max_files:
-                    break
-                    
-                # 只关注源代码文件
-                if not file.lower().endswith(('.c', '.cpp', '.cc', '.cxx', '.h', '.hpp', '.hxx')):
-                    continue
-                    
-                file_path = os.path.join(root, file)
-                rel_path = os.path.relpath(file_path, project_path)
-                
-                try:
-                    # 获取文件基本信息
-                    size = os.path.getsize(file_path)
-                    
-                    # 读取文件开头几行来了解内容
-                    with open(file_path, 'r', encoding='utf-8', errors='ignore') as f:
-                        lines = []
-                        for i, line in enumerate(f):
-                            if i >= 10:  # 只读前10行
-                                break
-                            line = line.strip()
-                            if line and not line.startswith('//') and not line.startswith('/*'):
-                                lines.append(line)
-                        preview = '\n'.join(lines[:5])  # 取前5个有效行
-                    
-                    # 分析文件类型和重要性
-                    file_type = analyze_file_importance(rel_path, preview)
-                    
-                    file_info.append(f"{rel_path} ({size}B) - {file_type}: {preview[:100]}...")
-                    file_count += 1
-                    
-                except Exception as e:
-                    logger.debug(f"读取文件信息失败 {rel_path}: {e}")
-                    file_info.append(f"{rel_path} - 无法读取")
-                    file_count += 1
+            # 分析文件类型和重要性
+            file_type = analyze_file_importance(rel_path, preview)
+            if is_test:
+                file_type = f"TEST_{file_type}"
+            
+            # 生成文件描述
+            description = f"{rel_path} ({size}B) - {file_type}"
+            if preview:
+                description += f": {preview[:150]}..."
+            
+            file_info.append(description)
+            file_count += 1
+            
+        except Exception as e:
+            logger.debug(f"读取文件内容失败 {rel_path}: {e}")
+            file_info.append(f"{rel_path} ({size}B) - 无法读取")
+            file_count += 1
     
+    logger.info(f"项目结构扫描完成，从 {len(all_files)} 个源文件中选择了 {file_count} 个最重要的文件")
     return '\n'.join(file_info)
 
+def calculate_file_importance(rel_path: str, project_path: str) -> float:
+    """计算文件重要性分数"""
+    score = 0.0
+    path_lower = rel_path.lower()
+    file_name = os.path.basename(rel_path).lower()
+    dir_parts = os.path.dirname(rel_path).lower().split(os.sep)
+    project_name = os.path.basename(project_path).lower()
+    
+    # 基础分数：根据文件类型
+    if rel_path.endswith(('.h', '.hpp', '.hxx')):
+        score += 50  # 头文件
+    elif rel_path.endswith(('.c', '.cpp', '.cc', '.cxx')):
+        score += 70  # 源文件
+    
+    # 目录位置加分
+    if '' in dir_parts or len(dir_parts) == 1:  # 根目录或一级目录
+        score += 30
+    elif 'src' in dir_parts or 'source' in dir_parts:
+        score += 25
+    elif 'include' in dir_parts:
+        score += 20
+    elif 'lib' in dir_parts or 'library' in dir_parts:
+        score += 15
+    
+    # 文件名重要性
+    if 'main' in file_name:
+        score += 100
+    elif project_name in file_name:
+        score += 80
+    elif any(keyword in file_name for keyword in ['core', 'base', 'common', 'util']):
+        score += 40
+    elif any(keyword in file_name for keyword in ['parser', 'parse', 'command', 'arg']):
+        score += 60  # 对于CLI工具特别重要
+    
+    # 路径深度惩罚
+    depth = len(dir_parts) if dir_parts != [''] else 0
+    score -= depth * 5
+    
+    # 测试文件惩罚（在调用处理）
+    
+    return score
+
 def analyze_file_importance(file_path: str, content_preview: str) -> str:
-    """分析文件的类型和重要性"""
+    """分析文件的类型和重要性 - 改进版本"""
     path_lower = file_path.lower()
+    content_lower = content_preview.lower()
     
     # 测试文件
-    if 'test' in path_lower:
+    if any(test_indicator in path_lower for test_indicator in ['test', 'unittest', 'spec']):
         return "TEST"
     
-    # 头文件
-    if file_path.endswith(('.h', '.hpp', '.hxx')):
-        if 'main' in path_lower or 'core' in path_lower:
-            return "HEADER_CORE"
-        return "HEADER"
+    # 主要入口文件
+    if 'main' in path_lower or any(main_indicator in content_lower for main_indicator in ['int main', 'void main', 'main(']):
+        return "MAIN_ENTRY"
     
-    # 源文件
+    # 头文件分类
+    if file_path.endswith(('.h', '.hpp', '.hxx')):
+        if any(keyword in path_lower for keyword in ['api', 'interface', 'public']):
+            return "HEADER_API"
+        elif any(keyword in content_lower for keyword in ['class ', 'struct ', 'template']):
+            return "HEADER_CLASS"
+        elif 'config' in path_lower or 'setting' in path_lower:
+            return "HEADER_CONFIG"
+        else:
+            return "HEADER"
+    
+    # 源文件分类
     if file_path.endswith(('.c', '.cpp', '.cc', '.cxx')):
-        if 'main' in path_lower:
-            return "SOURCE_MAIN"
-        if any(keyword in content_preview.lower() for keyword in ['main(', 'int main', 'void main']):
-            return "SOURCE_MAIN"
-        return "SOURCE"
+        if any(keyword in path_lower for keyword in ['parse', 'command', 'arg']):
+            return "SOURCE_PARSER"
+        elif any(keyword in path_lower for keyword in ['core', 'engine', 'main']):
+            return "SOURCE_CORE"
+        elif any(keyword in path_lower for keyword in ['util', 'helper', 'common']):
+            return "SOURCE_UTIL"
+        else:
+            return "SOURCE"
     
     return "OTHER"
 

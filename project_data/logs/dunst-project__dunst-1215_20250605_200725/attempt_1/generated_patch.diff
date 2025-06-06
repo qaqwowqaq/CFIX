@@ -1,9 +1,0 @@
-根据分析，`.valgrind.suppressions` 文件实际上与 GitHub Issue 描述的问题无关。该文件是 Valgrind 的内存错误抑制文件，而 Issue 描述的是关于环境变量路径解析的问题。
-
-从测试用例来看，问题需要在代码中实现对 `$HOME` 和 `~` 的环境变量扩展功能。但是 `.valgrind.suppressions` 文件并不包含任何需要修改的代码逻辑 - 它只是 Valgrind 的配置。
-
-因此，对于 `.valgrind.suppressions` 文件，不需要任何修改。真正的修复应该是在代码中处理路径解析的部分（如 `string_to_path()` 函数），但该文件并不包含这些代码。
-
-如果您需要修复环境变量路径解析的问题，请提供相关的源代码文件（如 `src/utils.c` 或 `src/option_parser.c`），我可以帮助生成相应的补丁。
-
-当前对于 `.valgrind.suppressions` 文件，建议保持原样，因为它已经正确地配置了 Valgrind 的内存错误抑制规则。

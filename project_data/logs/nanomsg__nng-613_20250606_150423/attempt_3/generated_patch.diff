@@ -1,0 +1,24 @@
+diff --git a/src/nng.c b/src/nng.c
+index abc1234..def5678 100644
+--- a/src/nng.c
++++ b/src/nng.c
+@@ -123,6 +123,9 @@ nng_recv(nng_socket s, void *buf, size_t *szp, int flags)
+ 	if ((rv = nng_recvmsg(s, &msg, flags & ~(NNG_FLAG_ALLOC))) != 0) {
+ 		return (rv);
+ 	}
++	if (nng_msg_len(msg) == 0) {
++		return (NNG_ECLOSED);
++	}
+ 	if (!(flags & NNG_FLAG_ALLOC)) {
+ 		memcpy(buf, nng_msg_body(msg),
+ 		    *szp > nng_msg_len(msg) ? nng_msg_len(msg) : *szp);
+@@ -167,6 +170,9 @@ nng_recvmsg(nng_socket s, nng_msg **msgp, int flags)
+ 	if ((rv = nng_aio_result(ap)) == 0) {
+ 		*msgp = nng_aio_get_msg(ap);
+ 
++		if (nng_msg_len(*msgp) == 0) {
++			rv = NNG_ECLOSED;
++		}
+ 	} else if ((rv == NNG_ETIMEDOUT) && (flags == NNG_FLAG_NONBLOCK)) {
+ 		rv = NNG_EAGAIN;
+ 	}
