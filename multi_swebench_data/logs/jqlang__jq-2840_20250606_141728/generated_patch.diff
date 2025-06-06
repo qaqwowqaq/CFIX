@@ -1,0 +1,23 @@
+diff --git a/src/execute.c b/src/execute.c
+index abc1234..def5678 100644
+--- a/src/execute.c
++++ b/src/execute.c
+@@ -1050,11 +1050,11 @@
+       // $array | .[-1]
+       if (jv_get_kind(k) == JV_KIND_NUMBER && jv_get_kind(t) == JV_KIND_ARRAY) {
+         int idx = jv_number_value(k);
++        int len = jv_array_length(jv_copy(t));
+         if (idx < 0) {
+-          jv_free(k);
+-          k = jv_number(jv_array_length(jv_copy(t)) + idx);
++          idx += len;
+         }
+-      }
+-      jv v = jv_get(t, jv_copy(k));
++        jv_free(k);
++        k = jv_number(idx);
++      }
++      jv v = idx >= 0 && idx < len ? jv_array_get(jv_copy(t), idx) : jv_invalid();
+       if (jv_is_valid(v)) {
+         path_append(jq, k, jv_copy(v));
+       } else {

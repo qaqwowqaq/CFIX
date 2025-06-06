@@ -1,0 +1,14 @@
+diff --git a/include/CLI/impl/App_inl.hpp b/include/CLI/impl/App_inl.hpp
+index abc1234..def5678 100644
+--- a/include/CLI/impl/App_inl.hpp
++++ b/include/CLI/impl/App_inl.hpp
+@@ -行号,行数 +行号,行数 @@
+     // Try to find a subcommand that is a prefix match
+     auto com = _find_subcommand(name, true, subcommands.size() > 0 && !_has_remaining_positionals());
+     if(com != nullptr && (com->get_subcommand_fallthrough() || !com->get_immediate_callback())) {
++        if(!com->get_subcommand_fallthrough() && _has_remaining_positionals()) {
++            return nullptr;
++        }
+         return com;
+     }
+     // Now try to find a subcommand that matches the entire name

@@ -1,0 +1,329 @@
+你是一个专业的C/C++代码修复专家。请分析以下问题并生成精确的修复补丁。
+
+    ## 问题描述
+    Positional is treated as a sub-command
+CLI11: Version 2.4.1
+
+I have this setup:
+
+```c++
+int main() {
+    CLI::App cli{};
+    cli.set_help_flag();
+    cli.add_subcommand("foo", "Does foo")->parse_complete_callback([&](){std::cout << "=== Foo doing foo" << std::endl;});
+    cli.add_subcommand("bar", "Does bar")->parse_complete_callback([&](){std::cout << "=== Bar doing bar" << std::endl;});
+    auto *help_cmd = cli.add_subcommand("help", "Does help");
+    std::string help_for_command;
+    auto *help_opt = help_cmd->add_option("command", help_for_command, "Command to print help for")->expected(0, 1);
+    help_cmd->parse_complete_callback([&]() {
+            if (*help_opt) {
+                std::cout << "Print help for " << help_for_command << std::endl;
+            } else {
+                CLI::Formatter fmt{};
+                std::cout << fmt.make_help(&cli, "", CLI::AppFormatMode::Normal) << std::endl;
+            }
+    });
+
+    std::cout << "=> " << std::flush;
+    for (std::string line; std::getline(std::cin, line);) {
+        try {
+            cli.parse(line);
+        } catch (const CLI::ParseError &e) {
+            std::cout << e.what() << std::endl;
+            std::cout << cli.help();
+        }
+        std::cout << "=> " << std::flush;
+    }
+}
+```
+
+Given the above setup, here are some behaviors that I expect:
+```
+Scenario 1
+When help is called without arguments
+Then the help string of all commands is printed
+
+Scenario 2
+When help is called with one argument
+And   the argument is a registered (sub)command
+Then the help string of this command is printed
+
+Scenario 3
+When help is called with one argument
+And   the argument is not a registered (sub)command
+Then the help string of all commands is printed
+```
+
+However, I get the below output for each scenario:
+
+Scenario 1 🟢 
+```shell
+=>help
+ help
+Usage: [SUBCOMMAND]
+
+Subcommands:
+  foo                         Does foo
+  bar                         Does bar
+  help                        Does help
+
+=>
+```
+
+Scenario 2 🔴 
+Not only the positional is not recognised, it is executed as a sucommand.
+```shell
+=>help foo
+ help foo
+Usage: [SUBCOMMAND]
+
+Subcommands:
+  foo                         Does foo
+  bar                         Does bar
+  help                        Does help
+
+=== Foo doing foo
+=>
+```
+
+```shell
+=>help help
+ help help
+Usage: [SUBCOMMAND]
+
+Subcommands:
+  foo                         Does foo
+  bar                         Does bar
+  help                        Does help
+
+Usage: [SUBCOMMAND]
+
+Subcommands:
+  foo                         Does foo
+  bar                         Does bar
+  help                        Does help
+
+=>
+```
+
+Scenario 3 🔴 
+```shell
+=>help other
+ help other
+Usage: [SUBCOMMAND]
+
+Subcommands:
+  foo                         Does foo
+  bar                         Does bar
+  help                        Does help
+
+The following argument was not expected: other
+Does help
+Usage: help [command]
+
+Positionals:
+  command TEXT                Command to print help for
+```
+
+
+I've tried using `fallthrough(false)` for `help` command, but with no luck.
+How could I implement my use case?
+
+
+    ## 提示信息  
+    I think what you want here is to use `prefix_command()` on the help subcommand.  That will force everything that comes after it to be a positional argument.  
+
+Otherwise subcommands would take precedence over positionals 
+Thanks for your timely response.
+
+I've tried it as such, but it didn't help:
+
+```c++
+int main() {
+    CLI::App cli{};
+    cli.set_help_flag();
+    cli.add_subcommand("foo", "Does foo")->parse_complete_callback([&](){std::cout << "=== Foo doing foo" << std::endl;});
+    cli.add_subcommand("bar", "Does bar")->parse_complete_callback([&](){std::cout << "=== Bar doing bar" << std::endl;});
+    auto *help_cmd = cli.add_subcommand("help", "Does help");
+    std::string help_for_command;
+    auto *help_opt = help_cmd->add_option("command", help_for_command, "Command to print help for")->expected(0, 1);
+    help_cmd
+        ->prefix_command()
+        ->parse_complete_callback([&]() {
+            if (*help_opt) {
+                std::cout << "Print help for " << help_for_command << std::endl;
+            } else {
+                CLI::Formatter fmt{};
+                std::cout << fmt.make_help(&cli, "", CLI::AppFormatMode::Normal) << std::endl;
+            }
+    });
+    ...
+}
+```
+
+Is there anything that I'm missing on the above snippet?
+I played with it a bit.   There does seem to be a gap in configuration capability for this scenario.
+I believe this code does what you want
+```C++
+int main() {
+    CLI::App cli{};
+    cli.set_help_flag();
+    cli.add_subcommand("foo", "Does foo")->parse_complete_callback([&](){std::cout << "=== Foo doing foo" << std::endl;});
+    cli.add_subcommand("bar", "Does bar")->parse_complete_callback([&](){std::cout << "=== Bar doing bar" << std::endl;});
+    auto *help_cmd = cli.add_subcommand("help", "Does help");
+    std::string help_for_command;
+    auto *help_opt = help_cmd->add_option("command", help_for_command, "Command to print help for");
+    help_cmd
+        ->preparse_callback([&](size_t values){help_opt->required(values>0);})
+        ->parse_complete_callback([&]() {
+        if (*help_opt) {
+            std::cout << "Print help for " << help_for_command << std::endl;
+        } else {
+            CLI::Formatter fmt{};
+            std::cout << fmt.make_help(&cli, "", CLI::AppFormatMode::Normal) << std::endl;
+        }
+            });
+    std::cout << "=> " << std::flush;
+    for (std::string line; std::getline(std::cin, line);) {
+        try {
+            cli.parse(line);
+        } catch (const CLI::ParseError &e) {
+            std::cout << e.what() << std::endl;
+            std::cout << cli.help();
+        }
+        std::cout << "=> " << std::flush;
+    }
+    return 0;
+}
+```
+but it isn't obvious, so there might be a missing option on subcommands that needs to get added for situations like this.  The use for prefix_command is slightly different, so doesn't work in this case.  What the above code does is take advantage of the preparse callback and the fact that required positionals take precedence over subcommands.  
+Thank you very much. That seemed to do the trick.
+
+An option that does this exact thing would be quite handy.
+
+    ## AI分析的修复策略
+    需要在子命令解析逻辑中添加对位置参数的优先处理，当subcommand_fallthrough设置为false时，应该阻止子命令的自动匹配，而是将后续参数视为位置参数。这可能需要修改App_inl.hpp中的子命令解析逻辑。
+
+    ## 从测试变更中得出的关键信息
+    测试变更中添加了一个新的测试用例'subcomNoSubComfallthrough'，验证了当subcommand_fallthrough(false)时，后续参数应该被作为位置参数处理而不是子命令。这表明需要修改子命令解析的默认行为。
+
+    ## 测试变更差异（展示期望的修复效果）
+    ```diff
+    diff --git a/.github/workflows/tests.yml b/.github/workflows/tests.yml
+index 86e61e734..98b963557 100644
+--- a/.github/workflows/tests.yml
++++ b/.github/workflows/tests.yml
+@@ -292,10 +292,10 @@ jobs:
+           cmake-version: "3.13"
+         if: success() || failure()
+ 
+-      - name: Check CMake 3.14
++      - name: Check CMake 3.14.7
+         uses: ./.github/actions/quick_cmake
+         with:
+-          cmake-version: "3.14"
++          cmake-version: "3.14.7"
+           args: -DCLI11_SANITIZERS=ON -DCLI11_BUILD_EXAMPLES_JSON=ON
+         if: success() || failure()
+ 
+@@ -387,6 +387,6 @@ jobs:
+       - name: Check CMake 3.28 (full)
+         uses: ./.github/actions/quick_cmake
+         with:
+-          cmake-version: "3.28"
++          cmake-version: "3.28.X"
+           args: -DCLI11_SANITIZERS=ON -DCLI11_BUILD_EXAMPLES_JSON=ON
+         if: success() || failure()
+diff --git a/tests/CMakeLists.txt b/tests/CMakeLists.txt
+index 6724fca04..53404bc3a 100644
+--- a/tests/CMakeLists.txt
++++ b/tests/CMakeLists.txt
+@@ -4,7 +4,7 @@ if(CLI11_SANITIZERS AND ${CMAKE_VERSION} VERSION_GREATER "3.13.0")
+     sanitizers
+     GIT_REPOSITORY https://github.com/arsenm/sanitizers-cmake.git
+     GIT_SHALLOW 1
+-    GIT_TAG 3f0542e)
++    GIT_TAG 0573e2e)
+ 
+   FetchContent_GetProperties(sanitizers)
+ 
+diff --git a/tests/SubcommandTest.cpp b/tests/SubcommandTest.cpp
+index b7a8bb97c..dc98a7742 100644
+--- a/tests/SubcommandTest.cpp
++++ b/tests/SubcommandTest.cpp
+@@ -719,12 +719,25 @@ TEST_CASE_METHOD(TApp, "Required1SubCom", "[subcom]") {
+     CHECK_THROWS_AS(run(), CLI::RequiredError);
+ 
+     args = {"sub1"};
+-    run();
++    CHECK_NOTHROW(run());
+ 
+     args = {"sub1", "sub2"};
+     CHECK_THROWS_AS(run(), CLI::ExtrasError);
+ }
+ 
++TEST_CASE_METHOD(TApp, "subcomNoSubComfallthrough", "[subcom]") {
++    auto *sub1 = app.add_subcommand("sub1");
++    std::vector<std::string> pos;
++    sub1->add_option("args", pos);
++    app.add_subcommand("sub2");
++    app.add_subcommand("sub3");
++    sub1->subcommand_fallthrough(false);
++    CHECK_FALSE(sub1->get_subcommand_fallthrough());
++    args = {"sub1", "sub2", "sub3"};
++    run();
++    CHECK(pos.size() == 2);
++}
++
+ TEST_CASE_METHOD(TApp, "BadSubcommandSearch", "[subcom]") {
+ 
+     auto *one = app.add_subcommand("one");
+        
+    需要修复的目标文件：src\Precompile.cpp
+    // Copyright (c) 2017-2024, University of Cincinnati, developed by Henry Schreiner
+// under NSF AWARD 1414736 and by the respective contributors.
+// All rights reserved.
+//
+// SPDX-License-Identifier: BSD-3-Clause
+
+// IWYU pragma: begin_keep
+
+#include <CLI/impl/App_inl.hpp>
+#include <CLI/impl/Argv_inl.hpp>
+#include <CLI/impl/Config_inl.hpp>
+#include <CLI/impl/Encoding_inl.hpp>
+#include <CLI/impl/Formatter_inl.hpp>
+#include <CLI/impl/Option_inl.hpp>
+#include <CLI/impl/Split_inl.hpp>
+#include <CLI/impl/StringTools_inl.hpp>
+#include <CLI/impl/Validators_inl.hpp>
+
+// IWYU pragma: end_keep
+
+    
+## 相关上下文文件
+
+
+    修复要求
+    精确定位问题：根据问题描述和测试变更，准确找到需要修复的代码位置
+    最小化修改：只修改必要的部分，保持代码的其他功能不变
+    符合测试期望：确保修复后的代码能通过测试变更中显示的测试用例
+    代码质量：保持良好的代码风格和错误处理
+    输出格式
+    请只输出标准的git diff格式补丁，不要包含任何解释文字：
+    diff --git a/src\Precompile.cpp b/src\Precompile.cpp
+    index abc1234..def5678 100644
+    --- a/src\Precompile.cpp
+    +++ b/src\Precompile.cpp
+    @@ -行号,行数 +行号,行数 @@
+    上下文行
+    -删除的行
+    +添加的行
+    上下文行
+    注意：
+
+    补丁必须可以直接用 patch -p1 命令应用
+
+    行号必须准确对应目标文件的实际内容
+
+    确保修复逻辑正确且完整 

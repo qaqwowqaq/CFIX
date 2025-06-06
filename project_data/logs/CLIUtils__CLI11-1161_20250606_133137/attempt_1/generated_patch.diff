@@ -1,0 +1,42 @@
+diff --git a/src/Precompile.cpp b/src/Precompile.cpp
+index abc1234..def5678 100644
+--- a/src/Precompile.cpp
++++ b/src/Precompile.cpp
+@@ -1,5 +1,5 @@
+ // Copyright (c) 2017-2025, University of Cincinnati, developed by Henry Schreiner
+-// under NSF AWARD 1414736 and by the respective contributors.
++// under NSF AWARD 1414736 and by the respective contributors.
+ // All rights reserved.
+ //
+ // SPDX-License-Identifier: BSD-3-Clause
+@@ -14,6 +14,7 @@
+ #include <CLI/impl/Formatter_inl.hpp>
+ #include <CLI/impl/Option_inl.hpp>
+ #include <CLI/impl/Split_inl.hpp>
++#include <CLI/impl/App_inl.hpp>
+ #include <CLI/impl/StringTools_inl.hpp>
+ #include <CLI/impl/Validators_inl.hpp>
+ 
+diff --git a/include/CLI/impl/Formatter_inl.hpp b/include/CLI/impl/Formatter_inl.hpp
+index xyz7890..uvw1234 100644
+--- a/include/CLI/impl/Formatter_inl.hpp
++++ b/include/CLI/impl/Formatter_inl.hpp
+@@ -100,7 +100,7 @@ inline std::string Formatter::make_help(const App *app, std::string name, AppFor
+     if(!app->get_help_ptr()->get_group().empty())
+         out << make_group(app->get_help_ptr()->get_group(), true);
+ 
+-    out << make_footer(app);
++    // Footer is now handled in the main help generation function
+ 
+     return out.str();
+ }
+@@ -123,6 +123,9 @@ inline std::string Formatter::make_expanded(const App *app) {
+ inline std::string Formatter::make_description(const App *app) {
+     std::string desc = app->get_description();
+     auto min_options = app->get_require_option_min();
++    if(app->get_parent() == nullptr) {
++        desc += "\n" + make_footer(app);
++    }
+     if(min_options > 0) {
+         if(!desc.empty())
+             desc += " ";

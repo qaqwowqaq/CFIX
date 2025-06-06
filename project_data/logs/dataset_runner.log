@@ -663,3 +663,952 @@ index abc1234..def5678 100644
 2025-06-05 22:33:26,799 - INFO - 结果目录: D:\上课资料\科研课堂\WeCode\CFix\project_data\results
 2025-06-05 22:33:26,799 - INFO - 轨迹目录: D:\上课资料\科研课堂\WeCode\CFix\project_data\trajs
 2025-06-05 22:33:26,799 - INFO - ==================================================
+2025-06-06 13:13:04,872 - INFO - 将处理以下数据集文件: ['dataset\\test_c.jsonl', 'dataset\\test_cpp.jsonl']
+2025-06-06 13:13:04,873 - INFO - 项目数据目录: D:\上课资料\科研课堂\WeCode\CFix\project_data
+2025-06-06 13:13:04,881 - INFO - Docker客户端初始化成功
+2025-06-06 13:13:04,882 - INFO - 成功加载 8 个实例从 dataset\test_c.jsonl
+2025-06-06 13:13:04,882 - INFO - 成功加载 7 个实例从 dataset\test_cpp.jsonl
+2025-06-06 13:13:04,882 - INFO - 过滤后只处理实例: CLIUtils__CLI11-1161
+2025-06-06 13:13:04,883 - INFO - 处理实例: CLIUtils__CLI11-1161 (CLIUtils/CLI11)
+2025-06-06 13:13:04,883 - INFO - 使用SSH克隆仓库 git@github.com:CLIUtils/CLI11.git 到 D:\上课资料\科研课堂\WeCode\CFix\project_data\repositories\CLIUtils_CLI11
+2025-06-06 13:14:12,601 - INFO - 切换到commit f6328ccc7a5dc3e8c64c68c1a6de445bab7f4725
+2025-06-06 13:14:12,651 - INFO - 尝试 1/3
+2025-06-06 13:14:12,652 - INFO - 使用AI增强的文件定位...
+2025-06-06 13:14:12,652 - INFO - 扫描项目结构...
+2025-06-06 13:14:12,656 - INFO - 项目结构扫描完成，找到 2 个文件
+2025-06-06 13:14:12,656 - INFO - 构建AI定位prompt，长度: 6007
+2025-06-06 13:14:12,656 - INFO - 开始调用AI API...
+2025-06-06 13:14:12,656 - INFO - 执行简单API调用...
+2025-06-06 13:14:29,372 - INFO - 简单API调用成功，响应长度: 697
+2025-06-06 13:14:29,373 - INFO - AI API调用成功，开始解析响应...
+2025-06-06 13:14:29,373 - INFO - AI分析成功解析: 目标文件=src/Precompile.cpp, 置信度=8
+2025-06-06 13:14:29,374 - INFO - AI文件定位结果: {'target_file': 'src/Precompile.cpp', 'confidence': 8, 'reasoning': '1. 问题描述涉及帮助格式化器(help formatter)重复打印footer和help flag的问题，这属于核心功能实现问题。2. 测试变更在HelpTest.cpp中添加了针对option group的footer测试，说明问题与帮助系统的基础实现相关。3. 项目结构中src/Precompile.cpp包含了CLI的核心实现文件App_inl.hpp，这是最可能包含帮助格式化逻辑的地方。4. 其他示例文件主要是使用示例而非实现。5. 问题与CLI::App类的footer处理和帮助显示逻辑直接相关，这些应在核心实现文件中。', 'fix_strategy': '需要检查App类的帮助生成逻辑，确保footer只在最终输出时添加一次，而不是在每个option group部分都添加。可能需要修改帮助生成的递归逻辑或添加标志位来跟踪footer是否已添加。', 'test_insights': '测试用例明确检查footer文本在输出中只出现一次，验证了问题核心是footer重复显示。测试创建了包含多个option group的场景来重现问题。', 'alternative_files': ['include/CLI/impl/App_inl.hpp', 'include/CLI/Formatter.hpp']}
+2025-06-06 13:14:29,374 - INFO - Found 3 code blocks in issue.
+2025-06-06 13:14:29,374 - INFO - Potential file references from issue: ['CLI/CLI.hpp']
+2025-06-06 13:14:29,376 - INFO - File Name Match: 'include\CLI\CLI.hpp' from 'CLI.hpp' (Score +75.0)
+2025-06-06 13:14:29,378 - INFO - Keywords for content search: ['parse', 'argv', 'exit', 'argc', 'help']...
+2025-06-06 13:14:29,391 - INFO - Keyword Match: 'include\CLI\impl\App_inl.hpp' (Score +2600.0, Reason: 'parse' in content (133x); 'argv' in content (20x); 'exit' in content (11x); 'argc' in content (7x); 'help' in content (89x))
+2025-06-06 13:14:29,391 - INFO - Keyword Match: 'tests\HelpTest.cpp' (Score +2175.0, Reason: 'parse' in content (32x); 'exit' in content (37x); 'help' in content (653x); 'help' in filename; Test file penalty)
+2025-06-06 13:14:29,391 - INFO - Keyword Match: 'include\CLI\App.hpp' (Score +1790.0, Reason: 'parse' in content (88x); 'argv' in content (10x); 'exit' in content (6x); 'argc' in content (4x); 'help' in content (71x))
+2025-06-06 13:14:29,391 - INFO - Keyword Match: 'include\CLI\Error.hpp' (Score +870.0, Reason: 'parse' in content (31x); 'exit' in content (46x); 'help' in content (10x))
+2025-06-06 13:14:29,391 - INFO - Keyword Match: 'tests\HelpersTest.cpp' (Score +309.0, Reason: 'help' in content (100x); 'help' in filename; Test file penalty)
+2025-06-06 13:14:29,391 - INFO - Keyword Match: 'tests\SubcommandTest.cpp' (Score +258.0, Reason: 'parse' in content (40x); 'exit' in content (2x); 'help' in content (44x); Test file penalty)
+2025-06-06 13:14:29,392 - INFO - Keyword Match: 'tests\FuzzFailTest.cpp' (Score +225.0, Reason: 'parse' in content (74x); 'help' in content (1x); Test file penalty)
+2025-06-06 13:14:29,392 - INFO - Keyword Match: 'tests\AppTest.cpp' (Score +216.0, Reason: 'parse' in content (56x); 'argv' in content (5x); 'help' in content (11x); Test file penalty)
+2025-06-06 13:14:29,392 - INFO - Keyword Match: 'tests\FormatterTest.cpp' (Score +186.0, Reason: 'help' in content (62x); Test file penalty)
+2025-06-06 13:14:29,392 - INFO - Keyword Match: 'include\CLI\impl\Argv_inl.hpp' (Score +180.0, Reason: 'argv' in content (11x); 'argv' in filename; 'argc' in content (4x))
+2025-06-06 13:14:29,392 - INFO - Keyword Match: 'tests\ConfigFileTest.cpp' (Score +162.0, Reason: 'parse' in content (42x); 'help' in content (12x); Test file penalty)
+2025-06-06 13:14:29,392 - INFO - Keyword Match: 'include\CLI\Option.hpp' (Score +150.0, Reason: 'parse' in content (9x); 'help' in content (6x))
+2025-06-06 13:14:29,393 - INFO - Keyword Match: 'include\CLI\FormatterFwd.hpp' (Score +140.0, Reason: 'help' in content (14x))
+2025-06-06 13:14:29,393 - INFO - Keyword Match: 'tests\NewParseTest.cpp' (Score +135.0, Reason: 'parse' in content (26x); 'parse' in filename; 'help' in content (16x); Test file penalty)
+2025-06-06 13:14:29,393 - INFO - Keyword Match: 'tests\OptionGroupTest.cpp' (Score +135.0, Reason: 'parse' in content (5x); 'help' in content (40x); Test file penalty)
+2025-06-06 13:14:29,396 - INFO - Core File Heuristic: 'include\CLI\App.hpp' (Matches core pattern 'app\.(h|hpp|cpp|c)' in 'root') (Score +60.0)
+2025-06-06 13:14:29,396 - INFO - Final candidate scores (path, score): [('include\\CLI\\impl\\App_inl.hpp', 2600.0), ('tests\\HelpTest.cpp', 2175.0), ('include\\CLI\\App.hpp', 1850.0), ('include\\CLI\\Error.hpp', 870.0), ('tests\\HelpersTest.cpp', 309.0), ('tests\\SubcommandTest.cpp', 258.0), ('tests\\FuzzFailTest.cpp', 225.0), ('tests\\AppTest.cpp', 216.0), ('tests\\FormatterTest.cpp', 186.0), ('include\\CLI\\impl\\Argv_inl.hpp', 180.0), ('tests\\ConfigFileTest.cpp', 162.0), ('include\\CLI\\Option.hpp', 150.0), ('include\\CLI\\FormatterFwd.hpp', 140.0), ('tests\\OptionGroupTest.cpp', 135.0), ('tests\\NewParseTest.cpp', 135.0), ('include\\CLI\\CLI.hpp', 75.0)]
+2025-06-06 13:14:29,397 - INFO - Best candidate selected: 'include\CLI\impl\App_inl.hpp' with score 2600.0
+2025-06-06 13:14:29,397 - INFO - AI高置信度(8)选择: src\Precompile.cpp
+2025-06-06 13:14:29,397 - INFO - Collected 1 files for context. Keys: ['src\\Precompile.cpp']
+2025-06-06 13:14:29,397 - INFO - 为文件 src\Precompile.cpp 生成AI补丁...
+2025-06-06 13:14:29,397 - INFO - 使用增强prompt调用AI生成补丁...
+2025-06-06 13:14:29,398 - INFO - 发送 API 请求 (尝试 1/3)...
+2025-06-06 13:14:48,020 - INFO - 成功从 DeepSeek API 获取并提取补丁 (671 字符)
+2025-06-06 13:14:48,021 - INFO - AI补丁生成成功，完整对话历史已保存到: D:\上课资料\科研课堂\WeCode\CFix\project_data\logs\CLIUtils__CLI11-1161_20250606_131304\attempt_1\ai_conversation_history.json
+2025-06-06 13:14:48,021 - INFO - 拉取Docker镜像: dongqa930/CLIUtils_CLI11:1161
+2025-06-06 13:14:48,082 - ERROR - Docker测试完全失败: 500 Server Error for http+docker://localnpipe/v1.45/images/create?tag=1161&fromImage=dongqa930%2FCLIUtils_CLI11: Internal Server Error ("parsing image dongqa930/CLIUtils_CLI11: invalid reference format: repository name (dongqa930/CLIUtils_CLI11) must be lowercase")
+2025-06-06 13:14:48,083 - WARNING - 尝试 1 测试失败
+2025-06-06 13:14:50,083 - INFO - 尝试 2/3
+2025-06-06 13:14:50,085 - INFO - 使用AI增强的文件定位...
+2025-06-06 13:14:50,085 - INFO - 扫描项目结构...
+2025-06-06 13:14:50,088 - INFO - 项目结构扫描完成，找到 2 个文件
+2025-06-06 13:14:50,089 - INFO - 构建AI定位prompt，长度: 6007
+2025-06-06 13:14:50,089 - INFO - 开始调用AI API...
+2025-06-06 13:14:50,089 - INFO - 执行简单API调用...
+2025-06-06 13:15:06,825 - INFO - 简单API调用成功，响应长度: 663
+2025-06-06 13:15:06,825 - INFO - AI API调用成功，开始解析响应...
+2025-06-06 13:15:06,825 - INFO - AI分析成功解析: 目标文件=src/CLI/impl/App_inl.hpp, 置信度=9
+2025-06-06 13:15:06,826 - INFO - AI文件定位结果: {'target_file': 'src/CLI/impl/App_inl.hpp', 'confidence': 9, 'reasoning': '1. 问题描述涉及帮助格式化器(help formatter)重复打印footer和help flag的问题，这属于核心功能逻辑\n2. 测试变更在HelpTest.cpp中添加了针对option group中footer重复打印的测试用例\n3. 从文件结构看，App_inl.hpp是CLI库的核心实现文件，包含App类的实现\n4. 帮助格式化功能通常由App类管理，而footer设置和显示逻辑也应在此\n5. 虽然这是一个头文件，但由于CLI库使用模板实现，核心逻辑都在头文件中', 'fix_strategy': '需要修改帮助格式化逻辑，确保footer和help选项只在主App中打印一次，而不是在每个option group中都打印。可能需要检查App类的help()方法实现，以及footer的处理逻辑。', 'test_insights': '1. 测试验证footer内容只应出现一次\n2. 测试场景涉及option groups\n3. 检查footer字符串的重复出现情况', 'alternative_files': ['include/CLI/App.hpp', 'include/CLI/Formatter.hpp']}
+2025-06-06 13:15:06,826 - INFO - Found 3 code blocks in issue.
+2025-06-06 13:15:06,826 - INFO - Potential file references from issue: ['CLI/CLI.hpp']
+2025-06-06 13:15:06,827 - INFO - File Name Match: 'include\CLI\CLI.hpp' from 'CLI.hpp' (Score +75.0)
+2025-06-06 13:15:06,830 - INFO - Keywords for content search: ['parse', 'argv', 'exit', 'argc', 'help']...
+2025-06-06 13:15:06,841 - INFO - Keyword Match: 'include\CLI\impl\App_inl.hpp' (Score +2600.0, Reason: 'parse' in content (133x); 'argv' in content (20x); 'exit' in content (11x); 'argc' in content (7x); 'help' in content (89x))
+2025-06-06 13:15:06,842 - INFO - Keyword Match: 'tests\HelpTest.cpp' (Score +2175.0, Reason: 'parse' in content (32x); 'exit' in content (37x); 'help' in content (653x); 'help' in filename; Test file penalty)
+2025-06-06 13:15:06,842 - INFO - Keyword Match: 'include\CLI\App.hpp' (Score +1790.0, Reason: 'parse' in content (88x); 'argv' in content (10x); 'exit' in content (6x); 'argc' in content (4x); 'help' in content (71x))
+2025-06-06 13:15:06,842 - INFO - Keyword Match: 'include\CLI\Error.hpp' (Score +870.0, Reason: 'parse' in content (31x); 'exit' in content (46x); 'help' in content (10x))
+2025-06-06 13:15:06,842 - INFO - Keyword Match: 'tests\HelpersTest.cpp' (Score +309.0, Reason: 'help' in content (100x); 'help' in filename; Test file penalty)
+2025-06-06 13:15:06,842 - INFO - Keyword Match: 'tests\SubcommandTest.cpp' (Score +258.0, Reason: 'parse' in content (40x); 'exit' in content (2x); 'help' in content (44x); Test file penalty)
+2025-06-06 13:15:06,842 - INFO - Keyword Match: 'tests\FuzzFailTest.cpp' (Score +225.0, Reason: 'parse' in content (74x); 'help' in content (1x); Test file penalty)
+2025-06-06 13:15:06,843 - INFO - Keyword Match: 'tests\AppTest.cpp' (Score +216.0, Reason: 'parse' in content (56x); 'argv' in content (5x); 'help' in content (11x); Test file penalty)
+2025-06-06 13:15:06,843 - INFO - Keyword Match: 'tests\FormatterTest.cpp' (Score +186.0, Reason: 'help' in content (62x); Test file penalty)
+2025-06-06 13:15:06,843 - INFO - Keyword Match: 'include\CLI\impl\Argv_inl.hpp' (Score +180.0, Reason: 'argv' in content (11x); 'argv' in filename; 'argc' in content (4x))
+2025-06-06 13:15:06,843 - INFO - Keyword Match: 'tests\ConfigFileTest.cpp' (Score +162.0, Reason: 'parse' in content (42x); 'help' in content (12x); Test file penalty)
+2025-06-06 13:15:06,843 - INFO - Keyword Match: 'include\CLI\Option.hpp' (Score +150.0, Reason: 'parse' in content (9x); 'help' in content (6x))
+2025-06-06 13:15:06,843 - INFO - Keyword Match: 'include\CLI\FormatterFwd.hpp' (Score +140.0, Reason: 'help' in content (14x))
+2025-06-06 13:15:06,843 - INFO - Keyword Match: 'tests\NewParseTest.cpp' (Score +135.0, Reason: 'parse' in content (26x); 'parse' in filename; 'help' in content (16x); Test file penalty)
+2025-06-06 13:15:06,844 - INFO - Keyword Match: 'tests\OptionGroupTest.cpp' (Score +135.0, Reason: 'parse' in content (5x); 'help' in content (40x); Test file penalty)
+2025-06-06 13:15:06,847 - INFO - Core File Heuristic: 'include\CLI\App.hpp' (Matches core pattern 'app\.(h|hpp|cpp|c)' in 'root') (Score +60.0)
+2025-06-06 13:15:06,847 - INFO - Final candidate scores (path, score): [('include\\CLI\\impl\\App_inl.hpp', 2600.0), ('tests\\HelpTest.cpp', 2175.0), ('include\\CLI\\App.hpp', 1850.0), ('include\\CLI\\Error.hpp', 870.0), ('tests\\HelpersTest.cpp', 309.0), ('tests\\SubcommandTest.cpp', 258.0), ('tests\\FuzzFailTest.cpp', 225.0), ('tests\\AppTest.cpp', 216.0), ('tests\\FormatterTest.cpp', 186.0), ('include\\CLI\\impl\\Argv_inl.hpp', 180.0), ('tests\\ConfigFileTest.cpp', 162.0), ('include\\CLI\\Option.hpp', 150.0), ('include\\CLI\\FormatterFwd.hpp', 140.0), ('tests\\OptionGroupTest.cpp', 135.0), ('tests\\NewParseTest.cpp', 135.0), ('include\\CLI\\CLI.hpp', 75.0)]
+2025-06-06 13:15:06,847 - INFO - Best candidate selected: 'include\CLI\impl\App_inl.hpp' with score 2600.0
+2025-06-06 13:15:06,847 - WARNING - AI选择的文件不存在: src\CLI\impl\App_inl.hpp，使用传统方法结果
+2025-06-06 13:15:06,848 - INFO - Added context file (included): include\CLI\App.hpp
+2025-06-06 13:15:06,848 - INFO - Added context file (included): include\CLI\Argv.hpp
+2025-06-06 13:15:06,848 - INFO - Added context file (included): include\CLI\Encoding.hpp
+2025-06-06 13:15:06,849 - INFO - Collected 4 files for context. Keys: ['include\\CLI\\impl\\App_inl.hpp', 'include\\CLI\\App.hpp', 'include\\CLI\\Argv.hpp', 'include\\CLI\\Encoding.hpp']
+2025-06-06 13:15:06,849 - INFO - 为文件 include\CLI\impl\App_inl.hpp 生成AI补丁...
+2025-06-06 13:15:06,849 - INFO - 使用增强prompt调用AI生成补丁...
+2025-06-06 13:15:06,850 - INFO - 发送 API 请求 (尝试 1/3)...
+2025-06-06 13:31:37,560 - INFO - 将处理以下数据集文件: ['dataset\\test_c.jsonl', 'dataset\\test_cpp.jsonl']
+2025-06-06 13:31:37,560 - INFO - 项目数据目录: D:\上课资料\科研课堂\WeCode\CFix\project_data
+2025-06-06 13:31:37,568 - INFO - Docker客户端初始化成功
+2025-06-06 13:31:37,569 - INFO - 成功加载 8 个实例从 dataset\test_c.jsonl
+2025-06-06 13:31:37,569 - INFO - 成功加载 7 个实例从 dataset\test_cpp.jsonl
+2025-06-06 13:31:37,569 - INFO - 过滤后只处理实例: CLIUtils__CLI11-1161
+2025-06-06 13:31:37,569 - INFO - 处理实例: CLIUtils__CLI11-1161 (CLIUtils/CLI11)
+2025-06-06 13:31:37,570 - INFO - 仓库目录已存在: D:\上课资料\科研课堂\WeCode\CFix\project_data\repositories\CLIUtils_CLI11
+2025-06-06 13:31:37,611 - INFO - 检测到有效的git仓库，尝试更新...
+2025-06-06 13:31:41,689 - INFO - 成功更新仓库
+2025-06-06 13:31:41,689 - INFO - 切换到commit f6328ccc7a5dc3e8c64c68c1a6de445bab7f4725
+2025-06-06 13:31:41,711 - INFO - 成功重用现有仓库
+2025-06-06 13:31:41,712 - INFO - 尝试 1/3
+2025-06-06 13:31:41,712 - INFO - 使用AI增强的文件定位...
+2025-06-06 13:31:41,712 - INFO - 扫描项目结构...
+2025-06-06 13:31:41,716 - INFO - 项目结构扫描完成，找到 2 个文件
+2025-06-06 13:31:41,716 - INFO - 构建AI定位prompt，长度: 6007
+2025-06-06 13:31:41,716 - INFO - 开始调用AI API...
+2025-06-06 13:31:41,716 - INFO - 执行简单API调用...
+2025-06-06 13:31:58,848 - INFO - 简单API调用成功，响应长度: 596
+2025-06-06 13:31:58,848 - INFO - AI API调用成功，开始解析响应...
+2025-06-06 13:31:58,848 - INFO - AI分析成功解析: 目标文件=src/Precompile.cpp, 置信度=8
+2025-06-06 13:31:58,848 - INFO - AI文件定位结果: {'target_file': 'src/Precompile.cpp', 'confidence': 8, 'reasoning': '1. 问题描述涉及CLI帮助格式化器的重复输出问题，这属于核心功能实现问题。2. 测试变更在HelpTest.cpp中添加了相关测试，但问题本身需要修改实现代码。3. 从文件结构看，Precompile.cpp包含了App_inl.hpp，而帮助格式化功能通常在App类中实现。4. 虽然问题可能涉及多个文件，但Precompile.cpp作为包含核心实现的编译单元最有可能。5. 其他示例文件都是使用示例而非实现。', 'fix_strategy': '需要检查帮助格式化逻辑中关于选项组和页脚的输出部分，确保页脚只在最终输出时打印一次，而不是在每个选项组后都打印。可能需要修改帮助生成函数的递归调用逻辑。', 'test_insights': '测试用例验证了页脚文本应该只出现一次，说明问题在于帮助格式化器对页脚和帮助选项的重复输出处理。测试明确检查了字符串出现次数。', 'alternative_files': ['include/CLI/impl/App_inl.hpp', 'include/CLI/App.hpp']}
+2025-06-06 13:31:58,849 - INFO - Found 3 code blocks in issue.
+2025-06-06 13:31:58,849 - INFO - Potential file references from issue: ['CLI/CLI.hpp']
+2025-06-06 13:31:58,850 - INFO - File Name Match: 'include\CLI\CLI.hpp' from 'CLI.hpp' (Score +75.0)
+2025-06-06 13:31:58,853 - INFO - Keywords for content search: ['parse', 'argv', 'argc', 'exit', 'help']...
+2025-06-06 13:31:58,865 - INFO - Keyword Match: 'include\CLI\impl\App_inl.hpp' (Score +2600.0, Reason: 'parse' in content (133x); 'argv' in content (20x); 'argc' in content (7x); 'exit' in content (11x); 'help' in content (89x))
+2025-06-06 13:31:58,865 - INFO - Keyword Match: 'tests\HelpTest.cpp' (Score +2175.0, Reason: 'parse' in content (32x); 'exit' in content (37x); 'help' in content (653x); 'help' in filename; Test file penalty)
+2025-06-06 13:31:58,865 - INFO - Keyword Match: 'include\CLI\App.hpp' (Score +1790.0, Reason: 'parse' in content (88x); 'argv' in content (10x); 'argc' in content (4x); 'exit' in content (6x); 'help' in content (71x))
+2025-06-06 13:31:58,865 - INFO - Keyword Match: 'include\CLI\Error.hpp' (Score +870.0, Reason: 'parse' in content (31x); 'exit' in content (46x); 'help' in content (10x))
+2025-06-06 13:31:58,866 - INFO - Keyword Match: 'tests\HelpersTest.cpp' (Score +309.0, Reason: 'help' in content (100x); 'help' in filename; Test file penalty)
+2025-06-06 13:31:58,866 - INFO - Keyword Match: 'tests\SubcommandTest.cpp' (Score +258.0, Reason: 'parse' in content (40x); 'exit' in content (2x); 'help' in content (44x); Test file penalty)
+2025-06-06 13:31:58,866 - INFO - Keyword Match: 'tests\FuzzFailTest.cpp' (Score +225.0, Reason: 'parse' in content (74x); 'help' in content (1x); Test file penalty)
+2025-06-06 13:31:58,866 - INFO - Keyword Match: 'tests\AppTest.cpp' (Score +216.0, Reason: 'parse' in content (56x); 'argv' in content (5x); 'help' in content (11x); Test file penalty)
+2025-06-06 13:31:58,866 - INFO - Keyword Match: 'tests\FormatterTest.cpp' (Score +186.0, Reason: 'help' in content (62x); Test file penalty)
+2025-06-06 13:31:58,866 - INFO - Keyword Match: 'include\CLI\impl\Argv_inl.hpp' (Score +180.0, Reason: 'argv' in content (11x); 'argv' in filename; 'argc' in content (4x))
+2025-06-06 13:31:58,867 - INFO - Keyword Match: 'tests\ConfigFileTest.cpp' (Score +162.0, Reason: 'parse' in content (42x); 'help' in content (12x); Test file penalty)
+2025-06-06 13:31:58,867 - INFO - Keyword Match: 'include\CLI\Option.hpp' (Score +150.0, Reason: 'parse' in content (9x); 'help' in content (6x))
+2025-06-06 13:31:58,867 - INFO - Keyword Match: 'include\CLI\FormatterFwd.hpp' (Score +140.0, Reason: 'help' in content (14x))
+2025-06-06 13:31:58,867 - INFO - Keyword Match: 'tests\NewParseTest.cpp' (Score +135.0, Reason: 'parse' in content (26x); 'parse' in filename; 'help' in content (16x); Test file penalty)
+2025-06-06 13:31:58,867 - INFO - Keyword Match: 'tests\OptionGroupTest.cpp' (Score +135.0, Reason: 'parse' in content (5x); 'help' in content (40x); Test file penalty)
+2025-06-06 13:31:58,870 - INFO - Core File Heuristic: 'include\CLI\App.hpp' (Matches core pattern 'app\.(h|hpp|cpp|c)' in 'root') (Score +60.0)
+2025-06-06 13:31:58,870 - INFO - Final candidate scores (path, score): [('include\\CLI\\impl\\App_inl.hpp', 2600.0), ('tests\\HelpTest.cpp', 2175.0), ('include\\CLI\\App.hpp', 1850.0), ('include\\CLI\\Error.hpp', 870.0), ('tests\\HelpersTest.cpp', 309.0), ('tests\\SubcommandTest.cpp', 258.0), ('tests\\FuzzFailTest.cpp', 225.0), ('tests\\AppTest.cpp', 216.0), ('tests\\FormatterTest.cpp', 186.0), ('include\\CLI\\impl\\Argv_inl.hpp', 180.0), ('tests\\ConfigFileTest.cpp', 162.0), ('include\\CLI\\Option.hpp', 150.0), ('include\\CLI\\FormatterFwd.hpp', 140.0), ('tests\\OptionGroupTest.cpp', 135.0), ('tests\\NewParseTest.cpp', 135.0), ('include\\CLI\\CLI.hpp', 75.0)]
+2025-06-06 13:31:58,870 - INFO - Best candidate selected: 'include\CLI\impl\App_inl.hpp' with score 2600.0
+2025-06-06 13:31:58,871 - INFO - AI高置信度(8)选择: src\Precompile.cpp
+2025-06-06 13:31:58,871 - INFO - Collected 1 files for context. Keys: ['src\\Precompile.cpp']
+2025-06-06 13:31:58,871 - INFO - 为文件 src\Precompile.cpp 生成AI补丁...
+2025-06-06 13:31:58,871 - INFO - 使用增强prompt调用AI生成补丁...
+2025-06-06 13:31:58,871 - INFO - 发送 API 请求 (尝试 1/3)...
+2025-06-06 13:32:25,942 - INFO - 成功从 DeepSeek API 获取并提取补丁 (1639 字符)
+2025-06-06 13:32:25,944 - INFO - AI补丁生成成功，完整对话历史已保存到: D:\上课资料\科研课堂\WeCode\CFix\project_data\logs\CLIUtils__CLI11-1161_20250606_133137\attempt_1\ai_conversation_history.json
+2025-06-06 13:32:25,944 - INFO - 拉取Docker镜像: dongqa930/cliutils_cli11:1161
+2025-06-06 13:32:41,553 - ERROR - Docker测试完全失败: 500 Server Error for http+docker://localnpipe/v1.45/images/create?tag=1161&fromImage=dongqa930%2Fcliutils_cli11: Internal Server Error ("Get "https://registry-1.docker.io/v2/": context deadline exceeded")
+2025-06-06 13:32:41,553 - WARNING - 尝试 1 测试失败
+2025-06-06 13:32:43,553 - INFO - 尝试 2/3
+2025-06-06 13:32:43,554 - INFO - 使用AI增强的文件定位...
+2025-06-06 13:32:43,554 - INFO - 扫描项目结构...
+2025-06-06 13:32:43,558 - INFO - 项目结构扫描完成，找到 2 个文件
+2025-06-06 13:32:43,558 - INFO - 构建AI定位prompt，长度: 6007
+2025-06-06 13:32:43,558 - INFO - 开始调用AI API...
+2025-06-06 13:32:43,558 - INFO - 执行简单API调用...
+2025-06-06 13:32:59,087 - INFO - 简单API调用成功，响应长度: 621
+2025-06-06 13:32:59,087 - INFO - AI API调用成功，开始解析响应...
+2025-06-06 13:32:59,087 - INFO - AI分析成功解析: 目标文件=src/CLI/impl/App_inl.hpp, 置信度=9
+2025-06-06 13:32:59,087 - INFO - AI文件定位结果: {'target_file': 'src/CLI/impl/App_inl.hpp', 'confidence': 9, 'reasoning': '从问题描述来看，这是一个关于帮助格式化器(help formatter)的问题，特别是与选项组(option group)和页脚(footer)显示相关。测试变更在HelpTest.cpp中添加了一个测试用例来验证页脚只显示一次。根据项目文件结构，CLI/CLI.hpp是主头文件，而实际的实现逻辑通常在impl目录中。App_inl.hpp是最有可能包含帮助格式化逻辑的文件，因为它处理应用程序级别的功能，包括选项组和帮助文本生成。', 'fix_strategy': '修复策略应该是在生成帮助文本时，确保页脚和帮助选项只在主应用程序级别显示一次，而不是在每个选项组中重复显示。这可能需要在帮助格式化逻辑中添加检查，判断当前是否处于主应用程序级别。', 'test_insights': '测试变更添加了一个验证页脚只出现一次的测试用例。这表明修复需要确保页脚文本在主应用程序级别只被添加一次，而不是在每个选项组中重复添加。', 'alternative_files': ['src/CLI/Formatter.hpp', 'src/CLI/Config.hpp']}
+2025-06-06 13:32:59,088 - INFO - Found 3 code blocks in issue.
+2025-06-06 13:32:59,088 - INFO - Potential file references from issue: ['CLI/CLI.hpp']
+2025-06-06 13:32:59,089 - INFO - File Name Match: 'include\CLI\CLI.hpp' from 'CLI.hpp' (Score +75.0)
+2025-06-06 13:32:59,092 - INFO - Keywords for content search: ['parse', 'argv', 'argc', 'exit', 'help']...
+2025-06-06 13:32:59,104 - INFO - Keyword Match: 'include\CLI\impl\App_inl.hpp' (Score +2600.0, Reason: 'parse' in content (133x); 'argv' in content (20x); 'argc' in content (7x); 'exit' in content (11x); 'help' in content (89x))
+2025-06-06 13:32:59,104 - INFO - Keyword Match: 'tests\HelpTest.cpp' (Score +2175.0, Reason: 'parse' in content (32x); 'exit' in content (37x); 'help' in content (653x); 'help' in filename; Test file penalty)
+2025-06-06 13:32:59,104 - INFO - Keyword Match: 'include\CLI\App.hpp' (Score +1790.0, Reason: 'parse' in content (88x); 'argv' in content (10x); 'argc' in content (4x); 'exit' in content (6x); 'help' in content (71x))
+2025-06-06 13:32:59,104 - INFO - Keyword Match: 'include\CLI\Error.hpp' (Score +870.0, Reason: 'parse' in content (31x); 'exit' in content (46x); 'help' in content (10x))
+2025-06-06 13:32:59,104 - INFO - Keyword Match: 'tests\HelpersTest.cpp' (Score +309.0, Reason: 'help' in content (100x); 'help' in filename; Test file penalty)
+2025-06-06 13:32:59,104 - INFO - Keyword Match: 'tests\SubcommandTest.cpp' (Score +258.0, Reason: 'parse' in content (40x); 'exit' in content (2x); 'help' in content (44x); Test file penalty)
+2025-06-06 13:32:59,105 - INFO - Keyword Match: 'tests\FuzzFailTest.cpp' (Score +225.0, Reason: 'parse' in content (74x); 'help' in content (1x); Test file penalty)
+2025-06-06 13:32:59,105 - INFO - Keyword Match: 'tests\AppTest.cpp' (Score +216.0, Reason: 'parse' in content (56x); 'argv' in content (5x); 'help' in content (11x); Test file penalty)
+2025-06-06 13:32:59,105 - INFO - Keyword Match: 'tests\FormatterTest.cpp' (Score +186.0, Reason: 'help' in content (62x); Test file penalty)
+2025-06-06 13:32:59,105 - INFO - Keyword Match: 'include\CLI\impl\Argv_inl.hpp' (Score +180.0, Reason: 'argv' in content (11x); 'argv' in filename; 'argc' in content (4x))
+2025-06-06 13:32:59,105 - INFO - Keyword Match: 'tests\ConfigFileTest.cpp' (Score +162.0, Reason: 'parse' in content (42x); 'help' in content (12x); Test file penalty)
+2025-06-06 13:32:59,105 - INFO - Keyword Match: 'include\CLI\Option.hpp' (Score +150.0, Reason: 'parse' in content (9x); 'help' in content (6x))
+2025-06-06 13:32:59,105 - INFO - Keyword Match: 'include\CLI\FormatterFwd.hpp' (Score +140.0, Reason: 'help' in content (14x))
+2025-06-06 13:32:59,105 - INFO - Keyword Match: 'tests\NewParseTest.cpp' (Score +135.0, Reason: 'parse' in content (26x); 'parse' in filename; 'help' in content (16x); Test file penalty)
+2025-06-06 13:32:59,105 - INFO - Keyword Match: 'tests\OptionGroupTest.cpp' (Score +135.0, Reason: 'parse' in content (5x); 'help' in content (40x); Test file penalty)
+2025-06-06 13:32:59,108 - INFO - Core File Heuristic: 'include\CLI\App.hpp' (Matches core pattern 'app\.(h|hpp|cpp|c)' in 'root') (Score +60.0)
+2025-06-06 13:32:59,108 - INFO - Final candidate scores (path, score): [('include\\CLI\\impl\\App_inl.hpp', 2600.0), ('tests\\HelpTest.cpp', 2175.0), ('include\\CLI\\App.hpp', 1850.0), ('include\\CLI\\Error.hpp', 870.0), ('tests\\HelpersTest.cpp', 309.0), ('tests\\SubcommandTest.cpp', 258.0), ('tests\\FuzzFailTest.cpp', 225.0), ('tests\\AppTest.cpp', 216.0), ('tests\\FormatterTest.cpp', 186.0), ('include\\CLI\\impl\\Argv_inl.hpp', 180.0), ('tests\\ConfigFileTest.cpp', 162.0), ('include\\CLI\\Option.hpp', 150.0), ('include\\CLI\\FormatterFwd.hpp', 140.0), ('tests\\OptionGroupTest.cpp', 135.0), ('tests\\NewParseTest.cpp', 135.0), ('include\\CLI\\CLI.hpp', 75.0)]
+2025-06-06 13:32:59,109 - INFO - Best candidate selected: 'include\CLI\impl\App_inl.hpp' with score 2600.0
+2025-06-06 13:32:59,109 - WARNING - AI选择的文件不存在: src\CLI\impl\App_inl.hpp，使用传统方法结果
+2025-06-06 13:32:59,109 - INFO - Added context file (included): include\CLI\App.hpp
+2025-06-06 13:32:59,110 - INFO - Added context file (included): include\CLI\Argv.hpp
+2025-06-06 13:32:59,110 - INFO - Added context file (included): include\CLI\Encoding.hpp
+2025-06-06 13:32:59,110 - INFO - Collected 4 files for context. Keys: ['include\\CLI\\impl\\App_inl.hpp', 'include\\CLI\\App.hpp', 'include\\CLI\\Argv.hpp', 'include\\CLI\\Encoding.hpp']
+2025-06-06 13:32:59,110 - INFO - 为文件 include\CLI\impl\App_inl.hpp 生成AI补丁...
+2025-06-06 13:32:59,110 - INFO - 使用增强prompt调用AI生成补丁...
+2025-06-06 13:32:59,111 - INFO - 发送 API 请求 (尝试 1/3)...
+2025-06-06 13:33:33,791 - INFO - 成功从 DeepSeek API 获取并提取补丁 (950 字符)
+2025-06-06 13:33:33,793 - INFO - AI补丁生成成功，完整对话历史已保存到: D:\上课资料\科研课堂\WeCode\CFix\project_data\logs\CLIUtils__CLI11-1161_20250606_133137\attempt_2\ai_conversation_history.json
+2025-06-06 13:33:33,793 - INFO - 拉取Docker镜像: dongqa930/cliutils_cli11:1161
+2025-06-06 13:33:49,307 - ERROR - Docker测试完全失败: 500 Server Error for http+docker://localnpipe/v1.45/images/create?tag=1161&fromImage=dongqa930%2Fcliutils_cli11: Internal Server Error ("Get "https://registry-1.docker.io/v2/": net/http: request canceled while waiting for connection (Client.Timeout exceeded while awaiting headers)")
+2025-06-06 13:33:49,307 - WARNING - 尝试 2 测试失败
+2025-06-06 13:33:51,308 - INFO - 尝试 3/3
+2025-06-06 13:33:51,309 - INFO - 使用AI增强的文件定位...
+2025-06-06 13:33:51,309 - INFO - 扫描项目结构...
+2025-06-06 13:33:51,313 - INFO - 项目结构扫描完成，找到 2 个文件
+2025-06-06 13:33:51,313 - INFO - 构建AI定位prompt，长度: 6007
+2025-06-06 13:33:51,313 - INFO - 开始调用AI API...
+2025-06-06 13:33:51,313 - INFO - 执行简单API调用...
+2025-06-06 13:34:11,357 - INFO - 简单API调用成功，响应长度: 683
+2025-06-06 13:34:11,357 - INFO - AI API调用成功，开始解析响应...
+2025-06-06 13:34:11,357 - INFO - AI分析成功解析: 目标文件=src/Precompile.cpp, 置信度=8
+2025-06-06 13:34:11,357 - INFO - AI文件定位结果: {'target_file': 'src/Precompile.cpp', 'confidence': 8, 'reasoning': '1. 问题描述涉及CLI帮助格式化器的重复输出问题，这属于核心功能实现问题。2. 测试变更在HelpTest.cpp中添加了针对footer重复输出的测试用例，表明问题出在帮助格式化相关逻辑。3. 项目结构中Precompile.cpp包含了App_inl.hpp的实现，而帮助格式化功能主要在App类中实现。4. 虽然问题表现为帮助格式化，但实际根源可能在App类的footer处理和选项组处理逻辑中。5. 其他示例文件主要是使用示例而非实现。', 'fix_strategy': '1. 检查App类中footer的处理逻辑，确保只在最终输出时添加一次。2. 修改选项组的帮助输出逻辑，避免在每个选项组中重复输出全局footer和帮助选项。3. 可能需要调整帮助格式化器的继承或组合关系，确保footer只被顶级App处理一次。', 'test_insights': '1. 测试用例明确检查footer文本在输出中只出现一次。2. 测试场景涉及多个选项组的情况。3. 验证点是通过查找footer文本的第二次出现位置应为npos。', 'alternative_files': ['include/CLI/impl/App_inl.hpp', 'include/CLI/Formatter.hpp']}
+2025-06-06 13:34:11,358 - INFO - Found 3 code blocks in issue.
+2025-06-06 13:34:11,358 - INFO - Potential file references from issue: ['CLI/CLI.hpp']
+2025-06-06 13:34:11,359 - INFO - File Name Match: 'include\CLI\CLI.hpp' from 'CLI.hpp' (Score +75.0)
+2025-06-06 13:34:11,362 - INFO - Keywords for content search: ['parse', 'argv', 'argc', 'exit', 'help']...
+2025-06-06 13:34:11,373 - INFO - Keyword Match: 'include\CLI\impl\App_inl.hpp' (Score +2600.0, Reason: 'parse' in content (133x); 'argv' in content (20x); 'argc' in content (7x); 'exit' in content (11x); 'help' in content (89x))
+2025-06-06 13:34:11,373 - INFO - Keyword Match: 'tests\HelpTest.cpp' (Score +2175.0, Reason: 'parse' in content (32x); 'exit' in content (37x); 'help' in content (653x); 'help' in filename; Test file penalty)
+2025-06-06 13:34:11,374 - INFO - Keyword Match: 'include\CLI\App.hpp' (Score +1790.0, Reason: 'parse' in content (88x); 'argv' in content (10x); 'argc' in content (4x); 'exit' in content (6x); 'help' in content (71x))
+2025-06-06 13:34:11,374 - INFO - Keyword Match: 'include\CLI\Error.hpp' (Score +870.0, Reason: 'parse' in content (31x); 'exit' in content (46x); 'help' in content (10x))
+2025-06-06 13:34:11,374 - INFO - Keyword Match: 'tests\HelpersTest.cpp' (Score +309.0, Reason: 'help' in content (100x); 'help' in filename; Test file penalty)
+2025-06-06 13:34:11,374 - INFO - Keyword Match: 'tests\SubcommandTest.cpp' (Score +258.0, Reason: 'parse' in content (40x); 'exit' in content (2x); 'help' in content (44x); Test file penalty)
+2025-06-06 13:34:11,374 - INFO - Keyword Match: 'tests\FuzzFailTest.cpp' (Score +225.0, Reason: 'parse' in content (74x); 'help' in content (1x); Test file penalty)
+2025-06-06 13:34:11,374 - INFO - Keyword Match: 'tests\AppTest.cpp' (Score +216.0, Reason: 'parse' in content (56x); 'argv' in content (5x); 'help' in content (11x); Test file penalty)
+2025-06-06 13:34:11,374 - INFO - Keyword Match: 'tests\FormatterTest.cpp' (Score +186.0, Reason: 'help' in content (62x); Test file penalty)
+2025-06-06 13:34:11,375 - INFO - Keyword Match: 'include\CLI\impl\Argv_inl.hpp' (Score +180.0, Reason: 'argv' in content (11x); 'argv' in filename; 'argc' in content (4x))
+2025-06-06 13:34:11,375 - INFO - Keyword Match: 'tests\ConfigFileTest.cpp' (Score +162.0, Reason: 'parse' in content (42x); 'help' in content (12x); Test file penalty)
+2025-06-06 13:34:11,375 - INFO - Keyword Match: 'include\CLI\Option.hpp' (Score +150.0, Reason: 'parse' in content (9x); 'help' in content (6x))
+2025-06-06 13:34:11,375 - INFO - Keyword Match: 'include\CLI\FormatterFwd.hpp' (Score +140.0, Reason: 'help' in content (14x))
+2025-06-06 13:34:11,375 - INFO - Keyword Match: 'tests\NewParseTest.cpp' (Score +135.0, Reason: 'parse' in content (26x); 'parse' in filename; 'help' in content (16x); Test file penalty)
+2025-06-06 13:34:11,375 - INFO - Keyword Match: 'tests\OptionGroupTest.cpp' (Score +135.0, Reason: 'parse' in content (5x); 'help' in content (40x); Test file penalty)
+2025-06-06 13:34:11,378 - INFO - Core File Heuristic: 'include\CLI\App.hpp' (Matches core pattern 'app\.(h|hpp|cpp|c)' in 'root') (Score +60.0)
+2025-06-06 13:34:11,378 - INFO - Final candidate scores (path, score): [('include\\CLI\\impl\\App_inl.hpp', 2600.0), ('tests\\HelpTest.cpp', 2175.0), ('include\\CLI\\App.hpp', 1850.0), ('include\\CLI\\Error.hpp', 870.0), ('tests\\HelpersTest.cpp', 309.0), ('tests\\SubcommandTest.cpp', 258.0), ('tests\\FuzzFailTest.cpp', 225.0), ('tests\\AppTest.cpp', 216.0), ('tests\\FormatterTest.cpp', 186.0), ('include\\CLI\\impl\\Argv_inl.hpp', 180.0), ('tests\\ConfigFileTest.cpp', 162.0), ('include\\CLI\\Option.hpp', 150.0), ('include\\CLI\\FormatterFwd.hpp', 140.0), ('tests\\OptionGroupTest.cpp', 135.0), ('tests\\NewParseTest.cpp', 135.0), ('include\\CLI\\CLI.hpp', 75.0)]
+2025-06-06 13:34:11,378 - INFO - Best candidate selected: 'include\CLI\impl\App_inl.hpp' with score 2600.0
+2025-06-06 13:34:11,378 - INFO - AI高置信度(8)选择: src\Precompile.cpp
+2025-06-06 13:34:11,379 - INFO - Collected 1 files for context. Keys: ['src\\Precompile.cpp']
+2025-06-06 13:34:11,379 - INFO - 为文件 src\Precompile.cpp 生成AI补丁...
+2025-06-06 13:34:11,379 - INFO - 使用增强prompt调用AI生成补丁...
+2025-06-06 13:34:11,379 - INFO - 发送 API 请求 (尝试 1/3)...
+2025-06-06 13:34:27,062 - INFO - 成功从 DeepSeek API 获取并提取补丁 (717 字符)
+2025-06-06 13:34:27,064 - INFO - AI补丁生成成功，完整对话历史已保存到: D:\上课资料\科研课堂\WeCode\CFix\project_data\logs\CLIUtils__CLI11-1161_20250606_133137\attempt_3\ai_conversation_history.json
+2025-06-06 13:34:27,064 - INFO - 拉取Docker镜像: dongqa930/cliutils_cli11:1161
+2025-06-06 13:34:42,630 - ERROR - Docker测试完全失败: 500 Server Error for http+docker://localnpipe/v1.45/images/create?tag=1161&fromImage=dongqa930%2Fcliutils_cli11: Internal Server Error ("Get "https://registry-1.docker.io/v2/": net/http: request canceled while waiting for connection (Client.Timeout exceeded while awaiting headers)")
+2025-06-06 13:34:42,631 - WARNING - 尝试 3 测试失败
+2025-06-06 13:34:42,632 - INFO - 结果已保存到 D:\上课资料\科研课堂\WeCode\CFix\project_data\results\execution_results.json
+2025-06-06 13:34:42,632 - INFO - ==================================================
+2025-06-06 13:34:42,632 - INFO - 执行完成!
+2025-06-06 13:34:42,632 - INFO - 总实例数: 1
+2025-06-06 13:34:42,632 - INFO - 成功: 0 (0.0%)
+2025-06-06 13:34:42,632 - INFO - 失败: 1 (100.0%)
+2025-06-06 13:34:42,632 - INFO - 日志目录: D:\上课资料\科研课堂\WeCode\CFix\project_data\logs
+2025-06-06 13:34:42,633 - INFO - 结果目录: D:\上课资料\科研课堂\WeCode\CFix\project_data\results
+2025-06-06 13:34:42,633 - INFO - 轨迹目录: D:\上课资料\科研课堂\WeCode\CFix\project_data\trajs
+2025-06-06 13:34:42,633 - INFO - ==================================================
+2025-06-06 13:39:22,947 - INFO - 将处理以下数据集文件: ['dataset\\test_c.jsonl', 'dataset\\test_cpp.jsonl']
+2025-06-06 13:39:22,947 - INFO - 项目数据目录: D:\上课资料\科研课堂\WeCode\CFix\project_data
+2025-06-06 13:39:22,956 - INFO - Docker客户端初始化成功
+2025-06-06 13:39:22,957 - INFO - 成功加载 8 个实例从 dataset\test_c.jsonl
+2025-06-06 13:39:22,958 - INFO - 成功加载 7 个实例从 dataset\test_cpp.jsonl
+2025-06-06 13:39:22,958 - INFO - 过滤后只处理实例: CLIUtils__CLI11-1161
+2025-06-06 13:39:22,958 - INFO - 处理实例: CLIUtils__CLI11-1161 (CLIUtils/CLI11)
+2025-06-06 13:39:22,959 - INFO - 仓库目录已存在: D:\上课资料\科研课堂\WeCode\CFix\project_data\repositories\CLIUtils_CLI11
+2025-06-06 13:39:22,982 - INFO - 检测到有效的git仓库，尝试更新...
+2025-06-06 13:39:26,894 - INFO - 成功更新仓库
+2025-06-06 13:39:26,894 - INFO - 切换到commit f6328ccc7a5dc3e8c64c68c1a6de445bab7f4725
+2025-06-06 13:39:26,918 - INFO - 成功重用现有仓库
+2025-06-06 13:39:26,919 - INFO - 尝试 1/3
+2025-06-06 13:39:26,919 - INFO - 使用AI增强的文件定位...
+2025-06-06 13:39:26,919 - INFO - 扫描项目结构...
+2025-06-06 13:39:26,923 - INFO - 项目结构扫描完成，找到 2 个文件
+2025-06-06 13:39:26,923 - INFO - 构建AI定位prompt，长度: 6007
+2025-06-06 13:39:26,923 - INFO - 开始调用AI API...
+2025-06-06 13:39:26,923 - INFO - 执行简单API调用...
+2025-06-06 13:39:46,808 - INFO - 简单API调用成功，响应长度: 658
+2025-06-06 13:39:46,809 - INFO - AI API调用成功，开始解析响应...
+2025-06-06 13:39:46,809 - INFO - AI分析成功解析: 目标文件=src/CLI/impl/App_inl.hpp, 置信度=8
+2025-06-06 13:39:46,809 - INFO - AI文件定位结果: {'target_file': 'src/CLI/impl/App_inl.hpp', 'confidence': 8, 'reasoning': '1. 问题描述涉及帮助格式化器(help formatter)重复打印页脚和帮助标志，这是核心功能问题。2. 测试变更在HelpTest.cpp中添加了针对option group的页脚测试，说明问题与App类的帮助生成逻辑相关。3. 项目结构中App_inl.hpp是CLI核心实现文件，包含App类的实现。4. 问题涉及option group和footer处理，这些功能由App类管理。5. 虽然问题可能涉及Formatter类，但测试变更直接针对App::help()方法。', 'fix_strategy': '需要修改帮助生成逻辑，确保页脚和帮助选项只在主App中打印一次，而不是在每个option group中重复打印。可能需要在App::help()方法中添加检查，避免重复输出。', 'test_insights': '1. 测试验证页脚文本应只出现一次。2. 测试针对option group场景。3. 使用app.help()方法进行验证，说明问题出在帮助文本生成阶段。', 'alternative_files': ['include/CLI/Formatter.hpp', 'include/CLI/App.hpp']}
+2025-06-06 13:39:46,809 - INFO - Found 3 code blocks in issue.
+2025-06-06 13:39:46,809 - INFO - Potential file references from issue: ['CLI/CLI.hpp']
+2025-06-06 13:39:46,811 - INFO - File Name Match: 'include\CLI\CLI.hpp' from 'CLI.hpp' (Score +75.0)
+2025-06-06 13:39:46,814 - INFO - Keywords for content search: ['argv', 'help', 'argc', 'parse', 'exit']...
+2025-06-06 13:39:46,825 - INFO - Keyword Match: 'include\CLI\impl\App_inl.hpp' (Score +2600.0, Reason: 'argv' in content (20x); 'help' in content (89x); 'argc' in content (7x); 'parse' in content (133x); 'exit' in content (11x))
+2025-06-06 13:39:46,825 - INFO - Keyword Match: 'tests\HelpTest.cpp' (Score +2175.0, Reason: 'help' in content (653x); 'help' in filename; 'parse' in content (32x); 'exit' in content (37x); Test file penalty)
+2025-06-06 13:39:46,825 - INFO - Keyword Match: 'include\CLI\App.hpp' (Score +1790.0, Reason: 'argv' in content (10x); 'help' in content (71x); 'argc' in content (4x); 'parse' in content (88x); 'exit' in content (6x))
+2025-06-06 13:39:46,825 - INFO - Keyword Match: 'include\CLI\Error.hpp' (Score +870.0, Reason: 'help' in content (10x); 'parse' in content (31x); 'exit' in content (46x))
+2025-06-06 13:39:46,825 - INFO - Keyword Match: 'tests\HelpersTest.cpp' (Score +309.0, Reason: 'help' in content (100x); 'help' in filename; Test file penalty)
+2025-06-06 13:39:46,826 - INFO - Keyword Match: 'tests\SubcommandTest.cpp' (Score +258.0, Reason: 'help' in content (44x); 'parse' in content (40x); 'exit' in content (2x); Test file penalty)
+2025-06-06 13:39:46,826 - INFO - Keyword Match: 'tests\FuzzFailTest.cpp' (Score +225.0, Reason: 'help' in content (1x); 'parse' in content (74x); Test file penalty)
+2025-06-06 13:39:46,826 - INFO - Keyword Match: 'tests\AppTest.cpp' (Score +216.0, Reason: 'argv' in content (5x); 'help' in content (11x); 'parse' in content (56x); Test file penalty)
+2025-06-06 13:39:46,826 - INFO - Keyword Match: 'tests\FormatterTest.cpp' (Score +186.0, Reason: 'help' in content (62x); Test file penalty)
+2025-06-06 13:39:46,826 - INFO - Keyword Match: 'include\CLI\impl\Argv_inl.hpp' (Score +180.0, Reason: 'argv' in content (11x); 'argv' in filename; 'argc' in content (4x))
+2025-06-06 13:39:46,826 - INFO - Keyword Match: 'tests\ConfigFileTest.cpp' (Score +162.0, Reason: 'help' in content (12x); 'parse' in content (42x); Test file penalty)
+2025-06-06 13:39:46,826 - INFO - Keyword Match: 'include\CLI\Option.hpp' (Score +150.0, Reason: 'help' in content (6x); 'parse' in content (9x))
+2025-06-06 13:39:46,827 - INFO - Keyword Match: 'include\CLI\FormatterFwd.hpp' (Score +140.0, Reason: 'help' in content (14x))
+2025-06-06 13:39:46,827 - INFO - Keyword Match: 'tests\NewParseTest.cpp' (Score +135.0, Reason: 'help' in content (16x); 'parse' in content (26x); 'parse' in filename; Test file penalty)
+2025-06-06 13:39:46,827 - INFO - Keyword Match: 'tests\OptionGroupTest.cpp' (Score +135.0, Reason: 'help' in content (40x); 'parse' in content (5x); Test file penalty)
+2025-06-06 13:39:46,830 - INFO - Core File Heuristic: 'include\CLI\App.hpp' (Matches core pattern 'app\.(h|hpp|cpp|c)' in 'root') (Score +60.0)
+2025-06-06 13:39:46,830 - INFO - Final candidate scores (path, score): [('include\\CLI\\impl\\App_inl.hpp', 2600.0), ('tests\\HelpTest.cpp', 2175.0), ('include\\CLI\\App.hpp', 1850.0), ('include\\CLI\\Error.hpp', 870.0), ('tests\\HelpersTest.cpp', 309.0), ('tests\\SubcommandTest.cpp', 258.0), ('tests\\FuzzFailTest.cpp', 225.0), ('tests\\AppTest.cpp', 216.0), ('tests\\FormatterTest.cpp', 186.0), ('include\\CLI\\impl\\Argv_inl.hpp', 180.0), ('tests\\ConfigFileTest.cpp', 162.0), ('include\\CLI\\Option.hpp', 150.0), ('include\\CLI\\FormatterFwd.hpp', 140.0), ('tests\\OptionGroupTest.cpp', 135.0), ('tests\\NewParseTest.cpp', 135.0), ('include\\CLI\\CLI.hpp', 75.0)]
+2025-06-06 13:39:46,830 - INFO - Best candidate selected: 'include\CLI\impl\App_inl.hpp' with score 2600.0
+2025-06-06 13:39:46,830 - WARNING - AI选择的文件不存在: src\CLI\impl\App_inl.hpp，使用传统方法结果
+2025-06-06 13:39:46,831 - INFO - Added context file (included): include\CLI\App.hpp
+2025-06-06 13:39:46,831 - INFO - Added context file (included): include\CLI\Argv.hpp
+2025-06-06 13:39:46,832 - INFO - Added context file (included): include\CLI\Encoding.hpp
+2025-06-06 13:39:46,832 - INFO - Collected 4 files for context. Keys: ['include\\CLI\\impl\\App_inl.hpp', 'include\\CLI\\App.hpp', 'include\\CLI\\Argv.hpp', 'include\\CLI\\Encoding.hpp']
+2025-06-06 13:39:46,832 - INFO - 为文件 include\CLI\impl\App_inl.hpp 生成AI补丁...
+2025-06-06 13:39:46,832 - INFO - 使用增强prompt调用AI生成补丁...
+2025-06-06 13:39:46,833 - INFO - 发送 API 请求 (尝试 1/3)...
+2025-06-06 13:40:21,461 - INFO - 成功从 DeepSeek API 获取并提取补丁 (1376 字符)
+2025-06-06 13:40:21,462 - INFO - AI补丁生成成功，完整对话历史已保存到: D:\上课资料\科研课堂\WeCode\CFix\project_data\logs\CLIUtils__CLI11-1161_20250606_133922\attempt_1\ai_conversation_history.json
+2025-06-06 13:40:21,463 - INFO - 拉取Docker镜像: dongqa930/cliutils_cli11:1161
+2025-06-06 13:40:34,496 - INFO - 尝试使用 heredoc 方法...
+2025-06-06 13:40:34,754 - INFO - 使用heredoc方法创建patch文件...
+2025-06-06 13:40:36,140 - INFO - Patch文件创建成功: 39 /home/fix.patch
+2025-06-06 13:40:36,166 - INFO - AI生成的补丁预览:
+diff --git a/include/CLI/impl/App_inl.hpp b/include/CLI/impl/App_inl.hpp
+index 1ef7950..dcdebce 100644
+--- a/include/CLI/impl/App_inl.hpp
++++ b/include/CLI/impl/App_inl.hpp
+@@ -85,6 +85,25 @@ TEST_CASE("THelp: FooterCallbackBoth", "[help]") {
+     CHECK_THAT(help, Contains("foot!!!!"));
+ }
+ 
++/// @brief from github issue #1156
++TEST_CASE("THelp: FooterOptionGroup", "[help]") {
+
+2025-06-06 13:40:36,166 - INFO - 运行测试脚本（fix_run.sh会自动应用测试补丁）...
+2025-06-06 13:40:46,352 - INFO - heredoc 方法执行成功
+2025-06-06 13:40:46,352 - WARNING - 尝试 1 测试失败
+2025-06-06 13:40:48,354 - INFO - 尝试 2/3
+2025-06-06 13:40:48,354 - INFO - 使用AI增强的文件定位...
+2025-06-06 13:40:48,354 - INFO - 扫描项目结构...
+2025-06-06 13:40:48,358 - INFO - 项目结构扫描完成，找到 2 个文件
+2025-06-06 13:40:48,358 - INFO - 构建AI定位prompt，长度: 6007
+2025-06-06 13:40:48,358 - INFO - 开始调用AI API...
+2025-06-06 13:40:48,358 - INFO - 执行简单API调用...
+2025-06-06 13:41:08,688 - INFO - 简单API调用成功，响应长度: 728
+2025-06-06 13:41:08,689 - INFO - AI API调用成功，开始解析响应...
+2025-06-06 13:41:08,689 - INFO - AI分析成功解析: 目标文件=src/Precompile.cpp, 置信度=8
+2025-06-06 13:41:08,689 - INFO - AI文件定位结果: {'target_file': 'src/Precompile.cpp', 'confidence': 8, 'reasoning': '1. 问题描述涉及CLI帮助格式化器的重复输出问题，特别是footer和help flag的重复打印。2. 测试变更在HelpTest.cpp中添加了针对option group中footer重复的测试用例，这表明问题核心在帮助格式化逻辑。3. 项目结构中src/Precompile.cpp包含了CLI的核心实现文件App_inl.hpp，而帮助格式化功能通常是在App类中实现的。4. 虽然问题可能涉及多个文件，但核心格式化逻辑最可能位于App的实现文件中。5. 排除测试文件和示例文件，选择核心实现文件。', 'fix_strategy': '修复策略应集中在帮助文本生成逻辑中，确保footer和help flag只在根App级别打印一次，而不是在每个option group中重复打印。可能需要修改帮助文本生成的递归逻辑或添加标志来跟踪是否已经打印过这些内容。', 'test_insights': '测试变更显示：1) 添加了专门测试option group中footer重复的用例 2) 检查footer文本在输出中只出现一次 3) 问题与option group结构相关 4) 验证点在help()方法的输出上', 'alternative_files': ['include/CLI/impl/App_inl.hpp', 'include/CLI/Formatter.hpp']}
+2025-06-06 13:41:08,689 - INFO - Found 3 code blocks in issue.
+2025-06-06 13:41:08,690 - INFO - Potential file references from issue: ['CLI/CLI.hpp']
+2025-06-06 13:41:08,691 - INFO - File Name Match: 'include\CLI\CLI.hpp' from 'CLI.hpp' (Score +75.0)
+2025-06-06 13:41:08,693 - INFO - Keywords for content search: ['argv', 'help', 'argc', 'parse', 'exit']...
+2025-06-06 13:41:08,705 - INFO - Keyword Match: 'include\CLI\impl\App_inl.hpp' (Score +2600.0, Reason: 'argv' in content (20x); 'help' in content (89x); 'argc' in content (7x); 'parse' in content (133x); 'exit' in content (11x))
+2025-06-06 13:41:08,706 - INFO - Keyword Match: 'tests\HelpTest.cpp' (Score +2175.0, Reason: 'help' in content (653x); 'help' in filename; 'parse' in content (32x); 'exit' in content (37x); Test file penalty)
+2025-06-06 13:41:08,706 - INFO - Keyword Match: 'include\CLI\App.hpp' (Score +1790.0, Reason: 'argv' in content (10x); 'help' in content (71x); 'argc' in content (4x); 'parse' in content (88x); 'exit' in content (6x))
+2025-06-06 13:41:08,706 - INFO - Keyword Match: 'include\CLI\Error.hpp' (Score +870.0, Reason: 'help' in content (10x); 'parse' in content (31x); 'exit' in content (46x))
+2025-06-06 13:41:08,706 - INFO - Keyword Match: 'tests\HelpersTest.cpp' (Score +309.0, Reason: 'help' in content (100x); 'help' in filename; Test file penalty)
+2025-06-06 13:41:08,706 - INFO - Keyword Match: 'tests\SubcommandTest.cpp' (Score +258.0, Reason: 'help' in content (44x); 'parse' in content (40x); 'exit' in content (2x); Test file penalty)
+2025-06-06 13:41:08,706 - INFO - Keyword Match: 'tests\FuzzFailTest.cpp' (Score +225.0, Reason: 'help' in content (1x); 'parse' in content (74x); Test file penalty)
+2025-06-06 13:41:08,706 - INFO - Keyword Match: 'tests\AppTest.cpp' (Score +216.0, Reason: 'argv' in content (5x); 'help' in content (11x); 'parse' in content (56x); Test file penalty)
+2025-06-06 13:41:08,707 - INFO - Keyword Match: 'tests\FormatterTest.cpp' (Score +186.0, Reason: 'help' in content (62x); Test file penalty)
+2025-06-06 13:41:08,707 - INFO - Keyword Match: 'include\CLI\impl\Argv_inl.hpp' (Score +180.0, Reason: 'argv' in content (11x); 'argv' in filename; 'argc' in content (4x))
+2025-06-06 13:41:08,707 - INFO - Keyword Match: 'tests\ConfigFileTest.cpp' (Score +162.0, Reason: 'help' in content (12x); 'parse' in content (42x); Test file penalty)
+2025-06-06 13:41:08,707 - INFO - Keyword Match: 'include\CLI\Option.hpp' (Score +150.0, Reason: 'help' in content (6x); 'parse' in content (9x))
+2025-06-06 13:41:08,707 - INFO - Keyword Match: 'include\CLI\FormatterFwd.hpp' (Score +140.0, Reason: 'help' in content (14x))
+2025-06-06 13:41:08,707 - INFO - Keyword Match: 'tests\NewParseTest.cpp' (Score +135.0, Reason: 'help' in content (16x); 'parse' in content (26x); 'parse' in filename; Test file penalty)
+2025-06-06 13:41:08,707 - INFO - Keyword Match: 'tests\OptionGroupTest.cpp' (Score +135.0, Reason: 'help' in content (40x); 'parse' in content (5x); Test file penalty)
+2025-06-06 13:41:08,710 - INFO - Core File Heuristic: 'include\CLI\App.hpp' (Matches core pattern 'app\.(h|hpp|cpp|c)' in 'root') (Score +60.0)
+2025-06-06 13:41:08,710 - INFO - Final candidate scores (path, score): [('include\\CLI\\impl\\App_inl.hpp', 2600.0), ('tests\\HelpTest.cpp', 2175.0), ('include\\CLI\\App.hpp', 1850.0), ('include\\CLI\\Error.hpp', 870.0), ('tests\\HelpersTest.cpp', 309.0), ('tests\\SubcommandTest.cpp', 258.0), ('tests\\FuzzFailTest.cpp', 225.0), ('tests\\AppTest.cpp', 216.0), ('tests\\FormatterTest.cpp', 186.0), ('include\\CLI\\impl\\Argv_inl.hpp', 180.0), ('tests\\ConfigFileTest.cpp', 162.0), ('include\\CLI\\Option.hpp', 150.0), ('include\\CLI\\FormatterFwd.hpp', 140.0), ('tests\\OptionGroupTest.cpp', 135.0), ('tests\\NewParseTest.cpp', 135.0), ('include\\CLI\\CLI.hpp', 75.0)]
+2025-06-06 13:41:08,710 - INFO - Best candidate selected: 'include\CLI\impl\App_inl.hpp' with score 2600.0
+2025-06-06 13:41:08,710 - INFO - AI高置信度(8)选择: src\Precompile.cpp
+2025-06-06 13:41:08,711 - INFO - Collected 1 files for context. Keys: ['src\\Precompile.cpp']
+2025-06-06 13:41:08,711 - INFO - 为文件 src\Precompile.cpp 生成AI补丁...
+2025-06-06 13:41:08,711 - INFO - 使用增强prompt调用AI生成补丁...
+2025-06-06 13:41:08,711 - INFO - 发送 API 请求 (尝试 1/3)...
+2025-06-06 13:41:33,563 - INFO - 成功从 DeepSeek API 获取并提取补丁 (1211 字符)
+2025-06-06 13:41:33,564 - INFO - AI补丁生成成功，完整对话历史已保存到: D:\上课资料\科研课堂\WeCode\CFix\project_data\logs\CLIUtils__CLI11-1161_20250606_133922\attempt_2\ai_conversation_history.json
+2025-06-06 13:41:33,565 - INFO - 拉取Docker镜像: dongqa930/cliutils_cli11:1161
+2025-06-06 13:41:43,066 - INFO - 尝试使用 heredoc 方法...
+2025-06-06 13:41:43,306 - INFO - 使用heredoc方法创建patch文件...
+2025-06-06 13:41:44,433 - INFO - Patch文件创建成功: 31 /home/fix.patch
+2025-06-06 13:41:44,473 - INFO - AI生成的补丁预览:
+diff --git a/src/CLI/impl/Formatter_inl.hpp b/src/CLI/impl/Formatter_inl.hpp
+index abc1234..def5678 100644
+--- a/src/CLI/impl/Formatter_inl.hpp
++++ b/src/CLI/impl/Formatter_inl.hpp
+@@ -100,6 +100,9 @@ inline std::string Formatter::make_help(const App *app, std::string name, AppFor
+     std::stringstream out;
+ 
+     if((app->get_name().empty()) && (app->get_parent() == nullptr)) {
++        out << make_description(app);
++        out << make_usage(app, name);
+
+2025-06-06 13:41:44,473 - INFO - 运行测试脚本（fix_run.sh会自动应用测试补丁）...
+2025-06-06 13:41:54,672 - INFO - heredoc 方法执行成功
+2025-06-06 13:41:54,672 - WARNING - 尝试 2 测试失败
+2025-06-06 13:41:56,673 - INFO - 尝试 3/3
+2025-06-06 13:41:56,674 - INFO - 使用AI增强的文件定位...
+2025-06-06 13:41:56,674 - INFO - 扫描项目结构...
+2025-06-06 13:41:56,678 - INFO - 项目结构扫描完成，找到 2 个文件
+2025-06-06 13:41:56,678 - INFO - 构建AI定位prompt，长度: 6007
+2025-06-06 13:41:56,678 - INFO - 开始调用AI API...
+2025-06-06 13:41:56,678 - INFO - 执行简单API调用...
+2025-06-06 13:42:16,522 - INFO - 简单API调用成功，响应长度: 625
+2025-06-06 13:42:16,522 - INFO - AI API调用成功，开始解析响应...
+2025-06-06 13:42:16,522 - INFO - AI分析成功解析: 目标文件=src/Precompile.cpp, 置信度=8
+2025-06-06 13:42:16,523 - INFO - AI文件定位结果: {'target_file': 'src/Precompile.cpp', 'confidence': 8, 'reasoning': '1. 问题描述表明这是一个与帮助格式化相关的bug，特别是当存在多个选项组时，页脚和帮助标志会重复打印。2. 测试变更添加了一个新的测试用例来验证页脚是否只出现一次，这表明问题与帮助文本生成逻辑有关。3. 查看文件结构，Precompile.cpp包含了App_inl.hpp，而帮助格式化功能通常是在App类中实现的。4. 虽然问题可能直接涉及App类的实现，但Precompile.cpp作为包含主要实现的文件，很可能是需要修改的地方。5. 其他示例文件都是使用CLI库的示例，不太可能是需要修复的目标。', 'fix_strategy': '需要修改帮助文本生成的逻辑，确保页脚和帮助标志只在主应用程序级别打印一次，而不是在每个选项组中重复打印。可能需要添加一个标志来跟踪是否已经打印过这些内容。', 'test_insights': '测试变更添加了一个验证页脚只出现一次的测试用例，明确要求页脚文本在帮助输出中只能出现一次。这暗示帮助文本生成逻辑需要修改以避免重复。', 'alternative_files': ['include/CLI/impl/App_inl.hpp', 'include/CLI/CLI.hpp']}
+2025-06-06 13:42:16,523 - INFO - Found 3 code blocks in issue.
+2025-06-06 13:42:16,523 - INFO - Potential file references from issue: ['CLI/CLI.hpp']
+2025-06-06 13:42:16,524 - INFO - File Name Match: 'include\CLI\CLI.hpp' from 'CLI.hpp' (Score +75.0)
+2025-06-06 13:42:16,527 - INFO - Keywords for content search: ['argv', 'help', 'argc', 'parse', 'exit']...
+2025-06-06 13:42:16,539 - INFO - Keyword Match: 'include\CLI\impl\App_inl.hpp' (Score +2600.0, Reason: 'argv' in content (20x); 'help' in content (89x); 'argc' in content (7x); 'parse' in content (133x); 'exit' in content (11x))
+2025-06-06 13:42:16,539 - INFO - Keyword Match: 'tests\HelpTest.cpp' (Score +2175.0, Reason: 'help' in content (653x); 'help' in filename; 'parse' in content (32x); 'exit' in content (37x); Test file penalty)
+2025-06-06 13:42:16,539 - INFO - Keyword Match: 'include\CLI\App.hpp' (Score +1790.0, Reason: 'argv' in content (10x); 'help' in content (71x); 'argc' in content (4x); 'parse' in content (88x); 'exit' in content (6x))
+2025-06-06 13:42:16,539 - INFO - Keyword Match: 'include\CLI\Error.hpp' (Score +870.0, Reason: 'help' in content (10x); 'parse' in content (31x); 'exit' in content (46x))
+2025-06-06 13:42:16,539 - INFO - Keyword Match: 'tests\HelpersTest.cpp' (Score +309.0, Reason: 'help' in content (100x); 'help' in filename; Test file penalty)
+2025-06-06 13:42:16,540 - INFO - Keyword Match: 'tests\SubcommandTest.cpp' (Score +258.0, Reason: 'help' in content (44x); 'parse' in content (40x); 'exit' in content (2x); Test file penalty)
+2025-06-06 13:42:16,540 - INFO - Keyword Match: 'tests\FuzzFailTest.cpp' (Score +225.0, Reason: 'help' in content (1x); 'parse' in content (74x); Test file penalty)
+2025-06-06 13:42:16,540 - INFO - Keyword Match: 'tests\AppTest.cpp' (Score +216.0, Reason: 'argv' in content (5x); 'help' in content (11x); 'parse' in content (56x); Test file penalty)
+2025-06-06 13:42:16,540 - INFO - Keyword Match: 'tests\FormatterTest.cpp' (Score +186.0, Reason: 'help' in content (62x); Test file penalty)
+2025-06-06 13:42:16,540 - INFO - Keyword Match: 'include\CLI\impl\Argv_inl.hpp' (Score +180.0, Reason: 'argv' in content (11x); 'argv' in filename; 'argc' in content (4x))
+2025-06-06 13:42:16,540 - INFO - Keyword Match: 'tests\ConfigFileTest.cpp' (Score +162.0, Reason: 'help' in content (12x); 'parse' in content (42x); Test file penalty)
+2025-06-06 13:42:16,541 - INFO - Keyword Match: 'include\CLI\Option.hpp' (Score +150.0, Reason: 'help' in content (6x); 'parse' in content (9x))
+2025-06-06 13:42:16,541 - INFO - Keyword Match: 'include\CLI\FormatterFwd.hpp' (Score +140.0, Reason: 'help' in content (14x))
+2025-06-06 13:42:16,541 - INFO - Keyword Match: 'tests\NewParseTest.cpp' (Score +135.0, Reason: 'help' in content (16x); 'parse' in content (26x); 'parse' in filename; Test file penalty)
+2025-06-06 13:42:16,541 - INFO - Keyword Match: 'tests\OptionGroupTest.cpp' (Score +135.0, Reason: 'help' in content (40x); 'parse' in content (5x); Test file penalty)
+2025-06-06 13:42:16,544 - INFO - Core File Heuristic: 'include\CLI\App.hpp' (Matches core pattern 'app\.(h|hpp|cpp|c)' in 'root') (Score +60.0)
+2025-06-06 13:42:16,544 - INFO - Final candidate scores (path, score): [('include\\CLI\\impl\\App_inl.hpp', 2600.0), ('tests\\HelpTest.cpp', 2175.0), ('include\\CLI\\App.hpp', 1850.0), ('include\\CLI\\Error.hpp', 870.0), ('tests\\HelpersTest.cpp', 309.0), ('tests\\SubcommandTest.cpp', 258.0), ('tests\\FuzzFailTest.cpp', 225.0), ('tests\\AppTest.cpp', 216.0), ('tests\\FormatterTest.cpp', 186.0), ('include\\CLI\\impl\\Argv_inl.hpp', 180.0), ('tests\\ConfigFileTest.cpp', 162.0), ('include\\CLI\\Option.hpp', 150.0), ('include\\CLI\\FormatterFwd.hpp', 140.0), ('tests\\OptionGroupTest.cpp', 135.0), ('tests\\NewParseTest.cpp', 135.0), ('include\\CLI\\CLI.hpp', 75.0)]
+2025-06-06 13:42:16,544 - INFO - Best candidate selected: 'include\CLI\impl\App_inl.hpp' with score 2600.0
+2025-06-06 13:42:16,544 - INFO - AI高置信度(8)选择: src\Precompile.cpp
+2025-06-06 13:42:16,545 - INFO - Collected 1 files for context. Keys: ['src\\Precompile.cpp']
+2025-06-06 13:42:16,545 - INFO - 为文件 src\Precompile.cpp 生成AI补丁...
+2025-06-06 13:42:16,545 - INFO - 使用增强prompt调用AI生成补丁...
+2025-06-06 13:42:16,545 - INFO - 发送 API 请求 (尝试 1/3)...
+2025-06-06 13:42:36,379 - INFO - 成功从 DeepSeek API 获取并提取补丁 (593 字符)
+2025-06-06 13:42:36,381 - INFO - AI补丁生成成功，完整对话历史已保存到: D:\上课资料\科研课堂\WeCode\CFix\project_data\logs\CLIUtils__CLI11-1161_20250606_133922\attempt_3\ai_conversation_history.json
+2025-06-06 13:42:36,381 - INFO - 拉取Docker镜像: dongqa930/cliutils_cli11:1161
+2025-06-06 13:42:51,485 - INFO - 尝试使用 heredoc 方法...
+2025-06-06 13:42:51,762 - INFO - 使用heredoc方法创建patch文件...
+2025-06-06 13:42:52,451 - INFO - Patch文件创建成功: 18 /home/fix.patch
+2025-06-06 13:42:52,473 - INFO - AI生成的补丁预览:
+diff --git a/src/Precompile.cpp b/src/Precompile.cpp
+index abc1234..def5678 100644
+--- a/src/Precompile.cpp
++++ b/src/Precompile.cpp
+@@ -1,4 +1,4 @@
+-// Copyright (c) 2017-2025, University of Cincinnati, developed by Henry Schreiner
++// Copyright (c) 2017-2025, University of Cincinnati, developed by Henry Schreiner
+ // under NSF AWARD 1414736 and by the respective contributors.
+ // All rights reserved.
+ //
+
+2025-06-06 13:42:52,473 - INFO - 运行测试脚本（fix_run.sh会自动应用测试补丁）...
+2025-06-06 13:43:02,739 - INFO - heredoc 方法执行成功
+2025-06-06 13:43:02,739 - WARNING - 尝试 3 测试失败
+2025-06-06 13:43:02,740 - INFO - 结果已保存到 D:\上课资料\科研课堂\WeCode\CFix\project_data\results\execution_results.json
+2025-06-06 13:43:02,740 - INFO - ==================================================
+2025-06-06 13:43:02,740 - INFO - 执行完成!
+2025-06-06 13:43:02,740 - INFO - 总实例数: 1
+2025-06-06 13:43:02,741 - INFO - 成功: 0 (0.0%)
+2025-06-06 13:43:02,741 - INFO - 失败: 1 (100.0%)
+2025-06-06 13:43:02,741 - INFO - 日志目录: D:\上课资料\科研课堂\WeCode\CFix\project_data\logs
+2025-06-06 13:43:02,741 - INFO - 结果目录: D:\上课资料\科研课堂\WeCode\CFix\project_data\results
+2025-06-06 13:43:02,741 - INFO - 轨迹目录: D:\上课资料\科研课堂\WeCode\CFix\project_data\trajs
+2025-06-06 13:43:02,741 - INFO - ==================================================
+2025-06-06 13:45:21,506 - INFO - 将处理以下数据集文件: ['dataset\\test_c.jsonl', 'dataset\\test_cpp.jsonl']
+2025-06-06 13:45:21,506 - INFO - 项目数据目录: D:\上课资料\科研课堂\WeCode\CFix\project_data
+2025-06-06 13:45:21,514 - INFO - Docker客户端初始化成功
+2025-06-06 13:45:21,515 - INFO - 成功加载 8 个实例从 dataset\test_c.jsonl
+2025-06-06 13:45:21,516 - INFO - 成功加载 7 个实例从 dataset\test_cpp.jsonl
+2025-06-06 13:45:21,516 - INFO - 过滤后只处理实例: CLIUtils__CLI11-1073
+2025-06-06 13:45:21,516 - INFO - 处理实例: CLIUtils__CLI11-1073 (CLIUtils/CLI11)
+2025-06-06 13:45:21,517 - INFO - 仓库目录已存在: D:\上课资料\科研课堂\WeCode\CFix\project_data\repositories\CLIUtils_CLI11
+2025-06-06 13:45:21,539 - INFO - 检测到有效的git仓库，尝试更新...
+2025-06-06 13:45:25,776 - INFO - 成功更新仓库
+2025-06-06 13:45:25,777 - INFO - 切换到commit 79b14300197b10a5f7bb7c9ebeac1f956ab41f98
+2025-06-06 13:45:25,831 - INFO - 成功重用现有仓库
+2025-06-06 13:45:25,832 - INFO - 尝试 1/3
+2025-06-06 13:45:25,832 - INFO - 使用AI增强的文件定位...
+2025-06-06 13:45:25,832 - INFO - 扫描项目结构...
+2025-06-06 13:45:25,836 - INFO - 项目结构扫描完成，找到 2 个文件
+2025-06-06 13:45:25,836 - INFO - 构建AI定位prompt，长度: 12733
+2025-06-06 13:45:25,837 - INFO - 开始调用AI API...
+2025-06-06 13:45:25,837 - INFO - 执行简单API调用...
+2025-06-06 13:45:45,746 - INFO - 简单API调用成功，响应长度: 672
+2025-06-06 13:45:45,747 - INFO - AI API调用成功，开始解析响应...
+2025-06-06 13:45:45,747 - INFO - AI分析成功解析: 目标文件=src/Precompile.cpp, 置信度=8
+2025-06-06 13:45:45,747 - INFO - AI文件定位结果: {'target_file': 'src/Precompile.cpp', 'confidence': 8, 'reasoning': '从问题描述来看，这是一个关于CLI11库中子命令和位置参数处理的问题。测试变更中提到了subcommand_fallthrough(false)的行为，这表明问题与子命令的解析逻辑有关。src/Precompile.cpp包含了CLI库的核心实现文件App_inl.hpp，这是处理子命令和参数解析的主要逻辑所在。虽然问题描述中提到了多个示例文件，但核心功能应该是在库的实现文件中。', 'fix_strategy': '需要在子命令解析逻辑中添加对位置参数的优先处理，当subcommand_fallthrough设置为false时，应该阻止子命令的自动匹配，而是将后续参数视为位置参数。这可能需要修改App_inl.hpp中的子命令解析逻辑。', 'test_insights': "测试变更中添加了一个新的测试用例'subcomNoSubComfallthrough'，验证了当subcommand_fallthrough(false)时，后续参数应该被作为位置参数处理而不是子命令。这表明需要修改子命令解析的默认行为。", 'alternative_files': ['include/CLI/App.hpp', 'include/CLI/impl/App_inl.hpp']}
+2025-06-06 13:45:45,748 - INFO - Found 10 code blocks in issue.
+2025-06-06 13:45:45,748 - INFO - Potential file references from issue: ['CLI.hpp', 'CLI.h']
+2025-06-06 13:45:45,749 - INFO - File Name Match: 'include\CLI\CLI.hpp' from 'CLI.hpp' (Score +75.0)
+2025-06-06 13:45:45,755 - INFO - Extension Variant: 'include\CLI\CLI.hpp' for 'CLI.h' (Score +60.0)
+2025-06-06 13:45:45,756 - INFO - Keywords for content search: ['shell', 'help_cmd', 'Given', 'there', 'prefix_command', 'sucommand', 'set_help_flag', 'configuration', 'required', 'Does']...
+2025-06-06 13:45:45,794 - INFO - Keyword Match: 'include\CLI\impl\App_inl.hpp' (Score +15280.0, Reason: 'Given' in content (9x); 'there' in content (7x); 'prefix_command' in content (6x); 'set_help_flag' in content (2x); 'required' in content (29x); 'expected' in content (28x); 'There' in content (7x); 'cout' in content (3x); 'argument' in content (21x); 'positional' in content (53x); 'missing' in content (38x); 'some' in content (6x); 'get' in content (241x); 'output' in content (4x); 'executed' in content (1x); 'values' in content (14x); 'add_subcommand' in content (3x); 'command' in content (215x); 'Command' in content (215x); 'what' in content (7x); 'Subcommands' in content (100x); 'ParseError' in content (1x); 'code' in content (11x); 'that' in content (6x); 'above' in content (1x); 'each' in content (2x); 'only' in content (24x); 'parse_complete_callback' in content (13x); 'make_help' in content (1x); 'anything' in content (3x); 'help' in content (89x); 'Formatter' in content (8x); 'expect' in content (28x); 'add_option' in content (7x); 'preparse_callback' in content (4x); 'here' in content (12x); 'Normal' in content (8x); 'with' in content (16x); 'flush' in content (1x); 'Positionals' in content (14x); 'print' in content (1x); 'AppFormatMode' in content (2x); 'line' in content (119x); 'other' in content (12x); 'parse' in content (133x); 'Usage' in content (2x); 'Print' in content (1x))
+2025-06-06 13:45:45,794 - INFO - Keyword Match: 'include\CLI\App.hpp' (Score +11780.0, Reason: 'Given' in content (7x); 'there' in content (6x); 'prefix_command' in content (5x); 'set_help_flag' in content (3x); 'configuration' in content (4x); 'required' in content (25x); 'Does' in content (8x); 'expected' in content (7x); 'There' in content (6x); 'cout' in content (1x); 'argument' in content (38x); 'positional' in content (26x); 'missing' in content (10x); 'some' in content (3x); 'get' in content (130x); 'output' in content (4x); 'executed' in content (2x); 'values' in content (7x); 'add_subcommand' in content (6x); 'command' in content (212x); 'Command' in content (212x); 'Subcommands' in content (43x); 'ParseError' in content (1x); 'code' in content (2x); 'that' in content (26x); 'above' in content (1x); 'each' in content (4x); 'only' in content (12x); 'parse_complete_callback' in content (4x); 'anything' in content (3x); 'help' in content (71x); 'Formatter' in content (31x); 'expect' in content (9x); 'add_option' in content (21x); 'preparse_callback' in content (1x); 'here' in content (9x); 'Normal' in content (6x); 'with' in content (20x); 'Positionals' in content (14x); 'print' in content (9x); 'does' in content (8x); 'AppFormatMode' in content (3x); 'line' in content (27x); 'other' in content (14x); 'parse' in content (88x); 'Usage' in content (20x); 'Print' in content (9x))
+2025-06-06 13:45:45,795 - INFO - Keyword Match: 'tests\HelpTest.cpp' (Score +4089.0, Reason: 'set_help_flag' in content (8x); 'required' in content (8x); 'Does' in content (1x); 'expected' in content (3x); 'help_opt' in content (2x); 'positional' in content (14x); 'some' in content (54x); 'get' in content (54x); 'output' in content (2x); 'add_subcommand' in content (12x); 'command' in content (26x); 'Command' in content (26x); 'what' in content (1x); 'Subcommands' in content (1x); 'ParseError' in content (5x); 'code' in content (23x); 'that' in content (198x); 'only' in content (3x); 'help' in content (648x); 'help' in filename; 'Formatter' in content (19x); 'expect' in content (3x); 'add_option' in content (81x); 'here' in content (26x); 'Normal' in content (1x); 'with' in content (7x); 'Positionals' in content (6x); 'print' in content (1x); 'does' in content (1x); 'AppFormatMode' in content (4x); 'line' in content (44x); 'other' in content (22x); 'parse' in content (32x); 'Usage' in content (23x); 'Print' in content (1x); Test file penalty)
+2025-06-06 13:45:45,795 - INFO - Keyword Match: 'tests\SubcommandTest.cpp' (Score +4038.0, Reason: 'prefix_command' in content (4x); 'required' in content (26x); 'help_opt' in content (2x); 'positional' in content (5x); 'some' in content (7x); 'get' in content (102x); 'values' in content (1x); 'add_subcommand' in content (126x); 'command' in content (376x); 'command' in filename; 'Command' in content (376x); 'Command' in filename; 'what' in content (7x); 'Subcommands' in content (79x); 'code' in content (2x); 'that' in content (14x); 'each' in content (2x); 'only' in content (2x); 'parse_complete_callback' in content (14x); 'help' in content (44x); 'add_option' in content (69x); 'preparse_callback' in content (3x); 'with' in content (12x); 'Positionals' in content (3x); 'line' in content (3x); 'other' in content (21x); 'parse' in content (40x); Test file penalty)
+2025-06-06 13:45:45,795 - INFO - Keyword Match: 'include\CLI\TypeTools.hpp' (Score +3780.0, Reason: 'there' in content (2x); 'Does' in content (5x); 'expected' in content (13x); 'There' in content (2x); 'missing' in content (2x); 'some' in content (24x); 'get' in content (21x); 'output' in content (162x); 'values' in content (8x); 'what' in content (1x); 'code' in content (3x); 'following' in content (1x); 'that' in content (26x); 'only' in content (6x); 'help' in content (3x); 'expect' in content (13x); 'add_option' in content (1x); 'here' in content (12x); 'Normal' in content (1x); 'with' in content (16x); 'print' in content (8x); 'does' in content (5x); 'line' in content (12x); 'other' in content (16x); 'parse' in content (7x); 'Print' in content (8x))
+2025-06-06 13:45:45,795 - INFO - Keyword Match: 'tests\ConfigFileTest.cpp' (Score +3744.0, Reason: 'required' in content (48x); 'Does' in content (7x); 'expected' in content (19x); 'argument' in content (5x); 'positional' in content (2x); 'some' in content (25x); 'get' in content (24x); 'output' in content (256x); 'values' in content (6x); 'add_subcommand' in content (66x); 'command' in content (88x); 'Command' in content (88x); 'that' in content (138x); 'only' in content (1x); 'parse_complete_callback' in content (6x); 'help' in content (4x); 'Formatter' in content (56x); 'expect' in content (19x); 'add_option' in content (185x); 'preparse_callback' in content (2x); 'with' in content (10x); 'does' in content (7x); 'line' in content (54x); 'other' in content (91x); 'parse' in content (41x); Test file penalty)
+2025-06-06 13:45:45,796 - INFO - Keyword Match: 'include\CLI\Option.hpp' (Score +3050.0, Reason: 'Given' in content (8x); 'there' in content (1x); 'configuration' in content (4x); 'required' in content (11x); 'Does' in content (1x); 'expected' in content (30x); 'There' in content (1x); 'argument' in content (28x); 'positional' in content (11x); 'missing' in content (2x); 'get' in content (74x); 'output' in content (6x); 'executed' in content (1x); 'values' in content (11x); 'what' in content (1x); 'that' in content (15x); 'each' in content (6x); 'only' in content (6x); 'played' in content (1x); 'help' in content (6x); 'expect' in content (37x); 'here' in content (4x); 'with' in content (15x); 'print' in content (3x); 'does' in content (1x); 'line' in content (1x); 'other' in content (7x); 'parse' in content (9x); 'Usage' in content (1x); 'Print' in content (3x))
+2025-06-06 13:45:45,796 - INFO - Keyword Match: 'include\CLI\impl\Formatter_inl.hpp' (Score +3020.0, Reason: 'required' in content (11x); 'expected' in content (9x); 'positional' in content (26x); 'get' in content (82x); 'command' in content (22x); 'Command' in content (22x); 'Subcommands' in content (15x); 'following' in content (4x); 'that' in content (2x); 'each' in content (3x); 'only' in content (2x); 'make_help' in content (1x); 'help' in content (8x); 'Formatter' in content (19x); 'Formatter' in filename; 'expect' in content (9x); 'here' in content (1x); 'with' in content (1x); 'Positionals' in content (12x); 'print' in content (5x); 'AppFormatMode' in content (8x); 'line' in content (22x); 'Usage' in content (10x); 'Print' in content (5x))
+2025-06-06 13:45:45,796 - INFO - Keyword Match: 'include\CLI\Error.hpp' (Score +2690.0, Reason: 'Given' in content (5x); 'configuration' in content (1x); 'required' in content (23x); 'Does' in content (2x); 'expected' in content (15x); 'argument' in content (27x); 'positional' in content (8x); 'missing' in content (8x); 'some' in content (2x); 'get' in content (3x); 'output' in content (1x); 'values' in content (3x); 'command' in content (6x); 'Command' in content (6x); 'Subcommands' in content (1x); 'ParseError' in content (28x); 'code' in content (48x); 'following' in content (4x); 'that' in content (2x); 'above' in content (1x); 'each' in content (1x); 'only' in content (5x); 'anything' in content (1x); 'help' in content (10x); 'expect' in content (15x); 'with' in content (2x); 'Positionals' in content (1x); 'does' in content (2x); 'line' in content (3x); 'other' in content (4x); 'parse' in content (31x))
+2025-06-06 13:45:45,796 - INFO - Keyword Match: 'include\CLI\impl\Config_inl.hpp' (Score +2430.0, Reason: 'expected' in content (1x); 'argument' in content (7x); 'some' in content (2x); 'get' in content (44x); 'output' in content (42x); 'command' in content (5x); 'Command' in content (5x); 'what' in content (4x); 'Subcommands' in content (4x); 'ParseError' in content (4x); 'code' in content (5x); 'that' in content (2x); 'only' in content (2x); 'getline' in content (4x); 'expect' in content (1x); 'here' in content (1x); 'with' in content (2x); 'print' in content (4x); 'line' in content (96x); 'parse' in content (4x); 'Print' in content (4x))
+2025-06-06 13:45:45,796 - INFO - Keyword Match: 'include\CLI\impl\Option_inl.hpp' (Score +2180.0, Reason: 'required' in content (4x); 'Does' in content (1x); 'expected' in content (47x); 'argument' in content (4x); 'positional' in content (6x); 'get' in content (28x); 'values' in content (4x); 'what' in content (2x); 'following' in content (1x); 'that' in content (3x); 'each' in content (1x); 'only' in content (5x); 'help' in content (1x); 'expect' in content (47x); 'with' in content (5x); 'does' in content (1x); 'line' in content (29x); 'other' in content (29x))
+2025-06-06 13:45:45,797 - INFO - Keyword Match: 'tests\AppTest.cpp' (Score +1746.0, Reason: 'set_help_flag' in content (1x); 'required' in content (54x); 'Does' in content (2x); 'expected' in content (28x); 'argument' in content (27x); 'positional' in content (35x); 'missing' in content (3x); 'some' in content (8x); 'get' in content (19x); 'values' in content (2x); 'add_subcommand' in content (2x); 'command' in content (13x); 'Command' in content (13x); 'what' in content (6x); 'code' in content (4x); 'that' in content (27x); 'above' in content (1x); 'each' in content (9x); 'only' in content (3x); 'help' in content (11x); 'expect' in content (28x); 'add_option' in content (186x); 'here' in content (2x); 'Normal' in content (1x); 'with' in content (10x); 'Positionals' in content (15x); 'does' in content (2x); 'line' in content (13x); 'other' in content (1x); 'parse' in content (56x); Test file penalty)
+2025-06-06 13:45:45,797 - INFO - Keyword Match: 'include\CLI\FormatterFwd.hpp' (Score +1560.0, Reason: 'required' in content (3x); 'argument' in content (1x); 'positional' in content (4x); 'get' in content (13x); 'output' in content (1x); 'values' in content (1x); 'command' in content (12x); 'Command' in content (12x); 'Subcommands' in content (8x); 'that' in content (1x); 'make_help' in content (3x); 'help' in content (14x); 'Formatter' in content (32x); 'Formatter' in filename; 'Normal' in content (2x); 'with' in content (3x); 'Positionals' in content (2x); 'print' in content (12x); 'AppFormatMode' in content (8x); 'line' in content (5x); 'Usage' in content (4x); 'Print' in content (12x))
+2025-06-06 13:45:45,797 - INFO - Keyword Match: 'include\CLI\Validators.hpp' (Score +1530.0, Reason: 'Given' in content (3x); 'there' in content (4x); 'required' in content (8x); 'Does' in content (5x); 'expected' in content (1x); 'There' in content (4x); 'argument' in content (3x); 'missing' in content (1x); 'some' in content (2x); 'get' in content (15x); 'output' in content (3x); 'values' in content (8x); 'setup' in content (1x); 'command' in content (2x); 'Command' in content (2x); 'following' in content (1x); 'that' in content (14x); 'each' in content (1x); 'only' in content (9x); 'anything' in content (1x); 'help' in content (7x); 'expect' in content (1x); 'here' in content (6x); 'with' in content (19x); 'does' in content (5x); 'line' in content (11x); 'other' in content (16x))
+2025-06-06 13:45:45,797 - INFO - Keyword Match: 'fuzz\fuzzApp.cpp' (Score +1340.0, Reason: 'expected' in content (7x); 'output' in content (1x); 'add_subcommand' in content (1x); 'command' in content (1x); 'Command' in content (1x); 'help' in content (2x); 'expect' in content (7x); 'add_option' in content (70x); 'other' in content (44x))
+2025-06-06 13:45:45,801 - INFO - Core File Heuristic: 'include\CLI\App.hpp' (Matches core pattern 'app\.(h|hpp|cpp|c)' in 'root') (Score +60.0)
+2025-06-06 13:45:45,801 - INFO - Final candidate scores (path, score): [('include\\CLI\\impl\\App_inl.hpp', 15280.0), ('include\\CLI\\App.hpp', 11840.0), ('tests\\HelpTest.cpp', 4089.0), ('tests\\SubcommandTest.cpp', 4038.0), ('include\\CLI\\TypeTools.hpp', 3780.0), ('tests\\ConfigFileTest.cpp', 3744.0), ('include\\CLI\\Option.hpp', 3050.0), ('include\\CLI\\impl\\Formatter_inl.hpp', 3020.0), ('include\\CLI\\Error.hpp', 2690.0), ('include\\CLI\\impl\\Config_inl.hpp', 2430.0), ('include\\CLI\\impl\\Option_inl.hpp', 2180.0), ('tests\\AppTest.cpp', 1746.0), ('include\\CLI\\FormatterFwd.hpp', 1560.0), ('include\\CLI\\Validators.hpp', 1530.0), ('fuzz\\fuzzApp.cpp', 1340.0), ('include\\CLI\\CLI.hpp', 135.0)]
+2025-06-06 13:45:45,802 - INFO - Best candidate selected: 'include\CLI\impl\App_inl.hpp' with score 15280.0
+2025-06-06 13:45:45,802 - INFO - AI高置信度(8)选择: src\Precompile.cpp
+2025-06-06 13:45:45,802 - INFO - Collected 1 files for context. Keys: ['src\\Precompile.cpp']
+2025-06-06 13:45:45,803 - INFO - 为文件 src\Precompile.cpp 生成AI补丁...
+2025-06-06 13:45:45,803 - INFO - 使用增强prompt调用AI生成补丁...
+2025-06-06 13:45:45,803 - INFO - 发送 API 请求 (尝试 1/3)...
+2025-06-06 13:46:06,780 - INFO - 成功从 DeepSeek API 获取并提取补丁 (666 字符)
+2025-06-06 13:46:06,781 - INFO - AI补丁生成成功，完整对话历史已保存到: D:\上课资料\科研课堂\WeCode\CFix\project_data\logs\CLIUtils__CLI11-1073_20250606_134521\attempt_1\ai_conversation_history.json
+2025-06-06 13:46:06,781 - INFO - 拉取Docker镜像: dongqa930/cliutils_cli11:1073
+2025-06-06 13:46:27,729 - INFO - 尝试使用 heredoc 方法...
+2025-06-06 13:46:27,990 - INFO - 使用heredoc方法创建patch文件...
+2025-06-06 13:46:28,541 - INFO - Patch文件创建成功: 14 /home/fix.patch
+2025-06-06 13:46:28,572 - INFO - AI生成的补丁预览:
+diff --git a/include/CLI/impl/App_inl.hpp b/include/CLI/impl/App_inl.hpp
+index abc1234..def5678 100644
+--- a/include/CLI/impl/App_inl.hpp
++++ b/include/CLI/impl/App_inl.hpp
+@@ -行号,行数 +行号,行数 @@
+     // Try to find a subcommand that is a prefix match
+     auto com = _find_subcommand(name, true, subcommands.size() > 0 && !_has_remaining_positionals());
+     if(com != nullptr && (com->get_subcommand_fallthrough() || !com->get_immediate_callback())) {
++        if(!com->get_subcommand_fallthrough() && _has_remaining_positionals()) {
++            return nullptr;
+
+2025-06-06 13:46:28,573 - INFO - 运行测试脚本（fix_run.sh会自动应用测试补丁）...
+2025-06-06 13:46:38,766 - INFO - heredoc 方法执行成功
+2025-06-06 13:46:38,766 - WARNING - 尝试 1 测试失败
+2025-06-06 13:46:40,767 - INFO - 尝试 2/3
+2025-06-06 13:46:40,767 - INFO - 使用AI增强的文件定位...
+2025-06-06 13:46:40,767 - INFO - 扫描项目结构...
+2025-06-06 13:46:40,771 - INFO - 项目结构扫描完成，找到 2 个文件
+2025-06-06 13:46:40,771 - INFO - 构建AI定位prompt，长度: 12733
+2025-06-06 13:46:40,771 - INFO - 开始调用AI API...
+2025-06-06 13:46:40,772 - INFO - 执行简单API调用...
+2025-06-06 13:47:00,299 - INFO - 简单API调用成功，响应长度: 672
+2025-06-06 13:47:00,299 - INFO - AI API调用成功，开始解析响应...
+2025-06-06 13:47:00,300 - INFO - AI分析成功解析: 目标文件=src/Precompile.cpp, 置信度=8
+2025-06-06 13:47:00,300 - INFO - AI文件定位结果: {'target_file': 'src/Precompile.cpp', 'confidence': 8, 'reasoning': '从问题描述来看，这是一个关于CLI11库中子命令处理的问题，特别是关于位置参数和子命令优先级的问题。测试变更中提到了subcommand_fallthrough(false)的行为，这表明问题与子命令的解析逻辑有关。src/Precompile.cpp包含了CLI库的核心实现，特别是App_inl.hpp和Argv_inl.hpp，这些文件很可能包含子命令解析的逻辑。', 'fix_strategy': '需要在子命令解析逻辑中添加对位置参数的优先级处理，确保当subcommand_fallthrough设置为false时，位置参数不会被当作子命令处理。可以参考测试变更中的subcomNoSubComfallthrough测试用例，确保实现与之匹配的行为。', 'test_insights': '测试变更中新增了一个测试用例subcomNoSubComfallthrough，验证了当subcommand_fallthrough设置为false时，位置参数不会被当作子命令处理。这直接指向了子命令解析逻辑的问题域。', 'alternative_files': ['examples/subcommands.cpp', 'examples/subcom_help.cpp']}
+2025-06-06 13:47:00,301 - INFO - Found 10 code blocks in issue.
+2025-06-06 13:47:00,301 - INFO - Potential file references from issue: ['CLI.hpp', 'CLI.h']
+2025-06-06 13:47:00,302 - INFO - File Name Match: 'include\CLI\CLI.hpp' from 'CLI.hpp' (Score +75.0)
+2025-06-06 13:47:00,308 - INFO - Extension Variant: 'include\CLI\CLI.hpp' for 'CLI.h' (Score +60.0)
+2025-06-06 13:47:00,309 - INFO - Keywords for content search: ['shell', 'help_cmd', 'Given', 'there', 'prefix_command', 'sucommand', 'set_help_flag', 'configuration', 'required', 'Does']...
+2025-06-06 13:47:00,349 - INFO - Keyword Match: 'include\CLI\impl\App_inl.hpp' (Score +15280.0, Reason: 'Given' in content (9x); 'there' in content (7x); 'prefix_command' in content (6x); 'set_help_flag' in content (2x); 'required' in content (29x); 'expected' in content (28x); 'There' in content (7x); 'cout' in content (3x); 'argument' in content (21x); 'positional' in content (53x); 'missing' in content (38x); 'some' in content (6x); 'get' in content (241x); 'output' in content (4x); 'executed' in content (1x); 'values' in content (14x); 'add_subcommand' in content (3x); 'command' in content (215x); 'Command' in content (215x); 'what' in content (7x); 'Subcommands' in content (100x); 'ParseError' in content (1x); 'code' in content (11x); 'that' in content (6x); 'above' in content (1x); 'each' in content (2x); 'only' in content (24x); 'parse_complete_callback' in content (13x); 'make_help' in content (1x); 'anything' in content (3x); 'help' in content (89x); 'Formatter' in content (8x); 'expect' in content (28x); 'add_option' in content (7x); 'preparse_callback' in content (4x); 'here' in content (12x); 'Normal' in content (8x); 'with' in content (16x); 'flush' in content (1x); 'Positionals' in content (14x); 'print' in content (1x); 'AppFormatMode' in content (2x); 'line' in content (119x); 'other' in content (12x); 'parse' in content (133x); 'Usage' in content (2x); 'Print' in content (1x))
+2025-06-06 13:47:00,350 - INFO - Keyword Match: 'include\CLI\App.hpp' (Score +11780.0, Reason: 'Given' in content (7x); 'there' in content (6x); 'prefix_command' in content (5x); 'set_help_flag' in content (3x); 'configuration' in content (4x); 'required' in content (25x); 'Does' in content (8x); 'expected' in content (7x); 'There' in content (6x); 'cout' in content (1x); 'argument' in content (38x); 'positional' in content (26x); 'missing' in content (10x); 'some' in content (3x); 'get' in content (130x); 'output' in content (4x); 'executed' in content (2x); 'values' in content (7x); 'add_subcommand' in content (6x); 'command' in content (212x); 'Command' in content (212x); 'Subcommands' in content (43x); 'ParseError' in content (1x); 'code' in content (2x); 'that' in content (26x); 'above' in content (1x); 'each' in content (4x); 'only' in content (12x); 'parse_complete_callback' in content (4x); 'anything' in content (3x); 'help' in content (71x); 'Formatter' in content (31x); 'expect' in content (9x); 'add_option' in content (21x); 'preparse_callback' in content (1x); 'here' in content (9x); 'Normal' in content (6x); 'with' in content (20x); 'Positionals' in content (14x); 'print' in content (9x); 'does' in content (8x); 'AppFormatMode' in content (3x); 'line' in content (27x); 'other' in content (14x); 'parse' in content (88x); 'Usage' in content (20x); 'Print' in content (9x))
+2025-06-06 13:47:00,350 - INFO - Keyword Match: 'tests\HelpTest.cpp' (Score +4089.0, Reason: 'set_help_flag' in content (8x); 'required' in content (8x); 'Does' in content (1x); 'expected' in content (3x); 'help_opt' in content (2x); 'positional' in content (14x); 'some' in content (54x); 'get' in content (54x); 'output' in content (2x); 'add_subcommand' in content (12x); 'command' in content (26x); 'Command' in content (26x); 'what' in content (1x); 'Subcommands' in content (1x); 'ParseError' in content (5x); 'code' in content (23x); 'that' in content (198x); 'only' in content (3x); 'help' in content (648x); 'help' in filename; 'Formatter' in content (19x); 'expect' in content (3x); 'add_option' in content (81x); 'here' in content (26x); 'Normal' in content (1x); 'with' in content (7x); 'Positionals' in content (6x); 'print' in content (1x); 'does' in content (1x); 'AppFormatMode' in content (4x); 'line' in content (44x); 'other' in content (22x); 'parse' in content (32x); 'Usage' in content (23x); 'Print' in content (1x); Test file penalty)
+2025-06-06 13:47:00,350 - INFO - Keyword Match: 'tests\SubcommandTest.cpp' (Score +4038.0, Reason: 'prefix_command' in content (4x); 'required' in content (26x); 'help_opt' in content (2x); 'positional' in content (5x); 'some' in content (7x); 'get' in content (102x); 'values' in content (1x); 'add_subcommand' in content (126x); 'command' in content (376x); 'command' in filename; 'Command' in content (376x); 'Command' in filename; 'what' in content (7x); 'Subcommands' in content (79x); 'code' in content (2x); 'that' in content (14x); 'each' in content (2x); 'only' in content (2x); 'parse_complete_callback' in content (14x); 'help' in content (44x); 'add_option' in content (69x); 'preparse_callback' in content (3x); 'with' in content (12x); 'Positionals' in content (3x); 'line' in content (3x); 'other' in content (21x); 'parse' in content (40x); Test file penalty)
+2025-06-06 13:47:00,350 - INFO - Keyword Match: 'include\CLI\TypeTools.hpp' (Score +3780.0, Reason: 'there' in content (2x); 'Does' in content (5x); 'expected' in content (13x); 'There' in content (2x); 'missing' in content (2x); 'some' in content (24x); 'get' in content (21x); 'output' in content (162x); 'values' in content (8x); 'what' in content (1x); 'code' in content (3x); 'following' in content (1x); 'that' in content (26x); 'only' in content (6x); 'help' in content (3x); 'expect' in content (13x); 'add_option' in content (1x); 'here' in content (12x); 'Normal' in content (1x); 'with' in content (16x); 'print' in content (8x); 'does' in content (5x); 'line' in content (12x); 'other' in content (16x); 'parse' in content (7x); 'Print' in content (8x))
+2025-06-06 13:47:00,351 - INFO - Keyword Match: 'tests\ConfigFileTest.cpp' (Score +3744.0, Reason: 'required' in content (48x); 'Does' in content (7x); 'expected' in content (19x); 'argument' in content (5x); 'positional' in content (2x); 'some' in content (25x); 'get' in content (24x); 'output' in content (256x); 'values' in content (6x); 'add_subcommand' in content (66x); 'command' in content (88x); 'Command' in content (88x); 'that' in content (138x); 'only' in content (1x); 'parse_complete_callback' in content (6x); 'help' in content (4x); 'Formatter' in content (56x); 'expect' in content (19x); 'add_option' in content (185x); 'preparse_callback' in content (2x); 'with' in content (10x); 'does' in content (7x); 'line' in content (54x); 'other' in content (91x); 'parse' in content (41x); Test file penalty)
+2025-06-06 13:47:00,351 - INFO - Keyword Match: 'include\CLI\Option.hpp' (Score +3050.0, Reason: 'Given' in content (8x); 'there' in content (1x); 'configuration' in content (4x); 'required' in content (11x); 'Does' in content (1x); 'expected' in content (30x); 'There' in content (1x); 'argument' in content (28x); 'positional' in content (11x); 'missing' in content (2x); 'get' in content (74x); 'output' in content (6x); 'executed' in content (1x); 'values' in content (11x); 'what' in content (1x); 'that' in content (15x); 'each' in content (6x); 'only' in content (6x); 'played' in content (1x); 'help' in content (6x); 'expect' in content (37x); 'here' in content (4x); 'with' in content (15x); 'print' in content (3x); 'does' in content (1x); 'line' in content (1x); 'other' in content (7x); 'parse' in content (9x); 'Usage' in content (1x); 'Print' in content (3x))
+2025-06-06 13:47:00,351 - INFO - Keyword Match: 'include\CLI\impl\Formatter_inl.hpp' (Score +3020.0, Reason: 'required' in content (11x); 'expected' in content (9x); 'positional' in content (26x); 'get' in content (82x); 'command' in content (22x); 'Command' in content (22x); 'Subcommands' in content (15x); 'following' in content (4x); 'that' in content (2x); 'each' in content (3x); 'only' in content (2x); 'make_help' in content (1x); 'help' in content (8x); 'Formatter' in content (19x); 'Formatter' in filename; 'expect' in content (9x); 'here' in content (1x); 'with' in content (1x); 'Positionals' in content (12x); 'print' in content (5x); 'AppFormatMode' in content (8x); 'line' in content (22x); 'Usage' in content (10x); 'Print' in content (5x))
+2025-06-06 13:47:00,352 - INFO - Keyword Match: 'include\CLI\Error.hpp' (Score +2690.0, Reason: 'Given' in content (5x); 'configuration' in content (1x); 'required' in content (23x); 'Does' in content (2x); 'expected' in content (15x); 'argument' in content (27x); 'positional' in content (8x); 'missing' in content (8x); 'some' in content (2x); 'get' in content (3x); 'output' in content (1x); 'values' in content (3x); 'command' in content (6x); 'Command' in content (6x); 'Subcommands' in content (1x); 'ParseError' in content (28x); 'code' in content (48x); 'following' in content (4x); 'that' in content (2x); 'above' in content (1x); 'each' in content (1x); 'only' in content (5x); 'anything' in content (1x); 'help' in content (10x); 'expect' in content (15x); 'with' in content (2x); 'Positionals' in content (1x); 'does' in content (2x); 'line' in content (3x); 'other' in content (4x); 'parse' in content (31x))
+2025-06-06 13:47:00,352 - INFO - Keyword Match: 'include\CLI\impl\Config_inl.hpp' (Score +2430.0, Reason: 'expected' in content (1x); 'argument' in content (7x); 'some' in content (2x); 'get' in content (44x); 'output' in content (42x); 'command' in content (5x); 'Command' in content (5x); 'what' in content (4x); 'Subcommands' in content (4x); 'ParseError' in content (4x); 'code' in content (5x); 'that' in content (2x); 'only' in content (2x); 'getline' in content (4x); 'expect' in content (1x); 'here' in content (1x); 'with' in content (2x); 'print' in content (4x); 'line' in content (96x); 'parse' in content (4x); 'Print' in content (4x))
+2025-06-06 13:47:00,352 - INFO - Keyword Match: 'include\CLI\impl\Option_inl.hpp' (Score +2180.0, Reason: 'required' in content (4x); 'Does' in content (1x); 'expected' in content (47x); 'argument' in content (4x); 'positional' in content (6x); 'get' in content (28x); 'values' in content (4x); 'what' in content (2x); 'following' in content (1x); 'that' in content (3x); 'each' in content (1x); 'only' in content (5x); 'help' in content (1x); 'expect' in content (47x); 'with' in content (5x); 'does' in content (1x); 'line' in content (29x); 'other' in content (29x))
+2025-06-06 13:47:00,352 - INFO - Keyword Match: 'tests\AppTest.cpp' (Score +1746.0, Reason: 'set_help_flag' in content (1x); 'required' in content (54x); 'Does' in content (2x); 'expected' in content (28x); 'argument' in content (27x); 'positional' in content (35x); 'missing' in content (3x); 'some' in content (8x); 'get' in content (19x); 'values' in content (2x); 'add_subcommand' in content (2x); 'command' in content (13x); 'Command' in content (13x); 'what' in content (6x); 'code' in content (4x); 'that' in content (27x); 'above' in content (1x); 'each' in content (9x); 'only' in content (3x); 'help' in content (11x); 'expect' in content (28x); 'add_option' in content (186x); 'here' in content (2x); 'Normal' in content (1x); 'with' in content (10x); 'Positionals' in content (15x); 'does' in content (2x); 'line' in content (13x); 'other' in content (1x); 'parse' in content (56x); Test file penalty)
+2025-06-06 13:47:00,353 - INFO - Keyword Match: 'include\CLI\FormatterFwd.hpp' (Score +1560.0, Reason: 'required' in content (3x); 'argument' in content (1x); 'positional' in content (4x); 'get' in content (13x); 'output' in content (1x); 'values' in content (1x); 'command' in content (12x); 'Command' in content (12x); 'Subcommands' in content (8x); 'that' in content (1x); 'make_help' in content (3x); 'help' in content (14x); 'Formatter' in content (32x); 'Formatter' in filename; 'Normal' in content (2x); 'with' in content (3x); 'Positionals' in content (2x); 'print' in content (12x); 'AppFormatMode' in content (8x); 'line' in content (5x); 'Usage' in content (4x); 'Print' in content (12x))
+2025-06-06 13:47:00,353 - INFO - Keyword Match: 'include\CLI\Validators.hpp' (Score +1530.0, Reason: 'Given' in content (3x); 'there' in content (4x); 'required' in content (8x); 'Does' in content (5x); 'expected' in content (1x); 'There' in content (4x); 'argument' in content (3x); 'missing' in content (1x); 'some' in content (2x); 'get' in content (15x); 'output' in content (3x); 'values' in content (8x); 'setup' in content (1x); 'command' in content (2x); 'Command' in content (2x); 'following' in content (1x); 'that' in content (14x); 'each' in content (1x); 'only' in content (9x); 'anything' in content (1x); 'help' in content (7x); 'expect' in content (1x); 'here' in content (6x); 'with' in content (19x); 'does' in content (5x); 'line' in content (11x); 'other' in content (16x))
+2025-06-06 13:47:00,353 - INFO - Keyword Match: 'fuzz\fuzzApp.cpp' (Score +1340.0, Reason: 'expected' in content (7x); 'output' in content (1x); 'add_subcommand' in content (1x); 'command' in content (1x); 'Command' in content (1x); 'help' in content (2x); 'expect' in content (7x); 'add_option' in content (70x); 'other' in content (44x))
+2025-06-06 13:47:00,356 - INFO - Core File Heuristic: 'include\CLI\App.hpp' (Matches core pattern 'app\.(h|hpp|cpp|c)' in 'root') (Score +60.0)
+2025-06-06 13:47:00,356 - INFO - Final candidate scores (path, score): [('include\\CLI\\impl\\App_inl.hpp', 15280.0), ('include\\CLI\\App.hpp', 11840.0), ('tests\\HelpTest.cpp', 4089.0), ('tests\\SubcommandTest.cpp', 4038.0), ('include\\CLI\\TypeTools.hpp', 3780.0), ('tests\\ConfigFileTest.cpp', 3744.0), ('include\\CLI\\Option.hpp', 3050.0), ('include\\CLI\\impl\\Formatter_inl.hpp', 3020.0), ('include\\CLI\\Error.hpp', 2690.0), ('include\\CLI\\impl\\Config_inl.hpp', 2430.0), ('include\\CLI\\impl\\Option_inl.hpp', 2180.0), ('tests\\AppTest.cpp', 1746.0), ('include\\CLI\\FormatterFwd.hpp', 1560.0), ('include\\CLI\\Validators.hpp', 1530.0), ('fuzz\\fuzzApp.cpp', 1340.0), ('include\\CLI\\CLI.hpp', 135.0)]
+2025-06-06 13:47:00,356 - INFO - Best candidate selected: 'include\CLI\impl\App_inl.hpp' with score 15280.0
+2025-06-06 13:47:00,356 - INFO - AI高置信度(8)选择: src\Precompile.cpp
+2025-06-06 13:47:00,357 - INFO - Collected 1 files for context. Keys: ['src\\Precompile.cpp']
+2025-06-06 13:47:00,357 - INFO - 为文件 src\Precompile.cpp 生成AI补丁...
+2025-06-06 13:47:00,357 - INFO - 使用增强prompt调用AI生成补丁...
+2025-06-06 13:47:00,357 - INFO - 发送 API 请求 (尝试 1/3)...
+2025-06-06 13:47:24,224 - INFO - 成功从 DeepSeek API 获取并提取补丁 (1161 字符)
+2025-06-06 13:47:24,226 - INFO - AI补丁生成成功，完整对话历史已保存到: D:\上课资料\科研课堂\WeCode\CFix\project_data\logs\CLIUtils__CLI11-1073_20250606_134521\attempt_2\ai_conversation_history.json
+2025-06-06 13:47:24,226 - INFO - 拉取Docker镜像: dongqa930/cliutils_cli11:1073
+2025-06-06 13:47:36,291 - INFO - 尝试使用 heredoc 方法...
+2025-06-06 13:47:36,539 - INFO - 使用heredoc方法创建patch文件...
+2025-06-06 13:47:46,883 - ERROR - Heredoc方法异常: No closing quotation
+2025-06-06 13:47:46,883 - WARNING - heredoc 方法返回None，尝试下一种方法
+2025-06-06 13:47:46,883 - INFO - 尝试使用 base64 方法...
+2025-06-06 13:47:47,112 - INFO - 使用base64编码方法创建patch文件...
+2025-06-06 13:47:47,240 - ERROR - base64解码失败: base64: extra operand '>'
+Try 'base64 --help' for more information.
+
+2025-06-06 13:47:57,392 - WARNING - base64 方法返回None，尝试下一种方法
+2025-06-06 13:47:57,392 - ERROR - Docker测试完全失败: 所有Docker测试方法都失败了
+2025-06-06 13:47:57,392 - WARNING - 尝试 2 测试失败
+2025-06-06 13:47:59,393 - INFO - 尝试 3/3
+2025-06-06 13:47:59,394 - INFO - 使用AI增强的文件定位...
+2025-06-06 13:47:59,394 - INFO - 扫描项目结构...
+2025-06-06 13:47:59,398 - INFO - 项目结构扫描完成，找到 2 个文件
+2025-06-06 13:47:59,398 - INFO - 构建AI定位prompt，长度: 12733
+2025-06-06 13:47:59,398 - INFO - 开始调用AI API...
+2025-06-06 13:47:59,398 - INFO - 执行简单API调用...
+2025-06-06 13:48:18,762 - INFO - 简单API调用成功，响应长度: 691
+2025-06-06 13:48:18,762 - INFO - AI API调用成功，开始解析响应...
+2025-06-06 13:48:18,762 - INFO - AI分析成功解析: 目标文件=src/Precompile.cpp, 置信度=8
+2025-06-06 13:48:18,762 - INFO - AI文件定位结果: {'target_file': 'src/Precompile.cpp', 'confidence': 8, 'reasoning': '1. 问题描述涉及CLI11库中子命令和位置参数的处理逻辑，这是核心功能\n2. 测试变更中新增了subcomNoSubComfallthrough测试用例，验证子命令不传递参数的行为\n3. 问题与子命令解析和参数处理直接相关，这是CLI库的核心功能\n4. Precompile.cpp包含了App_inl.hpp和Argv_inl.hpp的实现，这些是实现子命令处理的关键文件\n5. 虽然问题表现是在使用层面，但根本原因在于子命令解析的底层实现', 'fix_strategy': '1. 在子命令处理逻辑中添加对位置参数的优先级检查\n2. 当子命令设置了subcommand_fallthrough(false)时，强制将后续参数视为位置参数而非子命令\n3. 修改参数解析流程，确保位置参数优先于子命令匹配', 'test_insights': '1. 新增的测试用例验证了子命令不传递参数的行为\n2. 测试明确检查了subcommand_fallthrough(false)的效果\n3. 测试验证了位置参数应被正确捕获而非作为子命令处理', 'alternative_files': ['examples/subcommands.cpp', 'examples/prefix_command.cpp']}
+2025-06-06 13:48:18,763 - INFO - Found 10 code blocks in issue.
+2025-06-06 13:48:18,763 - INFO - Potential file references from issue: ['CLI.hpp', 'CLI.h']
+2025-06-06 13:48:18,764 - INFO - File Name Match: 'include\CLI\CLI.hpp' from 'CLI.hpp' (Score +75.0)
+2025-06-06 13:48:18,769 - INFO - Extension Variant: 'include\CLI\CLI.hpp' for 'CLI.h' (Score +60.0)
+2025-06-06 13:48:18,770 - INFO - Keywords for content search: ['shell', 'help_cmd', 'Given', 'there', 'prefix_command', 'sucommand', 'set_help_flag', 'configuration', 'required', 'Does']...
+2025-06-06 13:48:18,812 - INFO - Keyword Match: 'include\CLI\impl\App_inl.hpp' (Score +15280.0, Reason: 'Given' in content (9x); 'there' in content (7x); 'prefix_command' in content (6x); 'set_help_flag' in content (2x); 'required' in content (29x); 'expected' in content (28x); 'There' in content (7x); 'cout' in content (3x); 'argument' in content (21x); 'positional' in content (53x); 'missing' in content (38x); 'some' in content (6x); 'get' in content (241x); 'output' in content (4x); 'executed' in content (1x); 'values' in content (14x); 'add_subcommand' in content (3x); 'command' in content (215x); 'Command' in content (215x); 'what' in content (7x); 'Subcommands' in content (100x); 'ParseError' in content (1x); 'code' in content (11x); 'that' in content (6x); 'above' in content (1x); 'each' in content (2x); 'only' in content (24x); 'parse_complete_callback' in content (13x); 'make_help' in content (1x); 'anything' in content (3x); 'help' in content (89x); 'Formatter' in content (8x); 'expect' in content (28x); 'add_option' in content (7x); 'preparse_callback' in content (4x); 'here' in content (12x); 'Normal' in content (8x); 'with' in content (16x); 'flush' in content (1x); 'Positionals' in content (14x); 'print' in content (1x); 'AppFormatMode' in content (2x); 'line' in content (119x); 'other' in content (12x); 'parse' in content (133x); 'Usage' in content (2x); 'Print' in content (1x))
+2025-06-06 13:48:18,812 - INFO - Keyword Match: 'include\CLI\App.hpp' (Score +11780.0, Reason: 'Given' in content (7x); 'there' in content (6x); 'prefix_command' in content (5x); 'set_help_flag' in content (3x); 'configuration' in content (4x); 'required' in content (25x); 'Does' in content (8x); 'expected' in content (7x); 'There' in content (6x); 'cout' in content (1x); 'argument' in content (38x); 'positional' in content (26x); 'missing' in content (10x); 'some' in content (3x); 'get' in content (130x); 'output' in content (4x); 'executed' in content (2x); 'values' in content (7x); 'add_subcommand' in content (6x); 'command' in content (212x); 'Command' in content (212x); 'Subcommands' in content (43x); 'ParseError' in content (1x); 'code' in content (2x); 'that' in content (26x); 'above' in content (1x); 'each' in content (4x); 'only' in content (12x); 'parse_complete_callback' in content (4x); 'anything' in content (3x); 'help' in content (71x); 'Formatter' in content (31x); 'expect' in content (9x); 'add_option' in content (21x); 'preparse_callback' in content (1x); 'here' in content (9x); 'Normal' in content (6x); 'with' in content (20x); 'Positionals' in content (14x); 'print' in content (9x); 'does' in content (8x); 'AppFormatMode' in content (3x); 'line' in content (27x); 'other' in content (14x); 'parse' in content (88x); 'Usage' in content (20x); 'Print' in content (9x))
+2025-06-06 13:48:18,813 - INFO - Keyword Match: 'tests\HelpTest.cpp' (Score +4089.0, Reason: 'set_help_flag' in content (8x); 'required' in content (8x); 'Does' in content (1x); 'expected' in content (3x); 'help_opt' in content (2x); 'positional' in content (14x); 'some' in content (54x); 'get' in content (54x); 'output' in content (2x); 'add_subcommand' in content (12x); 'command' in content (26x); 'Command' in content (26x); 'what' in content (1x); 'Subcommands' in content (1x); 'ParseError' in content (5x); 'code' in content (23x); 'that' in content (198x); 'only' in content (3x); 'help' in content (648x); 'help' in filename; 'Formatter' in content (19x); 'expect' in content (3x); 'add_option' in content (81x); 'here' in content (26x); 'Normal' in content (1x); 'with' in content (7x); 'Positionals' in content (6x); 'print' in content (1x); 'does' in content (1x); 'AppFormatMode' in content (4x); 'line' in content (44x); 'other' in content (22x); 'parse' in content (32x); 'Usage' in content (23x); 'Print' in content (1x); Test file penalty)
+2025-06-06 13:48:18,813 - INFO - Keyword Match: 'tests\SubcommandTest.cpp' (Score +4038.0, Reason: 'prefix_command' in content (4x); 'required' in content (26x); 'help_opt' in content (2x); 'positional' in content (5x); 'some' in content (7x); 'get' in content (102x); 'values' in content (1x); 'add_subcommand' in content (126x); 'command' in content (376x); 'command' in filename; 'Command' in content (376x); 'Command' in filename; 'what' in content (7x); 'Subcommands' in content (79x); 'code' in content (2x); 'that' in content (14x); 'each' in content (2x); 'only' in content (2x); 'parse_complete_callback' in content (14x); 'help' in content (44x); 'add_option' in content (69x); 'preparse_callback' in content (3x); 'with' in content (12x); 'Positionals' in content (3x); 'line' in content (3x); 'other' in content (21x); 'parse' in content (40x); Test file penalty)
+2025-06-06 13:48:18,813 - INFO - Keyword Match: 'include\CLI\TypeTools.hpp' (Score +3780.0, Reason: 'there' in content (2x); 'Does' in content (5x); 'expected' in content (13x); 'There' in content (2x); 'missing' in content (2x); 'some' in content (24x); 'get' in content (21x); 'output' in content (162x); 'values' in content (8x); 'what' in content (1x); 'code' in content (3x); 'following' in content (1x); 'that' in content (26x); 'only' in content (6x); 'help' in content (3x); 'expect' in content (13x); 'add_option' in content (1x); 'here' in content (12x); 'Normal' in content (1x); 'with' in content (16x); 'print' in content (8x); 'does' in content (5x); 'line' in content (12x); 'other' in content (16x); 'parse' in content (7x); 'Print' in content (8x))
+2025-06-06 13:48:18,814 - INFO - Keyword Match: 'tests\ConfigFileTest.cpp' (Score +3744.0, Reason: 'required' in content (48x); 'Does' in content (7x); 'expected' in content (19x); 'argument' in content (5x); 'positional' in content (2x); 'some' in content (25x); 'get' in content (24x); 'output' in content (256x); 'values' in content (6x); 'add_subcommand' in content (66x); 'command' in content (88x); 'Command' in content (88x); 'that' in content (138x); 'only' in content (1x); 'parse_complete_callback' in content (6x); 'help' in content (4x); 'Formatter' in content (56x); 'expect' in content (19x); 'add_option' in content (185x); 'preparse_callback' in content (2x); 'with' in content (10x); 'does' in content (7x); 'line' in content (54x); 'other' in content (91x); 'parse' in content (41x); Test file penalty)
+2025-06-06 13:48:18,814 - INFO - Keyword Match: 'include\CLI\Option.hpp' (Score +3050.0, Reason: 'Given' in content (8x); 'there' in content (1x); 'configuration' in content (4x); 'required' in content (11x); 'Does' in content (1x); 'expected' in content (30x); 'There' in content (1x); 'argument' in content (28x); 'positional' in content (11x); 'missing' in content (2x); 'get' in content (74x); 'output' in content (6x); 'executed' in content (1x); 'values' in content (11x); 'what' in content (1x); 'that' in content (15x); 'each' in content (6x); 'only' in content (6x); 'played' in content (1x); 'help' in content (6x); 'expect' in content (37x); 'here' in content (4x); 'with' in content (15x); 'print' in content (3x); 'does' in content (1x); 'line' in content (1x); 'other' in content (7x); 'parse' in content (9x); 'Usage' in content (1x); 'Print' in content (3x))
+2025-06-06 13:48:18,814 - INFO - Keyword Match: 'include\CLI\impl\Formatter_inl.hpp' (Score +3020.0, Reason: 'required' in content (11x); 'expected' in content (9x); 'positional' in content (26x); 'get' in content (82x); 'command' in content (22x); 'Command' in content (22x); 'Subcommands' in content (15x); 'following' in content (4x); 'that' in content (2x); 'each' in content (3x); 'only' in content (2x); 'make_help' in content (1x); 'help' in content (8x); 'Formatter' in content (19x); 'Formatter' in filename; 'expect' in content (9x); 'here' in content (1x); 'with' in content (1x); 'Positionals' in content (12x); 'print' in content (5x); 'AppFormatMode' in content (8x); 'line' in content (22x); 'Usage' in content (10x); 'Print' in content (5x))
+2025-06-06 13:48:18,815 - INFO - Keyword Match: 'include\CLI\Error.hpp' (Score +2690.0, Reason: 'Given' in content (5x); 'configuration' in content (1x); 'required' in content (23x); 'Does' in content (2x); 'expected' in content (15x); 'argument' in content (27x); 'positional' in content (8x); 'missing' in content (8x); 'some' in content (2x); 'get' in content (3x); 'output' in content (1x); 'values' in content (3x); 'command' in content (6x); 'Command' in content (6x); 'Subcommands' in content (1x); 'ParseError' in content (28x); 'code' in content (48x); 'following' in content (4x); 'that' in content (2x); 'above' in content (1x); 'each' in content (1x); 'only' in content (5x); 'anything' in content (1x); 'help' in content (10x); 'expect' in content (15x); 'with' in content (2x); 'Positionals' in content (1x); 'does' in content (2x); 'line' in content (3x); 'other' in content (4x); 'parse' in content (31x))
+2025-06-06 13:48:18,815 - INFO - Keyword Match: 'include\CLI\impl\Config_inl.hpp' (Score +2430.0, Reason: 'expected' in content (1x); 'argument' in content (7x); 'some' in content (2x); 'get' in content (44x); 'output' in content (42x); 'command' in content (5x); 'Command' in content (5x); 'what' in content (4x); 'Subcommands' in content (4x); 'ParseError' in content (4x); 'code' in content (5x); 'that' in content (2x); 'only' in content (2x); 'getline' in content (4x); 'expect' in content (1x); 'here' in content (1x); 'with' in content (2x); 'print' in content (4x); 'line' in content (96x); 'parse' in content (4x); 'Print' in content (4x))
+2025-06-06 13:48:18,815 - INFO - Keyword Match: 'include\CLI\impl\Option_inl.hpp' (Score +2180.0, Reason: 'required' in content (4x); 'Does' in content (1x); 'expected' in content (47x); 'argument' in content (4x); 'positional' in content (6x); 'get' in content (28x); 'values' in content (4x); 'what' in content (2x); 'following' in content (1x); 'that' in content (3x); 'each' in content (1x); 'only' in content (5x); 'help' in content (1x); 'expect' in content (47x); 'with' in content (5x); 'does' in content (1x); 'line' in content (29x); 'other' in content (29x))
+2025-06-06 13:48:18,815 - INFO - Keyword Match: 'tests\AppTest.cpp' (Score +1746.0, Reason: 'set_help_flag' in content (1x); 'required' in content (54x); 'Does' in content (2x); 'expected' in content (28x); 'argument' in content (27x); 'positional' in content (35x); 'missing' in content (3x); 'some' in content (8x); 'get' in content (19x); 'values' in content (2x); 'add_subcommand' in content (2x); 'command' in content (13x); 'Command' in content (13x); 'what' in content (6x); 'code' in content (4x); 'that' in content (27x); 'above' in content (1x); 'each' in content (9x); 'only' in content (3x); 'help' in content (11x); 'expect' in content (28x); 'add_option' in content (186x); 'here' in content (2x); 'Normal' in content (1x); 'with' in content (10x); 'Positionals' in content (15x); 'does' in content (2x); 'line' in content (13x); 'other' in content (1x); 'parse' in content (56x); Test file penalty)
+2025-06-06 13:48:18,815 - INFO - Keyword Match: 'include\CLI\FormatterFwd.hpp' (Score +1560.0, Reason: 'required' in content (3x); 'argument' in content (1x); 'positional' in content (4x); 'get' in content (13x); 'output' in content (1x); 'values' in content (1x); 'command' in content (12x); 'Command' in content (12x); 'Subcommands' in content (8x); 'that' in content (1x); 'make_help' in content (3x); 'help' in content (14x); 'Formatter' in content (32x); 'Formatter' in filename; 'Normal' in content (2x); 'with' in content (3x); 'Positionals' in content (2x); 'print' in content (12x); 'AppFormatMode' in content (8x); 'line' in content (5x); 'Usage' in content (4x); 'Print' in content (12x))
+2025-06-06 13:48:18,816 - INFO - Keyword Match: 'include\CLI\Validators.hpp' (Score +1530.0, Reason: 'Given' in content (3x); 'there' in content (4x); 'required' in content (8x); 'Does' in content (5x); 'expected' in content (1x); 'There' in content (4x); 'argument' in content (3x); 'missing' in content (1x); 'some' in content (2x); 'get' in content (15x); 'output' in content (3x); 'values' in content (8x); 'setup' in content (1x); 'command' in content (2x); 'Command' in content (2x); 'following' in content (1x); 'that' in content (14x); 'each' in content (1x); 'only' in content (9x); 'anything' in content (1x); 'help' in content (7x); 'expect' in content (1x); 'here' in content (6x); 'with' in content (19x); 'does' in content (5x); 'line' in content (11x); 'other' in content (16x))
+2025-06-06 13:48:18,816 - INFO - Keyword Match: 'fuzz\fuzzApp.cpp' (Score +1340.0, Reason: 'expected' in content (7x); 'output' in content (1x); 'add_subcommand' in content (1x); 'command' in content (1x); 'Command' in content (1x); 'help' in content (2x); 'expect' in content (7x); 'add_option' in content (70x); 'other' in content (44x))
+2025-06-06 13:48:18,819 - INFO - Core File Heuristic: 'include\CLI\App.hpp' (Matches core pattern 'app\.(h|hpp|cpp|c)' in 'root') (Score +60.0)
+2025-06-06 13:48:18,819 - INFO - Final candidate scores (path, score): [('include\\CLI\\impl\\App_inl.hpp', 15280.0), ('include\\CLI\\App.hpp', 11840.0), ('tests\\HelpTest.cpp', 4089.0), ('tests\\SubcommandTest.cpp', 4038.0), ('include\\CLI\\TypeTools.hpp', 3780.0), ('tests\\ConfigFileTest.cpp', 3744.0), ('include\\CLI\\Option.hpp', 3050.0), ('include\\CLI\\impl\\Formatter_inl.hpp', 3020.0), ('include\\CLI\\Error.hpp', 2690.0), ('include\\CLI\\impl\\Config_inl.hpp', 2430.0), ('include\\CLI\\impl\\Option_inl.hpp', 2180.0), ('tests\\AppTest.cpp', 1746.0), ('include\\CLI\\FormatterFwd.hpp', 1560.0), ('include\\CLI\\Validators.hpp', 1530.0), ('fuzz\\fuzzApp.cpp', 1340.0), ('include\\CLI\\CLI.hpp', 135.0)]
+2025-06-06 13:48:18,819 - INFO - Best candidate selected: 'include\CLI\impl\App_inl.hpp' with score 15280.0
+2025-06-06 13:48:18,820 - INFO - AI高置信度(8)选择: src\Precompile.cpp
+2025-06-06 13:48:18,820 - INFO - Collected 1 files for context. Keys: ['src\\Precompile.cpp']
+2025-06-06 13:48:18,820 - INFO - 为文件 src\Precompile.cpp 生成AI补丁...
+2025-06-06 13:48:18,820 - INFO - 使用增强prompt调用AI生成补丁...
+2025-06-06 13:48:18,821 - INFO - 发送 API 请求 (尝试 1/3)...
+2025-06-06 13:48:46,341 - INFO - 成功从 DeepSeek API 获取并提取补丁 (633 字符)
+2025-06-06 13:48:46,342 - INFO - AI补丁生成成功，完整对话历史已保存到: D:\上课资料\科研课堂\WeCode\CFix\project_data\logs\CLIUtils__CLI11-1073_20250606_134521\attempt_3\ai_conversation_history.json
+2025-06-06 13:48:46,342 - INFO - 拉取Docker镜像: dongqa930/cliutils_cli11:1073
+2025-06-06 13:49:04,068 - INFO - 尝试使用 heredoc 方法...
+2025-06-06 13:49:04,337 - INFO - 使用heredoc方法创建patch文件...
+2025-06-06 13:49:04,934 - INFO - Patch文件创建成功: 16 /home/fix.patch
+2025-06-06 13:49:04,972 - INFO - AI生成的补丁预览:
+diff --git a/include/CLI/impl/App_inl.hpp b/include/CLI/impl/App_inl.hpp
+index abc1234..def5678 100644
+--- a/include/CLI/impl/App_inl.hpp
++++ b/include/CLI/impl/App_inl.hpp
+@@ -1233,6 +1233,10 @@ inline App *App::_parse_subcommand(std::vector<std::string> &args) {
+             if(!sub->get_required()) {
+                 _move_to_missing(sub);
+             }
+         } else {
++            if(!sub->get_subcommand_fallthrough() && !sub->_remaining.empty()) {
+
+2025-06-06 13:49:04,972 - INFO - 运行测试脚本（fix_run.sh会自动应用测试补丁）...
+2025-06-06 13:49:15,176 - INFO - heredoc 方法执行成功
+2025-06-06 13:49:15,176 - WARNING - 尝试 3 测试失败
+2025-06-06 13:49:15,177 - INFO - 结果已保存到 D:\上课资料\科研课堂\WeCode\CFix\project_data\results\execution_results.json
+2025-06-06 13:49:15,177 - INFO - ==================================================
+2025-06-06 13:49:15,177 - INFO - 执行完成!
+2025-06-06 13:49:15,177 - INFO - 总实例数: 1
+2025-06-06 13:49:15,178 - INFO - 成功: 0 (0.0%)
+2025-06-06 13:49:15,178 - INFO - 失败: 1 (100.0%)
+2025-06-06 13:49:15,178 - INFO - 日志目录: D:\上课资料\科研课堂\WeCode\CFix\project_data\logs
+2025-06-06 13:49:15,178 - INFO - 结果目录: D:\上课资料\科研课堂\WeCode\CFix\project_data\results
+2025-06-06 13:49:15,178 - INFO - 轨迹目录: D:\上课资料\科研课堂\WeCode\CFix\project_data\trajs
+2025-06-06 13:49:15,178 - INFO - ==================================================
+2025-06-06 14:01:27,290 - INFO - 将处理以下数据集文件: ['dataset\\test_c.jsonl', 'dataset\\test_cpp.jsonl']
+2025-06-06 14:01:27,291 - INFO - 项目数据目录: D:\上课资料\科研课堂\WeCode\CFix\project_data
+2025-06-06 14:01:27,298 - INFO - Docker客户端初始化成功
+2025-06-06 14:01:27,300 - INFO - 成功加载 8 个实例从 dataset\test_c.jsonl
+2025-06-06 14:01:27,300 - INFO - 成功加载 7 个实例从 dataset\test_cpp.jsonl
+2025-06-06 14:01:27,300 - INFO - 过滤后只处理实例: redis__hiredis-819
+2025-06-06 14:01:27,300 - INFO - 处理实例: redis__hiredis-819 (redis/hiredis)
+2025-06-06 14:01:27,301 - INFO - 仓库目录已存在: D:\上课资料\科研课堂\WeCode\CFix\project_data\repositories\redis_hiredis
+2025-06-06 14:01:27,337 - INFO - 检测到有效的git仓库，尝试更新...
+2025-06-06 14:01:31,563 - INFO - 成功更新仓库
+2025-06-06 14:01:31,563 - INFO - 切换到commit c8999c66024b0de347adecb774d14963c08a66db
+2025-06-06 14:01:31,602 - INFO - 成功重用现有仓库
+2025-06-06 14:01:31,602 - INFO - 尝试 1/3
+2025-06-06 14:01:31,602 - INFO - 使用AI增强的文件定位...
+2025-06-06 14:01:31,603 - INFO - 扫描项目结构...
+2025-06-06 14:01:31,605 - INFO - 项目结构扫描完成，找到 1 个文件
+2025-06-06 14:01:31,605 - INFO - 构建AI定位prompt，长度: 9178
+2025-06-06 14:01:31,606 - INFO - 开始调用AI API...
+2025-06-06 14:01:31,606 - INFO - 执行简单API调用...
+2025-06-06 14:01:48,610 - INFO - 简单API调用成功，响应长度: 593
+2025-06-06 14:01:48,610 - INFO - AI API调用成功，开始解析响应...
+2025-06-06 14:01:48,611 - INFO - AI分析成功解析: 目标文件=read.c, 置信度=9
+2025-06-06 14:01:48,611 - INFO - AI文件定位结果: {'target_file': 'read.c', 'confidence': 9, 'reasoning': '问题描述和测试变更都指向RESP3协议解析问题，特别是处理\'>\'类型的推送消息。read.c文件负责Redis协议解析，包含处理不同类型回复的逻辑。测试变更中添加了对RESP3推送消息的解析测试，这直接对应read.c中的协议解析功能。错误消息\'Protocol error, got ">" as reply type byte\'表明协议解析层未能正确处理RESP3的推送类型。', 'fix_strategy': '需要在read.c中添加对RESP3推送类型(>)的支持，包括定义新的回复类型REDIS_REPLY_PUSH，并在协议解析逻辑中正确处理这种类型。可以参考测试变更中展示的预期行为来实现。', 'test_insights': '测试变更明确展示了RESP3推送消息的格式(>2\\r\\n$6\\r\\nLOLWUT\\r\\n:42\\r\\n)和预期的解析结果(REDIS_REPLY_PUSH类型，包含2个元素的数组)。这直接指导了read.c中需要实现的解析逻辑。', 'alternative_files': ['async.c', 'hiredis.c']}
+2025-06-06 14:01:48,611 - INFO - Found 12 code blocks in issue.
+2025-06-06 14:01:48,612 - INFO - Potential file references from issue: ['assert.h', 'hiredis/async.h', 'stdio.h', 'test.c', 'stdlib.h', 'hiredis/adapters/libev.h', 'string.h', 'hiredis/hiredis.h', 'unistd.h']
+2025-06-06 14:01:48,612 - INFO - Direct Path Match: 'test.c' from 'test.c' (Score +100.0)
+2025-06-06 14:01:48,613 - INFO - File Name Match: 'async.h' from 'async.h' (Score +75.0)
+2025-06-06 14:01:48,614 - INFO - File Name Match: 'test.c' from 'test.c' (Score +75.0)
+2025-06-06 14:01:48,616 - INFO - File Name Match: 'adapters\libev.h' from 'libev.h' (Score +75.0)
+2025-06-06 14:01:48,617 - INFO - File Name Match: 'hiredis.h' from 'hiredis.h' (Score +75.0)
+2025-06-06 14:01:48,624 - INFO - Keywords for content search: ['printf', 'version', 'master', 'libev', 'type', 'argv', 'redisAsyncSetConnectCallback', 'redisAsyncSetDisconnectCallback', 'ev_loop', 'Protocol']...
+2025-06-06 14:01:48,636 - INFO - Keyword Match: 'test.c' (Score +14400.0, Reason: 'printf' in content (31x); 'version' in content (2x); 'type' in content (50x); 'argv' in content (47x); 'Protocol' in content (3x); 'array' in content (10x); 'disconnectCallback' in content (3x); 'quit' in content (5x); 'proto' in content (3x); 'error' in content (37x); 'usleep' in content (1x); 'context' in content (22x); 'main' in content (8x); 'redisReply' in content (29x); 'test' in content (237x); 'test' in filename; 'empty' in content (8x); 'assert' in content (30x); 'connect' in content (83x); 'redis' in content (338x); 'hiredis' in content (10x); 'stdlib' in content (1x); 'argc' in content (32x); 'byte' in content (2x); 'status' in content (10x); 'stdio' in content (1x); 'errstr' in content (26x); 'connectCallback' in content (3x); 'server' in content (2x); 'hello' in content (9x); 'exit' in content (7x); 'integer' in content (24x); 'port' in content (15x); 'reply' in content (311x); 'Error' in content (37x))
+2025-06-06 14:01:48,636 - INFO - Keyword Match: 'hiredis.c' (Score +8020.0, Reason: 'printf' in content (7x); 'version' in content (4x); 'type' in content (48x); 'argv' in content (57x); 'Protocol' in content (7x); 'array' in content (14x); 'async' in content (5x); 'proto' in content (7x); 'error' in content (27x); 'context' in content (53x); 'redisReply' in content (12x); 'test' in content (3x); 'empty' in content (8x); 'assert' in content (12x); 'connect' in content (31x); 'redis' in content (305x); 'redis' in filename; 'hiredis' in content (1x); 'hiredis' in filename; 'stdlib' in content (1x); 'argc' in content (24x); 'byte' in content (5x); 'press' in content (1x); 'status' in content (2x); 'errstr' in content (11x); 'integer' in content (8x); 'port' in content (12x); 'reply' in content (104x); 'Error' in content (27x))
+2025-06-06 14:01:48,636 - INFO - Keyword Match: 'async.c' (Score +7570.0, Reason: 'printf' in content (1x); 'type' in content (13x); 'argv' in content (6x); 'redisAsyncSetConnectCallback' in content (1x); 'redisAsyncSetDisconnectCallback' in content (1x); 'array' in content (1x); 'async' in content (90x); 'async' in filename; 'disconnectCallback' in content (3x); 'error' in content (19x); 'context' in content (64x); 'main' in content (1x); 'redisReply' in content (4x); 'empty' in content (1x); 'assert' in content (9x); 'connect' in content (89x); 'mode' in content (2x); 'redis' in content (265x); 'hiredis' in content (1x); 'stdlib' in content (1x); 'messages' in content (1x); 'argc' in content (2x); 'byte' in content (1x); 'press' in content (1x); 'status' in content (17x); 'errstr' in content (5x); 'connectCallback' in content (4x); 'redisAsyncContext' in content (31x); 'server' in content (5x); 'redisAsyncConnect' in content (9x); 'subscribe' in content (25x); 'integer' in content (2x); 'loop' in content (1x); 'Reading' in content (1x); 'redisAsyncCommand' in content (7x); 'port' in content (7x); 'reply' in content (44x); 'Error' in content (19x))
+2025-06-06 14:01:48,637 - INFO - Keyword Match: 'net.c' (Score +4220.0, Reason: 'printf' in content (6x); 'type' in content (11x); 'Protocol' in content (1x); 'proto' in content (7x); 'error' in content (58x); 'context' in content (32x); 'test' in content (1x); 'connect' in content (25x); 'mode' in content (3x); 'redis' in content (199x); 'hiredis' in content (2x); 'stdlib' in content (1x); 'press' in content (1x); 'stdio' in content (1x); 'server' in content (1x); 'port' in content (15x); 'Error' in content (58x))
+2025-06-06 14:01:48,637 - INFO - Keyword Match: 'read.c' (Score +4150.0, Reason: 'printf' in content (9x); 'type' in content (39x); 'Protocol' in content (12x); 'array' in content (6x); 'quit' in content (1x); 'proto' in content (12x); 'error' in content (28x); 'redisReply' in content (1x); 'test' in content (4x); 'empty' in content (6x); 'assert' in content (5x); 'redis' in content (157x); 'unistd' in content (1x); 'stdlib' in content (1x); 'byte' in content (25x); 'press' in content (1x); 'status' in content (3x); 'errstr' in content (4x); 'integer' in content (7x); 'reply' in content (65x); 'Error' in content (28x))
+2025-06-06 14:01:48,637 - INFO - Keyword Match: 'hiredis.h' (Score +3580.0, Reason: 'type' in content (20x); 'argv' in content (12x); 'Protocol' in content (2x); 'array' in content (2x); 'async' in content (10x); 'proto' in content (2x); 'error' in content (6x); 'context' in content (49x); 'main' in content (1x); 'redisReply' in content (3x); 'connect' in content (35x); 'mode' in content (3x); 'redis' in content (144x); 'redis' in filename; 'hiredis' in content (9x); 'hiredis' in filename; 'argc' in content (4x); 'press' in content (1x); 'errstr' in content (1x); 'redisAsyncContext' in content (3x); 'subscribe' in content (1x); 'integer' in content (4x); 'port' in content (10x); 'reply' in content (24x); 'Error' in content (6x))
+2025-06-06 14:01:48,637 - INFO - Keyword Match: 'ssl.c' (Score +2760.0, Reason: 'printf' in content (4x); 'version' in content (3x); 'type' in content (16x); 'async' in content (13x); 'error' in content (37x); 'context' in content (30x); 'assert' in content (1x); 'connect' in content (15x); 'mode' in content (5x); 'redis' in content (99x); 'hiredis' in content (7x); 'press' in content (1x); 'redisAsyncContext' in content (2x); 'server' in content (5x); 'exit' in content (1x); 'Error' in content (37x))
+2025-06-06 14:01:48,637 - INFO - Keyword Match: 'async.h' (Score +2670.0, Reason: 'type' in content (9x); 'argv' in content (3x); 'redisAsyncSetConnectCallback' in content (1x); 'redisAsyncSetDisconnectCallback' in content (1x); 'async' in content (50x); 'async' in filename; 'disconnectCallback' in content (7x); 'proto' in content (2x); 'error' in content (2x); 'context' in content (30x); 'connect' in content (20x); 'redis' in content (80x); 'hiredis' in content (5x); 'argc' in content (1x); 'press' in content (1x); 'status' in content (3x); 'errstr' in content (1x); 'connectCallback' in content (8x); 'redisAsyncContext' in content (26x); 'redisAsyncConnect' in content (5x); 'Reading' in content (1x); 'redisAsyncCommand' in content (2x); 'port' in content (3x); 'reply' in content (1x); 'Error' in content (2x))
+2025-06-06 14:01:48,638 - INFO - Keyword Match: 'sds.c' (Score +2330.0, Reason: 'printf' in content (22x); 'version' in content (2x); 'type' in content (77x); 'argv' in content (4x); 'array' in content (7x); 'error' in content (5x); 'main' in content (6x); 'test' in content (34x); 'empty' in content (15x); 'assert' in content (6x); 'redis' in content (5x); 'stdlib' in content (1x); 'argc' in content (15x); 'byte' in content (15x); 'press' in content (1x); 'stdio' in content (2x); 'hello' in content (6x); 'integer' in content (3x); 'port' in content (2x); 'Error' in content (5x))
+2025-06-06 14:01:48,638 - INFO - Keyword Match: 'adapters\macosx.h' (Score +1920.0, Reason: 'type' in content (4x); 'async' in content (20x); 'context' in content (11x); 'mode' in content (1x); 'redis' in content (91x); 'hiredis' in content (3x); 'redisAsyncContext' in content (4x); 'loop' in content (58x))
+2025-06-06 14:01:48,638 - INFO - Keyword Match: 'adapters\libev.h' (Score +1780.0, Reason: 'libev' in content (47x); 'libev' in filename; 'type' in content (2x); 'ev_loop' in content (7x); 'async' in content (6x); 'context' in content (9x); 'redis' in content (60x); 'hiredis' in content (3x); 'stdlib' in content (1x); 'press' in content (1x); 'redisAsyncContext' in content (2x); 'loop' in content (31x); 'Reading' in content (5x); 'redisLibevAttach' in content (1x))
+2025-06-06 14:01:48,638 - INFO - Keyword Match: 'adapters\libevent.h' (Score +1410.0, Reason: 'libev' in content (50x); 'libev' in filename; 'type' in content (1x); 'async' in content (6x); 'context' in content (12x); 'redis' in content (63x); 'hiredis' in content (3x); 'press' in content (1x); 'redisAsyncContext' in content (2x))
+2025-06-06 14:01:48,638 - INFO - Keyword Match: 'read.h' (Score +1330.0, Reason: 'type' in content (5x); 'Protocol' in content (3x); 'array' in content (3x); 'proto' in content (3x); 'error' in content (10x); 'context' in content (1x); 'redisReply' in content (4x); 'test' in content (1x); 'redis' in content (60x); 'hiredis' in content (2x); 'press' in content (1x); 'status' in content (1x); 'stdio' in content (1x); 'errstr' in content (3x); 'integer' in content (2x); 'reply' in content (23x); 'Error' in content (10x))
+2025-06-06 14:01:48,639 - INFO - Keyword Match: 'adapters\ae.h' (Score +1000.0, Reason: 'type' in content (2x); 'async' in content (5x); 'context' in content (8x); 'redis' in content (49x); 'hiredis' in content (3x); 'press' in content (1x); 'redisAsyncContext' in content (2x); 'loop' in content (24x); 'Reading' in content (6x))
+2025-06-06 14:01:48,639 - INFO - Keyword Match: 'adapters\glib.h' (Score +970.0, Reason: 'type' in content (1x); 'async' in content (5x); 'context' in content (11x); 'main' in content (5x); 'redis' in content (68x); 'hiredis' in content (4x); 'redisAsyncContext' in content (2x); 'loop' in content (1x))
+2025-06-06 14:01:48,640 - INFO - Final candidate scores (path, score): [('test.c', 14575.0), ('hiredis.c', 8020.0), ('async.c', 7570.0), ('net.c', 4220.0), ('read.c', 4150.0), ('hiredis.h', 3655.0), ('ssl.c', 2760.0), ('async.h', 2745.0), ('sds.c', 2330.0), ('adapters\\macosx.h', 1920.0), ('adapters\\libev.h', 1855.0), ('adapters\\libevent.h', 1410.0), ('read.h', 1330.0), ('adapters\\ae.h', 1000.0), ('adapters\\glib.h', 970.0)]
+2025-06-06 14:01:48,640 - INFO - Best candidate selected: 'test.c' with score 14575.0
+2025-06-06 14:01:48,640 - INFO - AI高置信度(9)选择: read.c
+2025-06-06 14:01:48,641 - INFO - Added context file (included): fmacros.h
+2025-06-06 14:01:48,641 - INFO - Added context file (included): read.h
+2025-06-06 14:01:48,641 - INFO - Added context file (included): sds.h
+2025-06-06 14:01:48,642 - INFO - Added context file (included): win32.h
+2025-06-06 14:01:48,642 - INFO - Collected 5 files for context. Keys: ['read.c', 'fmacros.h', 'read.h', 'sds.h', 'win32.h']
+2025-06-06 14:01:48,642 - INFO - 为文件 read.c 生成AI补丁...
+2025-06-06 14:01:48,642 - INFO - 使用增强prompt调用AI生成补丁...
+2025-06-06 14:01:48,642 - INFO - 发送 API 请求 (尝试 1/3)...
+2025-06-06 14:02:13,346 - INFO - 成功从 DeepSeek API 获取并提取补丁 (927 字符)
+2025-06-06 14:02:13,347 - INFO - AI补丁生成成功，完整对话历史已保存到: D:\上课资料\科研课堂\WeCode\CFix\project_data\logs\redis__hiredis-819_20250606_140127\attempt_1\ai_conversation_history.json
+2025-06-06 14:02:13,348 - INFO - 拉取Docker镜像: dongqa930/redis_hiredis:819
+2025-06-06 14:03:03,376 - INFO - 尝试使用 heredoc 方法...
+2025-06-06 14:03:03,643 - INFO - 使用heredoc方法创建patch文件...
+2025-06-06 14:03:04,833 - INFO - Patch文件创建成功: 32 /home/fix.patch
+2025-06-06 14:03:04,864 - INFO - AI生成的补丁预览:
+diff --git a/read.c b/read.c
+index abc1234..def5678 100644
+--- a/read.c
++++ b/read.c
+@@ -41,6 +41,7 @@
+ #include "read.h"
+ #include "sds.h"
+ #include "win32.h"
++#include "hiredis.h"
+ 
+
+2025-06-06 14:03:04,865 - INFO - 运行测试脚本（fix_run.sh会自动应用测试补丁）...
+2025-06-06 14:03:15,080 - INFO - heredoc 方法执行成功
+2025-06-06 14:03:15,080 - WARNING - 尝试 1 测试失败
+2025-06-06 14:03:17,081 - INFO - 尝试 2/3
+2025-06-06 14:03:17,081 - INFO - 使用AI增强的文件定位...
+2025-06-06 14:03:17,081 - INFO - 扫描项目结构...
+2025-06-06 14:03:17,085 - INFO - 项目结构扫描完成，找到 1 个文件
+2025-06-06 14:03:17,085 - INFO - 构建AI定位prompt，长度: 9178
+2025-06-06 14:03:17,085 - INFO - 开始调用AI API...
+2025-06-06 14:03:17,085 - INFO - 执行简单API调用...
+2025-06-06 14:03:37,465 - INFO - 简单API调用成功，响应长度: 660
+2025-06-06 14:03:37,465 - INFO - AI API调用成功，开始解析响应...
+2025-06-06 14:03:37,465 - INFO - AI分析成功解析: 目标文件=read.c, 置信度=9
+2025-06-06 14:03:37,466 - INFO - AI文件定位结果: {'target_file': 'read.c', 'confidence': 9, 'reasoning': "1. 问题描述中提到的错误是协议解析错误，涉及RESP3的'>'类型字节处理，这属于协议解析范畴。2. 测试变更中新增了对RESP3 push消息的解析测试，直接指向协议解析功能。3. 项目结构中read.c是专门处理Redis协议解析的核心文件，包含对各种回复类型的处理逻辑。4. 错误信息'Protocol error'通常由协议解析层产生。5. 虽然async.c也涉及异步处理，但协议解析的核心逻辑在read.c中。", 'fix_strategy': "1. 在read.c中增加对RESP3 push类型('>')的处理逻辑。2. 添加REDIS_REPLY_PUSH类型支持。3. 确保异步上下文能正确处理push消息回调。4. 参考测试用例中的格式处理多元素push消息。", 'test_insights': "1. 测试明确验证RESP3 push消息解析。2. 测试用例显示push消息格式为'>2\\r\\n$6\\r\\nLOLWUT\\r\\n:42\\r\\n'。3. 验证了reply类型应为REDIS_REPLY_PUSH。4. 验证了多元素数组结构处理。5. 包含字符串和整数类型的混合元素验证。", 'alternative_files': ['async.c', 'hiredis.c']}
+2025-06-06 14:03:37,466 - INFO - Found 12 code blocks in issue.
+2025-06-06 14:03:37,466 - INFO - Potential file references from issue: ['assert.h', 'hiredis/async.h', 'stdio.h', 'test.c', 'stdlib.h', 'hiredis/adapters/libev.h', 'string.h', 'hiredis/hiredis.h', 'unistd.h']
+2025-06-06 14:03:37,467 - INFO - Direct Path Match: 'test.c' from 'test.c' (Score +100.0)
+2025-06-06 14:03:37,468 - INFO - File Name Match: 'async.h' from 'async.h' (Score +75.0)
+2025-06-06 14:03:37,469 - INFO - File Name Match: 'test.c' from 'test.c' (Score +75.0)
+2025-06-06 14:03:37,471 - INFO - File Name Match: 'adapters\libev.h' from 'libev.h' (Score +75.0)
+2025-06-06 14:03:37,472 - INFO - File Name Match: 'hiredis.h' from 'hiredis.h' (Score +75.0)
+2025-06-06 14:03:37,477 - INFO - Keywords for content search: ['printf', 'version', 'master', 'libev', 'type', 'argv', 'redisAsyncSetConnectCallback', 'redisAsyncSetDisconnectCallback', 'ev_loop', 'Protocol']...
+2025-06-06 14:03:37,489 - INFO - Keyword Match: 'test.c' (Score +14400.0, Reason: 'printf' in content (31x); 'version' in content (2x); 'type' in content (50x); 'argv' in content (47x); 'Protocol' in content (3x); 'array' in content (10x); 'disconnectCallback' in content (3x); 'quit' in content (5x); 'proto' in content (3x); 'error' in content (37x); 'usleep' in content (1x); 'context' in content (22x); 'main' in content (8x); 'redisReply' in content (29x); 'test' in content (237x); 'test' in filename; 'empty' in content (8x); 'assert' in content (30x); 'connect' in content (83x); 'redis' in content (338x); 'hiredis' in content (10x); 'stdlib' in content (1x); 'argc' in content (32x); 'byte' in content (2x); 'status' in content (10x); 'stdio' in content (1x); 'errstr' in content (26x); 'connectCallback' in content (3x); 'server' in content (2x); 'hello' in content (9x); 'exit' in content (7x); 'integer' in content (24x); 'port' in content (15x); 'reply' in content (311x); 'Error' in content (37x))
+2025-06-06 14:03:37,490 - INFO - Keyword Match: 'hiredis.c' (Score +8020.0, Reason: 'printf' in content (7x); 'version' in content (4x); 'type' in content (48x); 'argv' in content (57x); 'Protocol' in content (7x); 'array' in content (14x); 'async' in content (5x); 'proto' in content (7x); 'error' in content (27x); 'context' in content (53x); 'redisReply' in content (12x); 'test' in content (3x); 'empty' in content (8x); 'assert' in content (12x); 'connect' in content (31x); 'redis' in content (305x); 'redis' in filename; 'hiredis' in content (1x); 'hiredis' in filename; 'stdlib' in content (1x); 'argc' in content (24x); 'byte' in content (5x); 'press' in content (1x); 'status' in content (2x); 'errstr' in content (11x); 'integer' in content (8x); 'port' in content (12x); 'reply' in content (104x); 'Error' in content (27x))
+2025-06-06 14:03:37,490 - INFO - Keyword Match: 'async.c' (Score +7570.0, Reason: 'printf' in content (1x); 'type' in content (13x); 'argv' in content (6x); 'redisAsyncSetConnectCallback' in content (1x); 'redisAsyncSetDisconnectCallback' in content (1x); 'array' in content (1x); 'async' in content (90x); 'async' in filename; 'disconnectCallback' in content (3x); 'error' in content (19x); 'context' in content (64x); 'main' in content (1x); 'redisReply' in content (4x); 'empty' in content (1x); 'assert' in content (9x); 'connect' in content (89x); 'mode' in content (2x); 'redis' in content (265x); 'hiredis' in content (1x); 'stdlib' in content (1x); 'messages' in content (1x); 'argc' in content (2x); 'byte' in content (1x); 'press' in content (1x); 'status' in content (17x); 'errstr' in content (5x); 'connectCallback' in content (4x); 'redisAsyncContext' in content (31x); 'server' in content (5x); 'redisAsyncConnect' in content (9x); 'subscribe' in content (25x); 'integer' in content (2x); 'loop' in content (1x); 'Reading' in content (1x); 'redisAsyncCommand' in content (7x); 'port' in content (7x); 'reply' in content (44x); 'Error' in content (19x))
+2025-06-06 14:03:37,491 - INFO - Keyword Match: 'net.c' (Score +4220.0, Reason: 'printf' in content (6x); 'type' in content (11x); 'Protocol' in content (1x); 'proto' in content (7x); 'error' in content (58x); 'context' in content (32x); 'test' in content (1x); 'connect' in content (25x); 'mode' in content (3x); 'redis' in content (199x); 'hiredis' in content (2x); 'stdlib' in content (1x); 'press' in content (1x); 'stdio' in content (1x); 'server' in content (1x); 'port' in content (15x); 'Error' in content (58x))
+2025-06-06 14:03:37,491 - INFO - Keyword Match: 'read.c' (Score +4150.0, Reason: 'printf' in content (9x); 'type' in content (39x); 'Protocol' in content (12x); 'array' in content (6x); 'quit' in content (1x); 'proto' in content (12x); 'error' in content (28x); 'redisReply' in content (1x); 'test' in content (4x); 'empty' in content (6x); 'assert' in content (5x); 'redis' in content (157x); 'unistd' in content (1x); 'stdlib' in content (1x); 'byte' in content (25x); 'press' in content (1x); 'status' in content (3x); 'errstr' in content (4x); 'integer' in content (7x); 'reply' in content (65x); 'Error' in content (28x))
+2025-06-06 14:03:37,491 - INFO - Keyword Match: 'hiredis.h' (Score +3580.0, Reason: 'type' in content (20x); 'argv' in content (12x); 'Protocol' in content (2x); 'array' in content (2x); 'async' in content (10x); 'proto' in content (2x); 'error' in content (6x); 'context' in content (49x); 'main' in content (1x); 'redisReply' in content (3x); 'connect' in content (35x); 'mode' in content (3x); 'redis' in content (144x); 'redis' in filename; 'hiredis' in content (9x); 'hiredis' in filename; 'argc' in content (4x); 'press' in content (1x); 'errstr' in content (1x); 'redisAsyncContext' in content (3x); 'subscribe' in content (1x); 'integer' in content (4x); 'port' in content (10x); 'reply' in content (24x); 'Error' in content (6x))
+2025-06-06 14:03:37,491 - INFO - Keyword Match: 'ssl.c' (Score +2760.0, Reason: 'printf' in content (4x); 'version' in content (3x); 'type' in content (16x); 'async' in content (13x); 'error' in content (37x); 'context' in content (30x); 'assert' in content (1x); 'connect' in content (15x); 'mode' in content (5x); 'redis' in content (99x); 'hiredis' in content (7x); 'press' in content (1x); 'redisAsyncContext' in content (2x); 'server' in content (5x); 'exit' in content (1x); 'Error' in content (37x))
+2025-06-06 14:03:37,491 - INFO - Keyword Match: 'async.h' (Score +2670.0, Reason: 'type' in content (9x); 'argv' in content (3x); 'redisAsyncSetConnectCallback' in content (1x); 'redisAsyncSetDisconnectCallback' in content (1x); 'async' in content (50x); 'async' in filename; 'disconnectCallback' in content (7x); 'proto' in content (2x); 'error' in content (2x); 'context' in content (30x); 'connect' in content (20x); 'redis' in content (80x); 'hiredis' in content (5x); 'argc' in content (1x); 'press' in content (1x); 'status' in content (3x); 'errstr' in content (1x); 'connectCallback' in content (8x); 'redisAsyncContext' in content (26x); 'redisAsyncConnect' in content (5x); 'Reading' in content (1x); 'redisAsyncCommand' in content (2x); 'port' in content (3x); 'reply' in content (1x); 'Error' in content (2x))
+2025-06-06 14:03:37,492 - INFO - Keyword Match: 'sds.c' (Score +2330.0, Reason: 'printf' in content (22x); 'version' in content (2x); 'type' in content (77x); 'argv' in content (4x); 'array' in content (7x); 'error' in content (5x); 'main' in content (6x); 'test' in content (34x); 'empty' in content (15x); 'assert' in content (6x); 'redis' in content (5x); 'stdlib' in content (1x); 'argc' in content (15x); 'byte' in content (15x); 'press' in content (1x); 'stdio' in content (2x); 'hello' in content (6x); 'integer' in content (3x); 'port' in content (2x); 'Error' in content (5x))
+2025-06-06 14:03:37,492 - INFO - Keyword Match: 'adapters\macosx.h' (Score +1920.0, Reason: 'type' in content (4x); 'async' in content (20x); 'context' in content (11x); 'mode' in content (1x); 'redis' in content (91x); 'hiredis' in content (3x); 'redisAsyncContext' in content (4x); 'loop' in content (58x))
+2025-06-06 14:03:37,492 - INFO - Keyword Match: 'adapters\libev.h' (Score +1780.0, Reason: 'libev' in content (47x); 'libev' in filename; 'type' in content (2x); 'ev_loop' in content (7x); 'async' in content (6x); 'context' in content (9x); 'redis' in content (60x); 'hiredis' in content (3x); 'stdlib' in content (1x); 'press' in content (1x); 'redisAsyncContext' in content (2x); 'loop' in content (31x); 'Reading' in content (5x); 'redisLibevAttach' in content (1x))
+2025-06-06 14:03:37,492 - INFO - Keyword Match: 'adapters\libevent.h' (Score +1410.0, Reason: 'libev' in content (50x); 'libev' in filename; 'type' in content (1x); 'async' in content (6x); 'context' in content (12x); 'redis' in content (63x); 'hiredis' in content (3x); 'press' in content (1x); 'redisAsyncContext' in content (2x))
+2025-06-06 14:03:37,492 - INFO - Keyword Match: 'read.h' (Score +1330.0, Reason: 'type' in content (5x); 'Protocol' in content (3x); 'array' in content (3x); 'proto' in content (3x); 'error' in content (10x); 'context' in content (1x); 'redisReply' in content (4x); 'test' in content (1x); 'redis' in content (60x); 'hiredis' in content (2x); 'press' in content (1x); 'status' in content (1x); 'stdio' in content (1x); 'errstr' in content (3x); 'integer' in content (2x); 'reply' in content (23x); 'Error' in content (10x))
+2025-06-06 14:03:37,493 - INFO - Keyword Match: 'adapters\ae.h' (Score +1000.0, Reason: 'type' in content (2x); 'async' in content (5x); 'context' in content (8x); 'redis' in content (49x); 'hiredis' in content (3x); 'press' in content (1x); 'redisAsyncContext' in content (2x); 'loop' in content (24x); 'Reading' in content (6x))
+2025-06-06 14:03:37,493 - INFO - Keyword Match: 'adapters\glib.h' (Score +970.0, Reason: 'type' in content (1x); 'async' in content (5x); 'context' in content (11x); 'main' in content (5x); 'redis' in content (68x); 'hiredis' in content (4x); 'redisAsyncContext' in content (2x); 'loop' in content (1x))
+2025-06-06 14:03:37,494 - INFO - Final candidate scores (path, score): [('test.c', 14575.0), ('hiredis.c', 8020.0), ('async.c', 7570.0), ('net.c', 4220.0), ('read.c', 4150.0), ('hiredis.h', 3655.0), ('ssl.c', 2760.0), ('async.h', 2745.0), ('sds.c', 2330.0), ('adapters\\macosx.h', 1920.0), ('adapters\\libev.h', 1855.0), ('adapters\\libevent.h', 1410.0), ('read.h', 1330.0), ('adapters\\ae.h', 1000.0), ('adapters\\glib.h', 970.0)]
+2025-06-06 14:03:37,494 - INFO - Best candidate selected: 'test.c' with score 14575.0
+2025-06-06 14:03:37,494 - INFO - AI高置信度(9)选择: read.c
+2025-06-06 14:03:37,495 - INFO - Added context file (included): fmacros.h
+2025-06-06 14:03:37,495 - INFO - Added context file (included): read.h
+2025-06-06 14:03:37,495 - INFO - Added context file (included): sds.h
+2025-06-06 14:03:37,496 - INFO - Added context file (included): win32.h
+2025-06-06 14:03:37,496 - INFO - Collected 5 files for context. Keys: ['read.c', 'fmacros.h', 'read.h', 'sds.h', 'win32.h']
+2025-06-06 14:03:37,496 - INFO - 为文件 read.c 生成AI补丁...
+2025-06-06 14:03:37,496 - INFO - 使用增强prompt调用AI生成补丁...
+2025-06-06 14:03:37,496 - INFO - 发送 API 请求 (尝试 1/3)...
+2025-06-06 14:04:04,141 - INFO - 成功从 DeepSeek API 获取并提取补丁 (770 字符)
+2025-06-06 14:04:04,143 - INFO - AI补丁生成成功，完整对话历史已保存到: D:\上课资料\科研课堂\WeCode\CFix\project_data\logs\redis__hiredis-819_20250606_140127\attempt_2\ai_conversation_history.json
+2025-06-06 14:04:04,143 - INFO - 拉取Docker镜像: dongqa930/redis_hiredis:819
+2025-06-06 14:04:23,372 - INFO - 尝试使用 heredoc 方法...
+2025-06-06 14:04:23,602 - INFO - 使用heredoc方法创建patch文件...
+2025-06-06 14:04:24,649 - INFO - Patch文件创建成功: 28 /home/fix.patch
+2025-06-06 14:04:24,688 - INFO - AI生成的补丁预览:
+diff --git a/read.c b/read.c
+index abc1234..def5678 100644
+--- a/read.c
++++ b/read.c
+@@ -38,6 +38,7 @@
+ #define REDIS_REPLY_SET 9
+ #define REDIS_REPLY_BOOL 10
+ #define REDIS_REPLY_VERB 11
++#define REDIS_REPLY_PUSH 12
+ 
+
+2025-06-06 14:04:24,689 - INFO - 运行测试脚本（fix_run.sh会自动应用测试补丁）...
+2025-06-06 14:04:34,880 - INFO - heredoc 方法执行成功
+2025-06-06 14:04:34,880 - WARNING - 尝试 2 测试失败
+2025-06-06 14:04:36,881 - INFO - 尝试 3/3
+2025-06-06 14:04:36,882 - INFO - 使用AI增强的文件定位...
+2025-06-06 14:04:36,882 - INFO - 扫描项目结构...
+2025-06-06 14:04:36,885 - INFO - 项目结构扫描完成，找到 1 个文件
+2025-06-06 14:04:36,885 - INFO - 构建AI定位prompt，长度: 9178
+2025-06-06 14:04:36,885 - INFO - 开始调用AI API...
+2025-06-06 14:04:36,885 - INFO - 执行简单API调用...
+2025-06-06 14:04:56,122 - INFO - 简单API调用成功，响应长度: 513
+2025-06-06 14:04:56,122 - INFO - AI API调用成功，开始解析响应...
+2025-06-06 14:04:56,123 - INFO - AI分析成功解析: 目标文件=read.c, 置信度=9
+2025-06-06 14:04:56,123 - INFO - AI文件定位结果: {'target_file': 'read.c', 'confidence': 9, 'reasoning': "问题描述和测试变更都指向RESP3协议解析问题，特别是处理'>'类型的推送消息。read.c文件负责Redis协议解析，包含处理不同类型回复的逻辑。测试变更中新增的测试用例直接针对RESP3推送消息的解析，这属于协议解析的核心功能。虽然async.c也涉及异步处理，但协议解析的核心逻辑在read.c中。", 'fix_strategy': "需要在read.c中添加对RESP3推送消息类型('>')的处理逻辑，类似于现有的其他类型处理。需要定义新的REDIS_REPLY_PUSH类型，并确保解析器能正确处理推送消息的结构。", 'test_insights': "测试变更显示需要支持解析格式为'>2\\r\\n$6\\r\\nLOLWUT\\r\\n:42\\r\\n'的RESP3推送消息，验证解析后的结构包含正确的类型和元素。", 'alternative_files': ['async.c', 'hiredis.c']}
+2025-06-06 14:04:56,123 - INFO - Found 12 code blocks in issue.
+2025-06-06 14:04:56,124 - INFO - Potential file references from issue: ['assert.h', 'hiredis/async.h', 'stdio.h', 'test.c', 'stdlib.h', 'hiredis/adapters/libev.h', 'string.h', 'hiredis/hiredis.h', 'unistd.h']
+2025-06-06 14:04:56,124 - INFO - Direct Path Match: 'test.c' from 'test.c' (Score +100.0)
+2025-06-06 14:04:56,125 - INFO - File Name Match: 'async.h' from 'async.h' (Score +75.0)
+2025-06-06 14:04:56,126 - INFO - File Name Match: 'test.c' from 'test.c' (Score +75.0)
+2025-06-06 14:04:56,128 - INFO - File Name Match: 'adapters\libev.h' from 'libev.h' (Score +75.0)
+2025-06-06 14:04:56,129 - INFO - File Name Match: 'hiredis.h' from 'hiredis.h' (Score +75.0)
+2025-06-06 14:04:56,135 - INFO - Keywords for content search: ['printf', 'version', 'master', 'libev', 'type', 'argv', 'redisAsyncSetConnectCallback', 'redisAsyncSetDisconnectCallback', 'ev_loop', 'Protocol']...
+2025-06-06 14:04:56,147 - INFO - Keyword Match: 'test.c' (Score +14400.0, Reason: 'printf' in content (31x); 'version' in content (2x); 'type' in content (50x); 'argv' in content (47x); 'Protocol' in content (3x); 'array' in content (10x); 'disconnectCallback' in content (3x); 'quit' in content (5x); 'proto' in content (3x); 'error' in content (37x); 'usleep' in content (1x); 'context' in content (22x); 'main' in content (8x); 'redisReply' in content (29x); 'test' in content (237x); 'test' in filename; 'empty' in content (8x); 'assert' in content (30x); 'connect' in content (83x); 'redis' in content (338x); 'hiredis' in content (10x); 'stdlib' in content (1x); 'argc' in content (32x); 'byte' in content (2x); 'status' in content (10x); 'stdio' in content (1x); 'errstr' in content (26x); 'connectCallback' in content (3x); 'server' in content (2x); 'hello' in content (9x); 'exit' in content (7x); 'integer' in content (24x); 'port' in content (15x); 'reply' in content (311x); 'Error' in content (37x))
+2025-06-06 14:04:56,147 - INFO - Keyword Match: 'hiredis.c' (Score +8020.0, Reason: 'printf' in content (7x); 'version' in content (4x); 'type' in content (48x); 'argv' in content (57x); 'Protocol' in content (7x); 'array' in content (14x); 'async' in content (5x); 'proto' in content (7x); 'error' in content (27x); 'context' in content (53x); 'redisReply' in content (12x); 'test' in content (3x); 'empty' in content (8x); 'assert' in content (12x); 'connect' in content (31x); 'redis' in content (305x); 'redis' in filename; 'hiredis' in content (1x); 'hiredis' in filename; 'stdlib' in content (1x); 'argc' in content (24x); 'byte' in content (5x); 'press' in content (1x); 'status' in content (2x); 'errstr' in content (11x); 'integer' in content (8x); 'port' in content (12x); 'reply' in content (104x); 'Error' in content (27x))
+2025-06-06 14:04:56,148 - INFO - Keyword Match: 'async.c' (Score +7570.0, Reason: 'printf' in content (1x); 'type' in content (13x); 'argv' in content (6x); 'redisAsyncSetConnectCallback' in content (1x); 'redisAsyncSetDisconnectCallback' in content (1x); 'array' in content (1x); 'async' in content (90x); 'async' in filename; 'disconnectCallback' in content (3x); 'error' in content (19x); 'context' in content (64x); 'main' in content (1x); 'redisReply' in content (4x); 'empty' in content (1x); 'assert' in content (9x); 'connect' in content (89x); 'mode' in content (2x); 'redis' in content (265x); 'hiredis' in content (1x); 'stdlib' in content (1x); 'messages' in content (1x); 'argc' in content (2x); 'byte' in content (1x); 'press' in content (1x); 'status' in content (17x); 'errstr' in content (5x); 'connectCallback' in content (4x); 'redisAsyncContext' in content (31x); 'server' in content (5x); 'redisAsyncConnect' in content (9x); 'subscribe' in content (25x); 'integer' in content (2x); 'loop' in content (1x); 'Reading' in content (1x); 'redisAsyncCommand' in content (7x); 'port' in content (7x); 'reply' in content (44x); 'Error' in content (19x))
+2025-06-06 14:04:56,148 - INFO - Keyword Match: 'net.c' (Score +4220.0, Reason: 'printf' in content (6x); 'type' in content (11x); 'Protocol' in content (1x); 'proto' in content (7x); 'error' in content (58x); 'context' in content (32x); 'test' in content (1x); 'connect' in content (25x); 'mode' in content (3x); 'redis' in content (199x); 'hiredis' in content (2x); 'stdlib' in content (1x); 'press' in content (1x); 'stdio' in content (1x); 'server' in content (1x); 'port' in content (15x); 'Error' in content (58x))
+2025-06-06 14:04:56,148 - INFO - Keyword Match: 'read.c' (Score +4150.0, Reason: 'printf' in content (9x); 'type' in content (39x); 'Protocol' in content (12x); 'array' in content (6x); 'quit' in content (1x); 'proto' in content (12x); 'error' in content (28x); 'redisReply' in content (1x); 'test' in content (4x); 'empty' in content (6x); 'assert' in content (5x); 'redis' in content (157x); 'unistd' in content (1x); 'stdlib' in content (1x); 'byte' in content (25x); 'press' in content (1x); 'status' in content (3x); 'errstr' in content (4x); 'integer' in content (7x); 'reply' in content (65x); 'Error' in content (28x))
+2025-06-06 14:04:56,149 - INFO - Keyword Match: 'hiredis.h' (Score +3580.0, Reason: 'type' in content (20x); 'argv' in content (12x); 'Protocol' in content (2x); 'array' in content (2x); 'async' in content (10x); 'proto' in content (2x); 'error' in content (6x); 'context' in content (49x); 'main' in content (1x); 'redisReply' in content (3x); 'connect' in content (35x); 'mode' in content (3x); 'redis' in content (144x); 'redis' in filename; 'hiredis' in content (9x); 'hiredis' in filename; 'argc' in content (4x); 'press' in content (1x); 'errstr' in content (1x); 'redisAsyncContext' in content (3x); 'subscribe' in content (1x); 'integer' in content (4x); 'port' in content (10x); 'reply' in content (24x); 'Error' in content (6x))
+2025-06-06 14:04:56,149 - INFO - Keyword Match: 'ssl.c' (Score +2760.0, Reason: 'printf' in content (4x); 'version' in content (3x); 'type' in content (16x); 'async' in content (13x); 'error' in content (37x); 'context' in content (30x); 'assert' in content (1x); 'connect' in content (15x); 'mode' in content (5x); 'redis' in content (99x); 'hiredis' in content (7x); 'press' in content (1x); 'redisAsyncContext' in content (2x); 'server' in content (5x); 'exit' in content (1x); 'Error' in content (37x))
+2025-06-06 14:04:56,149 - INFO - Keyword Match: 'async.h' (Score +2670.0, Reason: 'type' in content (9x); 'argv' in content (3x); 'redisAsyncSetConnectCallback' in content (1x); 'redisAsyncSetDisconnectCallback' in content (1x); 'async' in content (50x); 'async' in filename; 'disconnectCallback' in content (7x); 'proto' in content (2x); 'error' in content (2x); 'context' in content (30x); 'connect' in content (20x); 'redis' in content (80x); 'hiredis' in content (5x); 'argc' in content (1x); 'press' in content (1x); 'status' in content (3x); 'errstr' in content (1x); 'connectCallback' in content (8x); 'redisAsyncContext' in content (26x); 'redisAsyncConnect' in content (5x); 'Reading' in content (1x); 'redisAsyncCommand' in content (2x); 'port' in content (3x); 'reply' in content (1x); 'Error' in content (2x))
+2025-06-06 14:04:56,149 - INFO - Keyword Match: 'sds.c' (Score +2330.0, Reason: 'printf' in content (22x); 'version' in content (2x); 'type' in content (77x); 'argv' in content (4x); 'array' in content (7x); 'error' in content (5x); 'main' in content (6x); 'test' in content (34x); 'empty' in content (15x); 'assert' in content (6x); 'redis' in content (5x); 'stdlib' in content (1x); 'argc' in content (15x); 'byte' in content (15x); 'press' in content (1x); 'stdio' in content (2x); 'hello' in content (6x); 'integer' in content (3x); 'port' in content (2x); 'Error' in content (5x))
+2025-06-06 14:04:56,150 - INFO - Keyword Match: 'adapters\macosx.h' (Score +1920.0, Reason: 'type' in content (4x); 'async' in content (20x); 'context' in content (11x); 'mode' in content (1x); 'redis' in content (91x); 'hiredis' in content (3x); 'redisAsyncContext' in content (4x); 'loop' in content (58x))
+2025-06-06 14:04:56,150 - INFO - Keyword Match: 'adapters\libev.h' (Score +1780.0, Reason: 'libev' in content (47x); 'libev' in filename; 'type' in content (2x); 'ev_loop' in content (7x); 'async' in content (6x); 'context' in content (9x); 'redis' in content (60x); 'hiredis' in content (3x); 'stdlib' in content (1x); 'press' in content (1x); 'redisAsyncContext' in content (2x); 'loop' in content (31x); 'Reading' in content (5x); 'redisLibevAttach' in content (1x))
+2025-06-06 14:04:56,150 - INFO - Keyword Match: 'adapters\libevent.h' (Score +1410.0, Reason: 'libev' in content (50x); 'libev' in filename; 'type' in content (1x); 'async' in content (6x); 'context' in content (12x); 'redis' in content (63x); 'hiredis' in content (3x); 'press' in content (1x); 'redisAsyncContext' in content (2x))
+2025-06-06 14:04:56,150 - INFO - Keyword Match: 'read.h' (Score +1330.0, Reason: 'type' in content (5x); 'Protocol' in content (3x); 'array' in content (3x); 'proto' in content (3x); 'error' in content (10x); 'context' in content (1x); 'redisReply' in content (4x); 'test' in content (1x); 'redis' in content (60x); 'hiredis' in content (2x); 'press' in content (1x); 'status' in content (1x); 'stdio' in content (1x); 'errstr' in content (3x); 'integer' in content (2x); 'reply' in content (23x); 'Error' in content (10x))
+2025-06-06 14:04:56,150 - INFO - Keyword Match: 'adapters\ae.h' (Score +1000.0, Reason: 'type' in content (2x); 'async' in content (5x); 'context' in content (8x); 'redis' in content (49x); 'hiredis' in content (3x); 'press' in content (1x); 'redisAsyncContext' in content (2x); 'loop' in content (24x); 'Reading' in content (6x))
+2025-06-06 14:04:56,150 - INFO - Keyword Match: 'adapters\glib.h' (Score +970.0, Reason: 'type' in content (1x); 'async' in content (5x); 'context' in content (11x); 'main' in content (5x); 'redis' in content (68x); 'hiredis' in content (4x); 'redisAsyncContext' in content (2x); 'loop' in content (1x))
+2025-06-06 14:04:56,151 - INFO - Final candidate scores (path, score): [('test.c', 14575.0), ('hiredis.c', 8020.0), ('async.c', 7570.0), ('net.c', 4220.0), ('read.c', 4150.0), ('hiredis.h', 3655.0), ('ssl.c', 2760.0), ('async.h', 2745.0), ('sds.c', 2330.0), ('adapters\\macosx.h', 1920.0), ('adapters\\libev.h', 1855.0), ('adapters\\libevent.h', 1410.0), ('read.h', 1330.0), ('adapters\\ae.h', 1000.0), ('adapters\\glib.h', 970.0)]
+2025-06-06 14:04:56,151 - INFO - Best candidate selected: 'test.c' with score 14575.0
+2025-06-06 14:04:56,152 - INFO - AI高置信度(9)选择: read.c
+2025-06-06 14:04:56,152 - INFO - Added context file (included): fmacros.h
+2025-06-06 14:04:56,152 - INFO - Added context file (included): read.h
+2025-06-06 14:04:56,153 - INFO - Added context file (included): sds.h
+2025-06-06 14:04:56,153 - INFO - Added context file (included): win32.h
+2025-06-06 14:04:56,153 - INFO - Collected 5 files for context. Keys: ['read.c', 'fmacros.h', 'read.h', 'sds.h', 'win32.h']
+2025-06-06 14:04:56,153 - INFO - 为文件 read.c 生成AI补丁...
+2025-06-06 14:04:56,153 - INFO - 使用增强prompt调用AI生成补丁...
+2025-06-06 14:04:56,154 - INFO - 发送 API 请求 (尝试 1/3)...
+2025-06-06 14:05:19,476 - INFO - 成功从 DeepSeek API 获取并提取补丁 (913 字符)
+2025-06-06 14:05:19,478 - INFO - AI补丁生成成功，完整对话历史已保存到: D:\上课资料\科研课堂\WeCode\CFix\project_data\logs\redis__hiredis-819_20250606_140127\attempt_3\ai_conversation_history.json
+2025-06-06 14:05:19,478 - INFO - 拉取Docker镜像: dongqa930/redis_hiredis:819
+2025-06-06 14:05:35,366 - INFO - 尝试使用 heredoc 方法...
+2025-06-06 14:05:35,621 - INFO - 使用heredoc方法创建patch文件...
+2025-06-06 14:05:36,690 - INFO - Patch文件创建成功: 30 /home/fix.patch
+2025-06-06 14:05:36,719 - INFO - AI生成的补丁预览:
+diff --git a/read.c b/read.c
+index abc1234..def5678 100644
+--- a/read.c
++++ b/read.c
+@@ -35,6 +35,7 @@
+ #include "read.h"
+ #include "sds.h"
+ #include "win32.h"
++#include "hiredis.h"
+ 
+
+2025-06-06 14:05:36,720 - INFO - 运行测试脚本（fix_run.sh会自动应用测试补丁）...
+2025-06-06 14:05:48,930 - INFO - heredoc 方法执行成功
+2025-06-06 14:05:48,931 - WARNING - 尝试 3 测试失败
+2025-06-06 14:05:48,931 - INFO - 结果已保存到 D:\上课资料\科研课堂\WeCode\CFix\project_data\results\execution_results.json
+2025-06-06 14:05:48,932 - INFO - ==================================================
+2025-06-06 14:05:48,932 - INFO - 执行完成!
+2025-06-06 14:05:48,932 - INFO - 总实例数: 1
+2025-06-06 14:05:48,932 - INFO - 成功: 0 (0.0%)
+2025-06-06 14:05:48,932 - INFO - 失败: 1 (100.0%)
+2025-06-06 14:05:48,932 - INFO - 日志目录: D:\上课资料\科研课堂\WeCode\CFix\project_data\logs
+2025-06-06 14:05:48,932 - INFO - 结果目录: D:\上课资料\科研课堂\WeCode\CFix\project_data\results
+2025-06-06 14:05:48,932 - INFO - 轨迹目录: D:\上课资料\科研课堂\WeCode\CFix\project_data\trajs
+2025-06-06 14:05:48,933 - INFO - ==================================================
+2025-06-06 14:11:56,238 - INFO - 将处理以下数据集文件: ['dataset\\test_c.jsonl', 'dataset\\test_cpp.jsonl']
+2025-06-06 14:11:56,238 - INFO - 项目数据目录: D:\上课资料\科研课堂\WeCode\CFix\project_data
+2025-06-06 14:11:56,247 - INFO - Docker客户端初始化成功
+2025-06-06 14:11:56,248 - INFO - 成功加载 8 个实例从 dataset\test_c.jsonl
+2025-06-06 14:11:56,248 - INFO - 成功加载 7 个实例从 dataset\test_cpp.jsonl
+2025-06-06 14:11:56,248 - INFO - 过滤后只处理实例: redis__hiredis-1215
+2025-06-06 14:11:56,248 - INFO - 处理实例: redis__hiredis-1215 (redis/hiredis)
+2025-06-06 14:11:56,249 - INFO - 仓库目录已存在: D:\上课资料\科研课堂\WeCode\CFix\project_data\repositories\redis_hiredis
+2025-06-06 14:11:56,274 - INFO - 检测到有效的git仓库，尝试更新...
+2025-06-06 14:12:02,172 - INFO - 成功更新仓库
+2025-06-06 14:12:02,172 - INFO - 切换到commit e07ae7d3b6248be8be842eca3e1e97595a17aa1a
+2025-06-06 14:12:02,212 - INFO - 成功重用现有仓库
+2025-06-06 14:12:02,212 - INFO - 尝试 1/3
+2025-06-06 14:12:02,212 - INFO - 使用AI增强的文件定位...
+2025-06-06 14:12:02,212 - INFO - 扫描项目结构...
+2025-06-06 14:12:02,216 - INFO - 项目结构扫描完成，找到 1 个文件
+2025-06-06 14:12:02,216 - INFO - 构建AI定位prompt，长度: 7201
+2025-06-06 14:12:02,216 - INFO - 开始调用AI API...
+2025-06-06 14:12:02,216 - INFO - 执行简单API调用...
+2025-06-06 14:12:23,810 - INFO - 简单API调用成功，响应长度: 776
+2025-06-06 14:12:23,810 - INFO - AI API调用成功，开始解析响应...
+2025-06-06 14:12:23,810 - INFO - AI分析成功解析: 目标文件=net.c, 置信度=10
+2025-06-06 14:12:23,810 - INFO - AI文件定位结果: {'target_file': 'net.c', 'confidence': 10, 'reasoning': '1. 问题描述明确提到了`redisEnableKeepAlive()`函数和Unix sockets的`TCP_KEEPALIVE`支持问题，这属于网络连接层面的功能。2. 问题提交者提供的diff直接修改了`net.c`文件。3. 测试变更中新增的`test_unix_keepalive()`测试用例验证的是网络连接保持功能，与`net.c`的核心功能匹配。4. 文件结构中`net.c`的职责就是处理网络连接相关逻辑，且其大小(22KB)表明它包含底层网络实现。5. 其他网络相关文件如`sockcompat.c`主要处理兼容性问题，不涉及高层逻辑。', 'fix_strategy': "在`redisKeepAlive()`函数开始处添加对`REDIS_CONN_UNIX`连接类型的检查，如果是Unix socket则直接返回错误并设置明确的错误信息（如'Keepalive not supported for unix socket'），避免后续执行无效的setsockopt调用。", 'test_insights': '1. 测试验证了两个关键点：a) 在Unix socket上调用keepalive应返回错误(REDIS_ERR) b) 该错误不应破坏现有连接（后续PING命令仍能成功）。2. 测试用例通过`c->err == 0`验证错误类型，说明需要设置特定的错误码。3. 测试文件位置紧接在其他网络测试之后，保持功能分组。', 'alternative_files': ['hiredis.c', 'sockcompat.c']}
+2025-06-06 14:12:23,811 - INFO - Found 3 code blocks in issue.
+2025-06-06 14:12:23,811 - INFO - Potential file references from issue: ['b/net.c', 'a/net.c']
+2025-06-06 14:12:23,811 - INFO - File Name Match: 'net.c' from 'net.c' (Score +75.0)
+2025-06-06 14:12:23,812 - INFO - File Name Match: 'net.c' from 'net.c' (Score +75.0)
+2025-06-06 14:12:23,813 - INFO - Keywords for content search: ['socket', 'sizeof', 'ec96412', 'index', 'diff', 'supported', 'ifndef', 'unix', 'setsockopt', '__redisSetError']...
+2025-06-06 14:12:23,821 - INFO - Keyword Match: 'net.c' (Score +2290.0, Reason: 'socket' in content (20x); 'sizeof' in content (26x); 'ifndef' in content (4x); 'unix' in content (10x); 'setsockopt' in content (15x); '__redisSetError' in content (35x); 'redisContext' in content (43x); 'redisFD' in content (3x); 'Keepalive' in content (4x); 'strerror' in content (13x); 'redisKeepAlive' in content (2x); 'interval' in content (4x); 'connection_type' in content (2x); 'errno' in content (48x))
+2025-06-06 14:12:23,821 - INFO - Keyword Match: 'hiredis.c' (Score +1180.0, Reason: 'socket' in content (6x); 'sizeof' in content (12x); 'unix' in content (13x); '__redisSetError' in content (11x); 'redisContext' in content (56x); 'redisFD' in content (3x); 'Keepalive' in content (6x); 'strerror' in content (1x); 'redisKeepAlive' in content (2x); 'interval' in content (4x); 'connection_type' in content (2x); 'errno' in content (2x))
+2025-06-06 14:12:23,821 - INFO - Keyword Match: 'test.c' (Score +1160.0, Reason: 'socket' in content (12x); 'sizeof' in content (11x); 'diff' in content (1x); 'supported' in content (2x); 'ifndef' in content (7x); 'unix' in content (39x); 'setsockopt' in content (1x); 'redisContext' in content (36x); 'redisFD' in content (1x); 'Keepalive' in content (2x); 'connection_type' in content (2x); 'errno' in content (2x))
+2025-06-06 14:12:23,821 - INFO - Keyword Match: 'sockcompat.c' (Score +800.0, Reason: 'socket' in content (39x); 'sizeof' in content (4x); 'setsockopt' in content (3x); 'Keepalive' in content (6x); 'strerror' in content (2x); 'redisKeepAlive' in content (1x); 'interval' in content (4x); 'errno' in content (21x))
+2025-06-06 14:12:23,822 - INFO - Keyword Match: 'hiredis.h' (Score +780.0, Reason: 'socket' in content (9x); 'ifndef' in content (3x); 'unix' in content (11x); 'redisContext' in content (40x); 'redisFD' in content (8x); 'Keepalive' in content (3x); 'interval' in content (3x); 'connection_type' in content (1x))
+2025-06-06 14:12:23,822 - INFO - Keyword Match: 'async.c' (Score +430.0, Reason: 'socket' in content (3x); 'sizeof' in content (10x); 'ifndef' in content (1x); 'unix' in content (2x); '__redisSetError' in content (5x); 'redisContext' in content (20x); 'connection_type' in content (1x); 'errno' in content (1x))
+2025-06-06 14:12:23,822 - INFO - Keyword Match: 'ssl.c' (Score +350.0, Reason: 'sizeof' in content (5x); '__redisSetError' in content (10x); 'redisContext' in content (15x); 'strerror' in content (1x); 'errno' in content (4x))
+2025-06-06 14:12:23,822 - INFO - Keyword Match: 'adapters\macosx.h' (Score +350.0, Reason: 'socket' in content (32x); 'sizeof' in content (1x); 'ifndef' in content (1x); 'redisContext' in content (1x))
+2025-06-06 14:12:23,822 - INFO - Keyword Match: 'sockcompat.h' (Score +300.0, Reason: 'socket' in content (16x); 'ifndef' in content (3x); 'setsockopt' in content (3x); 'Keepalive' in content (1x); 'strerror' in content (4x); 'redisKeepAlive' in content (1x); 'interval' in content (1x); 'errno' in content (1x))
+2025-06-06 14:12:23,822 - INFO - Keyword Match: 'net.h' (Score +230.0, Reason: 'socket' in content (1x); 'ifndef' in content (1x); 'unix' in content (1x); 'redisContext' in content (17x); 'Keepalive' in content (1x); 'redisKeepAlive' in content (1x); 'interval' in content (1x))
+2025-06-06 14:12:23,822 - INFO - Keyword Match: 'dict.c' (Score +170.0, Reason: 'sizeof' in content (3x); 'index' in content (14x))
+2025-06-06 14:12:23,823 - INFO - Keyword Match: 'sds.c' (Score +150.0, Reason: 'sizeof' in content (11x); 'index' in content (1x); 'diff' in content (1x); 'supported' in content (1x); 'interval' in content (1x))
+2025-06-06 14:12:23,823 - INFO - Keyword Match: 'read.c' (Score +120.0, Reason: 'sizeof' in content (10x); 'ifndef' in content (1x); 'errno' in content (1x))
+2025-06-06 14:12:23,823 - INFO - Keyword Match: 'win32.h' (Score +100.0, Reason: 'ifndef' in content (6x); 'strerror' in content (2x); 'errno' in content (2x))
+2025-06-06 14:12:23,823 - INFO - Keyword Match: 'adapters\poll.h' (Score +80.0, Reason: 'sizeof' in content (2x); 'ifndef' in content (2x); 'redisContext' in content (1x); 'redisFD' in content (1x); 'errno' in content (2x))
+2025-06-06 14:12:23,825 - INFO - Final candidate scores (path, score): [('net.c', 2440.0), ('hiredis.c', 1180.0), ('test.c', 1160.0), ('sockcompat.c', 800.0), ('hiredis.h', 780.0), ('async.c', 430.0), ('adapters\\macosx.h', 350.0), ('ssl.c', 350.0), ('sockcompat.h', 300.0), ('net.h', 230.0), ('dict.c', 170.0), ('sds.c', 150.0), ('read.c', 120.0), ('win32.h', 100.0), ('adapters\\poll.h', 80.0)]
+2025-06-06 14:12:23,825 - INFO - Best candidate selected: 'net.c' with score 2440.0
+2025-06-06 14:12:23,825 - INFO - AI高置信度(10)选择: net.c
+2025-06-06 14:12:23,826 - INFO - Added context file (included): fmacros.h
+2025-06-06 14:12:23,826 - INFO - Added context file (included): net.h
+2025-06-06 14:12:23,826 - INFO - Added context file (included): sds.h
+2025-06-06 14:12:23,826 - INFO - Added context file (included): sockcompat.h
+2025-06-06 14:12:23,827 - INFO - Collected 5 files for context. Keys: ['net.c', 'fmacros.h', 'net.h', 'sds.h', 'sockcompat.h']
+2025-06-06 14:12:23,827 - INFO - 为文件 net.c 生成AI补丁...
+2025-06-06 14:12:23,827 - INFO - 使用增强prompt调用AI生成补丁...
+2025-06-06 14:12:23,827 - INFO - 发送 API 请求 (尝试 1/3)...
+2025-06-06 14:12:38,485 - INFO - 成功从 DeepSeek API 获取并提取补丁 (552 字符)
+2025-06-06 14:12:38,486 - INFO - AI补丁生成成功，完整对话历史已保存到: D:\上课资料\科研课堂\WeCode\CFix\project_data\logs\redis__hiredis-1215_20250606_141156\attempt_1\ai_conversation_history.json
+2025-06-06 14:12:38,486 - INFO - 拉取Docker镜像: dongqa930/redis_hiredis:1215
+2025-06-06 14:13:16,189 - INFO - 尝试使用 heredoc 方法...
+2025-06-06 14:13:16,447 - INFO - 使用heredoc方法创建patch文件...
+2025-06-06 14:13:17,164 - INFO - Patch文件创建成功: 17 /home/fix.patch
+2025-06-06 14:13:17,260 - INFO - AI生成的补丁预览:
+diff --git a/net.c b/net.c
+index ec96412..114f597 100644
+--- a/net.c
++++ b/net.c
+@@ -172,6 +172,11 @@ int redisKeepAlive(redisContext *c, int interval) {
+     int val = 1;
+     redisFD fd = c->fd;
+ 
++    if (c->connection_type == REDIS_CONN_UNIX) {
++        __redisSetError(c,REDIS_ERR_OTHER,"Keepalive not supported for unix socket");
+
+2025-06-06 14:13:17,260 - INFO - 运行测试脚本（fix_run.sh会自动应用测试补丁）...
+2025-06-06 14:13:37,561 - INFO - heredoc 方法执行成功
+2025-06-06 14:13:37,562 - INFO - 结果已保存到 D:\上课资料\科研课堂\WeCode\CFix\project_data\results\execution_results.json
+2025-06-06 14:13:37,562 - INFO - ==================================================
+2025-06-06 14:13:37,562 - INFO - 执行完成!
+2025-06-06 14:13:37,562 - INFO - 总实例数: 1
+2025-06-06 14:13:37,562 - INFO - 成功: 1 (100.0%)
+2025-06-06 14:13:37,563 - INFO - 失败: 0 (0.0%)
+2025-06-06 14:13:37,563 - INFO - 日志目录: D:\上课资料\科研课堂\WeCode\CFix\project_data\logs
+2025-06-06 14:13:37,563 - INFO - 结果目录: D:\上课资料\科研课堂\WeCode\CFix\project_data\results
+2025-06-06 14:13:37,563 - INFO - 轨迹目录: D:\上课资料\科研课堂\WeCode\CFix\project_data\trajs
+2025-06-06 14:13:37,563 - INFO - ==================================================

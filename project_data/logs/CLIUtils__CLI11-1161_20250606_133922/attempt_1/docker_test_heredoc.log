@@ -1,0 +1,17 @@
+=== METHOD: HEREDOC ===
+=== AI PATCH PREVIEW ===
+diff --git a/include/CLI/impl/App_inl.hpp b/include/CLI/impl/App_inl.hpp
+index 1ef7950..dcdebce 100644
+--- a/include/CLI/impl/App_inl.hpp
++++ b/include/CLI/impl/App_inl.hpp
+@@ -85,6 +85,25 @@ TEST_CASE("THelp: FooterCallbackBoth", "[help]") {
+     CHECK_THAT(help, Contains("foot!!!!"));
+ }
+ 
++/// @brief from github issue #1156
++TEST_CASE("THelp: FooterOptionGroup", "[help]") {
+
+
+=== TEST EXECUTION ===
+error: patch failed: include/CLI/impl/App_inl.hpp:85
+error: include/CLI/impl/App_inl.hpp: patch does not apply

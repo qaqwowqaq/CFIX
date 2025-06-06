@@ -1,0 +1,22 @@
+diff --git a/src/CLI/impl/App_inl.hpp b/src/CLI/impl/App_inl.hpp
+index abc1234..def5678 100644
+--- a/src/CLI/impl/App_inl.hpp
++++ b/src/CLI/impl/App_inl.hpp
+@@ -行号,行数 +行号,行数 @@
+     // Try to find a subcommand that is a positional and doesn't allow fallthrough
+     if(!_parse_complete && !subcommands_.empty()) {
+         for(const auto &com : subcommands_) {
+-            if(com->get_name().empty() && !com->get_subcommand_fallthrough()) {
++            if(com->get_name().empty() && !com->get_subcommand_fallthrough() && !com->get_required()) {
+                 if(com->_parse_positional(args)) {
+                     return true;
+                 }
+@@ -行号,行数 +行号,行数 @@
+     // Try to find a subcommand by name that doesn't allow fallthrough
+     if(!_parse_complete && !subcommands_.empty()) {
+         for(const auto &com : subcommands_) {
+-            if(com->check_name(args.back()) && !com->get_subcommand_fallthrough()) {
++            if(com->check_name(args.back()) && !com->get_subcommand_fallthrough() && !com->get_required()) {
+                 auto com_ptr = com;
+                 args.pop_back();
+                 _parse_subcommand(com_ptr, args);

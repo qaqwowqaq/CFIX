@@ -1,0 +1,39 @@
+diff --git a/include/CLI/impl/App_inl.hpp b/include/CLI/impl/App_inl.hpp
+index 1ef7950..dcdebce 100644
+--- a/include/CLI/impl/App_inl.hpp
++++ b/include/CLI/impl/App_inl.hpp
+@@ -85,6 +85,25 @@ TEST_CASE("THelp: FooterCallbackBoth", "[help]") {
+     CHECK_THAT(help, Contains("foot!!!!"));
+ }
+ 
++/// @brief from github issue #1156
++TEST_CASE("THelp: FooterOptionGroup", "[help]") {
++    CLI::App app{"My prog"};
++
++    app.footer("Report bugs to bugs@example.com");
++
++    app.add_option_group("group-a", "");
++
++    app.add_option_group("group-b", "");
++
++    std::string help = app.help();
++
++    auto footer_loc = help.find("bugs@example.com");
++    auto footer_loc2 = help.find("bugs@example.com", footer_loc + 10);
++    CHECK(footer_loc != std::string::npos);
++    // should only see the footer once
++    CHECK(footer_loc2 == std::string::npos);
++}
++
+ TEST_CASE("THelp: OptionalPositional", "[help]") {
+     CLI::App app{"My prog", "program"};
+ 
+@@ -1234,7 +1253,7 @@ CLI11_NODISCARD CLI11_INLINE std::string App::help(std::string prev, AppFormatMo
+     if(!selected_subcommands.empty()) {
+         return selected_subcommands.back()->help(prev, mode);
+     }
+-    return formatter_->make_help(this, prev, mode);
++    return formatter_->make_help(this, prev, mode) + (parent_ == nullptr ? footer_ : "");
+ }
+ 
+ CLI11_NODISCARD CLI11_INLINE std::string App::version() const {

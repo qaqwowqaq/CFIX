@@ -1,0 +1,149 @@
+你是一个专业的C/C++代码修复专家。请分析以下问题并生成精确的修复补丁。
+
+    ## 问题描述
+    The new help formatter prints the footer and the help flag multiple times
+Hello,
+
+I’m experiencing an issue with the new help formatter #866. The help option and footer are being printed multiple times for each instance of an option group.
+
+```C++
+#include <CLI/CLI.hpp>
+
+int main(int argc, char **argv) {
+  CLI::App app;
+
+  app.footer("This used to appear only once at the bottom");
+
+  auto group_a = app.add_option_group("group-a", "");
+
+  auto group_b = app.add_option_group("group-b", "");
+
+  try {
+    app.parse(argc, argv);
+
+  } catch (const CLI::ParseError &e) {
+    return app.exit(e);
+  }
+
+  return 0;
+}
+```
+
+> ./a --help
+
+```bash
+OPTIONS:
+  -h,     --help              Print this help message and exit 
+[Option Group: group-a]
+  
+OPTIONS:
+  -h,     --help              Print this help message and exit 
+
+This used to appear only once at the bottom 
+
+
+[Option Group: group-b]
+  
+OPTIONS:
+  -h,     --help              Print this help message and exit 
+
+This used to appear only once at the bottom 
+
+
+
+This used to appear only once at the bottom 
+```
+
+
+
+
+    ## 提示信息  
+    
+
+    ## AI分析的修复策略
+    需要检查帮助格式化逻辑中关于选项组和页脚的输出部分，确保页脚只在最终输出时打印一次，而不是在每个选项组后都打印。可能需要修改帮助生成函数的递归调用逻辑。
+
+    ## 从测试变更中得出的关键信息
+    测试用例验证了页脚文本应该只出现一次，说明问题在于帮助格式化器对页脚和帮助选项的重复输出处理。测试明确检查了字符串出现次数。
+
+    ## 测试变更差异（展示期望的修复效果）
+    ```diff
+    diff --git a/tests/HelpTest.cpp b/tests/HelpTest.cpp
+index 1ef795021..dcdebce6e 100644
+--- a/tests/HelpTest.cpp
++++ b/tests/HelpTest.cpp
+@@ -85,6 +85,25 @@ TEST_CASE("THelp: FooterCallbackBoth", "[help]") {
+     CHECK_THAT(help, Contains("foot!!!!"));
+ }
+ 
++/// @brief from github issue #1156
++TEST_CASE("THelp: FooterOptionGroup", "[help]") {
++    CLI::App app{"My prog"};
++
++    app.footer("Report bugs to bugs@example.com");
++
++    app.add_option_group("group-a", "");
++
++    app.add_option_group("group-b", "");
++
++    std::string help = app.help();
++
++    auto footer_loc = help.find("bugs@example.com");
++    auto footer_loc2 = help.find("bugs@example.com", footer_loc + 10);
++    CHECK(footer_loc != std::string::npos);
++    // should only see the footer once
++    CHECK(footer_loc2 == std::string::npos);
++}
++
+ TEST_CASE("THelp: OptionalPositional", "[help]") {
+     CLI::App app{"My prog", "program"};
+ 
+        
+    需要修复的目标文件：src\Precompile.cpp
+    // Copyright (c) 2017-2025, University of Cincinnati, developed by Henry Schreiner
+// under NSF AWARD 1414736 and by the respective contributors.
+// All rights reserved.
+//
+// SPDX-License-Identifier: BSD-3-Clause
+
+// IWYU pragma: begin_keep
+
+#include <CLI/impl/App_inl.hpp>
+#include <CLI/impl/Argv_inl.hpp>
+#include <CLI/impl/Config_inl.hpp>
+#include <CLI/impl/Encoding_inl.hpp>
+#include <CLI/impl/Formatter_inl.hpp>
+#include <CLI/impl/Option_inl.hpp>
+#include <CLI/impl/Split_inl.hpp>
+#include <CLI/impl/StringTools_inl.hpp>
+#include <CLI/impl/Validators_inl.hpp>
+
+// IWYU pragma: end_keep
+
+    
+## 相关上下文文件
+
+
+    修复要求
+    精确定位问题：根据问题描述和测试变更，准确找到需要修复的代码位置
+    最小化修改：只修改必要的部分，保持代码的其他功能不变
+    符合测试期望：确保修复后的代码能通过测试变更中显示的测试用例
+    代码质量：保持良好的代码风格和错误处理
+    输出格式
+    请只输出标准的git diff格式补丁，不要包含任何解释文字：
+    diff --git a/src\Precompile.cpp b/src\Precompile.cpp
+    index abc1234..def5678 100644
+    --- a/src\Precompile.cpp
+    +++ b/src\Precompile.cpp
+    @@ -行号,行数 +行号,行数 @@
+    上下文行
+    -删除的行
+    +添加的行
+    上下文行
+    注意：
+
+    补丁必须可以直接用 patch -p1 命令应用
+
+    行号必须准确对应目标文件的实际内容
+
+    确保修复逻辑正确且完整 

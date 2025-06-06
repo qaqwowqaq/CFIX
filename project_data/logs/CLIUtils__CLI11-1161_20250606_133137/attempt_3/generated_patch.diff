@@ -1,0 +1,21 @@
+diff --git a/src/CLI/impl/Formatter_inl.hpp b/src/CLI/impl/Formatter_inl.hpp
+index abc1234..def5678 100644
+--- a/src/CLI/impl/Formatter_inl.hpp
++++ b/src/CLI/impl/Formatter_inl.hpp
+@@ -100,6 +100,9 @@ inline std::string Formatter::make_help(const App *app, std::string name, AppFor
+     if(!app->get_help_ptr()->get_group().empty())
+         out << make_group(app->get_help_ptr()->get_group(), true, app->get_help_ptr()->get_name());
+ 
++    if(!app->get_parent()) {
++        out << make_footer(app);
++    }
+     return out.str();
+ }
+ 
+@@ -140,7 +143,6 @@ inline std::string Formatter::make_group(std::string group, bool is_positional, 
+         }
+     }
+ 
+-    out << make_footer(group_app);
+     return out.str();
+ }

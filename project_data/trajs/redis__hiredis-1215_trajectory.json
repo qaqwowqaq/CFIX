@@ -1,0 +1,43 @@
+{
+  "instance_id": "redis__hiredis-1215",
+  "repo": "redis/hiredis",
+  "pull_number": 1215,
+  "model_name": "CFix_DeepSeek",
+  "timestamp": "2025-06-06T06:13:37.561936+00:00",
+  "status": "SUCCESS",
+  "steps": [
+    {
+      "step": "setup",
+      "timestamp": "2025-06-06T06:11:56.248988+00:00",
+      "action": "Created instance log directory",
+      "log_dir": "D:\\上课资料\\科研课堂\\WeCode\\CFix\\project_data\\logs\\redis__hiredis-1215_20250606_141156"
+    },
+    {
+      "step": "clone_repo",
+      "timestamp": "2025-06-06T06:12:02.212270+00:00",
+      "action": "Successfully cloned repository to D:\\上课资料\\科研课堂\\WeCode\\CFix\\project_data\\repositories\\redis_hiredis",
+      "success": true
+    },
+    {
+      "step": "generate_patch_attempt_1",
+      "timestamp": "2025-06-06T06:12:38.486657+00:00",
+      "attempt": 1,
+      "conversation_log": "D:\\上课资料\\科研课堂\\WeCode\\CFix\\project_data\\logs\\redis__hiredis-1215_20250606_141156\\attempt_1\\ai_conversation_history.json",
+      "action": "Successfully generated AI patch",
+      "patch_file": "D:\\上课资料\\科研课堂\\WeCode\\CFix\\project_data\\logs\\redis__hiredis-1215_20250606_141156\\attempt_1\\generated_patch.diff",
+      "patch_preview": "diff --git a/net.c b/net.c\nindex ec96412..114f597 100644\n--- a/net.c\n+++ b/net.c\n@@ -172,6 +172,11 @@ int redisKeepAlive(redisContext *c, int interval) {\n     int val = 1;\n     redisFD fd = c->fd;\n \n+...",
+      "success": true
+    },
+    {
+      "step": "docker_test_attempt_1",
+      "timestamp": "2025-06-06T06:13:37.561485+00:00",
+      "attempt": 1,
+      "action": "Executed Docker test",
+      "success": true,
+      "patch_exit_code": 0,
+      "test_exit_code": 0,
+      "test_log_file": "D:\\上课资料\\科研课堂\\WeCode\\CFix\\project_data\\logs\\redis__hiredis-1215_20250606_141156\\attempt_1\\docker_test_heredoc.log",
+      "logs_preview": "=== METHOD: HEREDOC ===\n=== AI PATCH PREVIEW ===\ndiff --git a/net.c b/net.c\nindex ec96412..114f597 100644\n--- a/net.c\n+++ b/net.c\n@@ -172,6 +172,11 @@ int redisKeepAlive(redisContext *c, int interval) {\n     int val = 1;\n     redisFD fd = c->fd;\n \n+    if (c->connection_type == REDIS_CONN_UNIX) {\n+        __redisSetError(c,REDIS_ERR_OTHER,\"Keepalive not supported for unix socket\");\n\n\n=== TEST EXECUTION ===\npatching file net.c\nHunk #1 succeeded at 173 (offset 1 line).\ncc -std=c99 -c -O3 -fPIC   -..."
+    }
+  ]
+}

@@ -1,0 +1,32 @@
+diff --git a/read.c b/read.c
+index abc1234..def5678 100644
+--- a/read.c
++++ b/read.c
+@@ -41,6 +41,7 @@
+ #include "read.h"
+ #include "sds.h"
+ #include "win32.h"
++#include "hiredis.h"
+ 
+ /* Initial size of our nested reply stack and how much we grow it when needd */
+ #define REDIS_READER_STACK_SIZE 9
+@@ -400,6 +401,9 @@ static int processAggregateItem(redisReader *r) {
+             cur->type = REDIS_REPLY_SET;
+             break;
+         case '#':
+             cur->type = REDIS_REPLY_BOOL;
+             break;
++        case '>':
++            cur->type = REDIS_REPLY_PUSH;
++            break;
+         case '=':
+             cur->type = REDIS_REPLY_VERB;
+             break;
+@@ -426,6 +430,7 @@ static int processItem(redisReader *r) {
+     case REDIS_REPLY_ARRAY:
+     case REDIS_REPLY_MAP:
+     case REDIS_REPLY_SET:
++    case REDIS_REPLY_PUSH:
+         return processAggregateItem(r);
+     default:
+         assert(NULL);

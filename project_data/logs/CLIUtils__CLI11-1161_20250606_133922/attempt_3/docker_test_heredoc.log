@@ -1,0 +1,44 @@
+=== METHOD: HEREDOC ===
+=== AI PATCH PREVIEW ===
+diff --git a/src/Precompile.cpp b/src/Precompile.cpp
+index abc1234..def5678 100644
+--- a/src/Precompile.cpp
++++ b/src/Precompile.cpp
+@@ -1,4 +1,4 @@
+-// Copyright (c) 2017-2025, University of Cincinnati, developed by Henry Schreiner
++// Copyright (c) 2017-2025, University of Cincinnati, developed by Henry Schreiner
+ // under NSF AWARD 1414736 and by the respective contributors.
+ // All rights reserved.
+ //
+
+
+=== TEST EXECUTION ===
+-- The CXX compiler identification is GNU 11.4.0
+-- Detecting CXX compiler ABI info
+-- Detecting CXX compiler ABI info - done
+-- Check for working CXX compiler: /usr/bin/c++ - skipped
+-- Detecting CXX compile features
+-- Detecting CXX compile features - done
+-- CMake 3.22.1
+-- Could NOT find Doxygen (missing: DOXYGEN_EXECUTABLE) 
+-- Doxygen not found, building docs has been disabled
+-- Could NOT find Catch2 (missing: Catch2_DIR)
+-- Downloading Catch2
+CMake Error at tests/CMakeLists.txt:91 (file):
+  file DOWNLOAD HASH mismatch
+
+    for file: [/home/CLI11/build/tests/catch2/catch.hpp]
+      expected hash: [3725c0f0a75f376a5005dde31ead0feb8f7da7507644c201b814443de8355170]
+        actual hash: [e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855]
+             status: [7;"Couldn't connect to server"]
+
+
+
+CMake Error at tests/CMakeLists.txt:97 (message):
+  Could not download
+  https://github.com/philsquared/Catch/releases/download/v2.13.10/catch.hpp,
+  and Catch2 not found on your system.
+
+
+-- Configuring incomplete, errors occurred!
+See also "/home/CLI11/build/CMakeFiles/CMakeOutput.log".

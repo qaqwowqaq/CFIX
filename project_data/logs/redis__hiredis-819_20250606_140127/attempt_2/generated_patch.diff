@@ -1,0 +1,28 @@
+diff --git a/read.c b/read.c
+index abc1234..def5678 100644
+--- a/read.c
++++ b/read.c
+@@ -38,6 +38,7 @@
+ #define REDIS_REPLY_SET 9
+ #define REDIS_REPLY_BOOL 10
+ #define REDIS_REPLY_VERB 11
++#define REDIS_REPLY_PUSH 12
+ 
+ static void __redisReaderSetError(redisReader *r, int type, const char *str) {
+     size_t len;
+@@ -289,6 +290,7 @@
+             case '~':
+                 cur->type = REDIS_REPLY_SET;
+                 break;
++            case '>':
+             case '#':
+                 cur->type = REDIS_REPLY_BOOL;
+                 break;
+@@ -314,6 +316,7 @@
+     case REDIS_REPLY_STRING:
+     case REDIS_REPLY_VERB:
+         return processBulkItem(r);
++    case REDIS_REPLY_PUSH:
+     case REDIS_REPLY_ARRAY:
+     case REDIS_REPLY_MAP:
+     case REDIS_REPLY_SET:

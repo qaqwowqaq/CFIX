@@ -1,0 +1,19 @@
+=== METHOD: HEREDOC ===
+=== AI PATCH PREVIEW ===
+diff --git a/read.c b/read.c
+index abc1234..def5678 100644
+--- a/read.c
++++ b/read.c
+@@ -41,6 +41,7 @@
+ #include "read.h"
+ #include "sds.h"
+ #include "win32.h"
++#include "hiredis.h"
+ 
+
+
+=== TEST EXECUTION ===
+patching file read.c
+Hunk #1 succeeded at 45 (offset 4 lines).
+Hunk #2 FAILED at 401.
+1 out of 2 hunks FAILED -- saving rejects to file read.c.rej
